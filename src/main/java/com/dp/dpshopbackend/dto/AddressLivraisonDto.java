@@ -22,7 +22,7 @@ public class AddressLivraisonDto {
 
     private CommandeDto commande;
 
-    public AddressLivraisonDto fromEntityToDto(AddressLivraison addressLivraison) {
+    public static AddressLivraisonDto fromEntityToDto(AddressLivraison addressLivraison) {
         if (addressLivraison == null) {
             return null;
         }
@@ -38,7 +38,7 @@ public class AddressLivraisonDto {
                 .build();
     }
 
-    public AddressLivraison fromDtoToEntity(AddressLivraisonDto addressClientDto) {
+    public static AddressLivraison fromDtoToEntity(AddressLivraisonDto addressClientDto) {
         if (addressClientDto == null) {
             return null;
         }

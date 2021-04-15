@@ -20,7 +20,7 @@ public class ClientDto {
 
     private String phoneClient;
 
-    public ClientDto fromEntityToDto(Client client) {
+    public static ClientDto fromEntityToDto(Client client) {
         if (client == null) {
             return null;
         }
@@ -33,7 +33,7 @@ public class ClientDto {
                 .build();
     }
 
-    public Client fromDtoToEntity(ClientDto clientDto) {
+    public static Client fromDtoToEntity(ClientDto clientDto) {
         if (clientDto == null) {
             return null;
         }

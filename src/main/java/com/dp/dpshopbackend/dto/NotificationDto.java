@@ -18,7 +18,7 @@ public class NotificationDto {
 
     private UtilisateurDto utilisateur;
 
-    public NotificationDto fromEntityToDto(Notification notification) {
+    public static NotificationDto fromEntityToDto(Notification notification) {
         if (notification == null) {
             return null;
         }
@@ -30,7 +30,7 @@ public class NotificationDto {
                 .build();
     }
 
-    public Notification fromDtoToEntity(NotificationDto notificationDto) {
+    public static Notification fromDtoToEntity(NotificationDto notificationDto) {
         if (notificationDto == null) {
             return null;
         }

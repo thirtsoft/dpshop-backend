@@ -24,7 +24,7 @@ public class AddressClientDto {
 
     private ClientDto client;
 
-    public AddressClientDto fromEntityToDto(AddressClient addressClient) {
+    public static AddressClientDto fromEntityToDto(AddressClient addressClient) {
         if (addressClient == null) {
             return null;
         }
@@ -41,7 +41,7 @@ public class AddressClientDto {
                 .build();
     }
 
-    public AddressClient fromDtoToEntity(AddressClientDto addressClientDto) {
+    public static AddressClient fromDtoToEntity(AddressClientDto addressClientDto) {
         if (addressClientDto == null) {
             return null;
         }

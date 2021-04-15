@@ -14,7 +14,7 @@ public class ScategorieDto {
 
     private CategorieDto categorie;
 
-    public ScategorieDto fromEntityToDto(Scategorie scategorie) {
+    public static ScategorieDto fromEntityToDto(Scategorie scategorie) {
         if (scategorie == null) {
             return null;
         }
@@ -25,7 +25,7 @@ public class ScategorieDto {
                 .build();
     }
 
-    public Scategorie fromDtoToEntity(ScategorieDto scategorieDto) {
+    public static Scategorie fromDtoToEntity(ScategorieDto scategorieDto) {
         if (scategorieDto == null) {
             return null;
         }

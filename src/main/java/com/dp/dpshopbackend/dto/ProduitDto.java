@@ -28,7 +28,7 @@ public class ProduitDto {
 
     private ScategorieDto scategorie;
 
-    public ProduitDto fromEntityToDto(Produit produit) {
+    public static ProduitDto fromEntityToDto(Produit produit) {
         if (produit == null) {
             return null;
         }
@@ -46,7 +46,7 @@ public class ProduitDto {
                 .build();
     }
 
-    public Produit fromDtoToEntity(ProduitDto produitDto) {
+    public static Produit fromDtoToEntity(ProduitDto produitDto) {
         if (produitDto == null) {
             return null;
         }

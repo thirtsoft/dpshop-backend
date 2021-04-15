@@ -18,7 +18,7 @@ public class LigneCommandeDto {
 
     private ProduitDto produit;
 
-    public LigneCommandeDto fromEntityToDto(LigneCommande ligneCommande) {
+    public static LigneCommandeDto fromEntityToDto(LigneCommande ligneCommande) {
         if (ligneCommande == null) {
             return null;
         }
@@ -30,7 +30,7 @@ public class LigneCommandeDto {
                 .build();
     }
 
-    public LigneCommande fromDtoToEntity(LigneCommandeDto ligneCommandeDto) {
+    public static LigneCommande fromDtoToEntity(LigneCommandeDto ligneCommandeDto) {
         if (ligneCommandeDto == null) {
             return null;
         }

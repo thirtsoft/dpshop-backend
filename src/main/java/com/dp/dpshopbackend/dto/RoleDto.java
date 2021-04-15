@@ -11,7 +11,7 @@ public class RoleDto {
 
     private RoleName name;
 
-    public RoleDto formEntityToDto(Role role) {
+    public static RoleDto formEntityToDto(Role role) {
         if (role == null) {
             return null;
         }
@@ -21,7 +21,7 @@ public class RoleDto {
                 .build();
     }
 
-    public Role fromDtoToEntity(RoleDto roleDto) {
+    public static Role fromDtoToEntity(RoleDto roleDto) {
         if (roleDto == null) {
             return null;
         }

@@ -29,7 +29,7 @@ public class UtilisateurDto {
 
     private Set<RoleDto> roles = new HashSet<>();
 
-    public UtilisateurDto fromEntityToDto(Utilisateur utilisateur) {
+    public static UtilisateurDto fromEntityToDto(Utilisateur utilisateur) {
         if (utilisateur == null) {
             return null;
         }
@@ -47,7 +47,7 @@ public class UtilisateurDto {
 
     }
 
-    public Utilisateur fromDtoToEntity(UtilisateurDto utilisateurDto) {
+    public static Utilisateur fromDtoToEntity(UtilisateurDto utilisateurDto) {
         if (utilisateurDto == null) {
             return null;
         }
