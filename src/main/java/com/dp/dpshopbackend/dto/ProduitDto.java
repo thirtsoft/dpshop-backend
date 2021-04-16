@@ -26,7 +26,7 @@ public class ProduitDto {
 
     private String photo;
 
-    private ScategorieDto scategorie;
+    private ScategorieDto scategorieDto;
 
     public static ProduitDto fromEntityToDto(Produit produit) {
         if (produit == null) {
@@ -43,6 +43,7 @@ public class ProduitDto {
                 .selected(produit.isSelected())
                 .description(produit.getDescription())
                 .photo(produit.getPhoto())
+                .scategorieDto(ScategorieDto.fromEntityToDto(produit.getScategorie()))
                 .build();
     }
 

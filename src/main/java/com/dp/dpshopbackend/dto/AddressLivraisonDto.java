@@ -20,7 +20,7 @@ public class AddressLivraisonDto {
 
     private String country;
 
-    private CommandeDto commande;
+    private CommandeDto commandeDto;
 
     public static AddressLivraisonDto fromEntityToDto(AddressLivraison addressLivraison) {
         if (addressLivraison == null) {
@@ -34,7 +34,7 @@ public class AddressLivraisonDto {
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
                 .country(addressLivraison.getCountry())
-               // .commande(addressLivraison.getCommande())
+                .commandeDto(CommandeDto.formEntityToDto(addressLivraison.getCommande()))
                 .build();
     }
 

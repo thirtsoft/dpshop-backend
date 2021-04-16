@@ -22,7 +22,7 @@ public class AddressClientDto {
 
     private String country;
 
-    private ClientDto client;
+    private ClientDto clientDto;
 
     public static AddressClientDto fromEntityToDto(AddressClient addressClient) {
         if (addressClient == null) {
@@ -37,7 +37,7 @@ public class AddressClientDto {
                 .city(addressClient.getCity())
                 .rue(addressClient.getRue())
                 .country(addressClient.getCountry())
-                //.client(addressClient.getClient())
+                .clientDto(ClientDto.fromEntityToDto(addressClient.getClient()))
                 .build();
     }
 

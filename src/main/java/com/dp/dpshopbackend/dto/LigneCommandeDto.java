@@ -14,9 +14,9 @@ public class LigneCommandeDto {
 
     private double price;
 
-    private CommandeDto commande;
+    private CommandeDto commandeDto;
 
-    private ProduitDto produit;
+    private ProduitDto produitDto;
 
     public static LigneCommandeDto fromEntityToDto(LigneCommande ligneCommande) {
         if (ligneCommande == null) {
@@ -27,6 +27,8 @@ public class LigneCommandeDto {
                 .numero(ligneCommande.getNumero())
                 .quantity(ligneCommande.getQuantity())
                 .price(ligneCommande.getPrice())
+                .commandeDto(CommandeDto.formEntityToDto(ligneCommande.getCommande()))
+                .produitDto(ProduitDto.fromEntityToDto(ligneCommande.getProduit()))
                 .build();
     }
 

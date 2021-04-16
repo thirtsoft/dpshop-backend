@@ -23,7 +23,7 @@ public class CommandeDto {
 
     private StatusCommande statusCommande;
 
-    private ClientDto client;
+    private ClientDto clientDto;
 
     private List<LigneCommandeDto> lcomms = new ArrayList<>();
 
@@ -38,6 +38,7 @@ public class CommandeDto {
                 .total(commande.getTotal())
                 .localDateTime(commande.getLocalDateTime())
                 .statusCommande(commande.getStatusCommande())
+                .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
                 .build();
 
     }

@@ -12,7 +12,7 @@ public class ScategorieDto {
 
     private String libelle;
 
-    private CategorieDto categorie;
+    private CategorieDto categorieDto;
 
     public static ScategorieDto fromEntityToDto(Scategorie scategorie) {
         if (scategorie == null) {
@@ -22,6 +22,7 @@ public class ScategorieDto {
         return ScategorieDto.builder()
                 .code(scategorie.getCode())
                 .libelle(scategorie.getLibelle())
+                .categorieDto(CategorieDto.fromEntityToDto(scategorie.getCategorie()))
                 .build();
     }
 

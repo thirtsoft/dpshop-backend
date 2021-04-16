@@ -24,7 +24,7 @@ public class FournisseurDto {
 
     private String country;
 
-    private ProduitDto produit;
+    private ProduitDto produitDto;
 
     public static FournisseurDto formEntityToDto(Fournisseur fournisseur) {
         if (fournisseur == null) {
@@ -40,6 +40,7 @@ public class FournisseurDto {
                 .email(fournisseur.getEmail())
                 .city(fournisseur.getCity())
                 .country(fournisseur.getCountry())
+                .produitDto(ProduitDto.fromEntityToDto(fournisseur.getProduit()))
                 .build();
     }
 

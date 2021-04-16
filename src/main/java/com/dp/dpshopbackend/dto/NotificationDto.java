@@ -14,9 +14,9 @@ public class NotificationDto {
 
     private String observation;
 
-    private ProduitDto produit;
+    private ProduitDto produitDto;
 
-    private UtilisateurDto utilisateur;
+    private UtilisateurDto utilisateurDto;
 
     public static NotificationDto fromEntityToDto(Notification notification) {
         if (notification == null) {
@@ -27,6 +27,8 @@ public class NotificationDto {
                 .reference(notification.getReference())
                 .nbreEtoile(notification.getNbreEtoile())
                 .observation(notification.getObservation())
+                .produitDto(ProduitDto.fromEntityToDto(notification.getProduit()))
+                .utilisateurDto(UtilisateurDto.fromEntityToDto(notification.getUtilisateur()))
                 .build();
     }
 
