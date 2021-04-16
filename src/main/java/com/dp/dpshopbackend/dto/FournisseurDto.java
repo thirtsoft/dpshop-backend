@@ -26,7 +26,7 @@ public class FournisseurDto {
 
     private ProduitDto produitDto;
 
-    public static FournisseurDto formEntityToDto(Fournisseur fournisseur) {
+    public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
         if (fournisseur == null) {
             return null;
         }
