@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Produit extends AbstractEntity {
+public class Article extends AbstractEntity {
 
     /*@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,13 +1,13 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.models.Produit;
+import com.dp.dpshopbackend.models.Article;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ProduitRepository extends JpaRepository<Produit, Long> {
+public interface ProduitRepository extends JpaRepository<Article, Long> {
 
-    Optional<Produit> findProduitByReference(String reference);
+    Optional<Article> findProduitByReference(String reference);
 }

@@ -1,13 +1,11 @@
 package com.dp.dpshopbackend.models;
 
-import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "ligneCommande")
@@ -35,5 +33,5 @@ public class LigneCommande extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "prodId")
-    private Produit produit;
+    private Article article;
 }

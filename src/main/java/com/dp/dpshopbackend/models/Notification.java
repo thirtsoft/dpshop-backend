@@ -29,7 +29,7 @@ public class Notification extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "prodId", nullable = false)
-    private Produit produit;
+    private Article article;
 
     @ManyToOne
     @JoinColumn(name = "userId", nullable = false)

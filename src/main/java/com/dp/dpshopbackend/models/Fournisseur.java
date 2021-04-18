@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 @Entity
 @Table(name = "fournisseur")
@@ -44,7 +43,7 @@ public class Fournisseur extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "prodId")
-    private Produit produit;
+    private Article article;
 
 
 }
