@@ -27,7 +27,7 @@ public class LigneCommandeDto {
                 .numero(ligneCommande.getNumero())
                 .quantity(ligneCommande.getQuantity())
                 .price(ligneCommande.getPrice())
-                .commandeDto(CommandeDto.formEntityToDto(ligneCommande.getCommande()))
+                .commandeDto(CommandeDto.fromEntityToDto(ligneCommande.getCommande()))
                 .articleDto(ArticleDto.fromEntityToDto(ligneCommande.getArticle()))
                 .build();
     }

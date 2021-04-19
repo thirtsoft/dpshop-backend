@@ -34,7 +34,7 @@ public class AddressLivraisonDto {
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
                 .country(addressLivraison.getCountry())
-                .commandeDto(CommandeDto.formEntityToDto(addressLivraison.getCommande()))
+                .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
                 .build();
     }
 
