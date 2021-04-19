@@ -1,11 +1,15 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.AddressClient;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressClientDto {
 
     private long id;
@@ -47,6 +51,7 @@ public class AddressClientDto {
         }
 
         AddressClient addressClient = new AddressClient();
+        addressClient.setId(addressClientDto.getId());
         addressClient.setReference(addressClientDto.getReference());
         addressClient.setQuartier(addressClientDto.getQuartier());
         addressClient.setPhone(addressClientDto.getPhone());

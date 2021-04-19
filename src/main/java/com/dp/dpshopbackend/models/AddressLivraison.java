@@ -12,11 +12,11 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class AddressLivraison extends AbstractEntity {
+public class AddressLivraison implements Serializable {
 
-   /* @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "reference", length = 50)
     private String reference;

@@ -1,12 +1,18 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.AddressLivraison;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressLivraisonDto {
+
+    private long id;
 
     private String reference;
 
@@ -28,6 +34,7 @@ public class AddressLivraisonDto {
         }
 
         return AddressLivraisonDto.builder()
+                .id(addressLivraison.getId())
                 .reference(addressLivraison.getReference())
                 .phone(addressLivraison.getPhone())
                 .quartier(addressLivraison.getQuartier())
@@ -44,6 +51,7 @@ public class AddressLivraisonDto {
         }
 
         AddressLivraison addressLivraison = new AddressLivraison();
+        addressLivraison.setId(addressClientDto.getId());
         addressLivraison.setReference(addressClientDto.getReference());
         addressLivraison.setPhone(addressClientDto.getPhone());
         addressLivraison.setQuartier(addressClientDto.getQuartier());
