@@ -8,15 +8,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "produit")
+@Table(name = "article")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Article extends AbstractEntity {
+public class Article implements Serializable {
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "reference", length = 70)
     private String reference;
@@ -44,6 +44,6 @@ public class Article extends AbstractEntity {
     private String photo;
 
     @ManyToOne
-    @JoinColumn(name = "scatId", nullable = false)
+    @JoinColumn(name = "scatId")
     private Scategorie scategorie;
 }

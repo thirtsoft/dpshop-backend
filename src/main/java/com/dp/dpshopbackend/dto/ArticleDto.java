@@ -1,12 +1,18 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Article;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ArticleDto {
+
+    private long id;
 
     private String reference;
 
@@ -34,6 +40,7 @@ public class ArticleDto {
         }
 
         return ArticleDto.builder()
+                .id(article.getId())
                 .reference(article.getReference())
                 .designation(article.getDesignation())
                 .quantity(article.getQuantity())
@@ -53,6 +60,7 @@ public class ArticleDto {
         }
 
         Article article = new Article();
+        article.setId(articleDto.getId());
         article.setReference(articleDto.getReference());
         article.setDesignation(articleDto.getDesignation());
         article.setQuantity(articleDto.getQuantity());

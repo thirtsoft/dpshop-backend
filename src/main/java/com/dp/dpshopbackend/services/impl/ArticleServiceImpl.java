@@ -3,7 +3,7 @@ package com.dp.dpshopbackend.services.impl;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Article;
-import com.dp.dpshopbackend.repository.ProduitRepository;
+import com.dp.dpshopbackend.repository.ArticleRepository;
 import com.dp.dpshopbackend.services.ArticleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,17 +21,17 @@ import java.util.stream.Collectors;
 public class ArticleServiceImpl implements ArticleService {
 
     @Autowired
-    private final ProduitRepository produitRepository;
+    private final ArticleRepository articleRepository;
 
-    public ArticleServiceImpl(ProduitRepository produitRepository) {
-        this.produitRepository = produitRepository;
+    public ArticleServiceImpl(ArticleRepository produitRepository) {
+        this.articleRepository = produitRepository;
     }
 
     @Override
     public ArticleDto save(ArticleDto articleDto) {
 
         return ArticleDto.fromEntityToDto(
-                produitRepository.save(
+                articleRepository.save(
                         ArticleDto.fromDtoToEntity(articleDto)
                 )
         );
@@ -44,7 +44,7 @@ public class ArticleServiceImpl implements ArticleService {
             return null;
         }
 
-        Optional<Article> produit = produitRepository.findById(id);
+        Optional<Article> produit = articleRepository.findById(id);
 
         return Optional.of(ArticleDto.fromEntityToDto(produit.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
@@ -58,7 +58,7 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Produit REFERENCE is null");
         }
 
-        Optional<Article> produit = produitRepository.findProduitByReference(reference);
+        Optional<Article> produit = articleRepository.findProduitByReference(reference);
 
         return Optional.of(ArticleDto.fromEntityToDto(produit.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
@@ -70,7 +70,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public List<ArticleDto> findAll() {
-        return produitRepository.findAll().stream()
+        return articleRepository.findAll().stream()
                 .map(ArticleDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }
@@ -81,7 +81,7 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Produit Id is null");
             return;
         }
-        produitRepository.deleteById(id);
+        articleRepository.deleteById(id);
 
     }
 }
