@@ -1,15 +1,21 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Utilisateur;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class UtilisateurDto {
+
+    private long id;
 
     private String name;
 
@@ -35,6 +41,7 @@ public class UtilisateurDto {
         }
 
         return UtilisateurDto.builder()
+                .id(utilisateur.getId())
                 .name(utilisateur.getName())
                 .username(utilisateur.getUsername())
                 .address(utilisateur.getAddress())
@@ -53,6 +60,7 @@ public class UtilisateurDto {
         }
 
         Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(utilisateurDto.getId());
         utilisateur.setName(utilisateurDto.getName());
         utilisateur.setUsername(utilisateurDto.getUsername());
         utilisateur.setAddress(utilisateurDto.getAddress());

@@ -1,12 +1,18 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Notification;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class NotificationDto {
+
+    private long id;
 
     private String reference;
 
@@ -24,6 +30,7 @@ public class NotificationDto {
         }
 
         return NotificationDto.builder()
+                .id(notification.getId())
                 .reference(notification.getReference())
                 .nbreEtoile(notification.getNbreEtoile())
                 .observation(notification.getObservation())
@@ -38,6 +45,7 @@ public class NotificationDto {
         }
 
         Notification notification = new Notification();
+        notification.setId(notificationDto.getId());
         notification.setReference(notificationDto.getReference());
         notification.setNbreEtoile(notificationDto.getNbreEtoile());
         notification.setObservation(notificationDto.getObservation());
