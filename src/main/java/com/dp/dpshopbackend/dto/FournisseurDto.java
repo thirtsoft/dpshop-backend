@@ -1,12 +1,18 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Fournisseur;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FournisseurDto {
+
+    private long id;
 
     private String reference;
 
@@ -32,6 +38,7 @@ public class FournisseurDto {
         }
 
         return FournisseurDto.builder()
+                .id(fournisseur.getId())
                 .reference(fournisseur.getReference())
                 .firstName(fournisseur.getFirstName())
                 .lastName(fournisseur.getLastName())
@@ -50,6 +57,7 @@ public class FournisseurDto {
         }
 
         Fournisseur fournisseur = new Fournisseur();
+        fournisseur.setId(fournisseurDto.getId());
         fournisseur.setReference(fournisseurDto.getReference());
         fournisseur.setFirstName(fournisseurDto.getFirstName());
         fournisseur.setLastName(fournisseurDto.getLastName());

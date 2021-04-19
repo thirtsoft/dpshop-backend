@@ -5,17 +5,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "fournisseur")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Fournisseur extends AbstractEntity {
+public class Fournisseur implements Serializable {
 
-   /* @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "reference", length = 50)
     private String reference;
@@ -42,7 +43,7 @@ public class Fournisseur extends AbstractEntity {
     private String country;
 
     @ManyToOne
-    @JoinColumn(name = "prodId")
+    @JoinColumn(name = "artId")
     private Article article;
 
 
