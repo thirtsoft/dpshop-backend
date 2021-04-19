@@ -1,12 +1,18 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.LigneCommande;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class LigneCommandeDto {
+
+    private long id;
 
     private long numero;
 
@@ -24,6 +30,7 @@ public class LigneCommandeDto {
         }
 
         return LigneCommandeDto.builder()
+                .id(ligneCommande.getId())
                 .numero(ligneCommande.getNumero())
                 .quantity(ligneCommande.getQuantity())
                 .price(ligneCommande.getPrice())
@@ -38,6 +45,7 @@ public class LigneCommandeDto {
         }
 
         LigneCommande ligneCommande = new LigneCommande();
+        ligneCommande.setId(ligneCommandeDto.getId());
         ligneCommande.setNumero(ligneCommandeDto.getNumero());
         ligneCommande.setQuantity(ligneCommandeDto.getQuantity());
         ligneCommande.setPrice(ligneCommandeDto.getPrice());

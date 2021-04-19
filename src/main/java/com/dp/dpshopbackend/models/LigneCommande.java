@@ -6,16 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "ligneCommande")
 @Data@AllArgsConstructor
 @NoArgsConstructor
-public class LigneCommande extends AbstractEntity {
+public class LigneCommande implements Serializable {
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "numero", length = 90)
     private long numero;
