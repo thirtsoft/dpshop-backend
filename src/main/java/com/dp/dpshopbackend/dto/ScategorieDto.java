@@ -1,12 +1,18 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Scategorie;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ScategorieDto {
+
+    private long id;
 
     private String code;
 
@@ -20,6 +26,7 @@ public class ScategorieDto {
         }
 
         return ScategorieDto.builder()
+                .id(scategorie.getId())
                 .code(scategorie.getCode())
                 .libelle(scategorie.getLibelle())
                 .categorieDto(CategorieDto.fromEntityToDto(scategorie.getCategorie()))
@@ -32,6 +39,7 @@ public class ScategorieDto {
         }
 
         Scategorie scategorie = new Scategorie();
+        scategorie.setId(scategorieDto.getId());
         scategorie.setCode(scategorieDto.getCode());
         scategorie.setLibelle(scategorieDto.getLibelle());
 
