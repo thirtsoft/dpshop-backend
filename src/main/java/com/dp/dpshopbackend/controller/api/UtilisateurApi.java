@@ -11,15 +11,15 @@ import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
 public interface UtilisateurApi {
 
-    @PostMapping(value = APP_ROOT + "/articles/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = APP_ROOT + "/utilisateurs/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UtilisateurDto> save(@RequestBody UtilisateurDto utilisateurDto);
 
-    @GetMapping(value = APP_ROOT + "/articles/{idUtilisateur}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/utilisateurs/{idUtilisateur}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<UtilisateurDto> findById(@PathVariable("idUtilisateur") Long id);
 
-    @GetMapping(value = APP_ROOT + "/articles/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<UtilisateurDto> findAll();
 
-    @DeleteMapping(value = APP_ROOT + "/articles/delete/{idUtilisateur}")
+    @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete/{idUtilisateur}")
     void delete(@PathVariable("idUtilisateur") Long id);
 }

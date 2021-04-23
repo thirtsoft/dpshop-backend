@@ -69,10 +69,6 @@ public class CategoryRepositoryTest {
         Long cat_id = (long) 1;
         Optional<Categorie> categorie = categorieRepository.findById(categoryDtoResult.getId());
 
-      /*  boolean isCategory = categorieRepository.findById(cat_id).get();
-        assertTrue(isCategory);
-        assertTrue(isCategory);
-        */
         assertNotNull(categorie);
     }
 
@@ -128,8 +124,6 @@ public class CategoryRepositoryTest {
         );
 
         Optional<Categorie> categorie = categorieRepository.findById(categoryDtoResult2.getId());
-
-       // assertNotNull(categorie);
 
         Long id = (long) 1;
 
