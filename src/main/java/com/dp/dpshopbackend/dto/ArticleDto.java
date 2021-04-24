@@ -70,6 +70,7 @@ public class ArticleDto {
         article.setSelected(articleDto.isSelected());
         article.setDescription(articleDto.getDescription());
         article.setPhoto(articleDto.getPhoto());
+        article.setScategorie(ScategorieDto.fromDtoToEntity(articleDto.getScategorieDto()));
 
         return article;
     }

@@ -42,6 +42,7 @@ public class ScategorieDto {
         scategorie.setId(scategorieDto.getId());
         scategorie.setCode(scategorieDto.getCode());
         scategorie.setLibelle(scategorieDto.getLibelle());
+        scategorie.setCategorie(CategorieDto.fromDtoToEntity(scategorieDto.getCategorieDto()));
 
         return scategorie;
     }

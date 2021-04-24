@@ -40,10 +40,20 @@ public class DpshopBackendApplication implements CommandLineRunner {
 		CategorieDto.fromEntityToDto(categoryRepository.save(CategorieDto.fromDtoToEntity(c2)));
 		CategorieDto.fromEntityToDto(categoryRepository.save(CategorieDto.fromDtoToEntity(c3)));
 
-        ScategorieDto sc1 = new ScategorieDto((long)1, "scat1","scat1",c1);
-		ScategorieDto sc2 = new ScategorieDto((long)1, "scat1","scat1",c2);
-		ScategorieDto sc3 = new ScategorieDto((long)1, "scat1","scat1",c3);
-		ScategorieDto sc4 = new ScategorieDto((long)1, "scat1","scat1",c2);
+		String codescat = "scat1"; String libellescat = "scat1";
+        ScategorieDto sc1 = new ScategorieDto();
+        sc1.setCode(codescat); sc1.setLibelle(libellescat); sc1.setCategorieDto(c1);
+		String codescat2 = "scat2"; String libellescat2 = "scat2";
+		ScategorieDto sc2 = new ScategorieDto();
+		sc2.setCode(codescat2); sc2.setLibelle(libellescat2); sc2.setCategorieDto(c2);
+		String codescat3 = "scat3"; String libellescat3 = "scat3";
+		ScategorieDto sc3 = new ScategorieDto();
+		sc3.setCode(codescat3); sc3.setLibelle(libellescat3); sc3.setCategorieDto(c3);
+
+		String codescat4 = "scat4"; String libellescat4 = "scat4";
+		ScategorieDto sc4 = new ScategorieDto();
+		sc4.setCode(codescat4); sc4.setLibelle(libellescat4); sc4.setCategorieDto(c2);
+
 		ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(sc1)));
 		ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(sc2)));
 		ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(sc3)));

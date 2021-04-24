@@ -66,6 +66,7 @@ public class FournisseurDto {
         fournisseur.setEmail(fournisseurDto.getEmail());
         fournisseur.setCity(fournisseurDto.getCity());
         fournisseur.setCountry(fournisseurDto.getCountry());
+        fournisseur.setArticle(ArticleDto.fromDtoToEntity(fournisseurDto.getArticleDto()));
 
         return fournisseur;
     }
