@@ -9,5 +9,5 @@ import java.util.Optional;
 @Repository
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Optional<Article> findProduitByReference(String reference);
+    Optional<Article> findArticleByReference(String reference);
 }

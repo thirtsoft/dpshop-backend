@@ -40,29 +40,29 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public ArticleDto findById(Long id) {
         if (id == null) {
-            log.error("Produit Id is null");
+            log.error("Article Id is null");
             return null;
         }
 
-        Optional<Article> produit = articleRepository.findById(id);
+        Optional<Article> article = articleRepository.findById(id);
 
-        return Optional.of(ArticleDto.fromEntityToDto(produit.get())).orElseThrow(() ->
+        return Optional.of(ArticleDto.fromEntityToDto(article.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
-                        "Aucnun produit avec l'Id = " + id + "n'a été trouvé")
+                        "Aucnun article avec l'Id = " + id + "n'a été trouvé")
         );
     }
 
     @Override
     public ArticleDto findByReference(String reference) {
         if (!StringUtils.hasLength(reference)) {
-            log.error("Produit REFERENCE is null");
+            log.error("Article REFERENCE is null");
         }
 
-        Optional<Article> produit = articleRepository.findProduitByReference(reference);
+        Optional<Article> article = articleRepository.findArticleByReference(reference);
 
-        return Optional.of(ArticleDto.fromEntityToDto(produit.get())).orElseThrow(() ->
+        return Optional.of(ArticleDto.fromEntityToDto(article.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
-                        "Aucnun produit avec l'Id = " + reference + "n'a été trouvé")
+                        "Aucnun article avec l'Id = " + reference + "n'a été trouvé")
         );
 
 
@@ -78,7 +78,7 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public void delete(Long id) {
         if (id == null) {
-            log.error("Produit Id is null");
+            log.error("Article Id is null");
             return;
         }
         articleRepository.deleteById(id);
