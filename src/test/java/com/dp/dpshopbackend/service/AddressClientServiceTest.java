@@ -20,7 +20,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
-public class CategoryServiceTest {
+public class AddressClientServiceTest {
 
     @InjectMocks
     private CategorieServiceImpl categorieService;
