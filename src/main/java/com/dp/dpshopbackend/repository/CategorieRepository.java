@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface CategorieRepository extends JpaRepository<Categorie, Long> {
 
     Optional<Categorie> findCategorieByDesignation(String designation);
+
+
 }
