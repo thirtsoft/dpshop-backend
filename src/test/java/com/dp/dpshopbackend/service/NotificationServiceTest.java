@@ -1,9 +1,11 @@
 package com.dp.dpshopbackend.service;
 
-import com.dp.dpshopbackend.dto.CategorieDto;
-import com.dp.dpshopbackend.models.Categorie;
-import com.dp.dpshopbackend.repository.CategorieRepository;
-import com.dp.dpshopbackend.services.impl.CategorieServiceImpl;
+import com.dp.dpshopbackend.dto.ArticleDto;
+import com.dp.dpshopbackend.dto.NotificationDto;
+import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.models.Notification;
+import com.dp.dpshopbackend.repository.NotificationRepository;
+import com.dp.dpshopbackend.services.impl.NotificationServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +17,6 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,87 +24,105 @@ import static org.mockito.Mockito.when;
 public class NotificationServiceTest {
 
     @InjectMocks
-    private CategorieServiceImpl categorieService;
+    private NotificationServiceImpl notificationService;
 
     @Mock
-    private CategorieRepository categorieRepository;
+    private NotificationRepository notificationRepository;
 
     @Test
-    public void CreateCategoryTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
+    public void CreateNotificationTest() {
+        UtilisateurDto utilisateurDto = UtilisateurDto.builder()
                 .id(1L)
-                .code("123")
-                .designation("designation")
+                .username("username")
+                .password("passer123")
                 .build();
-        Categorie categorie = CategorieDto.fromDtoToEntity(categorieDto);
-        when(categorieRepository.save(categorie)).thenReturn(categorie);
+        ArticleDto articleDto = ArticleDto.builder()
+                .id(1L)
+                .reference("Art1")
+                .designation("Art1")
+                .build();
+        NotificationDto notificationDto = NotificationDto.builder()
+                .id(1L)
+                .reference("ref")
+                .nbreEtoile("4etoile")
+                .observation("bon")
+                .articleDto(articleDto)
+                .utilisateurDto(utilisateurDto)
+                .build();
+        Notification notification = NotificationDto.fromDtoToEntity(notificationDto);
+        when(notificationRepository.save(notification)).thenReturn(notification);
 
-        CategorieDto categoryDtoSavedResult = categorieService.save(categorieDto);
+        NotificationDto notificationDtoSavedResult = notificationService.save(notificationDto);
 
-        verify(categorieRepository).save(categorie);
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.getId());
-        assertThat(categoryDtoSavedResult.getCode()).isEqualTo(categorie.getCode());
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.getDesignation());
+        verify(notificationRepository).save(notification);
+        assertThat(notificationDto).isNotNull();
+        assertThat(notificationDtoSavedResult).isEqualTo(notificationDto);
+        assertThat(notificationDtoSavedResult.getId()).isEqualTo(notification.getId());
+        assertThat(notificationDtoSavedResult.getReference()).isEqualTo(notification.getReference());
+        assertThat(notificationDtoSavedResult.getNbreEtoile()).isEqualTo(notification.getNbreEtoile());
     }
 
     @Test
     public void findAllTest() {
-        CategorieDto categorieDto = new CategorieDto();
-        categorieDto.setId(1L);
-        categorieDto.setCode("Mobile");
-        categorieDto.setDesignation("Samsung A10s");
+        UtilisateurDto utilisateurDto = UtilisateurDto.builder()
+                .id(1L)
+                .username("username")
+                .password("passer123")
+                .build();
+        ArticleDto articleDto = ArticleDto.builder()
+                .id(1L)
+                .reference("Art1")
+                .designation("Art1")
+                .build();
+        NotificationDto notificationDto = NotificationDto.builder()
+                .id(1L)
+                .reference("ref")
+                .nbreEtoile("4etoile")
+                .observation("bon")
+                .articleDto(articleDto)
+                .utilisateurDto(utilisateurDto)
+                .build();
+        Notification notification = NotificationDto.fromDtoToEntity(notificationDto);
+        when(notificationRepository.findAll()).thenReturn(singletonList(notification));
 
-        Categorie categorie = CategorieDto.fromDtoToEntity(categorieDto);
-        when(categorieRepository.findAll()).thenReturn(singletonList(categorie));
+        List<NotificationDto> notificationDtoList = notificationService.findAll();
 
-        List<CategorieDto> categories = categorieService.findAll();
-
-        assertThat(categories).isNotNull();
-        assertThat(categories.size()).isEqualTo(1);
-        verify(categorieRepository).findAll();
-        assertThat(categories.get(0)).isEqualTo(CategorieDto.fromEntityToDto(categorie));
+        assertThat(notificationDtoList).isNotNull();
+        assertThat(notificationDtoList.size()).isEqualTo(1);
+        verify(notificationRepository).findAll();
+        assertThat(notificationDtoList.get(0)).isEqualTo(NotificationDto.fromEntityToDto(notification));
     }
 
     @Test
     public void findByIdTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
+        UtilisateurDto utilisateurDto = UtilisateurDto.builder()
                 .id(1L)
-                .code("123")
-                .designation("designation")
+                .username("username")
+                .password("passer123")
                 .build();
-        Optional<Categorie>  categorie = Optional.ofNullable(CategorieDto.fromDtoToEntity(categorieDto));
-        when(categorieRepository.findById(categorie.get().getId())).thenReturn(categorie);
+        ArticleDto articleDto = ArticleDto.builder()
+                .id(1L)
+                .reference("Art1")
+                .designation("Art1")
+                .build();
+        NotificationDto notificationDto = NotificationDto.builder()
+                .id(1L)
+                .reference("ref")
+                .nbreEtoile("4etoile")
+                .observation("bon")
+                .articleDto(articleDto)
+                .utilisateurDto(utilisateurDto)
+                .build();
+        Optional<Notification> notification = Optional.ofNullable(NotificationDto.fromDtoToEntity(notificationDto));
+        when(notificationRepository.findById(notification.get().getId())).thenReturn(notification);
 
-        CategorieDto categoryDtoSavedResult = categorieService.findById(categorieDto.getId());
+        NotificationDto notificationDtoSavedResult = notificationService.findById(notificationDto.getId());
 
-        verify(categorieRepository).findById(categorie.get().getId());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.get().getId());
+        verify(notificationRepository).findById(notification.get().getId());
+        assertThat(notificationDto).isNotNull();
+        assertThat(notificationDtoSavedResult).isEqualTo(notificationDto);
+        assertThat(notificationDtoSavedResult.getId()).isEqualTo(notification.get().getId());
 
     }
-
-    @Test
-    public void findByDesignationTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
-                .id(1L)
-                .code("123")
-                .designation("designation")
-                .build();
-        Optional<Categorie>  categorie = Optional.ofNullable(CategorieDto.fromDtoToEntity(categorieDto));
-        when(categorieRepository.findCategorieByDesignation(categorie.get().getDesignation())).thenReturn(categorie);
-
-        CategorieDto categoryDtoSavedResult = categorieService.findByDesignation(categorieDto.getDesignation());
-
-        assertNotNull(categorieDto);
-        verify(categorieRepository).findCategorieByDesignation(categorie.get().getDesignation());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.get().getDesignation());
-
-    }
-
 
 }
