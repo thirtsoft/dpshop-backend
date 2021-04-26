@@ -1,9 +1,11 @@
 package com.dp.dpshopbackend.service;
 
-import com.dp.dpshopbackend.dto.CategorieDto;
-import com.dp.dpshopbackend.models.Categorie;
-import com.dp.dpshopbackend.repository.CategorieRepository;
-import com.dp.dpshopbackend.services.impl.CategorieServiceImpl;
+import com.dp.dpshopbackend.dto.AddressLivraisonDto;
+import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.enumeration.StatusCommande;
+import com.dp.dpshopbackend.models.AddressLivraison;
+import com.dp.dpshopbackend.repository.AddressLivraisonRepository;
+import com.dp.dpshopbackend.services.impl.AddressLivraisonServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +17,6 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -23,87 +24,90 @@ import static org.mockito.Mockito.when;
 public class AddressLivraisonServiceTest {
 
     @InjectMocks
-    private CategorieServiceImpl categorieService;
+    private AddressLivraisonServiceImpl addressLivraisonService;
 
     @Mock
-    private CategorieRepository categorieRepository;
+    private AddressLivraisonRepository addressLivraisonRepository;
 
     @Test
-    public void CreateCategoryTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
+    public void CreateAddressLivraisonTest() {
+        CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .code("123")
-                .designation("designation")
+                .reference("CLT")
+                .numeroCommande("Com120")
+                .statusCommande(StatusCommande.LIVREE)
                 .build();
-        Categorie categorie = CategorieDto.fromDtoToEntity(categorieDto);
-        when(categorieRepository.save(categorie)).thenReturn(categorie);
+        AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
+                .id(1L)
+                .reference("CLT")
+                .city("city")
+                .country("country")
+                .commandeDto(commandeDto)
+                .build();
+        AddressLivraison addressLivraison = AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto);
+        when(addressLivraisonRepository.save(addressLivraison)).thenReturn(addressLivraison);
 
-        CategorieDto categoryDtoSavedResult = categorieService.save(categorieDto);
+        AddressLivraisonDto addressLivraisonDtoSavedResult = addressLivraisonService.save(addressLivraisonDto);
 
-        verify(categorieRepository).save(categorie);
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.getId());
-        assertThat(categoryDtoSavedResult.getCode()).isEqualTo(categorie.getCode());
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.getDesignation());
+        verify(addressLivraisonRepository).save(addressLivraison);
+        assertThat(addressLivraisonDto).isNotNull();
+        //    assertThat(AddressLivraisonDtoSavedResult).isEqualTo(AddressLivraisonDto);
+        assertThat(addressLivraisonDtoSavedResult.getId()).isEqualTo(addressLivraisonDto.getId());
+        assertThat(addressLivraisonDtoSavedResult.getReference()).isEqualTo(addressLivraisonDto.getReference());
+
     }
 
     @Test
     public void findAllTest() {
-        CategorieDto categorieDto = new CategorieDto();
-        categorieDto.setId(1L);
-        categorieDto.setCode("Mobile");
-        categorieDto.setDesignation("Samsung A10s");
+        CommandeDto commandeDto = CommandeDto.builder()
+                .id(1L)
+                .reference("CLT")
+                .numeroCommande("Com120")
+                .statusCommande(StatusCommande.LIVREE)
+                .build();
+        AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
+                .id(1L)
+                .reference("CLT")
+                .city("city")
+                .country("country")
+                .commandeDto(commandeDto)
+                .build();
+        AddressLivraison addressLivraison = AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto);
+        when(addressLivraisonRepository.findAll()).thenReturn(singletonList(addressLivraison));
 
-        Categorie categorie = CategorieDto.fromDtoToEntity(categorieDto);
-        when(categorieRepository.findAll()).thenReturn(singletonList(categorie));
+        List<AddressLivraisonDto> addressLivraisonDtoList = addressLivraisonService.findAll();
 
-        List<CategorieDto> categories = categorieService.findAll();
-
-        assertThat(categories).isNotNull();
-        assertThat(categories.size()).isEqualTo(1);
-        verify(categorieRepository).findAll();
-        assertThat(categories.get(0)).isEqualTo(CategorieDto.fromEntityToDto(categorie));
+        assertThat(addressLivraisonDtoList).isNotNull();
+        assertThat(addressLivraisonDtoList.size()).isEqualTo(1);
+        verify(addressLivraisonRepository).findAll();
+        assertThat(addressLivraisonDtoList.get(0)).isEqualTo(AddressLivraisonDto.fromEntityToDto(addressLivraison));
     }
 
     @Test
     public void findByIdTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
+        CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .code("123")
-                .designation("designation")
+                .reference("CLT")
+                .numeroCommande("Com120")
+                .statusCommande(StatusCommande.LIVREE)
                 .build();
-        Optional<Categorie>  categorie = Optional.ofNullable(CategorieDto.fromDtoToEntity(categorieDto));
-        when(categorieRepository.findById(categorie.get().getId())).thenReturn(categorie);
+        AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
+                .id(1L)
+                .reference("CLT")
+                .city("city")
+                .country("country")
+                .commandeDto(commandeDto)
+                .build();
+        Optional<AddressLivraison> addressLivraison = Optional.ofNullable(AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto));
+        when(addressLivraisonRepository.findById(addressLivraison.get().getId())).thenReturn(addressLivraison);
 
-        CategorieDto categoryDtoSavedResult = categorieService.findById(categorieDto.getId());
+        AddressLivraisonDto addressLivraisonDtoSavedResult = addressLivraisonService.findById(addressLivraisonDto.getId());
 
-        verify(categorieRepository).findById(categorie.get().getId());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.get().getId());
+        verify(addressLivraisonRepository).findById(addressLivraison.get().getId());
+        assertThat(addressLivraisonDto).isNotNull();
+        //    assertThat(AddressLivraisonDtoSavedResult).isEqualTo(AddressLivraisonDto);
+        assertThat(addressLivraisonDtoSavedResult.getId()).isEqualTo(addressLivraison.get().getId());
 
     }
-
-    @Test
-    public void findByDesignationTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
-                .id(1L)
-                .code("123")
-                .designation("designation")
-                .build();
-        Optional<Categorie>  categorie = Optional.ofNullable(CategorieDto.fromDtoToEntity(categorieDto));
-        when(categorieRepository.findCategorieByDesignation(categorie.get().getDesignation())).thenReturn(categorie);
-
-        CategorieDto categoryDtoSavedResult = categorieService.findByDesignation(categorieDto.getDesignation());
-
-        assertNotNull(categorieDto);
-        verify(categorieRepository).findCategorieByDesignation(categorie.get().getDesignation());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.get().getDesignation());
-
-    }
-
 
 }
