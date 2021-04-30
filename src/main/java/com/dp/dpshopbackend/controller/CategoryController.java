@@ -1,8 +1,8 @@
 package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.CategoryApi;
-import com.dp.dpshopbackend.dto.CategorieDto;
-import com.dp.dpshopbackend.services.CategorieService;
+import com.dp.dpshopbackend.dto.CategoryDto;
+import com.dp.dpshopbackend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -14,35 +14,35 @@ import java.util.List;
 @CrossOrigin
 public class CategoryController implements CategoryApi {
 
-    private CategorieService categorieService;
+    private CategoryService categoryService;
 
     @Autowired
-    public CategoryController(CategorieService categorieService) {
-        this.categorieService = categorieService;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
     @Override
-    public ResponseEntity<CategorieDto> save(CategorieDto categorieDto) {
-        return ResponseEntity.ok(categorieService.save(categorieDto));
+    public ResponseEntity<CategoryDto> save(CategoryDto categoryDto) {
+        return ResponseEntity.ok(categoryService.save(categoryDto));
     }
 
     @Override
-    public ResponseEntity<CategorieDto> findById(Long id) {
-        return ResponseEntity.ok(categorieService.findById(id));
+    public ResponseEntity<CategoryDto> findById(Long id) {
+        return ResponseEntity.ok(categoryService.findById(id));
     }
 
     @Override
-    public ResponseEntity<CategorieDto> findByDesignation(String designation) {
-        return ResponseEntity.ok(categorieService.findByDesignation(designation));
+    public ResponseEntity<CategoryDto> findByDesignation(String designation) {
+        return ResponseEntity.ok(categoryService.findByDesignation(designation));
     }
 
     @Override
-    public List<CategorieDto> findAll() {
-        return categorieService.findAll();
+    public List<CategoryDto> findAll() {
+        return categoryService.findAll();
     }
 
     @Override
     public void delete(Long id) {
-        categorieService.delete(id);
+        categoryService.delete(id);
     }
 }

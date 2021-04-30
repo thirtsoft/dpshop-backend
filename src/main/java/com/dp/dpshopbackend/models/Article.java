@@ -45,5 +45,5 @@ public class Article implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "scatId")
-    private Scategorie scategorie;
+    private Scategory scategory;
 }

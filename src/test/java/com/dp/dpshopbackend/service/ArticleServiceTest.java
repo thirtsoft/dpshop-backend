@@ -1,7 +1,7 @@
 package com.dp.dpshopbackend.service;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.ScategorieDto;
+import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.repository.ArticleRepository;
 import com.dp.dpshopbackend.services.impl.ArticleServiceImpl;
@@ -31,7 +31,7 @@ public class ArticleServiceTest {
 
     @Test
     public void CreateArticleTest() {
-        ScategorieDto scategoryDto = ScategorieDto.builder()
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
                 .libelle("libelle")
@@ -43,7 +43,7 @@ public class ArticleServiceTest {
                 .price(12000)
                 .quantity(5)
                 .photo("photo")
-                .scategorieDto(scategoryDto)
+                .scategoryDto(scategoryDto)
                 .build();
         Article article = ArticleDto.fromDtoToEntity(articleDto);
         when(articleRepository.save(article)).thenReturn(article);
@@ -60,7 +60,7 @@ public class ArticleServiceTest {
 
     @Test
     public void findAllTest() {
-        ScategorieDto scategoryDto = ScategorieDto.builder()
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
                 .libelle("libelle")
@@ -72,7 +72,7 @@ public class ArticleServiceTest {
                 .price(12000)
                 .quantity(5)
                 .photo("photo")
-                .scategorieDto(scategoryDto)
+                .scategoryDto(scategoryDto)
                 .build();
         Article article = ArticleDto.fromDtoToEntity(articleDto);
         when(articleRepository.findAll()).thenReturn(singletonList(article));
@@ -87,7 +87,7 @@ public class ArticleServiceTest {
 
     @Test
     public void findByIdTest() {
-        ScategorieDto scategoryDto = ScategorieDto.builder()
+        ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
                 .libelle("libelle")
@@ -99,7 +99,7 @@ public class ArticleServiceTest {
                 .price(12000)
                 .quantity(5)
                 .photo("photo")
-                .scategorieDto(scategoryDto)
+                .scategoryDto(scategoryDto)
                 .build();
 
         Optional<Article> article = Optional.ofNullable(ArticleDto.fromDtoToEntity(articleDto));

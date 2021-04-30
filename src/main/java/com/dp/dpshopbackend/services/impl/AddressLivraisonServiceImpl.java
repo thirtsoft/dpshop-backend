@@ -1,19 +1,14 @@
 package com.dp.dpshopbackend.services.impl;
 
 import com.dp.dpshopbackend.dto.AddressLivraisonDto;
-import com.dp.dpshopbackend.dto.CategorieDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.AddressLivraison;
-import com.dp.dpshopbackend.models.Categorie;
 import com.dp.dpshopbackend.repository.AddressLivraisonRepository;
-import com.dp.dpshopbackend.repository.CategorieRepository;
 import com.dp.dpshopbackend.services.AddressLivraisonService;
-import com.dp.dpshopbackend.services.CategorieService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Scategorie implements Serializable {
+public class Scategory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +26,5 @@ public class Scategorie implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "catId")
-    private Categorie categorie;
+    private Category category;
 }

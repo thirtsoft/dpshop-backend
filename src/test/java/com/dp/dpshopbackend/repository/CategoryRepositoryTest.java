@@ -1,7 +1,7 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.dto.CategorieDto;
-import com.dp.dpshopbackend.models.Categorie;
+import com.dp.dpshopbackend.dto.CategoryDto;
+import com.dp.dpshopbackend.models.Category;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -13,22 +13,21 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @DataJpaTest
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 public class CategoryRepositoryTest {
 
     @Autowired
-    private CategorieRepository categorieRepository;
+    private CategoryRepository categoryRepository;
 
     @Test
     @Rollback(false)
     public void testCreateCategory() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "sac a mai");
-        CategorieDto categoryDtoResult = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto)
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "sac a mai");
+        CategoryDto categoryDtoResult = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDto)
                 )
         );
 
@@ -39,18 +38,18 @@ public class CategoryRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateCategory() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "PAPIER RAM");
-        CategorieDto categoryDtoResult = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto)
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "PAPIER RAM");
+        CategoryDto categoryDtoResult = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDto)
                 )
         );
 
         String categoryDesignation = "Bureau";
-        CategorieDto categorieUpdateDto = new CategorieDto(1,"Bureau", categoryDesignation);
+        CategoryDto categorieUpdateDto = new CategoryDto(null, "Bureau", categoryDesignation);
 
         categorieUpdateDto.setId((long) 1);
-        CategorieDto.fromEntityToDto(categorieRepository.save(CategorieDto.fromDtoToEntity(categorieUpdateDto)));
+        CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(categorieUpdateDto)));
 
         assertThat(categorieUpdateDto.getDesignation()).isEqualTo(categoryDesignation);
 
@@ -59,25 +58,25 @@ public class CategoryRepositoryTest {
     @Test
     public void testFindById() {
 
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "sac a mai");
-        CategorieDto categoryDtoResult = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto)
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "sac a mai");
+        CategoryDto categoryDtoResult = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDto)
                 )
         );
 
         Long cat_id = (long) 1;
-        Optional<Categorie> categorie = categorieRepository.findById(categoryDtoResult.getId());
+        Optional<Category> categorie = categoryRepository.findById(categoryDtoResult.getId());
 
         assertNotNull(categorie);
     }
 
     @Test
     public void testFindByDesignation() {
-        CategorieDto categorieDto = new CategorieDto(1,"Robe", "RobeMariage");
-        CategorieDto categoryDtoResult = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto)
+        CategoryDto categoryDto = new CategoryDto(null, "Robe", "RobeMariage");
+        CategoryDto categoryDtoResult = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDto)
                 )
         );
         String catDesignation = "RobeMariage";
@@ -86,27 +85,27 @@ public class CategoryRepositoryTest {
 
     @Test
     public void testFindAll() {
-        CategorieDto categorieDto = new CategorieDto(1,"Robe", "sac a mai");
-        CategorieDto categoryDtoResult = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto)
+        CategoryDto categoryDto = new CategoryDto(null, "Robe", "sac a mai");
+        CategoryDto categoryDtoResult = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDto)
                 )
         );
-        CategorieDto categorieDto1 = new CategorieDto(1,"Panthalon", "Panthalon homme");
-        CategorieDto categoryDtoResult1 = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto1)
-                )
-        );
-
-        CategorieDto categorieDto2 = new CategorieDto(1,"Chemise", "Chemise Femme");
-        CategorieDto categoryDtoResult2 = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto2)
+        CategoryDto categoryDtonull = new CategoryDto(null, "Panthalon", "Panthalon homme");
+        CategoryDto categoryDtoResultnull = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDtonull)
                 )
         );
 
-        List<?> categories = categorieRepository.findAll();
+        CategoryDto categoryDto2 = new CategoryDto(null, "Chemise", "Chemise Femme");
+        CategoryDto categoryDtoResult2 = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDto2)
+                )
+        );
+
+        List<?> categories = categoryRepository.findAll();
 
         assertThat(categories).size().isGreaterThan(0);
 
@@ -116,22 +115,22 @@ public class CategoryRepositoryTest {
     @Rollback(false)
     public void testDelete() {
 
-        CategorieDto categorieDto = new CategorieDto(1,"Chemise", "Chemise Femme");
-        CategorieDto categoryDtoResult2 = CategorieDto.fromEntityToDto(
-                categorieRepository.save(
-                        CategorieDto.fromDtoToEntity(categorieDto)
+        CategoryDto categoryDto = new CategoryDto(null, "Chemise", "Chemise Femme");
+        CategoryDto categoryDtoResult2 = CategoryDto.fromEntityToDto(
+                categoryRepository.save(
+                        CategoryDto.fromDtoToEntity(categoryDto)
                 )
         );
 
-        Optional<Categorie> categorie = categorieRepository.findById(categoryDtoResult2.getId());
+        Optional<Category> categorie = categoryRepository.findById(categoryDtoResult2.getId());
 
         Long id = (long) 1;
 
-        boolean isExistBeforeDelete = categorieRepository.findById(categoryDtoResult2.getId()).isPresent();
+        boolean isExistBeforeDelete = categoryRepository.findById(categoryDtoResult2.getId()).isPresent();
 
-        categorieRepository.deleteById(categoryDtoResult2.getId());
+        categoryRepository.deleteById(categoryDtoResult2.getId());
 
-        boolean notExistAfterDelete = categorieRepository.findById(categoryDtoResult2.getId()).isPresent();
+        boolean notExistAfterDelete = categoryRepository.findById(categoryDtoResult2.getId()).isPresent();
 
         assertTrue(isExistBeforeDelete);
 

@@ -1,9 +1,8 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.dto.CategorieDto;
-import com.dp.dpshopbackend.dto.ScategorieDto;
-import com.dp.dpshopbackend.models.Categorie;
-import com.dp.dpshopbackend.models.Scategorie;
+import com.dp.dpshopbackend.dto.CategoryDto;
+import com.dp.dpshopbackend.dto.ScategoryDto;
+import com.dp.dpshopbackend.models.Scategory;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,22 +20,22 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ScategoryRepositoryTest {
 
     @Autowired
-    private ScategorieRepository scategorieRepository;
+    private ScategoryRepository scategoryRepository;
 
     @Test
     @Rollback(false)
     public void testCreateScategory() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "sac a mai");
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "sac a mai");
         String codeScategory = "scat1";
         String libelle = "SacVoyage";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setCode(codeScategory);
-        scategorieDto.setLibelle(libelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setCode(codeScategory);
+        scategoryDto.setLibelle(libelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        ScategorieDto scategoryDtoResult = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto)
+        ScategoryDto scategoryDtoResult = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto)
                 )
         );
 
@@ -47,30 +46,30 @@ public class ScategoryRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateScategory() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "PAPIER RAM");
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "PAPIER RAM");
         String codeScategory = "scat1";
         String libelle = "SacVoyage";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setCode(codeScategory);
-        scategorieDto.setLibelle(libelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setCode(codeScategory);
+        scategoryDto.setLibelle(libelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        ScategorieDto scategoryDtoResult = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto)
+        ScategoryDto scategoryDtoResult = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto)
                 )
         );
 
         String scategoryCode = "Bur";
         String scategoryLibelle = "Bureau";
-        ScategorieDto scategoryUpdateDto = new ScategorieDto();
+        ScategoryDto scategoryUpdateDto = new ScategoryDto();
         scategoryUpdateDto.setCode(scategoryCode);
         scategoryUpdateDto.setLibelle(scategoryLibelle);
-        scategoryUpdateDto.setCategorieDto(categorieDto);
+        scategoryUpdateDto.setCategoryDto(categoryDto);
 
 
-        scategoryUpdateDto.setId((long) 1);
-        ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(scategoryUpdateDto)));
+        scategoryUpdateDto.setId(1);
+        ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(scategoryUpdateDto)));
 
         assertThat(scategoryUpdateDto.getLibelle()).isEqualTo(scategoryLibelle);
 
@@ -79,21 +78,21 @@ public class ScategoryRepositoryTest {
     @Test
     public void testFindById() {
 
-        CategorieDto categorieDto = new CategorieDto(1,"tshirt", "Tshirt-Man");
+        CategoryDto categoryDto = new CategoryDto(null, "tshirt", "Tshirt-Man");
         String scategoryCode = "tis";
         String scategoryLibelle = "Tshirt-Mans";
-        ScategorieDto scategoryDto = new ScategorieDto();
+        ScategoryDto scategoryDto = new ScategoryDto();
         scategoryDto.setCode(scategoryCode);
         scategoryDto.setLibelle(scategoryLibelle);
-        scategoryDto.setCategorieDto(categorieDto);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        ScategorieDto scategoryDtoResult = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategoryDto)
+        ScategoryDto scategoryDtoResult = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto)
                 )
         );
 
-        Optional<Scategorie> scategorie = scategorieRepository.findById(scategoryDtoResult.getId());
+        Optional<Scategory> scategorie = scategoryRepository.findById(scategoryDtoResult.getId());
 
         assertNotNull(scategorie);
 
@@ -101,17 +100,17 @@ public class ScategoryRepositoryTest {
 
     @Test
     public void testFindByLibelle() {
-        CategorieDto categorieDto = new CategorieDto(1,"Ordi", "Ordinateurs");
+        CategoryDto categoryDto = new CategoryDto(null, "Ordi", "Ordinateurs");
         String scategoryCode = "scat2";
         String scategoryLibelle = "HP-ProBook";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setCode(scategoryCode);
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setCode(scategoryCode);
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        ScategorieDto scategoryDtoResult = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto)
+        ScategoryDto scategoryDtoResult = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto)
                 )
         );
         String libelleFind = "HP-ProBook";
@@ -120,47 +119,47 @@ public class ScategoryRepositoryTest {
 
     @Test
     public void testFindAll() {
-        CategorieDto categorieDto = new CategorieDto(1,"Robe", "RobeElite");
+        CategoryDto categoryDto = new CategoryDto(null, "Robe", "RobeElite");
         String scategoryCode = "scat3";
         String scategoryLibelle = "RobeElite3";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setCode(scategoryCode);
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setCode(scategoryCode);
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        ScategorieDto scategoryDtoResult = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto)
+        ScategoryDto scategoryDtoResult = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto)
                 )
         );
-        CategorieDto categorieDto1 = new CategorieDto(1,"Panthalon", "Panthalon homme");
+        CategoryDto categoryDto1 = new CategoryDto(null, "Panthalon", "Panthalon homme");
         String scategoryCode1 = "scat4";
         String scategoryLibelle1 = "PanthallonHomme1";
-        ScategorieDto scategorieDto1 = new ScategorieDto();
-        scategorieDto.setCode(scategoryCode1);
-        scategorieDto.setLibelle(scategoryLibelle1);
-        scategorieDto.setCategorieDto(categorieDto1);
-        ScategorieDto scategoryDtoResult1 = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto1)
+        ScategoryDto scategoryDto1 = new ScategoryDto();
+        scategoryDto.setCode(scategoryCode1);
+        scategoryDto.setLibelle(scategoryLibelle1);
+        scategoryDto.setCategoryDto(categoryDto1);
+        ScategoryDto scategoryDtoResult1 = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto1)
                 )
         );
 
-        CategorieDto categorieDto2 = new CategorieDto(1,"Chemise", "Chemise Femme");
+        CategoryDto categoryDto2 = new CategoryDto(null, "Chemise", "Chemise Femme");
         String scategoryCode2 = "scat5";
         String scategoryLibelle2 = "Chemise-Femme";
-        ScategorieDto scategorieDto2 = new ScategorieDto();
-        scategorieDto.setCode(scategoryCode2);
-        scategorieDto.setLibelle(scategoryLibelle2);
-        scategorieDto.setCategorieDto(categorieDto2);
+        ScategoryDto scategoryDto2 = new ScategoryDto();
+        scategoryDto.setCode(scategoryCode2);
+        scategoryDto.setLibelle(scategoryLibelle2);
+        scategoryDto.setCategoryDto(categoryDto2);
 
-        ScategorieDto categoryDtoResult2 = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto2)
+        ScategoryDto categoryDtoResult2 = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto2)
                 )
         );
 
-        List<?> scategories = scategorieRepository.findAll();
+        List<?> scategories = scategoryRepository.findAll();
 
         assertThat(scategories).size().isGreaterThan(2);
 
@@ -169,29 +168,29 @@ public class ScategoryRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        CategorieDto categorieDto = new CategorieDto(1,"Chemise", "String");
+        CategoryDto categoryDto = new CategoryDto(null, "Chemise", "String");
         String scategoryCode = "scat5";
         String scategoryLibelle = "String-Plage";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setCode(scategoryCode);
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setCode(scategoryCode);
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        ScategorieDto scategoryDtoResult2 = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto)
+        ScategoryDto scategoryDtoResult2 = ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryDto)
                 )
         );
 
         Long id = (long) 1;
 
-        Optional<Scategorie> scategorie = scategorieRepository.findById(scategoryDtoResult2.getId());
+        Optional<Scategory> scategorie = scategoryRepository.findById(scategoryDtoResult2.getId());
 
-        boolean isExistBeforeDelete = scategorieRepository.findById(scategoryDtoResult2.getId()).isPresent();
+        boolean isExistBeforeDelete = scategoryRepository.findById(scategoryDtoResult2.getId()).isPresent();
 
-        scategorieRepository.deleteById(scategoryDtoResult2.getId());
+        scategoryRepository.deleteById(scategoryDtoResult2.getId());
 
-        boolean notExistAfterDelete = scategorieRepository.findById(scategoryDtoResult2.getId()).isPresent();
+        boolean notExistAfterDelete = scategoryRepository.findById(scategoryDtoResult2.getId()).isPresent();
 
         assertTrue(isExistBeforeDelete);
 

@@ -1,7 +1,6 @@
 package com.dp.dpshopbackend;
 
 import com.dp.dpshopbackend.dto.*;
-import com.dp.dpshopbackend.models.Categorie;
 import com.dp.dpshopbackend.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,9 +15,9 @@ public class DpshopBackendApplication implements CommandLineRunner {
 	private static final Logger LOG = LoggerFactory.getLogger(DpshopBackendApplication.class);
 
 	@Autowired
-	private CategorieRepository categoryRepository;
+	private CategoryRepository categoryRepository;
 	@Autowired
-	private ScategorieRepository scategorieRepository;
+	private ScategoryRepository scategoryRepository;
 	@Autowired
 	private ArticleRepository articleRepository;
 	@Autowired
@@ -33,31 +32,31 @@ public class DpshopBackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-        CategorieDto c1 = new CategorieDto((long) 1,"cat1", "cat1");
-		CategorieDto c2 = new CategorieDto((long) 2,"cat2", "cat2");
-		CategorieDto c3 = new CategorieDto((long) 3,"cat3", "cat3");
-		CategorieDto.fromEntityToDto(categoryRepository.save(CategorieDto.fromDtoToEntity(c1)));
-		CategorieDto.fromEntityToDto(categoryRepository.save(CategorieDto.fromDtoToEntity(c2)));
-		CategorieDto.fromEntityToDto(categoryRepository.save(CategorieDto.fromDtoToEntity(c3)));
+        CategoryDto c1 = new CategoryDto((long) 1,"cat1", "cat1");
+		CategoryDto c2 = new CategoryDto((long) 2,"cat2", "cat2");
+		CategoryDto c3 = new CategoryDto((long) 3,"cat3", "cat3");
+		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c1)));
+		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c2)));
+		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c3)));
 
 		String codescat = "scat1"; String libellescat = "scat1";
-        ScategorieDto sc1 = new ScategorieDto();
-        sc1.setCode(codescat); sc1.setLibelle(libellescat); sc1.setCategorieDto(c1);
+        ScategoryDto sc1 = new ScategoryDto();
+        sc1.setCode(codescat); sc1.setLibelle(libellescat); sc1.setCategoryDto(c1);
 		String codescat2 = "scat2"; String libellescat2 = "scat2";
-		ScategorieDto sc2 = new ScategorieDto();
-		sc2.setCode(codescat2); sc2.setLibelle(libellescat2); sc2.setCategorieDto(c2);
+		ScategoryDto sc2 = new ScategoryDto();
+		sc2.setCode(codescat2); sc2.setLibelle(libellescat2); sc2.setCategoryDto(c2);
 		String codescat3 = "scat3"; String libellescat3 = "scat3";
-		ScategorieDto sc3 = new ScategorieDto();
-		sc3.setCode(codescat3); sc3.setLibelle(libellescat3); sc3.setCategorieDto(c3);
+		ScategoryDto sc3 = new ScategoryDto();
+		sc3.setCode(codescat3); sc3.setLibelle(libellescat3); sc3.setCategoryDto(c3);
 
 		String codescat4 = "scat4"; String libellescat4 = "scat4";
-		ScategorieDto sc4 = new ScategorieDto();
-		sc4.setCode(codescat4); sc4.setLibelle(libellescat4); sc4.setCategorieDto(c2);
+		ScategoryDto sc4 = new ScategoryDto();
+		sc4.setCode(codescat4); sc4.setLibelle(libellescat4); sc4.setCategoryDto(c2);
 
-		ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(sc1)));
-		ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(sc2)));
-		ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(sc3)));
-		ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(sc4)));
+		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc1)));
+		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc2)));
+		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc3)));
+		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc4)));
 
         ArticleDto p1= new ArticleDto((long)1,"prod1","prod1", 150,1700.0,1800.0,true,true,"prod1","photo",sc1);
 		ArticleDto p2= new ArticleDto((long)2,"prod2","prod2", 150,1700.0,1800.0,true,true,"prod1","photo",sc1);

@@ -1,9 +1,9 @@
 package com.dp.dpshopbackend.service;
 
-import com.dp.dpshopbackend.dto.CategorieDto;
-import com.dp.dpshopbackend.models.Categorie;
-import com.dp.dpshopbackend.repository.CategorieRepository;
-import com.dp.dpshopbackend.services.impl.CategorieServiceImpl;
+import com.dp.dpshopbackend.dto.CategoryDto;
+import com.dp.dpshopbackend.models.Category;
+import com.dp.dpshopbackend.repository.CategoryRepository;
+import com.dp.dpshopbackend.services.impl.CategoryServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -23,84 +23,84 @@ import static org.mockito.Mockito.when;
 public class CategoryServiceTest {
 
     @InjectMocks
-    private CategorieServiceImpl categorieService;
+    private CategoryServiceImpl categorieService;
 
     @Mock
-    private CategorieRepository categorieRepository;
+    private CategoryRepository categoryRepository;
 
     @Test
     public void CreateCategoryTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
+        CategoryDto categoryDto = CategoryDto.builder()
                 .id(1L)
                 .code("123")
                 .designation("designation")
                 .build();
-        Categorie categorie = CategorieDto.fromDtoToEntity(categorieDto);
-        when(categorieRepository.save(categorie)).thenReturn(categorie);
+        Category category = CategoryDto.fromDtoToEntity(categoryDto);
+        when(categoryRepository.save(category)).thenReturn(category);
 
-        CategorieDto categoryDtoSavedResult = categorieService.save(categorieDto);
+        CategoryDto categoryDtoSavedResult = categorieService.save(categoryDto);
 
-        verify(categorieRepository).save(categorie);
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
-        assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.getId());
-        assertThat(categoryDtoSavedResult.getCode()).isEqualTo(categorie.getCode());
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.getDesignation());
+        verify(categoryRepository).save(category);
+        assertThat(categoryDto).isNotNull();
+        assertThat(categoryDtoSavedResult).isEqualTo(categoryDto);
+        assertThat(categoryDtoSavedResult.getId()).isEqualTo(category.getId());
+        assertThat(categoryDtoSavedResult.getCode()).isEqualTo(category.getCode());
+        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(category.getDesignation());
     }
 
     @Test
     public void findAllTest() {
-        CategorieDto categorieDto = new CategorieDto();
-        categorieDto.setId(1L);
-        categorieDto.setCode("Mobile");
-        categorieDto.setDesignation("Samsung A10s");
+        CategoryDto categoryDto = new CategoryDto();
+        categoryDto.setId(1L);
+        categoryDto.setCode("Mobile");
+        categoryDto.setDesignation("Samsung A10s");
 
-        Categorie categorie = CategorieDto.fromDtoToEntity(categorieDto);
-        when(categorieRepository.findAll()).thenReturn(singletonList(categorie));
+        Category category = CategoryDto.fromDtoToEntity(categoryDto);
+        when(categoryRepository.findAll()).thenReturn(singletonList(category));
 
-        List<CategorieDto> categories = categorieService.findAll();
+        List<CategoryDto> categories = categorieService.findAll();
 
         assertThat(categories).isNotNull();
         assertThat(categories.size()).isEqualTo(1);
-        verify(categorieRepository).findAll();
-        assertThat(categories.get(0)).isEqualTo(CategorieDto.fromEntityToDto(categorie));
+        verify(categoryRepository).findAll();
+        assertThat(categories.get(0)).isEqualTo(CategoryDto.fromEntityToDto(category));
     }
 
     @Test
     public void findByIdTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
+        CategoryDto categoryDto = CategoryDto.builder()
                 .id(1L)
                 .code("123")
                 .designation("designation")
                 .build();
-        Optional<Categorie>  categorie = Optional.ofNullable(CategorieDto.fromDtoToEntity(categorieDto));
-        when(categorieRepository.findById(categorie.get().getId())).thenReturn(categorie);
+        Optional<Category>  categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categoryDto));
+        when(categoryRepository.findById(categorie.get().getId())).thenReturn(categorie);
 
-        CategorieDto categoryDtoSavedResult = categorieService.findById(categorieDto.getId());
+        CategoryDto categoryDtoSavedResult = categorieService.findById(categoryDto.getId());
 
-        verify(categorieRepository).findById(categorie.get().getId());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
+        verify(categoryRepository).findById(categorie.get().getId());
+        assertThat(categoryDto).isNotNull();
+        assertThat(categoryDtoSavedResult).isEqualTo(categoryDto);
         assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.get().getId());
 
     }
 
     @Test
     public void findByDesignationTest() {
-        CategorieDto categorieDto = CategorieDto.builder()
+        CategoryDto categoryDto = CategoryDto.builder()
                 .id(1L)
                 .code("123")
                 .designation("designation")
                 .build();
-        Optional<Categorie>  categorie = Optional.ofNullable(CategorieDto.fromDtoToEntity(categorieDto));
-        when(categorieRepository.findCategorieByDesignation(categorie.get().getDesignation())).thenReturn(categorie);
+        Optional<Category>  categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categoryDto));
+        when(categoryRepository.findCategorieByDesignation(categorie.get().getDesignation())).thenReturn(categorie);
 
-        CategorieDto categoryDtoSavedResult = categorieService.findByDesignation(categorieDto.getDesignation());
+        CategoryDto categoryDtoSavedResult = categorieService.findByDesignation(categoryDto.getDesignation());
 
-        assertNotNull(categorieDto);
-        verify(categorieRepository).findCategorieByDesignation(categorie.get().getDesignation());
-        assertThat(categorieDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categorieDto);
+        assertNotNull(categoryDto);
+        verify(categoryRepository).findCategorieByDesignation(categorie.get().getDesignation());
+        assertThat(categoryDto).isNotNull();
+        assertThat(categoryDtoSavedResult).isEqualTo(categoryDto);
         assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.get().getDesignation());
 
     }

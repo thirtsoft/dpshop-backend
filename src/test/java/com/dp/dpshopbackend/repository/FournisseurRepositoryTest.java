@@ -1,10 +1,9 @@
 package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.CategorieDto;
+import com.dp.dpshopbackend.dto.CategoryDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
-import com.dp.dpshopbackend.dto.ScategorieDto;
-import com.dp.dpshopbackend.models.Categorie;
+import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.models.Fournisseur;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,18 +27,18 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateFournisseur() {
-        CategorieDto categorieDto = new CategorieDto(1,"Chemise", "Chemise Femme");
+        CategoryDto categoryDto = new CategoryDto(null, "Chemise", "Chemise Femme");
         String libelle = "ChemiseFemmeXL";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setLibelle(libelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setLibelle(libelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
         String refArticle = "Art1";
         String designationArticle = "Article-1";
         ArticleDto articleDto = new ArticleDto();
         articleDto.setReference(refArticle);
         articleDto.setDesignation(designationArticle);
-        articleDto.setScategorieDto(scategorieDto);
+        articleDto.setScategoryDto(scategoryDto);
 
         FournisseurDto fournisseurDto = new FournisseurDto();
         String reference = "Four-1";
@@ -69,21 +68,31 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateFournisseur() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "PAPIER RAM");
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "PAPIER RAM");
         String libelle = "PAPIER_RAM_DUR";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setLibelle(libelle); scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setLibelle(libelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        String refArticle = "Art1"; String designationArticle = "Article-1";
+        String refArticle = "Art1";
+        String designationArticle = "Article-1";
         ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(refArticle); articleDto.setDesignation(designationArticle); articleDto.setScategorieDto(scategorieDto);
+        articleDto.setReference(refArticle);
+        articleDto.setDesignation(designationArticle);
+        articleDto.setScategoryDto(scategoryDto);
 
         FournisseurDto fournisseurDto = new FournisseurDto();
-        String reference = "Four-1"; String firstName = "Fourni-1"; String lastName = "Fourni-1";
-        String email = "thirdiallo@gmail.com"; String telephoneFournisseur = "779440310";
-        fournisseurDto.setReference(reference); fournisseurDto.setFirstName(firstName);
-        fournisseurDto.setLastName(lastName); fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur); fournisseurDto.setArticleDto(articleDto);
+        String reference = "Four-1";
+        String firstName = "Fourni-1";
+        String lastName = "Fourni-1";
+        String email = "thirdiallo@gmail.com";
+        String telephoneFournisseur = "779440310";
+        fournisseurDto.setReference(reference);
+        fournisseurDto.setFirstName(firstName);
+        fournisseurDto.setLastName(lastName);
+        fournisseurDto.setEmail(email);
+        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur);
+        fournisseurDto.setArticleDto(articleDto);
 
         FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
@@ -93,7 +102,7 @@ public class FournisseurRepositoryTest {
         String refFournisseur = "Diallo";
         FournisseurDto fournisseurUpdateDto = new FournisseurDto();
         fournisseurUpdateDto.setReference(refFournisseur);
-        fournisseurUpdateDto.setId((long) 1);
+        fournisseurUpdateDto.setId(1);
         FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(fournisseurUpdateDto)));
 
         assertThat(fournisseurUpdateDto.getReference()).isEqualTo(refFournisseur);
@@ -102,21 +111,31 @@ public class FournisseurRepositoryTest {
 
     @Test
     public void testFindById() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "sac a mai");
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "sac a mai");
         String scategoryLibelle = "sacFille";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle); scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        String refArticle = "Art1"; String designationArticle = "Article-1";
+        String refArticle = "Art1";
+        String designationArticle = "Article-1";
         ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(refArticle); articleDto.setDesignation(designationArticle); articleDto.setScategorieDto(scategorieDto);
+        articleDto.setReference(refArticle);
+        articleDto.setDesignation(designationArticle);
+        articleDto.setScategoryDto(scategoryDto);
 
         FournisseurDto fournisseurDto = new FournisseurDto();
-        String reference = "Four-1"; String firstName = "Fourni-1"; String lastName = "Fourni-1";
-        String email = "thirdiallo@gmail.com"; String telephoneFournisseur = "779440310";
-        fournisseurDto.setReference(reference); fournisseurDto.setFirstName(firstName);
-        fournisseurDto.setLastName(lastName); fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur); fournisseurDto.setArticleDto(articleDto);
+        String reference = "Four-1";
+        String firstName = "Fourni-1";
+        String lastName = "Fourni-1";
+        String email = "thirdiallo@gmail.com";
+        String telephoneFournisseur = "779440310";
+        fournisseurDto.setReference(reference);
+        fournisseurDto.setFirstName(firstName);
+        fournisseurDto.setLastName(lastName);
+        fournisseurDto.setEmail(email);
+        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur);
+        fournisseurDto.setArticleDto(articleDto);
 
         FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
@@ -134,22 +153,32 @@ public class FournisseurRepositoryTest {
 
     @Test
     public void testFindAll() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "sac a mai");
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "sac a mai");
 
         String scategoryLibelle = "sacFille";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle); scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        String refArticle = "Art1"; String designationArticle = "Article-1";
+        String refArticle = "Art1";
+        String designationArticle = "Article-1";
         ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(refArticle); articleDto.setDesignation(designationArticle); articleDto.setScategorieDto(scategorieDto);
+        articleDto.setReference(refArticle);
+        articleDto.setDesignation(designationArticle);
+        articleDto.setScategoryDto(scategoryDto);
 
         FournisseurDto fournisseurDto = new FournisseurDto();
-        String reference = "Four-1"; String firstName = "Fourni-1"; String lastName = "Fourni-1";
-        String email = "thirdiallo@gmail.com"; String telephoneFournisseur = "779440310";
-        fournisseurDto.setReference(reference); fournisseurDto.setFirstName(firstName);
-        fournisseurDto.setLastName(lastName); fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur); fournisseurDto.setArticleDto(articleDto);
+        String reference = "Four-1";
+        String firstName = "Fourni-1";
+        String lastName = "Fourni-1";
+        String email = "thirdiallo@gmail.com";
+        String telephoneFournisseur = "779440310";
+        fournisseurDto.setReference(reference);
+        fournisseurDto.setFirstName(firstName);
+        fournisseurDto.setLastName(lastName);
+        fournisseurDto.setEmail(email);
+        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur);
+        fournisseurDto.setArticleDto(articleDto);
 
         FournisseurDto fournisseurDtoResult = FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
@@ -157,19 +186,25 @@ public class FournisseurRepositoryTest {
                 )
         );
 
-        CategorieDto categorieDto1 = new CategorieDto(1,"Panthalon", "Panthalon homme");
+        CategoryDto categoryDto1 = new CategoryDto(null, "Panthalon", "Panthalon homme");
         String scategoryLibelle1 = "sacFille";
-        ScategorieDto scategorieDto1 = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle1); scategorieDto.setCategorieDto(categorieDto1);
+        ScategoryDto scategoryDto1 = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle1);
+        scategoryDto.setCategoryDto(categoryDto1);
 
         String designationArticle1 = "Article-1";
         ArticleDto articleDto1 = new ArticleDto();
-        articleDto.setDesignation(designationArticle1); articleDto.setScategorieDto(scategorieDto1);
+        articleDto.setDesignation(designationArticle1);
+        articleDto.setScategoryDto(scategoryDto1);
 
         FournisseurDto fournisseurDto1 = new FournisseurDto();
-        String reference1 = "Four-1"; String firstName1 = "Fourni-1"; String lastName1 = "Fourni-1";
-        fournisseurDto.setReference(reference1); fournisseurDto.setFirstName(firstName1);
-        fournisseurDto.setLastName(lastName1); fournisseurDto.setArticleDto(articleDto1);
+        String reference1 = "Four-1";
+        String firstName1 = "Fourni-1";
+        String lastName1 = "Fourni-1";
+        fournisseurDto.setReference(reference1);
+        fournisseurDto.setFirstName(firstName1);
+        fournisseurDto.setLastName(lastName1);
+        fournisseurDto.setArticleDto(articleDto1);
 
         FournisseurDto fournisseurDtoResult1 = FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
@@ -177,19 +212,25 @@ public class FournisseurRepositoryTest {
                 )
         );
 
-        CategorieDto categorieDto2 = new CategorieDto(1,"Chemise", "Chemise Femme");
+        CategoryDto categoryDto2 = new CategoryDto(null, "Chemise", "Chemise Femme");
         String scategoryLibelle2 = "sacFille";
-        ScategorieDto scategorieDto2 = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle2); scategorieDto.setCategorieDto(categorieDto2);
+        ScategoryDto scategoryDto2 = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle2);
+        scategoryDto.setCategoryDto(categoryDto2);
 
         String designationArticle2 = "Article-1";
         ArticleDto articleDto2 = new ArticleDto();
-        articleDto.setDesignation(designationArticle2); articleDto.setScategorieDto(scategorieDto1);
+        articleDto.setDesignation(designationArticle2);
+        articleDto.setScategoryDto(scategoryDto1);
 
         FournisseurDto fournisseurDto2 = new FournisseurDto();
-        String reference2 = "Four-1"; String firstName2 = "Fourni-1"; String lastName2 = "Fourni-1";
-        fournisseurDto.setReference(reference2); fournisseurDto.setFirstName(firstName2);
-        fournisseurDto.setLastName(lastName1); fournisseurDto.setArticleDto(articleDto2);
+        String reference2 = "Four-1";
+        String firstName2 = "Fourni-1";
+        String lastName2 = "Fourni-1";
+        fournisseurDto.setReference(reference2);
+        fournisseurDto.setFirstName(firstName2);
+        fournisseurDto.setLastName(lastName1);
+        fournisseurDto.setArticleDto(articleDto2);
 
         FournisseurDto fournisseurDtoResult2 = FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
@@ -206,21 +247,31 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        CategorieDto categorieDto = new CategorieDto(1,"Chemise", "Chemise Femme");
+        CategoryDto categoryDto = new CategoryDto(null, "Chemise", "Chemise Femme");
         String scategoryLibelle = "sacFille";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle); scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
-        String refArticle = "Art1"; String designationArticle = "Article-1";
+        String refArticle = "Art1";
+        String designationArticle = "Article-1";
         ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(refArticle); articleDto.setDesignation(designationArticle); articleDto.setScategorieDto(scategorieDto);
+        articleDto.setReference(refArticle);
+        articleDto.setDesignation(designationArticle);
+        articleDto.setScategoryDto(scategoryDto);
 
         FournisseurDto fournisseurDto = new FournisseurDto();
-        String reference = "Four-1"; String firstName = "Fourni-1"; String lastName = "Fourni-1";
-        String email = "thirdiallo@gmail.com"; String telephoneFournisseur = "779440310";
-        fournisseurDto.setReference(reference); fournisseurDto.setFirstName(firstName);
-        fournisseurDto.setLastName(lastName); fournisseurDto.setEmail(email);
-        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur); fournisseurDto.setArticleDto(articleDto);
+        String reference = "Four-1";
+        String firstName = "Fourni-1";
+        String lastName = "Fourni-1";
+        String email = "thirdiallo@gmail.com";
+        String telephoneFournisseur = "779440310";
+        fournisseurDto.setReference(reference);
+        fournisseurDto.setFirstName(firstName);
+        fournisseurDto.setLastName(lastName);
+        fournisseurDto.setEmail(email);
+        fournisseurDto.setTelephoneFournisseur(telephoneFournisseur);
+        fournisseurDto.setArticleDto(articleDto);
 
         FournisseurDto fournisseurDtoResult2 = FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(

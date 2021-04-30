@@ -8,12 +8,12 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "categorie")
+@Table(name = "category")
 @Data
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Categorie implements Serializable {
+public class Category implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

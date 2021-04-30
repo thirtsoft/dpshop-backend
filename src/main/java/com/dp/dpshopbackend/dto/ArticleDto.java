@@ -32,7 +32,7 @@ public class ArticleDto {
 
     private String photo;
 
-    private ScategorieDto scategorieDto;
+    private ScategoryDto scategoryDto;
 
     public static ArticleDto fromEntityToDto(Article article) {
         if (article == null) {
@@ -50,7 +50,7 @@ public class ArticleDto {
                 .selected(article.isSelected())
                 .description(article.getDescription())
                 .photo(article.getPhoto())
-                .scategorieDto(ScategorieDto.fromEntityToDto(article.getScategorie()))
+                .scategoryDto(ScategoryDto.fromEntityToDto(article.getScategory()))
                 .build();
     }
 
@@ -70,7 +70,7 @@ public class ArticleDto {
         article.setSelected(articleDto.isSelected());
         article.setDescription(articleDto.getDescription());
         article.setPhoto(articleDto.getPhoto());
-        article.setScategorie(ScategorieDto.fromDtoToEntity(articleDto.getScategorieDto()));
+        article.setScategory(ScategoryDto.fromDtoToEntity(articleDto.getScategoryDto()));
 
         return article;
     }

@@ -1,19 +1,15 @@
 package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.CategorieDto;
-import com.dp.dpshopbackend.dto.ScategorieDto;
+import com.dp.dpshopbackend.dto.CategoryDto;
+import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.models.Article;
-import com.dp.dpshopbackend.models.Scategorie;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,12 +26,12 @@ public class ArticleRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateArticle() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "sacPl");
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "sacPl");
 
-        ScategorieDto scategorieDto = new ScategorieDto();
+        ScategoryDto scategoryDto = new ScategoryDto();
         String scategoryLibelle = "SAC-Plage";
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
         String refArticle = "Art1";
         String desArtcile = "Article-1";
@@ -46,7 +42,7 @@ public class ArticleRepositoryTest {
         articleDto.setDesignation(desArtcile);
         articleDto.setPrice(priceArticle);
         articleDto.setQuantity(quantity);
-        articleDto.setScategorieDto(scategorieDto);
+        articleDto.setScategoryDto(scategoryDto);
 
 
         ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
@@ -62,12 +58,12 @@ public class ArticleRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateArticle() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "PAPIER RAM");
+        CategoryDto categoryDto = new CategoryDto(null, "sac", "PAPIER RAM");
 
-        ScategorieDto scategorieDto = new ScategorieDto();
+        ScategoryDto scategoryDto = new ScategoryDto();
         String scategoryLibelle = "RAM";
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
         String refArticle = "Art2";
         String desArtcile = "PAPIER A4";
@@ -78,7 +74,7 @@ public class ArticleRepositoryTest {
         articleDto.setDesignation(desArtcile);
         articleDto.setPrice(priceArticle);
         articleDto.setQuantity(quantity);
-        articleDto.setScategorieDto(scategorieDto);
+        articleDto.setScategoryDto(scategoryDto);
 
         ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
                 articleRepository.save(
@@ -91,10 +87,10 @@ public class ArticleRepositoryTest {
         ArticleDto articleUpdateDto = new ArticleDto();
         articleUpdateDto.setReference(refArticle);
         articleUpdateDto.setDesignation(designationArticle);
-        articleUpdateDto.setScategorieDto(scategorieDto);
+        articleUpdateDto.setScategoryDto(scategoryDto);
 
 
-        articleUpdateDto.setId((long) 1);
+        articleUpdateDto.setId(1);
         ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(articleUpdateDto)));
 
         assertThat(articleUpdateDto.getDesignation()).isEqualTo(designationArticle);
@@ -103,12 +99,12 @@ public class ArticleRepositoryTest {
 
     @Test
     public void testFindById() {
-        CategorieDto categorieDto = new CategorieDto(1,"tshirt", "Tshirt-Man");
+        CategoryDto categoryDto = new CategoryDto(null, "tshirt", "Tshirt-Man");
 
-        ScategorieDto scategorieDto = new ScategorieDto();
+        ScategoryDto scategoryDto = new ScategoryDto();
         String scategoryLibelle = "Tshirt-Mans";
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
         String refArticle = "Art3";
         String desArtcile = "Tshirt-Mans-Sport";
@@ -119,7 +115,7 @@ public class ArticleRepositoryTest {
         articleDto.setDesignation(desArtcile);
         articleDto.setPrice(priceArticle);
         articleDto.setQuantity(quantity);
-        articleDto.setScategorieDto(scategorieDto);
+        articleDto.setScategoryDto(scategoryDto);
 
         ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
                 articleRepository.save(
@@ -135,11 +131,11 @@ public class ArticleRepositoryTest {
 
     @Test
     public void testFindByReference() {
-        CategorieDto categorieDto = new CategorieDto(1,"Ordi", "Ordinateurs");
+        CategoryDto categoryDto = new CategoryDto(null, "Ordi", "Ordinateurs");
         String scategoryLibelle = "HP-ProBook";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
         String refArticle = "HP";
         String designationArticle = "HP-ProBook-2020";
@@ -150,7 +146,7 @@ public class ArticleRepositoryTest {
         articleDto.setDesignation(designationArticle);
         articleDto.setPrice(priceArticle);
         articleDto.setQuantity(quantity);
-        articleDto.setScategorieDto(scategorieDto);
+        articleDto.setScategoryDto(scategoryDto);
 
         ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
                 articleRepository.save(
@@ -163,11 +159,11 @@ public class ArticleRepositoryTest {
 
     @Test
     public void testFindAll() {
-        CategorieDto categorieDto = new CategorieDto(1,"Robe", "RobeElite");
+        CategoryDto categoryDto = new CategoryDto(null, "Robe", "RobeElite");
         String scategoryLibelle = "RobeElite3";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
         String refArticle = "RB";
         String designationArticle = "RobeElite4";
@@ -176,18 +172,18 @@ public class ArticleRepositoryTest {
         articleDto.setReference(refArticle);
         articleDto.setDesignation(designationArticle);
         articleDto.setPrice(priceArticle);
-        articleDto.setScategorieDto(scategorieDto);
+        articleDto.setScategoryDto(scategoryDto);
 
         ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(
                 articleRepository.save(
                         ArticleDto.fromDtoToEntity(articleDto)
                 )
         );
-        CategorieDto categorieDto1 = new CategorieDto(1,"Panthalon", "Panthalon homme");
+        CategoryDto categoryDto1 = new CategoryDto(null, "Panthalon", "Panthalon homme");
         String scategoryLibelle1 = "PanthallonHomme1";
-        ScategorieDto scategorieDto1 = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle1);
-        scategorieDto.setCategorieDto(categorieDto1);
+        ScategoryDto scategoryDto1 = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle1);
+        scategoryDto.setCategoryDto(categoryDto1);
 
         String refArticle1 = "PT";
         String designationArticle1 = "PanthallonHommeSlim";
@@ -196,7 +192,7 @@ public class ArticleRepositoryTest {
         articleDto.setReference(refArticle1);
         articleDto.setDesignation(designationArticle1);
         articleDto.setPrice(priceArticle1);
-        articleDto.setScategorieDto(scategorieDto1);
+        articleDto.setScategoryDto(scategoryDto1);
 
         ArticleDto articleDtoResult1 = ArticleDto.fromEntityToDto(
                 articleRepository.save(
@@ -204,11 +200,11 @@ public class ArticleRepositoryTest {
                 )
         );
 
-        CategorieDto categorieDto2 = new CategorieDto(1,"Chemise", "Chemise Femme");
+        CategoryDto categoryDto2 = new CategoryDto(null, "Chemise", "Chemise Femme");
         String scategoryLibelle2 = "Chemise-Femme";
-        ScategorieDto scategorieDto2 = new ScategorieDto();
-        scategorieDto.setLibelle(scategoryLibelle2);
-        scategorieDto.setCategorieDto(categorieDto2);
+        ScategoryDto scategoryDto2 = new ScategoryDto();
+        scategoryDto.setLibelle(scategoryLibelle2);
+        scategoryDto.setCategoryDto(categoryDto2);
 
         String refArticle2 = "PM";
         String designationArticle2 = "Chemise-FemmeSlim";
@@ -217,7 +213,7 @@ public class ArticleRepositoryTest {
         articleDto.setReference(refArticle2);
         articleDto.setDesignation(designationArticle2);
         articleDto.setPrice(priceArticle2);
-        articleDto.setScategorieDto(scategorieDto2);
+        articleDto.setScategoryDto(scategoryDto2);
 
         ArticleDto articleDtoResult2 = ArticleDto.fromEntityToDto(
                 articleRepository.save(
@@ -234,13 +230,13 @@ public class ArticleRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        CategorieDto categorieDto = new CategorieDto(1,"Chemise", "String");
+        CategoryDto categoryDto = new CategoryDto(null, "Chemise", "String");
         String scategoryCode = "scat5";
         String scategoryLibelle = "String-Plage";
-        ScategorieDto scategorieDto = new ScategorieDto();
-        scategorieDto.setCode(scategoryCode);
-        scategorieDto.setLibelle(scategoryLibelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        ScategoryDto scategoryDto = new ScategoryDto();
+        scategoryDto.setCode(scategoryCode);
+        scategoryDto.setLibelle(scategoryLibelle);
+        scategoryDto.setCategoryDto(categoryDto);
 
         String refArticle2 = "Art5";
         String designationArticle2 = "String-PlageSlim";
@@ -249,7 +245,7 @@ public class ArticleRepositoryTest {
         articleDto2.setReference(refArticle2);
         articleDto2.setDesignation(designationArticle2);
         articleDto2.setPrice(priceArticle2);
-        articleDto2.setScategorieDto(scategorieDto);
+        articleDto2.setScategoryDto(scategoryDto);
 
         ArticleDto articleDtoResult2 = ArticleDto.fromEntityToDto(
                 articleRepository.save(
@@ -259,7 +255,7 @@ public class ArticleRepositoryTest {
 
         Long id = (long) 1;
 
-        Optional<Article>  article = articleRepository.findById(articleDtoResult2.getId());
+        Optional<Article> article = articleRepository.findById(articleDtoResult2.getId());
 
         boolean isExistBeforeDelete = articleRepository.findById(articleDtoResult2.getId()).isPresent();
 

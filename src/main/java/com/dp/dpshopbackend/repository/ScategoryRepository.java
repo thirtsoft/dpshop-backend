@@ -1,15 +1,13 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.models.Categorie;
+import com.dp.dpshopbackend.models.Scategory;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface CategorieRepository extends JpaRepository<Categorie, Long> {
+public interface ScategoryRepository extends JpaRepository<Scategory, Long> {
 
-    Optional<Categorie> findCategorieByDesignation(String designation);
-
-
+    Optional<Scategory> findScategorieByLibelle(String libelle);
 }
