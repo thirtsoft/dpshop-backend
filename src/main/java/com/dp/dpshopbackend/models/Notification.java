@@ -6,17 +6,18 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "notation")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Notification extends AbstractEntity {
+public class Notification implements Serializable {
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "reference", length = 60)
     private String reference;
@@ -28,11 +29,11 @@ public class Notification extends AbstractEntity {
     private String observation;
 
     @ManyToOne
-    @JoinColumn(name = "prodId", nullable = false)
-    private Produit produit;
+    @JoinColumn(name = "prodId")
+    private Article article;
 
     @ManyToOne
-    @JoinColumn(name = "userId", nullable = false)
+    @JoinColumn(name = "userId")
     private Utilisateur utilisateur;
 
 }

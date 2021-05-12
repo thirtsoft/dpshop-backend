@@ -14,11 +14,11 @@ import java.util.Set;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Utilisateur extends AbstractEntity {
+public class Utilisateur implements Serializable {
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "name", length = 100)
     private String name;

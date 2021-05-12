@@ -13,11 +13,11 @@ import java.io.Serializable;
 //@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Categorie extends AbstractEntity {
+public class Categorie implements Serializable {
 
-  /*  @Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "code", length = 50)
     private String code;

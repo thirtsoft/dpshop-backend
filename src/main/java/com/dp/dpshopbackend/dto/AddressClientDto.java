@@ -1,11 +1,15 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.AddressClient;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class AddressClientDto {
 
     private long id;
@@ -22,9 +26,9 @@ public class AddressClientDto {
 
     private String country;
 
-    private ClientDto client;
+    private ClientDto clientDto;
 
-    public AddressClientDto fromEntityToDto(AddressClient addressClient) {
+    public static AddressClientDto fromEntityToDto(AddressClient addressClient) {
         if (addressClient == null) {
             return null;
         }
@@ -37,16 +41,17 @@ public class AddressClientDto {
                 .city(addressClient.getCity())
                 .rue(addressClient.getRue())
                 .country(addressClient.getCountry())
-                //.client(addressClient.getClient())
+                .clientDto(ClientDto.fromEntityToDto(addressClient.getClient()))
                 .build();
     }
 
-    public AddressClient fromDtoToEntity(AddressClientDto addressClientDto) {
+    public static AddressClient fromDtoToEntity(AddressClientDto addressClientDto) {
         if (addressClientDto == null) {
             return null;
         }
 
         AddressClient addressClient = new AddressClient();
+        addressClient.setId(addressClientDto.getId());
         addressClient.setReference(addressClientDto.getReference());
         addressClient.setQuartier(addressClientDto.getQuartier());
         addressClient.setPhone(addressClientDto.getPhone());

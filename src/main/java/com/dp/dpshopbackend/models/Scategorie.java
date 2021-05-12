@@ -12,11 +12,11 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Scategorie extends AbstractEntity {
+public class Scategorie implements Serializable {
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "code", length = 50)
     private String code;
@@ -25,6 +25,6 @@ public class Scategorie extends AbstractEntity {
     private String libelle;
 
     @ManyToOne
-    @JoinColumn(name = "catId", nullable = false)
+    @JoinColumn(name = "catId")
     private Categorie categorie;
 }

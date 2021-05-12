@@ -1,11 +1,15 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Categorie;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class CategorieDto {
 
     private long id;
@@ -14,7 +18,7 @@ public class CategorieDto {
 
     private String designation;
 
-    public CategorieDto fromEntityToDto(Categorie categorie) {
+    public static CategorieDto fromEntityToDto(Categorie categorie) {
         if (categorie == null) {
             return null;
         }
@@ -26,7 +30,7 @@ public class CategorieDto {
                 .build();
     }
 
-    public Categorie fromDtoToEntity(CategorieDto categorieDto) {
+    public static Categorie fromDtoToEntity(CategorieDto categorieDto) {
         if (categorieDto == null) {
             return null;
         }

@@ -1,11 +1,15 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Client;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class ClientDto {
 
     private Long id;
@@ -20,11 +24,12 @@ public class ClientDto {
 
     private String phoneClient;
 
-    public ClientDto fromEntityToDto(Client client) {
+    public static ClientDto fromEntityToDto(Client client) {
         if (client == null) {
             return null;
         }
         return ClientDto.builder()
+                .id(client.getId())
                 .reference(client.getReference())
                 .firstName(client.getFirstName())
                 .lastName(client.getLastName())
@@ -33,12 +38,13 @@ public class ClientDto {
                 .build();
     }
 
-    public Client fromDtoToEntity(ClientDto clientDto) {
+    public static Client fromDtoToEntity(ClientDto clientDto) {
         if (clientDto == null) {
             return null;
         }
 
         Client client = new Client();
+        client.setId(clientDto.getId());
         client.setReference(clientDto.getReference());
         client.setFirstName(clientDto.getFirstName());
         client.setLastName(clientDto.getLastName());

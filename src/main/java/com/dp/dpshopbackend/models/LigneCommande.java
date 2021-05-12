@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.models;
 
-import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,11 +12,11 @@ import java.io.Serializable;
 @Table(name = "ligneCommande")
 @Data@AllArgsConstructor
 @NoArgsConstructor
-public class LigneCommande extends AbstractEntity {
+public class LigneCommande implements Serializable {
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "numero", length = 90)
     private long numero;
@@ -35,5 +34,5 @@ public class LigneCommande extends AbstractEntity {
 
     @ManyToOne
     @JoinColumn(name = "prodId")
-    private Produit produit;
+    private Article article;
 }

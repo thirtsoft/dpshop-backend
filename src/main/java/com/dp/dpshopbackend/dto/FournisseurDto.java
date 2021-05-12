@@ -1,12 +1,18 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Fournisseur;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class FournisseurDto {
+
+    private long id;
 
     private String reference;
 
@@ -24,14 +30,15 @@ public class FournisseurDto {
 
     private String country;
 
-    private ProduitDto produit;
+    private ArticleDto articleDto;
 
-    public FournisseurDto formEntityToDto(Fournisseur fournisseur) {
+    public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
         if (fournisseur == null) {
             return null;
         }
 
         return FournisseurDto.builder()
+                .id(fournisseur.getId())
                 .reference(fournisseur.getReference())
                 .firstName(fournisseur.getFirstName())
                 .lastName(fournisseur.getLastName())
@@ -40,15 +47,17 @@ public class FournisseurDto {
                 .email(fournisseur.getEmail())
                 .city(fournisseur.getCity())
                 .country(fournisseur.getCountry())
+                .articleDto(ArticleDto.fromEntityToDto(fournisseur.getArticle()))
                 .build();
     }
 
-    public Fournisseur fromDtoToEntity(FournisseurDto fournisseurDto) {
+    public static Fournisseur fromDtoToEntity(FournisseurDto fournisseurDto) {
         if (fournisseurDto == null) {
             return null;
         }
 
         Fournisseur fournisseur = new Fournisseur();
+        fournisseur.setId(fournisseurDto.getId());
         fournisseur.setReference(fournisseurDto.getReference());
         fournisseur.setFirstName(fournisseurDto.getFirstName());
         fournisseur.setLastName(fournisseurDto.getLastName());
