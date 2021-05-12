@@ -26,19 +26,15 @@ public class ScategoryRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateScategory() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "sac a mai");
+        Categorie categorieDto = new Categorie(1L, "sac", "sac a mai");
         String codeScategory = "scat1";
         String libelle = "SacVoyage";
-        ScategorieDto scategorieDto = new ScategorieDto();
+        Scategorie scategorieDto = new Scategorie();
         scategorieDto.setCode(codeScategory);
         scategorieDto.setLibelle(libelle);
-        scategorieDto.setCategorieDto(categorieDto);
+        scategorieDto.setCategorie(categorieDto);
 
-        ScategorieDto scategoryDtoResult = ScategorieDto.fromEntityToDto(
-                scategorieRepository.save(
-                        ScategorieDto.fromDtoToEntity(scategorieDto)
-                )
-        );
+        Scategorie scategoryDtoResult = scategorieRepository.save(scategorieDto);
 
         assertNotNull(scategoryDtoResult);
 
@@ -47,7 +43,7 @@ public class ScategoryRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateScategory() {
-        CategorieDto categorieDto = new CategorieDto(1,"sac", "PAPIER RAM");
+        CategorieDto categorieDto = new CategorieDto(1, "sac", "PAPIER RAM");
         String codeScategory = "scat1";
         String libelle = "SacVoyage";
         ScategorieDto scategorieDto = new ScategorieDto();
@@ -69,7 +65,7 @@ public class ScategoryRepositoryTest {
         scategoryUpdateDto.setCategorieDto(categorieDto);
 
 
-        scategoryUpdateDto.setId((long) 1);
+        scategoryUpdateDto.setId(1);
         ScategorieDto.fromEntityToDto(scategorieRepository.save(ScategorieDto.fromDtoToEntity(scategoryUpdateDto)));
 
         assertThat(scategoryUpdateDto.getLibelle()).isEqualTo(scategoryLibelle);
@@ -79,7 +75,7 @@ public class ScategoryRepositoryTest {
     @Test
     public void testFindById() {
 
-        CategorieDto categorieDto = new CategorieDto(1,"tshirt", "Tshirt-Man");
+        CategorieDto categorieDto = new CategorieDto(1, "tshirt", "Tshirt-Man");
         String scategoryCode = "tis";
         String scategoryLibelle = "Tshirt-Mans";
         ScategorieDto scategoryDto = new ScategorieDto();
@@ -101,7 +97,7 @@ public class ScategoryRepositoryTest {
 
     @Test
     public void testFindByLibelle() {
-        CategorieDto categorieDto = new CategorieDto(1,"Ordi", "Ordinateurs");
+        CategorieDto categorieDto = new CategorieDto(1, "Ordi", "Ordinateurs");
         String scategoryCode = "scat2";
         String scategoryLibelle = "HP-ProBook";
         ScategorieDto scategorieDto = new ScategorieDto();
@@ -120,7 +116,7 @@ public class ScategoryRepositoryTest {
 
     @Test
     public void testFindAll() {
-        CategorieDto categorieDto = new CategorieDto(1,"Robe", "RobeElite");
+        CategorieDto categorieDto = new CategorieDto(1, "Robe", "RobeElite");
         String scategoryCode = "scat3";
         String scategoryLibelle = "RobeElite3";
         ScategorieDto scategorieDto = new ScategorieDto();
@@ -133,7 +129,7 @@ public class ScategoryRepositoryTest {
                         ScategorieDto.fromDtoToEntity(scategorieDto)
                 )
         );
-        CategorieDto categorieDto1 = new CategorieDto(1,"Panthalon", "Panthalon homme");
+        CategorieDto categorieDto1 = new CategorieDto(1, "Panthalon", "Panthalon homme");
         String scategoryCode1 = "scat4";
         String scategoryLibelle1 = "PanthallonHomme1";
         ScategorieDto scategorieDto1 = new ScategorieDto();
@@ -146,7 +142,7 @@ public class ScategoryRepositoryTest {
                 )
         );
 
-        CategorieDto categorieDto2 = new CategorieDto(1,"Chemise", "Chemise Femme");
+        CategorieDto categorieDto2 = new CategorieDto(1, "Chemise", "Chemise Femme");
         String scategoryCode2 = "scat5";
         String scategoryLibelle2 = "Chemise-Femme";
         ScategorieDto scategorieDto2 = new ScategorieDto();
@@ -169,7 +165,7 @@ public class ScategoryRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        CategorieDto categorieDto = new CategorieDto(1,"Chemise", "String");
+        CategorieDto categorieDto = new CategorieDto(1, "Chemise", "String");
         String scategoryCode = "scat5";
         String scategoryLibelle = "String-Plage";
         ScategorieDto scategorieDto = new ScategorieDto();
