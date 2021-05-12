@@ -5,7 +5,8 @@ import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.models.Scategory;
 import com.dp.dpshopbackend.repository.ScategoryRepository;
 import com.dp.dpshopbackend.services.impl.ScategoryServiceImpl;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -15,11 +16,10 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-//@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ScategoryServiceTest {
 
     @InjectMocks
@@ -30,7 +30,7 @@ public class ScategoryServiceTest {
 
     @Test
     public void CreateScategoryTest() {
-        CategoryDto categoryDto = new CategoryDto(1L, "cat","cat");
+        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
         ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
@@ -52,7 +52,7 @@ public class ScategoryServiceTest {
 
     @Test
     public void findAllTest() {
-        CategoryDto categoryDto = new CategoryDto(1L, "cat","cat");
+        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
         ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("Mobile")
@@ -73,14 +73,14 @@ public class ScategoryServiceTest {
 
     @Test
     public void findByIdTest() {
-        CategoryDto categoryDto = new CategoryDto(1L, "cat","cat");
+        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
         ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
                 .libelle("Libelle")
                 .categoryDto(categoryDto)
                 .build();
-        Optional<Scategory>  scategorie = Optional.ofNullable(ScategoryDto.fromDtoToEntity(scategoryDto));
+        Optional<Scategory> scategorie = Optional.ofNullable(ScategoryDto.fromDtoToEntity(scategoryDto));
         when(scategoryRepository.findById(scategorie.get().getId())).thenReturn(scategorie);
 
         ScategoryDto scategoryDtoSavedResult = scategorieService.findById(scategoryDto.getId());

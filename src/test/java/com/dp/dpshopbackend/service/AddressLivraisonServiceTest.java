@@ -6,7 +6,8 @@ import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.AddressLivraison;
 import com.dp.dpshopbackend.repository.AddressLivraisonRepository;
 import com.dp.dpshopbackend.services.impl.AddressLivraisonServiceImpl;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -19,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-//@RunWith(MockitoJUnitRunner.class)
+@RunWith(MockitoJUnitRunner.class)
 public class AddressLivraisonServiceTest {
 
     @InjectMocks
