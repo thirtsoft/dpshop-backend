@@ -17,7 +17,7 @@ public interface ScategoryApi {
     @GetMapping(value = APP_ROOT + "/scategories/{idScategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<ScategoryDto> findById(@PathVariable("idScategory") Long id);
 
-    @GetMapping(value = APP_ROOT + "/scategories/{libelle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/scategories/searchbyLibelle/{libelle}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<ScategoryDto> findByLibelle(@PathVariable("libelle") String libelle);
 
     @GetMapping(value = APP_ROOT + "/scategories/all", produces = MediaType.APPLICATION_JSON_VALUE)

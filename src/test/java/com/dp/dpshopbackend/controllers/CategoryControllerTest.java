@@ -29,12 +29,9 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
-//@RunWith(SpringRunner.class)
-//@ExtendWith(SpringExtension.class)
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
-//@WebMvcTest(controllers = CategoryController.class)
 public class CategoryControllerTest {
 
     String uri = APP_ROOT + "/categories/all";
@@ -93,6 +90,17 @@ public class CategoryControllerTest {
         Long catID = (long) 1;
         when(categoryService.findById(categoryDto.getId())).thenReturn(categoryDto);
         mockMvc.perform(get("/shop-mania/v1//categories/" + catID).
+                contentType(MediaType.APPLICATION_JSON).
+                content(asJsonString(categoryDto))).
+                andExpect(MockMvcResultMatchers.status().isOk()).
+                andDo(MockMvcResultHandlers.print());
+    }
+
+    @Test
+    public void GetMappingOfCategoryByDesignationShouldReturnRespectiveCategory() throws Exception {
+        String designation = "HP ProBooks";
+        when(categoryService.findById(categoryDto.getId())).thenReturn(categoryDto);
+        mockMvc.perform(get("/shop-mania/v1//categories/searchbyDesignation/" + designation).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(categoryDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).

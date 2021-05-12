@@ -17,7 +17,7 @@ public interface CategoryApi {
     @GetMapping(value = APP_ROOT + "/categories/{idCategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<CategoryDto> findById(@PathVariable("idCategory") Long id);
 
-    @GetMapping(value = APP_ROOT + "/categoriesbyDesignation/{designation}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/categories/searchbyDesignation/{designation}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<CategoryDto> findByDesignation(@PathVariable("designation") String designation);
 
     @GetMapping(value = APP_ROOT + "/categories/all", produces = MediaType.APPLICATION_JSON_VALUE)
