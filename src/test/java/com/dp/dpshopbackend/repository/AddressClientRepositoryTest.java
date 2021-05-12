@@ -1,7 +1,7 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.dto.AddressClientDto;
-import com.dp.dpshopbackend.dto.ClientDto;
+import com.dp.dpshopbackend.models.AddressClient;
+import com.dp.dpshopbackend.models.Client;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -20,88 +20,57 @@ public class AddressClientRepositoryTest {
     @Autowired
     private AddresseClientRepository addresseClientRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @Test
     @Rollback(false)
     public void testCreateAddressClient() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long clientId = (long) 1;
+        Client client = clientRepository.findById(clientId).orElse(null);
 
-        String reference = "DK";
-        String city = "Dakar";
-        AddressClientDto addressClientDto = new AddressClientDto();
-        addressClientDto.setReference(reference);
-        addressClientDto.setCity(city);
-        addressClientDto.setClientDto(clientDto);
+        AddressClient addressClient = new AddressClient(1L, "add", "add", "add", "add", "add", "add", client);
 
-        AddressClientDto addressClientDtoDtoResult = AddressClientDto.fromEntityToDto(
-                addresseClientRepository.save(
-                        AddressClientDto.fromDtoToEntity(addressClientDto)
-                )
-        );
+        AddressClient addressClientResult = addresseClientRepository.save(addressClient);
 
-        assertNotNull(addressClientDtoDtoResult);
+        assertNotNull(addressClientResult);
 
     }
 
     @Test
     @Rollback(false)
     public void TestUpdateAddressClient() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long clientId = (long) 1;
+        Client client = clientRepository.findById(clientId).orElse(null);
 
-        String reference = "DK";
-        String city = "Dakar";
-        AddressClientDto addressClientDto = new AddressClientDto();
-        addressClientDto.setReference(reference);
-        addressClientDto.setCity(city);
-        addressClientDto.setClientDto(clientDto);
+        AddressClient addressClient = new AddressClient(1L, "add", "add", "add", "add", "add", "add", client);
+        addresseClientRepository.save(addressClient);
 
-        AddressClientDto addressClientDtoDtoResult = AddressClientDto.fromEntityToDto(
-                addresseClientRepository.save(
-                        AddressClientDto.fromDtoToEntity(addressClientDto)
-                )
-        );
+        String refAddress = "Address1";
+        String quartier = "Mariste";
+        addressClient.setId(2L);
+        addressClient.setReference(refAddress);
+        addressClient.setQuartier(quartier);
 
-        String cityAddress = "Dakar-Plateaux";
-        AddressClientDto addressClientUpdateDto = new AddressClientDto();
-        addressClientUpdateDto.setCity(cityAddress);
-        addressClientUpdateDto.setClientDto(clientDto);
+        AddressClient addressClientUpdate = addresseClientRepository.save(addressClient);
 
-        addressClientUpdateDto.setId(1);
-        AddressClientDto.fromEntityToDto(addresseClientRepository.save(AddressClientDto.fromDtoToEntity(addressClientUpdateDto)));
-
-        assertThat(addressClientUpdateDto.getCity()).isEqualTo(cityAddress);
+        assertThat(addressClientUpdate.getReference()).isEqualTo(refAddress);
+        assertThat(addressClientUpdate.getQuartier()).isEqualTo(quartier);
+        assertThat(addressClientUpdate.getCity()).isEqualTo(addressClient.getCity());
+        assertThat(addressClientUpdate.getRue()).isEqualTo(addressClient.getRue());
 
     }
 
     @Test
     public void testFindById() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long clientId = (long) 1;
+        Client client = clientRepository.findById(clientId).orElse(null);
 
-        String reference = "DK";
-        String city = "Dakar";
-        AddressClientDto addressClientDto = new AddressClientDto();
-        addressClientDto.setReference(reference);
-        addressClientDto.setCity(city);
-        addressClientDto.setClientDto(clientDto);
+        AddressClient addressClient = new AddressClient(1L, "add", "add", "add", "add", "add", "add", client);
 
-        AddressClientDto addressClientDtoDtoResult = AddressClientDto.fromEntityToDto(
-                addresseClientRepository.save(
-                        AddressClientDto.fromDtoToEntity(addressClientDto)
-                )
-        );
+        AddressClient addressClientResult = addresseClientRepository.save(addressClient);
 
-        boolean isExistAddressClient = addresseClientRepository.findById(addressClientDtoDtoResult.getId()).isPresent();
+        boolean isExistAddressClient = addresseClientRepository.findById(addressClientResult.getId()).isPresent();
 
         assertTrue(isExistAddressClient);
 
@@ -109,89 +78,34 @@ public class AddressClientRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long clientId = (long) 1;
+        Client client = clientRepository.findById(clientId).orElse(null);
 
-        String reference = "DK";
-        String city = "Dakar";
-        AddressClientDto addressClientDto = new AddressClientDto();
-        addressClientDto.setReference(reference);
-        addressClientDto.setCity(city);
-        addressClientDto.setClientDto(clientDto);
+        AddressClient addressClient = new AddressClient(1L, "add", "add", "add", "add", "add", "add", client);
+        addresseClientRepository.save(addressClient);
 
-        AddressClientDto addressClientDtoDtoResult = AddressClientDto.fromEntityToDto(
-                addresseClientRepository.save(
-                        AddressClientDto.fromDtoToEntity(addressClientDto)
-                )
-        );
+        AddressClient addressClient1 = new AddressClient(2L, "add", "add", "add", "add", "add", "add", client);
+        addresseClientRepository.save(addressClient1);
 
-        String firstName1 = "tairou";
-        String lastName1 = "Diallo";
-        ClientDto clientDto1 = new ClientDto();
-        clientDto.setFirstName(firstName1);
-        clientDto.setLastName(lastName1);
+        AddressClient addressClient2 = new AddressClient(3L, "add", "add", "add", "add", "add", "add", client);
+        addresseClientRepository.save(addressClient2);
 
-        String reference1 = "DK";
-        String city1 = "Dakar";
-        AddressClientDto addressClientDto1 = new AddressClientDto();
-        addressClientDto.setReference(reference1);
-        addressClientDto.setCity(city1);
-        addressClientDto.setClientDto(clientDto1);
 
-        AddressClientDto addressClientDtoDtoResult1 = AddressClientDto.fromEntityToDto(
-                addresseClientRepository.save(
-                        AddressClientDto.fromDtoToEntity(addressClientDto)
-                )
-        );
+        List<AddressClient> addressClientList = addresseClientRepository.findAll();
 
-        String firstName2 = "tairou";
-        String lastName2 = "Diallo";
-        ClientDto clientDto2 = new ClientDto();
-        clientDto.setFirstName(firstName2);
-        clientDto.setLastName(lastName2);
-
-        String reference2 = "DK";
-        String city2 = "Dakar";
-        AddressClientDto addressClientDto2 = new AddressClientDto();
-        addressClientDto.setReference(reference2);
-        addressClientDto.setCity(city2);
-        addressClientDto.setClientDto(clientDto2);
-
-        AddressClientDto addressClientDtoDtoResult2 = AddressClientDto.fromEntityToDto(
-                addresseClientRepository.save(
-                        AddressClientDto.fromDtoToEntity(addressClientDto)
-                )
-        );
-        List<?> addressesClients = addresseClientRepository.findAll();
-
-        assertThat(addressesClients).size().isGreaterThan(2);
+        assertThat(addressClientList).size().isGreaterThan(2);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String firstName2 = "tairou";
-        String lastName2 = "Diallo";
-        ClientDto clientDto2 = new ClientDto();
-        clientDto2.setFirstName(firstName2);
-        clientDto2.setLastName(lastName2);
+        Long clientId = (long) 1;
+        Client client = clientRepository.findById(clientId).orElse(null);
 
-        String reference2 = "DK";
-        String city2 = "Dakar";
-        AddressClientDto addressClientDto2 = new AddressClientDto();
-        addressClientDto2.setReference(reference2);
-        addressClientDto2.setCity(city2);
-        addressClientDto2.setClientDto(clientDto2);
+        AddressClient addressClient = new AddressClient(1L, "add", "add", "add", "add", "add", "add", client);
 
-        AddressClientDto addressClientDtoDtoResult2 = AddressClientDto.fromEntityToDto(
-                addresseClientRepository.save(
-                        AddressClientDto.fromDtoToEntity(addressClientDto2)
-                )
-        );
+        AddressClient addressClientDtoDtoResult2 = addresseClientRepository.save(addressClient);
 
         boolean isExistBeforeDelete = addresseClientRepository.findById(addressClientDtoDtoResult2.getId()).isPresent();
 
