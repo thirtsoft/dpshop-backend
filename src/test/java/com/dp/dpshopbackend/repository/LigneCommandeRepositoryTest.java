@@ -1,8 +1,8 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.CommandeDto;
-import com.dp.dpshopbackend.dto.LigneCommandeDto;
+import com.dp.dpshopbackend.models.Article;
+import com.dp.dpshopbackend.models.Commande;
+import com.dp.dpshopbackend.models.LigneCommande;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,119 +21,68 @@ public class LigneCommandeRepositoryTest {
     @Autowired
     private LigneCommandeRepository ligneCommandeRepository;
 
+    @Autowired
+    private CommandeRepository commandeRepository;
+
+    @Autowired
+    private ArticleRepository articleRepository;
+
     @Test
     @Rollback(false)
     public void testCreateLigneCommande() {
-        String reference = "Art1";
-        String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designationArticle);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String referenceCommmande = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(referenceCommmande);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        long numero = 120;
-        int quantity = 5;
-        double price = 12500;
-        LigneCommandeDto ligneCommandeDto = new LigneCommandeDto();
-        ligneCommandeDto.setNumero(numero);
-        ligneCommandeDto.setQuantity(quantity);
-        ligneCommandeDto.setPrice(price);
-        ligneCommandeDto.setArticleDto(articleDto);
-        ligneCommandeDto.setCommandeDto(commandeDto);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
 
-        LigneCommandeDto ligneCommandeDtoResult = LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
-                )
-        );
+        LigneCommande ligneCommandeResult = ligneCommandeRepository.save(ligneCommande);
 
-        assertNotNull(ligneCommandeDtoResult);
+        assertNotNull(ligneCommandeResult);
 
     }
 
     @Test
     @Rollback(false)
     public void TestUpdateLigneCommande() {
-        String reference = "Art1";
-        String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designationArticle);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String referenceCommmande = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(referenceCommmande);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
+
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
+        ligneCommandeRepository.save(ligneCommande);
 
         long numero = 120;
-        int quantity = 5;
         double price = 12500;
-        LigneCommandeDto ligneCommandeDto = new LigneCommandeDto();
-        ligneCommandeDto.setNumero(numero);
-        ligneCommandeDto.setQuantity(quantity);
-        ligneCommandeDto.setPrice(price);
-        ligneCommandeDto.setArticleDto(articleDto);
-        ligneCommandeDto.setCommandeDto(commandeDto);
+        ligneCommande.setId(2L);
+        ligneCommande.setNumero(numero);
+        ligneCommande.setPrice(price);
 
-        LigneCommandeDto ligneCommandeDtoResult = LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
-                )
-        );
+        LigneCommande ligneCommandeUpdate = ligneCommandeRepository.save(ligneCommande);
 
-        long numeroLigneCommande = 122;
-        LigneCommandeDto ligneCommandeUpdateDto = new LigneCommandeDto();
-        ligneCommandeUpdateDto.setNumero(numeroLigneCommande);
-        ligneCommandeUpdateDto.setId(1);
-        LigneCommandeDto.fromEntityToDto(ligneCommandeRepository.save(LigneCommandeDto.fromDtoToEntity(ligneCommandeUpdateDto)));
-
-        assertThat(ligneCommandeUpdateDto.getNumero()).isEqualTo(numeroLigneCommande);
+        assertThat(ligneCommandeUpdate.getNumero()).isEqualTo(numero);
+        assertThat(ligneCommandeUpdate.getPrice()).isEqualTo(price);
+        assertThat(ligneCommandeUpdate.getQuantity()).isEqualTo(ligneCommande.getQuantity());
 
     }
 
     @Test
     public void testFindById() {
-        String reference = "Art1";
-        String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designationArticle);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String referenceCommmande = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(referenceCommmande);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        long numero = 120;
-        int quantity = 5;
-        double price = 12500;
-        LigneCommandeDto ligneCommandeDto = new LigneCommandeDto();
-        ligneCommandeDto.setNumero(numero);
-        ligneCommandeDto.setQuantity(quantity);
-        ligneCommandeDto.setPrice(price);
-        ligneCommandeDto.setArticleDto(articleDto);
-        ligneCommandeDto.setCommandeDto(commandeDto);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
 
-        LigneCommandeDto ligneCommandeDtoResult = LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
-                )
-        );
+        LigneCommande ligneCommandeResult = ligneCommandeRepository.save(ligneCommande);
 
-        boolean isExistLigneCommande = ligneCommandeRepository.findById(ligneCommandeDtoResult.getId()).isPresent();
+        boolean isExistLigneCommande = ligneCommandeRepository.findById(ligneCommandeResult.getId()).isPresent();
 
         assertTrue(isExistLigneCommande);
 
@@ -141,47 +90,19 @@ public class LigneCommandeRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String reference = "Art1";
-        String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designationArticle);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String referenceCommmande = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(referenceCommmande);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        long numero = 120;
-        int quantity = 5;
-        double price = 12500;
-        LigneCommandeDto ligneCommandeDto = new LigneCommandeDto();
-        ligneCommandeDto.setNumero(numero);
-        ligneCommandeDto.setQuantity(quantity);
-        ligneCommandeDto.setPrice(price);
-        ligneCommandeDto.setArticleDto(articleDto);
-        ligneCommandeDto.setCommandeDto(commandeDto);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
+        ligneCommandeRepository.save(ligneCommande);
 
-        LigneCommandeDto ligneCommandeDtoResult = LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
-                )
-        );
+        LigneCommande ligneCommande1 = new LigneCommande(2L, 134, 10, 4000.50, commande, article);
+        ligneCommandeRepository.save(ligneCommande1);
 
-        long numeroLigneCommande = 122;
-        LigneCommandeDto ligneCommandeDto1 = new LigneCommandeDto();
-        ligneCommandeDto1.setNumero(numeroLigneCommande);
-
-        LigneCommandeDto ligneCommandeDtoResult1 = LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto1)
-                )
-        );
-
-        List<?> ligneCommandes = ligneCommandeRepository.findAll();
+        List<LigneCommande> ligneCommandes = ligneCommandeRepository.findAll();
 
         assertThat(ligneCommandes).size().isGreaterThan(0);
 
@@ -190,41 +111,21 @@ public class LigneCommandeRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        String reference = "Art1";
-        String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference);
-        articleDto.setDesignation(designationArticle);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String referenceCommmande = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(referenceCommmande);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        long numero = 120;
-        int quantity = 5;
-        double price = 12500;
-        LigneCommandeDto ligneCommandeDto = new LigneCommandeDto();
-        ligneCommandeDto.setNumero(numero);
-        ligneCommandeDto.setQuantity(quantity);
-        ligneCommandeDto.setPrice(price);
-        ligneCommandeDto.setArticleDto(articleDto);
-        ligneCommandeDto.setCommandeDto(commandeDto);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
 
-        LigneCommandeDto ligneCommandeDtoResult = LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
-                )
-        );
+        LigneCommande ligneCommandeResult = ligneCommandeRepository.save(ligneCommande);
 
-        boolean isExistBeforeDelete = ligneCommandeRepository.findById(ligneCommandeDtoResult.getId()).isPresent();
+        boolean isExistBeforeDelete = ligneCommandeRepository.findById(ligneCommandeResult.getId()).isPresent();
 
-        ligneCommandeRepository.deleteById(ligneCommandeDtoResult.getId());
+        ligneCommandeRepository.deleteById(ligneCommandeResult.getId());
 
-        boolean notExistAfterDelete = ligneCommandeRepository.findById(ligneCommandeDtoResult.getId()).isPresent();
+        boolean notExistAfterDelete = ligneCommandeRepository.findById(ligneCommandeResult.getId()).isPresent();
 
         assertTrue(isExistBeforeDelete);
 
