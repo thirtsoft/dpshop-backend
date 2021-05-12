@@ -1,11 +1,12 @@
 package com.dp.dpshopbackend.controllers;
 
-import com.dp.dpshopbackend.controller.ArticleController;
+import com.dp.dpshopbackend.controller.NotificationController;
 import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.CategoryDto;
-import com.dp.dpshopbackend.dto.ScategoryDto;
+import com.dp.dpshopbackend.dto.NotificationDto;
+import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.services.ArticleService;
-import com.dp.dpshopbackend.services.ScategoryService;
+import com.dp.dpshopbackend.services.NotificationService;
+import com.dp.dpshopbackend.services.UtilisateurService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
@@ -43,19 +44,22 @@ public class NotificationControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private ScategoryService scategoryService;
-
-    @Mock
     private ArticleService articleService;
 
+    @Mock
+    private UtilisateurService utilisateurService;
+
+    @Mock
+    private NotificationService notificationService;
+
     @InjectMocks
-    private ArticleController articleController;
+    private NotificationController notificationController;
 
-    private CategoryDto categoryDto;
-    private ScategoryDto scategoryDto;
+    private UtilisateurDto utilisateurDto;
     private ArticleDto articleDto;
+    private NotificationDto notificationDto;
 
-    private List<ArticleDto> articleDtoList;
+    private List<NotificationDto> notificationDtoList;
 
     public static String asJsonString(final Object obj) {
         try {
@@ -67,59 +71,53 @@ public class NotificationControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
-        articleDto = new ArticleDto(1L, "prod1", "prod1", 150, 1700.0, 1800.0, true, true, "prod1", "photo", scategoryDto);
+        articleDto = new ArticleDto();
+        articleDto.setReference("art1");
+        articleDto.setDesignation("art1");
+        utilisateurDto = new UtilisateurDto();
+        utilisateurDto.setName("tairou");
+        utilisateurDto.setUsername("thir");
+        notificationDto = new NotificationDto(1L, "note1", "note1", "note1", articleDto, utilisateurDto);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(notificationController).build();
     }
 
     @After
     public void tearDown() {
-        articleDto = null;
+        notificationDto = null;
     }
 
     @Test
-    public void PostMappingOfArticle() throws Exception {
-        when(articleService.save(any())).thenReturn(articleDto);
-        mockMvc.perform(post("/shop-mania/v1/articles/create")
+    public void PostMappingOfNotification() throws Exception {
+        when(notificationService.save(any())).thenReturn(notificationDto);
+        mockMvc.perform(post("/shop-mania/v1/notifications/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(articleDto)))
+                .content(asJsonString(notificationDto)))
                 .andExpect(status().isOk());
-        verify(articleService, times(1)).save(any());
+        verify(notificationService, times(1)).save(any());
     }
 
     @Test
-    public void GetMappingOfAllArticles() throws Exception {
-        when(articleService.findAll()).thenReturn(articleDtoList);
-        mockMvc.perform(get("/shop-mania/v1/articles/all").
+    public void GetMappingOfAllNotifications() throws Exception {
+        when(notificationService.findAll()).thenReturn(notificationDtoList);
+        mockMvc.perform(get("/shop-mania/v1/notifications/all").
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(notificationDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(articleService).findAll();
-        verify(articleService, times(1)).findAll();
+        verify(notificationService).findAll();
+        verify(notificationService, times(1)).findAll();
     }
 
     @Test
-    public void GetMappingOfArticleShouldReturnRespectiveArticle() throws Exception {
+    public void GetMappingOfNotificationShouldReturnRespectiveNotification() throws Exception {
         Long artID = (long) 1;
-        when(articleService.findById(articleDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/" + artID).
+        when(notificationService.findById(notificationDto.getId())).thenReturn(notificationDto);
+        mockMvc.perform(get("/shop-mania/v1/notifications/" + artID).
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(notificationDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
                 andDo(MockMvcResultHandlers.print());
     }
 
-    @Test
-    public void GetMappingOfArticleByReferenceShouldReturnRespectiveArticle() throws Exception {
-        String reference = "prod1";
-        when(articleService.findById(scategoryDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/searchbyReference/" + reference).
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
-                andExpect(MockMvcResultMatchers.status().isOk()).
-                andDo(MockMvcResultHandlers.print());
-    }
 
 }

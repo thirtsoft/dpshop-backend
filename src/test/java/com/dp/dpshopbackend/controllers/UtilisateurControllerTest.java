@@ -1,11 +1,8 @@
 package com.dp.dpshopbackend.controllers;
 
-import com.dp.dpshopbackend.controller.ArticleController;
-import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.CategoryDto;
-import com.dp.dpshopbackend.dto.ScategoryDto;
-import com.dp.dpshopbackend.services.ArticleService;
-import com.dp.dpshopbackend.services.ScategoryService;
+import com.dp.dpshopbackend.controller.UtilisateurController;
+import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.services.UtilisateurService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
@@ -37,25 +34,19 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UtilisateurControllerTest {
 
-    String uri = APP_ROOT + "/categories/all";
+    String uri = APP_ROOT + "/utilisateurs/all";
 
     @Autowired
     private MockMvc mockMvc;
 
     @Mock
-    private ScategoryService scategoryService;
-
-    @Mock
-    private ArticleService articleService;
+    private UtilisateurService utilisateurService;
 
     @InjectMocks
-    private ArticleController articleController;
+    private UtilisateurController utilisateurController;
 
-    private CategoryDto categoryDto;
-    private ScategoryDto scategoryDto;
-    private ArticleDto articleDto;
-
-    private List<ArticleDto> articleDtoList;
+    private UtilisateurDto utilisateurDto;
+    private List<UtilisateurDto> utilisateurDtoList;
 
     public static String asJsonString(final Object obj) {
         try {
@@ -67,59 +58,51 @@ public class UtilisateurControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
-        articleDto = new ArticleDto(1L, "prod1", "prod1", 150, 1700.0, 1800.0, true, true, "prod1", "photo", scategoryDto);
+        utilisateurDto = new UtilisateurDto();
+        utilisateurDto.setId(1L);
+        utilisateurDto.setName("user1");
+        utilisateurDto.setUsername("thir");
+        utilisateurDto.setEmail("thirdiallo@gmail.com");
 
-        mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(utilisateurController).build();
     }
 
     @After
     public void tearDown() {
-        articleDto = null;
+        utilisateurDto = null;
     }
 
     @Test
-    public void PostMappingOfArticle() throws Exception {
-        when(articleService.save(any())).thenReturn(articleDto);
-        mockMvc.perform(post("/shop-mania/v1/articles/create")
+    public void PostMappingOfUtilisateur() throws Exception {
+        when(utilisateurService.save(any())).thenReturn(utilisateurDto);
+        mockMvc.perform(post("/shop-mania/v1/utilisateurs/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(articleDto)))
+                .content(asJsonString(utilisateurDto)))
                 .andExpect(status().isOk());
-        verify(articleService, times(1)).save(any());
+        verify(utilisateurService, times(1)).save(any());
     }
 
     @Test
-    public void GetMappingOfAllArticles() throws Exception {
-        when(articleService.findAll()).thenReturn(articleDtoList);
-        mockMvc.perform(get("/shop-mania/v1/articles/all").
+    public void GetMappingOfAllUtilisateurs() throws Exception {
+        when(utilisateurService.findAll()).thenReturn(utilisateurDtoList);
+        mockMvc.perform(get("/shop-mania/v1/utilisateurs/all").
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(utilisateurDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(articleService).findAll();
-        verify(articleService, times(1)).findAll();
+        verify(utilisateurService).findAll();
+        verify(utilisateurService, times(1)).findAll();
     }
 
     @Test
-    public void GetMappingOfArticleShouldReturnRespectiveArticle() throws Exception {
-        Long artID = (long) 1;
-        when(articleService.findById(articleDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/" + artID).
+    public void GetMappingOfUtilisateurShouldReturnRespectiveUtilisateur() throws Exception {
+        Long userID = (long) 1;
+        when(utilisateurService.findById(utilisateurDto.getId())).thenReturn(utilisateurDto);
+        mockMvc.perform(get("/shop-mania/v1/utilisateurs/" + userID).
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(utilisateurDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
                 andDo(MockMvcResultHandlers.print());
     }
 
-    @Test
-    public void GetMappingOfArticleByReferenceShouldReturnRespectiveArticle() throws Exception {
-        String reference = "prod1";
-        when(articleService.findById(scategoryDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/searchbyReference/" + reference).
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
-                andExpect(MockMvcResultMatchers.status().isOk()).
-                andDo(MockMvcResultHandlers.print());
-    }
 
 }
