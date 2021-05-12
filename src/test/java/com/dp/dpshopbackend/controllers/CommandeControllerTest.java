@@ -1,11 +1,10 @@
 package com.dp.dpshopbackend.controllers;
 
-import com.dp.dpshopbackend.controller.ArticleController;
-import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.CategoryDto;
-import com.dp.dpshopbackend.dto.ScategoryDto;
-import com.dp.dpshopbackend.services.ArticleService;
-import com.dp.dpshopbackend.services.ScategoryService;
+import com.dp.dpshopbackend.controller.CommandeController;
+import com.dp.dpshopbackend.dto.ClientDto;
+import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.services.ClientService;
+import com.dp.dpshopbackend.services.CommandeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
@@ -37,25 +36,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class CommandeControllerTest {
 
-    String uri = APP_ROOT + "/categories/all";
+    String uri = APP_ROOT + "/commandes/all";
 
     @Autowired
     private MockMvc mockMvc;
 
     @Mock
-    private ScategoryService scategoryService;
+    private ClientService clientService;
 
     @Mock
-    private ArticleService articleService;
+    private CommandeService commandeService;
 
     @InjectMocks
-    private ArticleController articleController;
+    private CommandeController commandeController;
 
-    private CategoryDto categoryDto;
-    private ScategoryDto scategoryDto;
-    private ArticleDto articleDto;
-
-    private List<ArticleDto> articleDtoList;
+    private ClientDto clientDto;
+    private CommandeDto commandeDto;
+    private List<CommandeDto> commandeDtoList;
 
     public static String asJsonString(final Object obj) {
         try {
@@ -67,59 +64,54 @@ public class CommandeControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
-        articleDto = new ArticleDto(1L, "prod1", "prod1", 150, 1700.0, 1800.0, true, true, "prod1", "photo", scategoryDto);
+        clientDto = new ClientDto();
+        clientDto.setReference("cl1");
+        clientDto.setLastName("diallo");
+        commandeDto = new CommandeDto();
+        commandeDto.setId(1L);
+        commandeDto.setReference("reCom");
+        commandeDto.setNumeroCommande("numCom");
+        commandeDto.setClientDto(clientDto);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(commandeController).build();
     }
 
     @After
     public void tearDown() {
-        articleDto = null;
+        commandeDto = null;
     }
 
     @Test
-    public void PostMappingOfArticle() throws Exception {
-        when(articleService.save(any())).thenReturn(articleDto);
-        mockMvc.perform(post("/shop-mania/v1/articles/create")
+    public void PostMappingOfCommande() throws Exception {
+        when(commandeService.save(any())).thenReturn(commandeDto);
+        mockMvc.perform(post("/shop-mania/v1/commandes/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(articleDto)))
+                .content(asJsonString(commandeDto)))
                 .andExpect(status().isOk());
-        verify(articleService, times(1)).save(any());
+        verify(commandeService, times(1)).save(any());
     }
 
     @Test
-    public void GetMappingOfAllArticles() throws Exception {
-        when(articleService.findAll()).thenReturn(articleDtoList);
-        mockMvc.perform(get("/shop-mania/v1/articles/all").
+    public void GetMappingOfAllCommandes() throws Exception {
+        when(commandeService.findAll()).thenReturn(commandeDtoList);
+        mockMvc.perform(get("/shop-mania/v1/commandes/all").
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(commandeDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(articleService).findAll();
-        verify(articleService, times(1)).findAll();
+        verify(commandeService).findAll();
+        verify(commandeService, times(1)).findAll();
     }
 
     @Test
-    public void GetMappingOfArticleShouldReturnRespectiveArticle() throws Exception {
+    public void GetMappingOfCommandeShouldReturnRespectiveCommande() throws Exception {
         Long artID = (long) 1;
-        when(articleService.findById(articleDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/" + artID).
+        when(commandeService.findById(commandeDto.getId())).thenReturn(commandeDto);
+        mockMvc.perform(get("/shop-mania/v1/commandes/" + artID).
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(commandeDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
                 andDo(MockMvcResultHandlers.print());
     }
 
-    @Test
-    public void GetMappingOfArticleByReferenceShouldReturnRespectiveArticle() throws Exception {
-        String reference = "prod1";
-        when(articleService.findById(scategoryDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/searchbyReference/" + reference).
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
-                andExpect(MockMvcResultMatchers.status().isOk()).
-                andDo(MockMvcResultHandlers.print());
-    }
 
 }

@@ -1,11 +1,10 @@
 package com.dp.dpshopbackend.controllers;
 
-import com.dp.dpshopbackend.controller.ArticleController;
-import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.CategoryDto;
-import com.dp.dpshopbackend.dto.ScategoryDto;
-import com.dp.dpshopbackend.services.ArticleService;
-import com.dp.dpshopbackend.services.ScategoryService;
+import com.dp.dpshopbackend.controller.AddresseClientController;
+import com.dp.dpshopbackend.dto.AddressClientDto;
+import com.dp.dpshopbackend.dto.ClientDto;
+import com.dp.dpshopbackend.services.AddresseClientService;
+import com.dp.dpshopbackend.services.ClientService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.After;
 import org.junit.Before;
@@ -43,19 +42,18 @@ public class AddressClientControllerTest {
     private MockMvc mockMvc;
 
     @Mock
-    private ScategoryService scategoryService;
+    private ClientService clientService;
 
     @Mock
-    private ArticleService articleService;
+    private AddresseClientService addresseClientService;
 
     @InjectMocks
-    private ArticleController articleController;
+    private AddresseClientController addresseClientController;
 
-    private CategoryDto categoryDto;
-    private ScategoryDto scategoryDto;
-    private ArticleDto articleDto;
+    private ClientDto clientDto;
+    private AddressClientDto addressClientDto;
 
-    private List<ArticleDto> articleDtoList;
+    private List<AddressClientDto> addressClientDtoList;
 
     public static String asJsonString(final Object obj) {
         try {
@@ -67,57 +65,49 @@ public class AddressClientControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
-        articleDto = new ArticleDto(1L, "prod1", "prod1", 150, 1700.0, 1800.0, true, true, "prod1", "photo", scategoryDto);
+        clientDto = new ClientDto(1L, "cl1", "cl1", "cl1", "cl1", "cl1");
+        addressClientDto = new AddressClientDto();
+        addressClientDto.setId(1L);
+        addressClientDto.setCity("Dakar");
+        addressClientDto.setReference("Add");
+        addressClientDto.setClientDto(clientDto);
 
-        mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(addresseClientController).build();
     }
 
     @After
     public void tearDown() {
-        articleDto = null;
+        addressClientDto = null;
     }
 
     @Test
-    public void PostMappingOfArticle() throws Exception {
-        when(articleService.save(any())).thenReturn(articleDto);
-        mockMvc.perform(post("/shop-mania/v1/articles/create")
+    public void PostMappingOfAddressClient() throws Exception {
+        when(addresseClientService.save(any())).thenReturn(addressClientDto);
+        mockMvc.perform(post("/shop-mania/v1/addresseclients/create")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(articleDto)))
+                .content(asJsonString(addressClientDto)))
                 .andExpect(status().isOk());
-        verify(articleService, times(1)).save(any());
+        verify(addresseClientService, times(1)).save(any());
     }
 
     @Test
-    public void GetMappingOfAllArticles() throws Exception {
-        when(articleService.findAll()).thenReturn(articleDtoList);
-        mockMvc.perform(get("/shop-mania/v1/articles/all").
+    public void GetMappingOfAllAddressClients() throws Exception {
+        when(addresseClientService.findAll()).thenReturn(addressClientDtoList);
+        mockMvc.perform(get("/shop-mania/v1/addresseclients/all").
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(addressClientDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(articleService).findAll();
-        verify(articleService, times(1)).findAll();
+        verify(addresseClientService).findAll();
+        verify(addresseClientService, times(1)).findAll();
     }
 
     @Test
-    public void GetMappingOfArticleShouldReturnRespectiveArticle() throws Exception {
+    public void GetMappingOfAddressClientShouldReturnRespectiveAddressClient() throws Exception {
         Long artID = (long) 1;
-        when(articleService.findById(articleDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/" + artID).
+        when(addresseClientService.findById(addressClientDto.getId())).thenReturn(addressClientDto);
+        mockMvc.perform(get("/shop-mania/v1/addresseclients/" + artID).
                 contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
-                andExpect(MockMvcResultMatchers.status().isOk()).
-                andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    public void GetMappingOfArticleByReferenceShouldReturnRespectiveArticle() throws Exception {
-        String reference = "prod1";
-        when(articleService.findById(scategoryDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/searchbyReference/" + reference).
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(articleDto))).
+                content(asJsonString(addressClientDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
                 andDo(MockMvcResultHandlers.print());
     }
