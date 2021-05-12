@@ -1,6 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.models.Utilisateur;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -22,60 +22,70 @@ public class UtilisateurRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateUtilisateur() {
-        String name = "thir"; String username = "Admin"; String mobile = "779440310"; String email = "thirdiallo@gmail.com";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(name); utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile); utilisateurDto.setEmail(email);
+        String name = "thir";
+        String username = "Admin";
+        String mobile = "779440310";
+        String email = "thirdiallo@gmail.com";
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(1L);
+        utilisateur.setName(name);
+        utilisateur.setUsername(username);
+        utilisateur.setMobile(mobile);
+        utilisateur.setEmail(email);
 
-        assertNotNull(utilisateurDtoResult);
+        Utilisateur utilisateurResult = utilisateurRepository.save(utilisateur);
+
+        assertNotNull(utilisateurResult);
 
     }
 
     @Test
     @Rollback(false)
     public void TestUpdateUtilisateur() {
-        String name = "thir"; String username = "Admin"; String mobile = "779440310"; String email = "thirdiallo@gmail.com";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(name); utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile); utilisateurDto.setEmail(email);
+        String name = "thir";
+        String username = "Admin";
+        String mobile = "779440310";
+        String email = "thirdiallo@gmail.com";
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(1L);
+        utilisateur.setName(name);
+        utilisateur.setUsername(username);
+        utilisateur.setMobile(mobile);
+        utilisateur.setEmail(email);
+        utilisateurRepository.save(utilisateur);
 
-        String user = "Thir";
-        UtilisateurDto utilisateurUpdateDto = new UtilisateurDto();
-        utilisateurUpdateDto.setUsername(user);
-        utilisateurUpdateDto.setId((long) 1);
+        String nameUser = "tairou";
+        String usernameUser = "thirdiallo";
+        utilisateur.setId(2L);
+        utilisateur.setName(nameUser);
+        utilisateur.setUsername(usernameUser);
 
-        UtilisateurDto.fromEntityToDto(utilisateurRepository.save(UtilisateurDto.fromDtoToEntity(utilisateurUpdateDto)));
+        Utilisateur utilisateurUpdate = utilisateurRepository.save(utilisateur);
 
-        assertThat(utilisateurUpdateDto.getUsername()).isEqualTo(user);
+        assertThat(utilisateurUpdate.getName()).isEqualTo(nameUser);
+        assertThat(utilisateurUpdate.getUsername()).isEqualTo(usernameUser);
+        assertThat(utilisateurUpdate.getMobile()).isEqualTo(utilisateur.getMobile());
+        assertThat(utilisateurUpdate.getEmail()).isEqualTo(utilisateur.getEmail());
 
     }
 
     @Test
     public void testFindById() {
-        String name = "thir"; String username = "Admin"; String mobile = "779440310"; String email = "thirdiallo@gmail.com";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(name); utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile); utilisateurDto.setEmail(email);
+        String name = "thir";
+        String username = "Admin";
+        String mobile = "779440310";
+        String email = "thirdiallo@gmail.com";
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(1L);
+        utilisateur.setName(name);
+        utilisateur.setUsername(username);
+        utilisateur.setMobile(mobile);
+        utilisateur.setEmail(email);
+        Utilisateur utilisateurResult = utilisateurRepository.save(utilisateur);
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
-
-        boolean isExistUser = utilisateurRepository.findById(utilisateurDtoResult.getId()).isPresent();
+        boolean isExistUser = utilisateurRepository.findById(utilisateurResult.getId()).isPresent();
 
         assertTrue(isExistUser);
 
@@ -83,53 +93,52 @@ public class UtilisateurRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String name = "thir"; String username = "Admin"; String mobile = "779440310"; String email = "thirdiallo@gmail.com";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(name); utilisateurDto.setUsername(username);
-        utilisateurDto.setMobile(mobile); utilisateurDto.setEmail(email);
+        String name = "thir";
+        String username = "Admin";
+        String mobile = "779440310";
+        String email = "thirdiallo@gmail.com";
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(1L);
+        utilisateur.setName(name);
+        utilisateur.setUsername(username);
+        utilisateur.setMobile(mobile);
+        utilisateur.setEmail(email);
+        utilisateurRepository.save(utilisateur);
 
-        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto)
-                )
-        );
+        String nameUser = "thirdiallo";
+        String usernameUser = "Admin";
+        Utilisateur utilisateur1 = new Utilisateur();
+        utilisateur1.setId(1L);
+        utilisateur1.setName(nameUser);
+        utilisateur1.setUsername(usernameUser);
+        utilisateurRepository.save(utilisateur1);
 
-        String name1 = "thir"; String username1 = "Admin"; String mobile1 = "779440310"; String email1 = "thirdiallo@gmail.com";
-        UtilisateurDto utilisateurDto1 = new UtilisateurDto();
-        utilisateurDto1.setName(name1); utilisateurDto1.setUsername(username1);
-        utilisateurDto1.setMobile(mobile1); utilisateurDto1.setEmail(email1);
+        List<Utilisateur> utilisateurList = utilisateurRepository.findAll();
 
-        UtilisateurDto utilisateurDtoResult1 = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto1)
-                )
-        );
-
-        List<?> utilisateurs = utilisateurRepository.findAll();
-
-        assertThat(utilisateurs).size().isGreaterThan(0);
+        assertThat(utilisateurList).size().isGreaterThan(0);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String name1 = "thir"; String username1 = "Admin"; String mobile1 = "779440310"; String email1 = "thirdiallo@gmail.com";
-        UtilisateurDto utilisateurDto1 = new UtilisateurDto();
-        utilisateurDto1.setName(name1); utilisateurDto1.setUsername(username1);
-        utilisateurDto1.setMobile(mobile1); utilisateurDto1.setEmail(email1);
+        String name = "thir";
+        String username = "Admin";
+        String mobile = "779440310";
+        String email = "thirdiallo@gmail.com";
+        Utilisateur utilisateur = new Utilisateur();
+        utilisateur.setId(1L);
+        utilisateur.setName(name);
+        utilisateur.setUsername(username);
+        utilisateur.setMobile(mobile);
+        utilisateur.setEmail(email);
+        Utilisateur utilisateurResult = utilisateurRepository.save(utilisateur);
 
-        UtilisateurDto utilisateurDtoResult1 = UtilisateurDto.fromEntityToDto(
-                utilisateurRepository.save(
-                        UtilisateurDto.fromDtoToEntity(utilisateurDto1)
-                )
-        );
+        boolean isExistBeforeDelete = utilisateurRepository.findById(utilisateurResult.getId()).isPresent();
 
-        boolean isExistBeforeDelete = utilisateurRepository.findById(utilisateurDtoResult1.getId()).isPresent();
+        utilisateurRepository.deleteById(utilisateurResult.getId());
 
-        utilisateurRepository.deleteById(utilisateurDtoResult1.getId());
-
-        boolean notExistAfterDelete = utilisateurRepository.findById(utilisateurDtoResult1.getId()).isPresent();
+        boolean notExistAfterDelete = utilisateurRepository.findById(utilisateurResult.getId()).isPresent();
 
         assertTrue(isExistBeforeDelete);
 
