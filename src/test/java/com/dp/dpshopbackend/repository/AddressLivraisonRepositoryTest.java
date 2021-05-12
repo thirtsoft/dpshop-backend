@@ -1,8 +1,7 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.dto.AddressLivraisonDto;
-import com.dp.dpshopbackend.dto.ClientDto;
-import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.models.AddressLivraison;
+import com.dp.dpshopbackend.models.Commande;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -21,117 +20,57 @@ public class AddressLivraisonRepositoryTest {
     @Autowired
     private AddressLivraisonRepository addressLivraisonRepository;
 
+    @Autowired
+    private CommandeRepository commandeRepository;
+
     @Test
     @Rollback(false)
     public void testCreateAddressLivraison() {
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
 
-        String reference = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(reference);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
-        commandeDto.setClientDto(clientDto);
+        AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 
-        String refAddLivraison = "123EST";
-        String city = "Dakar";
-        AddressLivraisonDto addressLivraisonDto = new AddressLivraisonDto();
-        addressLivraisonDto.setReference(refAddLivraison);
-        addressLivraisonDto.setCity(city);
-        addressLivraisonDto.setCommandeDto(commandeDto);
-
-
-        AddressLivraisonDto addressLivraisonDtoResult = AddressLivraisonDto.fromEntityToDto(
-                addressLivraisonRepository.save(
-                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto)
-                )
-        );
-
-        assertNotNull(addressLivraisonDtoResult);
+        assertNotNull(addressLivraisonResult);
 
     }
 
     @Test
     @Rollback(false)
     public void TestUpdateAddressLivraison() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String reference = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(reference);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
-        commandeDto.setClientDto(clientDto);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
+        addressLivraisonRepository.save(addressLivraison);
 
         String refAddLivraison = "123EST";
         String city = "Dakar";
-        AddressLivraisonDto addressLivraisonDto = new AddressLivraisonDto();
-        addressLivraisonDto.setReference(refAddLivraison);
-        addressLivraisonDto.setCity(city);
-        addressLivraisonDto.setCommandeDto(commandeDto);
+        addressLivraison.setId(2L);
+        addressLivraison.setReference(refAddLivraison);
+        addressLivraison.setCity(city);
 
+        AddressLivraison addressLivraisonUpdate = addressLivraisonRepository.save(addressLivraison);
 
-        AddressLivraisonDto addressLivraisonDtoResult = AddressLivraisonDto.fromEntityToDto(
-                addressLivraisonRepository.save(
-                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto)
-                )
-        );
-
-        String refLivraivraion = "Livr120";
-        AddressLivraisonDto addressLivraisonUpdateDto = new AddressLivraisonDto();
-        addressLivraisonUpdateDto.setReference(refLivraivraion);
-        addressLivraisonDto.setCommandeDto(commandeDto);
-        addressLivraisonDto.setId(1);
-        AddressLivraisonDto.fromEntityToDto(addressLivraisonRepository.save(AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto)));
-
-        assertThat(addressLivraisonUpdateDto.getReference()).isEqualTo(refLivraivraion);
+        assertThat(addressLivraisonUpdate.getReference()).isEqualTo(refAddLivraison);
+        assertThat(addressLivraisonUpdate.getCity()).isEqualTo(city);
+        assertThat(addressLivraisonUpdate.getPhone()).isEqualTo(addressLivraison.getPhone());
+        assertThat(addressLivraisonUpdate.getCountry()).isEqualTo(addressLivraison.getCountry());
 
     }
 
     @Test
     public void testFindById() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String reference = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(reference);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
-        commandeDto.setClientDto(clientDto);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
 
-        String refAddLivraison = "123EST";
-        String city = "Dakar";
-        AddressLivraisonDto addressLivraisonDto = new AddressLivraisonDto();
-        addressLivraisonDto.setReference(refAddLivraison);
-        addressLivraisonDto.setCity(city);
-        addressLivraisonDto.setCommandeDto(commandeDto);
+        AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 
-
-        AddressLivraisonDto addressLivraisonDtoResult = AddressLivraisonDto.fromEntityToDto(
-                addressLivraisonRepository.save(
-                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto)
-                )
-        );
-        boolean isExistAddressLivraison = addressLivraisonRepository.findById(addressLivraisonDtoResult.getId()).isPresent();
+        boolean isExistAddressLivraison = addressLivraisonRepository.findById(addressLivraisonResult.getId()).isPresent();
 
         assertTrue(isExistAddressLivraison);
 
@@ -139,98 +78,36 @@ public class AddressLivraisonRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String reference = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(reference);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
-        commandeDto.setClientDto(clientDto);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
+        addressLivraisonRepository.save(addressLivraison);
 
-        String refAddLivraison = "123EST";
-        String city = "Dakar";
-        AddressLivraisonDto addressLivraisonDto = new AddressLivraisonDto();
-        addressLivraisonDto.setReference(refAddLivraison);
-        addressLivraisonDto.setCity(city);
-        addressLivraisonDto.setCommandeDto(commandeDto);
+        AddressLivraison addressLivraison1 = new AddressLivraison(2L, "liv2", "liv2", "liv2", "liv2", "liv2", "liv", commande);
+        addressLivraisonRepository.save(addressLivraison1);
 
+        List<AddressLivraison> addresseLivraisons = addressLivraisonRepository.findAll();
 
-        AddressLivraisonDto addressLivraisonDtoResult = AddressLivraisonDto.fromEntityToDto(
-                addressLivraisonRepository.save(
-                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto)
-                )
-        );
-
-        String refLivraison = "Address-126";
-        AddressLivraisonDto addressLivraisonDto1 = new AddressLivraisonDto();
-        addressLivraisonDto1.setReference(refLivraison);
-
-        AddressLivraisonDto addressLivraisonDtoResult1 = AddressLivraisonDto.fromEntityToDto(
-                addressLivraisonRepository.save(
-                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto1)
-                )
-        );
-
-        String refLivraison2 = "Address-1262";
-        AddressLivraisonDto addressLivraisonDto2 = new AddressLivraisonDto();
-        addressLivraisonDto2.setReference(refLivraison2);
-
-        AddressLivraisonDto addressLivraisonDtoResult2 = AddressLivraisonDto.fromEntityToDto(
-                addressLivraisonRepository.save(
-                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto2)
-                )
-        );
-
-        List<?> addresseLivraisons = addressLivraisonRepository.findAll();
-
-        assertThat(addresseLivraisons).size().isGreaterThan(2);
+        assertThat(addresseLivraisons).size().isGreaterThan(1);
 
     }
 
     @Test
     @Rollback(false)
     public void testDelete() {
-        String firstName = "tairou";
-        String lastName = "Diallo";
-        ClientDto clientDto = new ClientDto();
-        clientDto.setFirstName(firstName);
-        clientDto.setLastName(lastName);
+        Long comId = (long) 1;
+        Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        String reference = "Com120";
-        String numeroCommande = "Com120";
-        double total = 30000;
-        CommandeDto commandeDto = new CommandeDto();
-        commandeDto.setReference(reference);
-        commandeDto.setNumeroCommande(numeroCommande);
-        commandeDto.setTotal(total);
-        commandeDto.setClientDto(clientDto);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
 
-        String refAddLivraison = "123EST";
-        String city = "Dakar";
-        AddressLivraisonDto addressLivraisonDto = new AddressLivraisonDto();
-        addressLivraisonDto.setReference(refAddLivraison);
-        addressLivraisonDto.setCity(city);
-        addressLivraisonDto.setCommandeDto(commandeDto);
+        AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 
+        boolean isExistBeforeDelete = addressLivraisonRepository.findById(addressLivraisonResult.getId()).isPresent();
 
-        AddressLivraisonDto addressLivraisonDtoResult = AddressLivraisonDto.fromEntityToDto(
-                addressLivraisonRepository.save(
-                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto)
-                )
-        );
+        addressLivraisonRepository.deleteById(addressLivraisonResult.getId());
 
-        boolean isExistBeforeDelete = addressLivraisonRepository.findById(addressLivraisonDtoResult.getId()).isPresent();
-
-        addressLivraisonRepository.deleteById(addressLivraisonDtoResult.getId());
-
-        boolean notExistAfterDelete = addressLivraisonRepository.findById(addressLivraisonDtoResult.getId()).isPresent();
+        boolean notExistAfterDelete = addressLivraisonRepository.findById(addressLivraisonResult.getId()).isPresent();
 
         assertTrue(isExistBeforeDelete);
 
