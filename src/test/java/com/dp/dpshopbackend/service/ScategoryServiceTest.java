@@ -5,8 +5,7 @@ import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.models.Scategory;
 import com.dp.dpshopbackend.repository.ScategoryRepository;
 import com.dp.dpshopbackend.services.impl.ScategoryServiceImpl;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -16,11 +15,11 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class ScategoryServiceTest {
 
     @InjectMocks

@@ -6,8 +6,7 @@ import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.models.Notification;
 import com.dp.dpshopbackend.repository.NotificationRepository;
 import com.dp.dpshopbackend.services.impl.NotificationServiceImpl;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -20,7 +19,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+//@RunWith(MockitoJUnitRunner.class)
 public class NotificationServiceTest {
 
     @InjectMocks

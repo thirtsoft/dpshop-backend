@@ -3,7 +3,9 @@ package com.dp.dpshopbackend.service;
 import com.dp.dpshopbackend.dto.CategoryDto;
 import com.dp.dpshopbackend.models.Category;
 import com.dp.dpshopbackend.repository.CategoryRepository;
-import com.dp.dpshopbackend.services.impl.CategoryServiceImpl;
+import com.dp.dpshopbackend.services.impl.*;
+
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,9 +17,9 @@ import java.util.Optional;
 
 import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class CategoryServiceTest {
@@ -30,8 +32,9 @@ public class CategoryServiceTest {
 
     @Test
     public void CreateCategoryTest() {
-        CategoryDto categoryDto = CategoryDto.builder()
-                .id(1L)
+        CategoryDto categoryDto;
+        categoryDto = CategoryDto.builder()
+                //        .id(null)
                 .code("123")
                 .designation("designation")
                 .build();
@@ -73,7 +76,7 @@ public class CategoryServiceTest {
                 .code("123")
                 .designation("designation")
                 .build();
-        Optional<Category>  categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categoryDto));
+        Optional<Category> categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categoryDto));
         when(categoryRepository.findById(categorie.get().getId())).thenReturn(categorie);
 
         CategoryDto categoryDtoSavedResult = categorieService.findById(categoryDto.getId());
@@ -92,12 +95,12 @@ public class CategoryServiceTest {
                 .code("123")
                 .designation("designation")
                 .build();
-        Optional<Category>  categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categoryDto));
+        Optional<Category> categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categoryDto));
         when(categoryRepository.findCategorieByDesignation(categorie.get().getDesignation())).thenReturn(categorie);
 
         CategoryDto categoryDtoSavedResult = categorieService.findByDesignation(categoryDto.getDesignation());
 
-        assertNotNull(categoryDto);
+        Assert.assertNotNull(categoryDto);
         verify(categoryRepository).findCategorieByDesignation(categorie.get().getDesignation());
         assertThat(categoryDto).isNotNull();
         assertThat(categoryDtoSavedResult).isEqualTo(categoryDto);

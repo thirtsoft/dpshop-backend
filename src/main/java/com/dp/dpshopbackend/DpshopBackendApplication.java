@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend;
 
 import com.dp.dpshopbackend.dto.*;
+import com.dp.dpshopbackend.models.*;
 import com.dp.dpshopbackend.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,62 +32,74 @@ public class DpshopBackendApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-
-        CategoryDto c1 = new CategoryDto((long) 1,"cat1", "cat1");
-		CategoryDto c2 = new CategoryDto((long) 2,"cat2", "cat2");
-		CategoryDto c3 = new CategoryDto((long) 3,"cat3", "cat3");
+/*
+        Category c1 = new Category((long) 1,"cat1", "cat1");
+		Category c2 = new Category((long) 2,"cat2", "cat2");
+		Category c3 = new Category((long) 3,"cat3", "cat3");
+		categoryRepository.save(c1);categoryRepository.save(c2);categoryRepository.save(c3);
+/*
 		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c1)));
 		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c2)));
 		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c3)));
 
 		String codescat = "scat1"; String libellescat = "scat1";
-        ScategoryDto sc1 = new ScategoryDto();
-        sc1.setCode(codescat); sc1.setLibelle(libellescat); sc1.setCategoryDto(c1);
+        Scategory sc1 = new Scategory();
+        sc1.setCode(codescat); sc1.setLibelle(libellescat); sc1.setCategory(c1);
 		String codescat2 = "scat2"; String libellescat2 = "scat2";
-		ScategoryDto sc2 = new ScategoryDto();
-		sc2.setCode(codescat2); sc2.setLibelle(libellescat2); sc2.setCategoryDto(c2);
+		Scategory sc2 = new Scategory();
+		sc2.setCode(codescat2); sc2.setLibelle(libellescat2); sc2.setCategory(c2);
 		String codescat3 = "scat3"; String libellescat3 = "scat3";
-		ScategoryDto sc3 = new ScategoryDto();
-		sc3.setCode(codescat3); sc3.setLibelle(libellescat3); sc3.setCategoryDto(c3);
+		Scategory sc3 = new Scategory();
+		sc3.setCode(codescat3); sc3.setLibelle(libellescat3); sc3.setCategory(c3);
 
 		String codescat4 = "scat4"; String libellescat4 = "scat4";
-		ScategoryDto sc4 = new ScategoryDto();
-		sc4.setCode(codescat4); sc4.setLibelle(libellescat4); sc4.setCategoryDto(c2);
-
+		Scategory sc4 = new Scategory();
+		sc4.setCode(codescat4); sc4.setLibelle(libellescat4); sc4.setCategory(c2);
+		scategoryRepository.save(sc1);scategoryRepository.save(sc2);
+		scategoryRepository.save(sc3);scategoryRepository.save(sc4);
+/*
 		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc1)));
 		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc2)));
 		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc3)));
 		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc4)));
 
-        ArticleDto p1= new ArticleDto((long)1,"prod1","prod1", 150,1700.0,1800.0,true,true,"prod1","photo",sc1);
-		ArticleDto p2= new ArticleDto((long)2,"prod2","prod2", 150,1700.0,1800.0,true,true,"prod1","photo",sc1);
-		ArticleDto p3= new ArticleDto((long)3,"prod3","prod3", 150,1700.0,1800.0,false,false,"prod1","photo",sc1);
-		ArticleDto p4= new ArticleDto((long)4,"prod4","prod4", 150,1700.0,1800.0,true,false,"prod1","photo",sc1);
-		ArticleDto p5= new ArticleDto((long)5,"prod5","prod5", 150,1700.0,1800.0,false,true,"prod1","photo",sc1);
+        Article p1= new Article((long)1,"prod1","prod1", 150,1700.0,1800.0,true,true,"prod1","photo",sc1);
+		Article p2= new Article((long)2,"prod2","prod2", 150,1700.0,1800.0,true,true,"prod1","photo",sc1);
+		Article p3= new Article((long)3,"prod3","prod3", 150,1700.0,1800.0,false,false,"prod1","photo",sc1);
+		Article p4= new Article((long)4,"prod4","prod4", 150,1700.0,1800.0,true,false,"prod1","photo",sc1);
+		Article p5= new Article((long)5,"prod5","prod5", 150,1700.0,1800.0,false,true,"prod1","photo",sc1);
+		articleRepository.save(p1);articleRepository.save(p2);articleRepository.save(p3);
+		articleRepository.save(p4);articleRepository.save(p5);
+/*
 		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p1)));
 		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p2)));
 		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p3)));
 		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p4)));
 		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p5)));
 
-		FournisseurDto f1 = new FournisseurDto((long)1, "f1","f1","f1","f1","f1","f1","f1","f1", p1);
-		FournisseurDto f2 = new FournisseurDto((long)2, "f2","f2","f2","f2","f2","f2","f2","f2", p2);
-		FournisseurDto f3 = new FournisseurDto((long)3, "f3","f3","f3","f3","f3","f3","f3","f3", p2);
-		FournisseurDto f4 = new FournisseurDto((long)4, "f4","f4","f4","f4","f4","f4","f4","f4", p1);
+		Fournisseur f1 = new Fournisseur((long)1, "f1","f1","f1","f1","f1","f1","f1","f1", p1);
+		Fournisseur f2 = new Fournisseur((long)2, "f2","f2","f2","f2","f2","f2","f2","f2", p2);
+		Fournisseur f3 = new Fournisseur((long)3, "f3","f3","f3","f3","f3","f3","f3","f3", p2);
+		Fournisseur f4 = new Fournisseur((long)4, "f4","f4","f4","f4","f4","f4","f4","f4", p1);
+		fournisseurRepository.save(f1);fournisseurRepository.save(f2);
+		fournisseurRepository.save(f3);fournisseurRepository.save(f4);
+/*
 		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f1)));
 		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f2)));
 		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f3)));
 		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f4)));
 
-		ClientDto cl1 = new ClientDto((long)1, "cl1","cl1","cl1","cl1","cl1");
-		ClientDto cl2 = new ClientDto((long)2, "cl2","cl2","cl2","cl2","cl2");
-		ClientDto cl3 = new ClientDto((long)3, "cl3","cl3","cl3","cl3","cl3");
+		Client cl1 = new Client((long)1, "cl1","cl1","cl1","cl1","cl1");
+		Client cl2 = new Client((long)2, "cl2","cl2","cl2","cl2","cl2");
+		Client cl3 = new Client((long)3, "cl3","cl3","cl3","cl3","cl3");
 		ClientDto cl4 = new ClientDto((long)4, "cl4","cl4","cl4","cl4","cl4");
+		clientRepository.save(cl1);clientRepository.save(cl2);clientRepository.save(cl3);
+/*
 		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl1)));
 		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl2)));
 		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl3)));
 		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl4)));
-
+*/
 
 	}
 }
