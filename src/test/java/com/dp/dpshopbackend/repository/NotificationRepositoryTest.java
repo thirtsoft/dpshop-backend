@@ -1,6 +1,8 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.dto.*;
+import com.dp.dpshopbackend.models.Article;
+import com.dp.dpshopbackend.models.Notification;
+import com.dp.dpshopbackend.models.Utilisateur;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -19,89 +21,67 @@ public class NotificationRepositoryTest {
     @Autowired
     private NotificationRepository notificationRepository;
 
+    @Autowired
+    private ArticleRepository articleRepository;
+
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
     @Test
     @Rollback(false)
     public void testCreateNotification() {
-        String firstName = "tairou"; String lastName = "Diallo";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(firstName); utilisateurDto.setUsername(lastName);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        String reference = "Art1"; String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference); articleDto.setDesignation(designationArticle);
+        Long userId = (long) 1;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-         String referenceNotification = "Not1"; String nbreEtoile = "4etoiles"; String observation = "Bien";
-         NotificationDto notificationDto = new NotificationDto();
-         notificationDto.setReference(referenceNotification); notificationDto.setNbreEtoile(nbreEtoile);
-         notificationDto.setObservation(observation); notificationDto.setArticleDto(articleDto);
-         notificationDto.setUtilisateurDto(utilisateurDto);
+        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
 
-        NotificationDto notificationDtoResult = NotificationDto.fromEntityToDto(
-                notificationRepository.save(
-                        NotificationDto.fromDtoToEntity(notificationDto)
-                )
-        );
+        Notification notificationResult = notificationRepository.save(notification);
 
-        assertNotNull(notificationDtoResult);
+        assertNotNull(notificationResult);
 
     }
 
     @Test
     @Rollback(false)
     public void TestUpdateNotification() {
-        String firstName = "tairou"; String lastName = "Diallo";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(firstName); utilisateurDto.setUsername(lastName);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        String reference = "Art1"; String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference); articleDto.setDesignation(designationArticle);
+        Long userId = (long) 1;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String referenceNotification = "Not1"; String nbreEtoile = "4etoiles"; String observation = "Bien";
-        NotificationDto notificationDto = new NotificationDto();
-        notificationDto.setReference(referenceNotification); notificationDto.setNbreEtoile(nbreEtoile);
-        notificationDto.setObservation(observation); notificationDto.setArticleDto(articleDto);
-        notificationDto.setUtilisateurDto(utilisateurDto);
+        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
+        notificationRepository.save(notification);
 
-        NotificationDto notificationDtoResult = NotificationDto.fromEntityToDto(
-                notificationRepository.save(
-                        NotificationDto.fromDtoToEntity(notificationDto)
-                )
-        );
+        String reference = "Not";
+        String nbreEtoile = "5etoiles";
+        notification.setId(2L);
+        notification.setReference(reference);
+        notification.setNbreEtoile(nbreEtoile);
 
-        String refNote = "Note120";
-        NotificationDto notificationUpdateDto = new NotificationDto();
-        notificationUpdateDto.setReference(refNote);
-        notificationUpdateDto.setId(1);
+        Notification notificationUpdate = notificationRepository.save(notification);
 
-        NotificationDto.fromEntityToDto(notificationRepository.save(NotificationDto.fromDtoToEntity(notificationUpdateDto)));
-
-        assertThat(notificationUpdateDto.getReference()).isEqualTo(refNote);
+        assertThat(notificationUpdate.getReference()).isEqualTo(reference);
+        assertThat(notificationUpdate.getNbreEtoile()).isEqualTo(nbreEtoile);
 
     }
 
     @Test
     public void testFindById() {
-        String firstName = "tairou"; String lastName = "Diallo";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(firstName); utilisateurDto.setUsername(lastName);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        String reference = "Art1"; String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference); articleDto.setDesignation(designationArticle);
+        Long userId = (long) 1;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String referenceNotification = "Not1"; String nbreEtoile = "4etoiles"; String observation = "Bien";
-        NotificationDto notificationDto = new NotificationDto();
-        notificationDto.setReference(referenceNotification); notificationDto.setNbreEtoile(nbreEtoile);
-        notificationDto.setObservation(observation); notificationDto.setArticleDto(articleDto);
-        notificationDto.setUtilisateurDto(utilisateurDto);
+        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
 
-        NotificationDto notificationDtoResult = NotificationDto.fromEntityToDto(
-                notificationRepository.save(
-                        NotificationDto.fromDtoToEntity(notificationDto)
-                )
-        );
-        boolean isExistNotification = notificationRepository.findById(notificationDtoResult.getId()).isPresent();
+        Notification notificationResult = notificationRepository.save(notification);
+
+        boolean isExistNotification = notificationRepository.findById(notificationResult.getId()).isPresent();
 
         assertTrue(isExistNotification);
 
@@ -109,37 +89,19 @@ public class NotificationRepositoryTest {
 
     @Test
     public void testFindAll() {
-        String firstName = "tairou"; String lastName = "Diallo";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(firstName); utilisateurDto.setUsername(lastName);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        String reference = "Art1"; String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference); articleDto.setDesignation(designationArticle);
+        Long userId = (long) 1;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String referenceNotification = "Not1"; String nbreEtoile = "4etoiles"; String observation = "Bien";
-        NotificationDto notificationDto = new NotificationDto();
-        notificationDto.setReference(referenceNotification); notificationDto.setNbreEtoile(nbreEtoile);
-        notificationDto.setObservation(observation); notificationDto.setArticleDto(articleDto);
-        notificationDto.setUtilisateurDto(utilisateurDto);
+        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
+        notificationRepository.save(notification);
 
-        NotificationDto notificationDtoResult = NotificationDto.fromEntityToDto(
-                notificationRepository.save(
-                        NotificationDto.fromDtoToEntity(notificationDto)
-                )
-        );
+        Notification notification1 = new Notification(2L, "Not2", "bien22", "4etoiles22", article, utilisateur);
+        notificationRepository.save(notification1);
 
-        String refNotif= "Address-126";
-        NotificationDto notificationDto1 = new NotificationDto();
-        notificationDto1.setReference(refNotif);
-
-        NotificationDto notificationDtoResult1 = NotificationDto.fromEntityToDto(
-                notificationRepository.save(
-                        NotificationDto.fromDtoToEntity(notificationDto1)
-                )
-        );
-
-        List<?> notifications = notificationRepository.findAll();
+        List<Notification> notifications = notificationRepository.findAll();
 
         assertThat(notifications).size().isGreaterThan(1);
 
@@ -148,31 +110,20 @@ public class NotificationRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        String firstName = "tairou"; String lastName = "Diallo";
-        UtilisateurDto utilisateurDto = new UtilisateurDto();
-        utilisateurDto.setName(firstName); utilisateurDto.setUsername(lastName);
+        Long artId = (long) 1;
+        Article article = articleRepository.findById(artId).orElse(null);
 
-        String reference = "Art1"; String designationArticle = "HP-ProBook";
-        ArticleDto articleDto = new ArticleDto();
-        articleDto.setReference(reference); articleDto.setDesignation(designationArticle);
+        Long userId = (long) 1;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String referenceNotification = "Not1"; String nbreEtoile = "4etoiles"; String observation = "Bien";
-        NotificationDto notificationDto = new NotificationDto();
-        notificationDto.setReference(referenceNotification); notificationDto.setNbreEtoile(nbreEtoile);
-        notificationDto.setObservation(observation); notificationDto.setArticleDto(articleDto);
-        notificationDto.setUtilisateurDto(utilisateurDto);
+        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
+        Notification notificationResult = notificationRepository.save(notification);
 
-        NotificationDto notificationDtoResult = NotificationDto.fromEntityToDto(
-                notificationRepository.save(
-                        NotificationDto.fromDtoToEntity(notificationDto)
-                )
-        );
+        boolean isExistBeforeDelete = notificationRepository.findById(notificationResult.getId()).isPresent();
 
-        boolean isExistBeforeDelete = notificationRepository.findById(notificationDtoResult.getId()).isPresent();
+        notificationRepository.deleteById(notificationResult.getId());
 
-        notificationRepository.deleteById(notificationDtoResult.getId());
-
-        boolean notExistAfterDelete = notificationRepository.findById(notificationDtoResult.getId()).isPresent();
+        boolean notExistAfterDelete = notificationRepository.findById(notificationResult.getId()).isPresent();
 
         assertTrue(isExistBeforeDelete);
 
