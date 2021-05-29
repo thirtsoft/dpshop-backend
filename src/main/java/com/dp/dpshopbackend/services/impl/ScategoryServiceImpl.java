@@ -1,7 +1,9 @@
 package com.dp.dpshopbackend.services.impl;
 
+import com.dp.dpshopbackend.dto.CategoryDto;
 import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.Category;
 import com.dp.dpshopbackend.models.Scategory;
 import com.dp.dpshopbackend.repository.ScategoryRepository;
 import com.dp.dpshopbackend.services.ScategoryService;
@@ -33,6 +35,31 @@ public class ScategoryServiceImpl implements ScategoryService {
         return ScategoryDto.fromEntityToDto(
                 scategoryRepository.save(
                         ScategoryDto.fromDtoToEntity(scategoryDto)
+                )
+        );
+    }
+
+    @Override
+    public ScategoryDto update(Long id, ScategoryDto scategoryDto) {
+        if (!scategoryRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Scategory not found");
+        }
+
+        Optional<Scategory> scategory = scategoryRepository.findById(id);
+
+        if (!scategory.isPresent()) {
+            throw new ResourceNotFoundException("Scategory not found");
+        }
+
+        ScategoryDto scategoryResult = ScategoryDto.fromEntityToDto(scategory.get());
+
+        scategoryResult.setCode(scategoryDto.getCode());
+        scategoryResult.setLibelle(scategoryDto.getLibelle());
+        scategoryResult.setCategoryDto(scategoryDto.getCategoryDto());
+
+        return ScategoryDto.fromEntityToDto(
+                scategoryRepository.save(
+                        ScategoryDto.fromDtoToEntity(scategoryResult)
                 )
         );
     }

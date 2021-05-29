@@ -8,13 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 public class ArticleController implements ArticleApi {
 
-    private ArticleService articleService;
+    private final ArticleService articleService;
 
     @Autowired
     public ArticleController(ArticleService articleService) {
@@ -23,6 +25,12 @@ public class ArticleController implements ArticleApi {
 
     @Override
     public ResponseEntity<ArticleDto> save(ArticleDto articleDto) {
+        return ResponseEntity.ok(articleService.save(articleDto));
+    }
+
+    @Override
+    public ResponseEntity<ArticleDto> update(Long id, ArticleDto articleDto) {
+        articleDto.setId(id);
         return ResponseEntity.ok(articleService.save(articleDto));
     }
 
@@ -44,6 +52,13 @@ public class ArticleController implements ArticleApi {
     @Override
     public void delete(Long id) {
         articleService.delete(id);
+    }
+
+    @Override
+    public byte[] getPhotoArticle(Long id) throws Exception {
+        ArticleDto articleDto = articleService.findById(id);
+        //            .orElseThrow(() -> new ResourceNotFoundException("Utilisateur that id is" + id + "not found"));
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()));
     }
 
 

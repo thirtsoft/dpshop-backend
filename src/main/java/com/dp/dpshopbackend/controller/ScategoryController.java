@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin
 public class ScategoryController implements ScategoryApi {
 
-    private ScategoryService scategoryService;
+    private final ScategoryService scategoryService;
 
     @Autowired
     public ScategoryController(ScategoryService scategoryService) {
@@ -23,6 +23,12 @@ public class ScategoryController implements ScategoryApi {
 
     @Override
     public ResponseEntity<ScategoryDto> save(ScategoryDto scategoryDto) {
+        return ResponseEntity.ok(scategoryService.save(scategoryDto));
+    }
+
+    @Override
+    public ResponseEntity<ScategoryDto> update(Long id, ScategoryDto scategoryDto) {
+        scategoryDto.setId(id);
         return ResponseEntity.ok(scategoryService.save(scategoryDto));
     }
 

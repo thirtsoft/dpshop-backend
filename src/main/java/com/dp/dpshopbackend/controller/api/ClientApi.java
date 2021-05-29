@@ -20,6 +20,6 @@ public interface ClientApi {
     @GetMapping(value = APP_ROOT + "/clients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<ClientDto> findAll();
 
-    @DeleteMapping(value = APP_ROOT + "/clients/delete/{idArticle}")
+    @DeleteMapping(value = APP_ROOT + "/clients/delete/{idClient}")
     void delete(@PathVariable("idClient") Long id);
 }

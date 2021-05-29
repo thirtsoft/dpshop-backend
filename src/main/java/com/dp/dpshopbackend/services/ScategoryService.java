@@ -8,6 +8,8 @@ public interface ScategoryService {
 
     ScategoryDto save(ScategoryDto scategoryDto);
 
+    ScategoryDto update(Long id, ScategoryDto scategoryDto);
+
     ScategoryDto findById(Long id);
 
     ScategoryDto findByLibelle(String libelle);
