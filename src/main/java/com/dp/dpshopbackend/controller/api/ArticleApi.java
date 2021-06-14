@@ -63,6 +63,14 @@ public interface ArticleApi {
     })
     List<ArticleDto> findAll();
 
+    @GetMapping(value = APP_ROOT + "/articles/articlesByScategories/{scatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par Scategory",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par Scategory", responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par Scategory / une liste vide")
+    })
+    List<ArticleDto> findListArticleByScategories(@PathVariable("scatId") Long idScategory);
+
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",
             notes = "Cette méthode permet de supprimer une Article par son ID", response = ArticleDto.class)

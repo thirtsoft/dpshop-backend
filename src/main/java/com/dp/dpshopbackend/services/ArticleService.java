@@ -16,5 +16,7 @@ public interface ArticleService {
 
     List<ArticleDto> findAll();
 
+    List<ArticleDto> findListArticleByScategories(Long scatId);
+
     void delete(Long id);
 }

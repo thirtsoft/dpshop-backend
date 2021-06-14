@@ -108,6 +108,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findListArticleByScategories(Long scatId) {
+        if (scatId == null) {
+            log.error("Article Scategory is null");
+        }
+        return articleRepository.findArticleByScategory(scatId).stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Article Id is null");

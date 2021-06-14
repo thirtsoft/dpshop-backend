@@ -50,6 +50,11 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public List<ArticleDto> findListArticleByScategories(Long idScategory) {
+        return articleService.findListArticleByScategories(idScategory);
+    }
+
+    @Override
     public void delete(Long id) {
         articleService.delete(id);
     }

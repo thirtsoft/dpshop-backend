@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.controller.api;
 
-import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.CategoryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -27,7 +26,7 @@ public interface CategoryApi {
     @PutMapping(value = APP_ROOT + "/categories/update/{idCategory}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une Category par son ID",
-            notes = "Cette méthode permet de modifier une Category par son ID", response = ArticleDto.class)
+            notes = "Cette méthode permet de modifier une Category par son ID", response = CategoryDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Category a été modifiée"),
             @ApiResponse(code = 400, message = "La Category a n'est pas modifiée")

@@ -82,15 +82,15 @@ public class DpshopBackendApplication implements CommandLineRunner {
 		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc4)));
 */
         Article p1= new Article(1L,"prod1","prod1", 150,1700.0,1800.0,true,true,"prod1","photo1.jpg",sc1);
-		Article p2= new Article(2L,"prod2","prod2", 150,1700.0,1800.0,true,true,"prod1","photo2.jpg",sc1);
-		Article p3= new Article(3L,"prod3","prod3", 150,1700.0,1800.0,false,false,"prod1","photo3.jpg",sc1);
+		Article p2= new Article(2L,"prod2","prod2", 150,1700.0,1800.0,true,true,"prod1","photo2.jpg",sc3);
+		Article p3= new Article(3L,"prod3","prod3", 150,1700.0,1800.0,false,false,"prod1","photo3.jpg",sc2);
 		Article p4= new Article(4L,"prod4","prod4", 150,1700.0,1800.0,true,false,"prod1","photo4.jpg",sc1);
-		Article p5= new Article(5L,"prod5","prod5", 150,1700.0,1800.0,false,true,"prod1","photo5.jpg",sc1);
+		Article p5= new Article(5L,"prod5","prod5", 150,1700.0,1800.0,false,true,"prod1","photo5.jpg",sc4);
 		Article p6= new Article(6L,"prod6","prod6", 150,1700.0,1800.0,true,true,"prod1","photo5.jpg",sc1);
 		Article p7= new Article(7L,"prod7","prod7", 150,1700.0,1800.0,true,true,"prod1","photo7.jpg",sc1);
-		Article p8= new Article(8L,"prod8","prod8", 150,1700.0,1800.0,false,false,"prod1","photo8.jpg",sc1);
-		Article p9= new Article(9L,"prod9","prod9", 150,1700.0,1800.0,true,false,"prod1","photo9.jpg",sc1);
-		Article p10= new Article(10L,"prod10","prod10", 150,1700.0,1800.0,false,true,"prod1","photo10.jpg",sc1);
+		Article p8= new Article(8L,"prod8","prod8", 150,1700.0,1800.0,false,false,"prod1","photo8.jpg",sc3);
+		Article p9= new Article(9L,"prod9","prod9", 150,1700.0,1800.0,true,false,"prod1","photo9.jpg",sc3);
+		Article p10= new Article(10L,"prod10","prod10", 150,1700.0,1800.0,false,true,"prod1","photo10.jpg",sc4);
 
 		articleRepository.save(p1);articleRepository.save(p2);articleRepository.save(p3);
 		articleRepository.save(p4);articleRepository.save(p5);
