@@ -7,7 +7,9 @@ import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
@@ -23,6 +25,17 @@ public interface ArticleApi {
 
     })
     ResponseEntity<ArticleDto> save(@RequestBody ArticleDto articleDto);
+
+    @PostMapping(value = APP_ROOT + "/articles/createWithFile")
+    @ApiOperation(value = "Enregistrer un Artilce avec une photo",
+            notes = "Cette méthode permet d'ajouter un article une photo", response = ArticleDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "L'Artilce a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
+
+    })
+    ResponseEntity<ArticleDto> saveArticleWithFile(@RequestPart(name = "article") String articleDto,
+                                                   @RequestParam(name = "photoArticle") MultipartFile photoArticle) throws IOException;
 
     @PutMapping(value = APP_ROOT + "/articles/update/{idArticle}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -79,12 +92,12 @@ public interface ArticleApi {
     })
     void delete(@PathVariable("idArticle") Long id);
 
-    @GetMapping(value = "/photoArticle/{id}")
+    @GetMapping(value = APP_ROOT + "/articles/photoArticle/{idArticle}")
     @ApiOperation(value = "Recupérer une photo par ID",
             notes = "Cette méthode permet de récupérer la photo d'un article par son ID")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La photo est affiché")
     })
-    byte[] getPhotoArticle(@PathVariable("id") Long id) throws Exception;
+    byte[] getPhotoArticle(@PathVariable("idArticle") Long id) throws Exception;
 
 }

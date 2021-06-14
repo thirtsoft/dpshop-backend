@@ -5,12 +5,15 @@ import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.repository.ArticleRepository;
 import com.dp.dpshopbackend.services.ArticleService;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -36,6 +39,22 @@ public class ArticleServiceImpl implements ArticleService {
                 )
         );
     }
+
+    @Override
+    public ArticleDto saveArticleWithFile(String article, MultipartFile photoArticle) throws IOException {
+        ArticleDto articleDto = new ObjectMapper().readValue(article, ArticleDto.class);
+        System.out.println(articleDto);
+
+        articleDto.setPhoto(photoArticle.getOriginalFilename());
+
+        return ArticleDto.fromEntityToDto(
+                articleRepository.save(
+                        ArticleDto.fromDtoToEntity(articleDto)
+                )
+        );
+
+    }
+
 
     @Override
     public ArticleDto update(Long id, ArticleDto articleDto) {

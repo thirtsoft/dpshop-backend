@@ -1,12 +1,16 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface ArticleService {
 
     ArticleDto save(ArticleDto articleDto);
+
+    ArticleDto saveArticleWithFile(String articleDto, MultipartFile photoArticle) throws IOException;
 
     ArticleDto update(Long id, ArticleDto articleDto);
 
