@@ -2,8 +2,6 @@ package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.ArticleApi;
 import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
-import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.services.ArticleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +22,7 @@ public class ArticleController implements ArticleApi {
 
     private final ArticleService articleService;
 
-    private String articlePhotosDir = "C://Users//Folio9470m//shopmania//productphotos//";
+    private final String articlePhotosDir = "C://Users//Folio9470m//shopmania//productphotos//";
 
     @Autowired
     public ArticleController(ArticleService articleService) {
@@ -93,6 +91,15 @@ public class ArticleController implements ArticleApi {
         return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()));
 
 
+    }
+
+    @Override
+    public void uploadPhotoArticle(MultipartFile photoArticle, Long idArticle) throws IOException {
+        ArticleDto articleDto = articleService.findById(idArticle);
+        articleDto.setPhoto(photoArticle.getOriginalFilename());
+        Files.write(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()), photoArticle.getBytes());
+
+        articleService.save(articleDto);
     }
 
 

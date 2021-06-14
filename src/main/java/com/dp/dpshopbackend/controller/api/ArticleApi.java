@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -99,5 +100,14 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La photo est affiché")
     })
     byte[] getPhotoArticle(@PathVariable("idArticle") Long id) throws Exception;
+
+    @PostMapping(path = APP_ROOT + "/articles/uploadArticlePhoto/{idArticle}")
+    @ApiOperation(value = "Enregistrer une photo dans un dossier",
+            notes = "Cette méthode permet d'enregistrer la photo d'un article dans un dossier externe utilisateur")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
+
+    })
+    void uploadPhotoArticle(@RequestParam(name = "photoArticle")  MultipartFile photoArticle, @PathVariable("idArticle") Long idArticle) throws IOException;
 
 }
