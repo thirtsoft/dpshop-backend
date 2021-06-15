@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.dto.ArticleDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -91,6 +92,24 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La liste des Articles selectionner / une liste vide")
     })
     List<ArticleDto> getListArticleBySelected();
+
+
+    @GetMapping(value = APP_ROOT + "/articles/searchArticleByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par pages",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par pages", responseContainer = "Page<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par pages / une liste vide")
+    })
+    Page<ArticleDto> getListArticleByPageable(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size);
+
+    @GetMapping(value = APP_ROOT + "/articles/searchArticleByScategoryByPageables/{idScat}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par Scategory",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par Scategory par pages", responseContainer = "Page<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par Scategory / une liste vide")
+    })
+    Page<ArticleDto> getListArticleByScategoryByPageable(@PathVariable("idScat") Long scatId, @RequestParam(name = "page") int page,
+                                                         @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",

@@ -5,6 +5,9 @@ import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.services.ArticleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -77,6 +80,20 @@ public class ArticleController implements ArticleApi {
     public List<ArticleDto> getListArticleBySelected() {
         return articleService.findListArticleBySelected();
     }
+
+    @Override
+    public Page<ArticleDto> getListArticleByPageable(int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return articleService.findArticleByPageable(pageable);
+    }
+
+
+    @Override
+    public Page<ArticleDto> getListArticleByScategoryByPageable(Long scatId, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return articleService.findArticleByScategoryPageables(scatId, pageable);
+    }
+
 
     @Override
     public void delete(Long id) {

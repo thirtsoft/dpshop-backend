@@ -1,6 +1,8 @@
 package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.models.Article;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,4 +21,10 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select art from Article art where art.selected = true")
     List<Article> findArticleBySelected();
+
+    @Query("select p from Article p")
+    Page<Article> findArticle(Pageable pageable);
+
+    @Query("select p from Article p where p.scategory.id =:scat")
+    Page<Article> findArticleByScategoryPageables(@Param("scat") Long scatId, Pageable pageable);
 }

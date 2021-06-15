@@ -8,6 +8,8 @@ import com.dp.dpshopbackend.services.ArticleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
@@ -141,6 +143,19 @@ public class ArticleServiceImpl implements ArticleService {
         return articleRepository.findArticleBySelected().stream()
                 .map(ArticleDto::fromEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<ArticleDto> findArticleByPageable(Pageable pageable) {
+        return articleRepository.findArticle(pageable)
+                .map(ArticleDto::fromEntityToDto);
+    }
+
+    @Override
+    public Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable) {
+        return articleRepository.findArticleByScategoryPageables(scatId, pageable)
+                .map(ArticleDto::fromEntityToDto);
+
     }
 
     @Override

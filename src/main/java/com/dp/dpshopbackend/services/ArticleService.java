@@ -1,6 +1,8 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -23,6 +25,10 @@ public interface ArticleService {
     List<ArticleDto> findListArticleByScategories(Long scatId);
 
     List<ArticleDto> findListArticleBySelected();
+
+    Page<ArticleDto> findArticleByPageable(Pageable pageable);
+
+    Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable);
 
     void delete(Long id);
 }
