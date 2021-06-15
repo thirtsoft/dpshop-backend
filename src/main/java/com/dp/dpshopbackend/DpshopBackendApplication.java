@@ -51,51 +51,46 @@ public class DpshopBackendApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 
-        Category c1 = new Category((long) 1,"cat1", "cat1");
-		Category c2 = new Category((long) 2,"cat2", "cat2");
-		Category c3 = new Category((long) 3,"cat3", "cat3");
+        Category c1 = new Category(1L,"cat1", "cat1");
+		Category c2 = new Category(2L,"cat2", "cat2");
+		Category c3 = new Category(3L,"cat3", "cat3");
 		categoryRepository.save(c1);categoryRepository.save(c2);categoryRepository.save(c3);
-/*
-		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c1)));
-		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c2)));
-		CategoryDto.fromEntityToDto(categoryRepository.save(CategoryDto.fromDtoToEntity(c3)));
-*/
-		String codescat = "scat1"; String libellescat = "scat1";
-        Scategory sc1 = new Scategory();
-        sc1.setCode(codescat); sc1.setLibelle(libellescat); sc1.setCategory(c1);
-		String codescat2 = "scat2"; String libellescat2 = "scat2";
-		Scategory sc2 = new Scategory();
-		sc2.setCode(codescat2); sc2.setLibelle(libellescat2); sc2.setCategory(c2);
-		String codescat3 = "scat3"; String libellescat3 = "scat3";
-		Scategory sc3 = new Scategory();
-		sc3.setCode(codescat3); sc3.setLibelle(libellescat3); sc3.setCategory(c3);
 
-		String codescat4 = "scat4"; String libellescat4 = "scat4";
-		Scategory sc4 = new Scategory();
-		sc4.setCode(codescat4); sc4.setLibelle(libellescat4); sc4.setCategory(c2);
-		scategoryRepository.save(sc1);scategoryRepository.save(sc2);
-		scategoryRepository.save(sc3);scategoryRepository.save(sc4);
-/*
-		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc1)));
-		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc2)));
-		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc3)));
-		ScategoryDto.fromEntityToDto(scategoryRepository.save(ScategoryDto.fromDtoToEntity(sc4)));
-*/
-        Article p1= new Article(1L,"prod1","prod1", 150,1700.0,1800.0,true,true,"prod1","photo1.jpg",sc1);
-		Article p2= new Article(2L,"prod2","prod2", 150,1700.0,1800.0,true,true,"prod1","photo2.jpg",sc3);
-		Article p3= new Article(3L,"prod3","prod3", 150,1700.0,1800.0,false,false,"prod1","photo3.jpg",sc2);
-		Article p4= new Article(4L,"prod4","prod4", 150,1700.0,1800.0,true,false,"prod1","photo4.jpg",sc1);
-		Article p5= new Article(5L,"prod5","prod5", 150,1700.0,1800.0,false,true,"prod1","photo5.jpg",sc4);
-		Article p6= new Article(6L,"prod6","prod6", 150,1700.0,1800.0,true,true,"prod1","photo5.jpg",sc1);
-		Article p7= new Article(7L,"prod7","prod7", 150,1700.0,1800.0,true,true,"prod1","photo7.jpg",sc1);
-		Article p8= new Article(8L,"prod8","prod8", 150,1700.0,1800.0,false,false,"prod1","photo8.jpg",sc3);
-		Article p9= new Article(9L,"prod9","prod9", 150,1700.0,1800.0,true,false,"prod1","photo9.jpg",sc3);
-		Article p10= new Article(10L,"prod10","prod10", 150,1700.0,1800.0,false,true,"prod1","photo10.jpg",sc4);
+        Scategory sc1 = new Scategory(1L, "scat1", "Fashion & Beauty", c1);
+		Scategory sc2 = new Scategory(2L, "scat2", "Kids & Babies Clothes", c2);
+		Scategory sc3 = new Scategory(3L, "scat3", "Men & Women Clothes", c3);
+		Scategory sc4 = new Scategory(4L, "scat4", "Gadgets & Accessories", c2);
+		Scategory sc5 = new Scategory(5L, "scat5", "Electronics & Accessories", c3);
 
-		articleRepository.save(p1);articleRepository.save(p2);articleRepository.save(p3);
-		articleRepository.save(p4);articleRepository.save(p5);
-		articleRepository.save(p6);articleRepository.save(p7);articleRepository.save(p8);
-		articleRepository.save(p9);articleRepository.save(p10);
+		scategoryRepository.save(sc1);scategoryRepository.save(sc2);scategoryRepository.save(sc3);
+		scategoryRepository.save(sc4); scategoryRepository.save(sc5);
+
+        Article p1= new Article(1L,"prod1","product-1", 150,1700.0,1800.0,true,true,"prod1","product-1.jpg",sc1);
+		Article p2= new Article(2L,"prod2","product-2", 150,1700.0,1800.0,true,true,"prod1","product-2.jpg",sc3);
+		Article p3= new Article(3L,"prod3","product-3", 150,1700.0,1800.0,false,true,"prod1","product-3.jpg",sc2);
+		Article p4= new Article(4L,"prod4","product-4", 150,1700.0,1800.0,true,true,"prod1","product-4.jpg",sc1);
+		Article p5= new Article(5L,"prod5","product-5", 150,1700.0,1800.0,false,true,"prod1","product-5.jpg",sc4);
+		Article p6= new Article(6L,"prod6","product-6", 150,1700.0,1800.0,true,true,"prod1","product-6.jpg",sc1);
+		Article p7= new Article(7L,"prod7","product-7", 150,1700.0,1800.0,true,true,"prod1","product-7.jpg",sc1);
+		Article p8= new Article(8L,"prod8","product-8", 150,1700.0,1800.0,false,true,"prod1","product-8.jpg",sc3);
+		Article p9= new Article(9L,"prod9","product-9", 150,1700.0,1800.0,true,true,"prod1","product-9.jpg",sc3);
+		Article p10= new Article(10L,"prod10","product-10", 150,1700.0,1800.0,false,true,"prod1","product-10.jpg",sc4);
+		Article p11= new Article(11L,"prod11","product-11", 150,1700.0,1800.0,true,true,"prod1","photo1.jpg",sc1);
+		Article p12= new Article(12L,"prod12","product-12", 150,1700.0,1800.0,true,true,"prod1","photo2.jpg",sc3);
+		Article p13= new Article(13L,"prod13","product-13", 150,1700.0,1800.0,false,true,"prod1","photo3.jpg",sc2);
+		Article p14= new Article(14L,"prod14","product-14", 150,1700.0,1800.0,true,false,"prod1","photo4.jpg",sc1);
+		Article p15= new Article(15L,"prod15","product-15", 150,1700.0,1800.0,false,false,"prod1","photo5.jpg",sc4);
+		Article p16= new Article(16L,"prod16","product-16", 150,1700.0,1800.0,true,true,"prod1","photo6.jpg",sc1);
+		Article p17= new Article(17L,"prod17","product-17", 150,1700.0,1800.0,true,false,"prod1","photo7.jpg",sc1);
+		Article p18= new Article(18L,"prod18","product-18", 150,1700.0,1800.0,false,false,"prod1","photo8.jpg",sc3);
+		Article p19= new Article(19L,"prod19","product-19", 150,1700.0,1800.0,true,false,"prod1","photo9.jpg",sc3);
+		Article p20= new Article(20L,"prod20","product-20", 150,1700.0,1800.0,false,false,"prod1","photo10.jpg",sc4);
+
+		articleRepository.save(p1);articleRepository.save(p2);articleRepository.save(p3);articleRepository.save(p4);
+		articleRepository.save(p5);articleRepository.save(p6);articleRepository.save(p7);articleRepository.save(p8);
+		articleRepository.save(p9);articleRepository.save(p10);articleRepository.save(p11);articleRepository.save(p12);
+		articleRepository.save(p13);articleRepository.save(p14);articleRepository.save(p15);articleRepository.save(p16);
+		articleRepository.save(p17);articleRepository.save(p18);articleRepository.save(p19);articleRepository.save(p20);
 /*
 		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p1)));
 		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p2)));

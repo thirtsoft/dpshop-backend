@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.util.MimeTypeUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -85,6 +84,14 @@ public interface ArticleApi {
     })
     List<ArticleDto> findListArticleByScategories(@PathVariable("scatId") Long idScategory);
 
+    @GetMapping(value = APP_ROOT + "/articles/searchArticleByselectedIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles selectionner",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles selectionner", responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles selectionner / une liste vide")
+    })
+    List<ArticleDto> getListArticleBySelected();
+
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",
             notes = "Cette méthode permet de supprimer une Article par son ID", response = ArticleDto.class)
@@ -108,6 +115,6 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
 
     })
-    void uploadPhotoArticle(@RequestParam(name = "photoArticle")  MultipartFile photoArticle, @PathVariable("idArticle") Long idArticle) throws IOException;
+    void uploadPhotoArticle(@RequestParam(name = "photoArticle") MultipartFile photoArticle, @PathVariable("idArticle") Long idArticle) throws IOException;
 
 }

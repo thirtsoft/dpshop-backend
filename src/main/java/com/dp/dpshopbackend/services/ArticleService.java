@@ -22,5 +22,7 @@ public interface ArticleService {
 
     List<ArticleDto> findListArticleByScategories(Long scatId);
 
+    List<ArticleDto> findListArticleBySelected();
+
     void delete(Long id);
 }

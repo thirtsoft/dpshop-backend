@@ -74,6 +74,11 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public List<ArticleDto> getListArticleBySelected() {
+        return articleService.findListArticleBySelected();
+    }
+
+    @Override
     public void delete(Long id) {
         articleService.delete(id);
     }
