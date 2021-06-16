@@ -85,6 +85,14 @@ public interface ArticleApi {
     })
     List<ArticleDto> findListArticleByScategories(@PathVariable("scatId") Long idScategory);
 
+    @GetMapping(value = APP_ROOT + "/articles/searchArticleByKeyword", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par mot Clé",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par mot Clé", responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par Scategory / une liste vide")
+    })
+    List<ArticleDto> getListArticleByKeyword(@RequestParam(name = "keyword") String keyword);
+
     @GetMapping(value = APP_ROOT + "/articles/searchArticleByselectedIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles selectionner",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles selectionner", responseContainer = "List<ArticleDto>")
@@ -102,13 +110,13 @@ public interface ArticleApi {
     })
     Page<ArticleDto> getListArticleByPageable(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size);
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleByScategoryByPageables/{idScat}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/articles/searchArticleByScategoryByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par Scategory",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par Scategory par pages", responseContainer = "Page<ArticleDto>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Articles par Scategory / une liste vide")
+            @ApiResponse(code = 200, message = "La liste des Articles par Scategory par pages / une liste vide")
     })
-    Page<ArticleDto> getListArticleByScategoryByPageable(@PathVariable("idScat") Long scatId, @RequestParam(name = "page") int page,
+    Page<ArticleDto> getListArticleByScategoryByPageable(@RequestParam("id") Long scatId, @RequestParam(name = "page") int page,
                                                          @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")

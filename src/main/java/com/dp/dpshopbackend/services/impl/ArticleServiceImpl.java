@@ -139,6 +139,16 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findListArticleByKeyword(String keyword) {
+        if (keyword == null) {
+            log.error("Article not found");
+        }
+        return articleRepository.findArticleByKeyword(keyword).stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ArticleDto> findListArticleBySelected() {
         return articleRepository.findArticleBySelected().stream()
                 .map(ArticleDto::fromEntityToDto)
@@ -155,7 +165,6 @@ public class ArticleServiceImpl implements ArticleService {
     public Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable) {
         return articleRepository.findArticleByScategoryPageables(scatId, pageable)
                 .map(ArticleDto::fromEntityToDto);
-
     }
 
     @Override

@@ -77,6 +77,11 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public List<ArticleDto> getListArticleByKeyword(String keyword) {
+        return articleService.findListArticleByKeyword("%" + keyword + "%");
+    }
+
+    @Override
     public List<ArticleDto> getListArticleBySelected() {
         return articleService.findListArticleBySelected();
     }

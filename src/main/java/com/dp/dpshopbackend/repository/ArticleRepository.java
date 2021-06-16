@@ -22,6 +22,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("select art from Article art where art.selected = true")
     List<Article> findArticleBySelected();
 
+    @Query("select art from Article art where art.designation like :x")
+    List<Article> findArticleByKeyword(@Param("x") String mc);
+
     @Query("select p from Article p")
     Page<Article> findArticle(Pageable pageable);
 

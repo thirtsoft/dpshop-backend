@@ -24,6 +24,8 @@ public interface ArticleService {
 
     List<ArticleDto> findListArticleByScategories(Long scatId);
 
+    List<ArticleDto> findListArticleByKeyword(String keyword);
+
     List<ArticleDto> findListArticleBySelected();
 
     Page<ArticleDto> findArticleByPageable(Pageable pageable);
