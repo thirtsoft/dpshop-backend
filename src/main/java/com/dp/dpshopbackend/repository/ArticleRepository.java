@@ -19,6 +19,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("select p from Article p where p.scategory.id =:scat")
     List<Article> findArticleByScategory(@Param("scat") Long scatId);
 
+    @Query("select art from Article art where art.price like :price GROUP BY (art.price, art.id) ")
+    List<Article> findArticleGroupByPrice(@Param("price") double price);
+
     @Query("select art from Article art where art.selected = true")
     List<Article> findArticleBySelected();
 

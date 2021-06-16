@@ -82,6 +82,11 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public List<ArticleDto> getListArticleByPrice(double price) {
+        return articleService.findListArticleGroupByPrice(price);
+    }
+
+    @Override
     public List<ArticleDto> getListArticleBySelected() {
         return articleService.findListArticleBySelected();
     }

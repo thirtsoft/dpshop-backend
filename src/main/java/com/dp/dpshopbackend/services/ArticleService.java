@@ -26,6 +26,8 @@ public interface ArticleService {
 
     List<ArticleDto> findListArticleByKeyword(String keyword);
 
+    List<ArticleDto> findListArticleGroupByPrice(double price);
+
     List<ArticleDto> findListArticleBySelected();
 
     Page<ArticleDto> findArticleByPageable(Pageable pageable);

@@ -93,6 +93,15 @@ public interface ArticleApi {
     })
     List<ArticleDto> getListArticleByKeyword(@RequestParam(name = "keyword") String keyword);
 
+
+    @GetMapping(value = APP_ROOT + "/articles/searchArticleByPrice/{price}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par price",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par price", responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par price / une liste vide")
+    })
+    List<ArticleDto> getListArticleByPrice(@PathVariable("price") double price);
+
     @GetMapping(value = APP_ROOT + "/articles/searchArticleByselectedIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles selectionner",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles selectionner", responseContainer = "List<ArticleDto>")

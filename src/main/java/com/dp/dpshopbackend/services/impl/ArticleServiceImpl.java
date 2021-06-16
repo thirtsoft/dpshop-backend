@@ -149,6 +149,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findListArticleGroupByPrice(double price) {
+        return articleRepository.findArticleGroupByPrice(price).stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ArticleDto> findListArticleBySelected() {
         return articleRepository.findArticleBySelected().stream()
                 .map(ArticleDto::fromEntityToDto)
