@@ -30,6 +30,11 @@ public class DpshopBackendApplication implements CommandLineRunner {
     private ClientRepository clientRepository;
     @Autowired
     private FournisseurRepository fournisseurRepository;
+    @Autowired
+    private CountryRepository countryRepository;
+    @Autowired
+    private StateRepository stateRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(DpshopBackendApplication.class, args);
@@ -139,12 +144,25 @@ public class DpshopBackendApplication implements CommandLineRunner {
         clientRepository.save(cl1);
         clientRepository.save(cl2);
         clientRepository.save(cl3);
-/*
-		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl1)));
-		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl2)));
-		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl3)));
-		ClientDto.fromEntityToDto(clientRepository.save(ClientDto.fromDtoToEntity(cl4)));
-*/
+
+        Country count1 = new Country(1L, "SENEGAL"); Country count2 = new Country(2L, "Etats-Unies");
+        Country count3 = new Country(3L, "Guinnée-Conakry"); Country count4 = new Country(4L, "Japon");
+        Country count5 = new Country(5L, "Gambie"); Country count6 = new Country(6L, "Chine");
+        Country count7 = new Country(7L, "Arabie-Souadite"); Country count8 = new Country(8L, "France");
+        Country count9 = new Country(9L, "Nigeria"); Country count10 = new Country(10L, "Inde");
+        countryRepository.save(count1);countryRepository.save(count2);countryRepository.save(count3);countryRepository.save(count4);
+        countryRepository.save(count5);countryRepository.save(count6);countryRepository.save(count7);countryRepository.save(count8);
+        countryRepository.save(count9);countryRepository.save(count10);
+
+        State state1 = new State(1L, "Dakar", count1); State state2 = new State(2L, "Ziguinchor", count1);
+        State state3 = new State(3L, "Thies", count1); State state4 = new State(4L, "Fatick", count1);
+        State state5 = new State(5L, "California", count2);State state6 = new State(6L, "Japon", count4);
+        State state7 = new State(7L, "Labe", count3);State state8 = new State(8L, "Chine", count6);
+        State state9 = new State(9L, "Dalaba", count3);State state10 = new State(10L, "Accra", count9);
+        stateRepository.save(state1);stateRepository.save(state2);stateRepository.save(state3);stateRepository.save(state4);stateRepository.save(state5);
+        stateRepository.save(state6);stateRepository.save(state7);stateRepository.save(state8);stateRepository.save(state9);stateRepository.save(state10);
+
+
 
     }
 }
