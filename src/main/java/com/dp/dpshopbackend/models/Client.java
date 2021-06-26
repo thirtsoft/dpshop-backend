@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "client")
@@ -32,5 +33,9 @@ public class Client implements Serializable {
 
     @Column(name = "phoneClient", length = 30)
     private String phoneClient;
+/*
+    @OneToMany(mappedBy = "client")
+    private List<Commande> commandeList;
+    */
 
 }

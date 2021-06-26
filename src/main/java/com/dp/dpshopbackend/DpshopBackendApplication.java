@@ -140,10 +140,9 @@ public class DpshopBackendApplication implements CommandLineRunner {
         Client cl1 = new Client((long) 1, "cl1", "cl1", "cl1", "cl1", "cl1");
         Client cl2 = new Client((long) 2, "cl2", "cl2", "cl2", "cl2", "cl2");
         Client cl3 = new Client((long) 3, "cl3", "cl3", "cl3", "cl3", "cl3");
-        ClientDto cl4 = new ClientDto(4, "cl4", "cl4", "cl4", "cl4", "cl4");
-        clientRepository.save(cl1);
-        clientRepository.save(cl2);
-        clientRepository.save(cl3);
+        Client cl4 = new Client((long) 4, "cl4", "cl4", "cl4", "cl4", "cl4");
+        clientRepository.save(cl1);clientRepository.save(cl2);
+        clientRepository.save(cl3); clientRepository.save(cl4);
 
         Country count1 = new Country(1L, "SENEGAL"); Country count2 = new Country(2L, "Etats-Unies");
         Country count3 = new Country(3L, "Guinnée-Conakry"); Country count4 = new Country(4L, "Japon");

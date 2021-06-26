@@ -1,10 +1,13 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Client;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -12,7 +15,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ClientDto {
 
-    private long id;
+    private Long id;
 
     private String reference;
 
@@ -23,6 +26,10 @@ public class ClientDto {
     private String email;
 
     private String phoneClient;
+/*
+    @JsonIgnore
+    private List<CommandeDto> commandeDtoList;
+    */
 
     public static ClientDto fromEntityToDto(Client client) {
         if (client == null) {

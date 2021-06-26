@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.Commande;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,11 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 public class CommandeDto {
 
-    private long id;
+    private Long id;
 
     private String reference;
 
-    private String numeroCommande;
+    private Long numeroCommande;
 
     private double total;
 
@@ -31,6 +32,7 @@ public class CommandeDto {
 
     private ClientDto clientDto;
 
+    @JsonIgnore
     private List<LigneCommandeDto> lcomms = new ArrayList<>();
 
     public static CommandeDto fromEntityToDto(Commande commande) {

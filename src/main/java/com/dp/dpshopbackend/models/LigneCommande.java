@@ -19,17 +19,23 @@ public class LigneCommande implements Serializable {
     private Long id;
 
     @Column(name = "numero", length = 90)
-    private long numero;
+    private Long numero;
 
     @Column(name = "quantity", length = 70)
     private int quantity;
 
     @Column(name = "price", length = 70)
     private double price;
-
+/*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comId")
     @JsonIgnoreProperties(value = {"lcomms"})
+    private Commande commande;
+    */
+
+
+    @ManyToOne
+    @JoinColumn(name = "comId")
     private Commande commande;
 
     @ManyToOne

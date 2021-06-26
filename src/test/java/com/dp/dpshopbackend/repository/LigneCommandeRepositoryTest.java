@@ -36,7 +36,7 @@ public class LigneCommandeRepositoryTest {
         Long artId = (long) 1;
         Article article = articleRepository.findById(artId).orElse(null);
 
-        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234L, 12, 4500.50, commande, article);
 
         LigneCommande ligneCommandeResult = ligneCommandeRepository.save(ligneCommande);
 
@@ -53,7 +53,7 @@ public class LigneCommandeRepositoryTest {
         Long artId = (long) 1;
         Article article = articleRepository.findById(artId).orElse(null);
 
-        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234L, 12, 4500.50, commande, article);
         ligneCommandeRepository.save(ligneCommande);
 
         long numero = 120;
@@ -78,7 +78,7 @@ public class LigneCommandeRepositoryTest {
         Long artId = (long) 1;
         Article article = articleRepository.findById(artId).orElse(null);
 
-        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234L, 12, 4500.50, commande, article);
 
         LigneCommande ligneCommandeResult = ligneCommandeRepository.save(ligneCommande);
 
@@ -96,10 +96,10 @@ public class LigneCommandeRepositoryTest {
         Long artId = (long) 1;
         Article article = articleRepository.findById(artId).orElse(null);
 
-        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234L, 12, 4500.50, commande, article);
         ligneCommandeRepository.save(ligneCommande);
 
-        LigneCommande ligneCommande1 = new LigneCommande(2L, 134, 10, 4000.50, commande, article);
+        LigneCommande ligneCommande1 = new LigneCommande(2L, 1234L, 10, 4000.50, commande, article);
         ligneCommandeRepository.save(ligneCommande1);
 
         List<LigneCommande> ligneCommandes = ligneCommandeRepository.findAll();
@@ -117,7 +117,7 @@ public class LigneCommandeRepositoryTest {
         Long artId = (long) 1;
         Article article = articleRepository.findById(artId).orElse(null);
 
-        LigneCommande ligneCommande = new LigneCommande(1L, 1234, 12, 4500.50, commande, article);
+        LigneCommande ligneCommande = new LigneCommande(1L, 1234L, 12, 4500.50, commande, article);
 
         LigneCommande ligneCommandeResult = ligneCommandeRepository.save(ligneCommande);
 

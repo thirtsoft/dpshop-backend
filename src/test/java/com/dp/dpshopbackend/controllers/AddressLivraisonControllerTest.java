@@ -62,7 +62,7 @@ public class AddressLivraisonControllerTest {
     public void setup() {
         commandeDto = new CommandeDto();
         commandeDto.setReference("refCom");
-        commandeDto.setNumeroCommande("numCom");
+        commandeDto.setNumeroCommande(120L);
         addressLivraisonDto = new AddressLivraisonDto();
         addressLivraisonDto.setReference("aaa");
         addressLivraisonDto.setCity("ccc");

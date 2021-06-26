@@ -30,7 +30,7 @@ public class CommandeRepositoryTest {
         Client client = clientRepository.findById(clientId).orElse(null);
 
         String reference = "Com120";
-        String numeroCommande = "Com120";
+        Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
@@ -52,7 +52,7 @@ public class CommandeRepositoryTest {
         Client client = clientRepository.findById(clientId).orElse(null);
 
         String reference = "Com120";
-        String numeroCommande = "Com120";
+        Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
@@ -64,7 +64,7 @@ public class CommandeRepositoryTest {
         Commande commandeResult = commandeRepository.save(commande);
 
         String refCom = "RefCom";
-        String numCom = "numCom";
+        Long numCom = 120L;
         commande.setId(2L);
         commande.setReference(refCom);
         commande.setNumeroCommande(numCom);
@@ -83,7 +83,7 @@ public class CommandeRepositoryTest {
         Client client = clientRepository.findById(clientId).orElse(null);
 
         String reference = "Com120";
-        String numeroCommande = "Com120";
+        Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
@@ -106,7 +106,7 @@ public class CommandeRepositoryTest {
         Client client = clientRepository.findById(clientId).orElse(null);
 
         String reference = "Com120";
-        String numeroCommande = "Com120";
+        Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
@@ -135,7 +135,7 @@ public class CommandeRepositoryTest {
         Client client = clientRepository.findById(clientId).orElse(null);
 
         String reference = "Com120";
-        String numeroCommande = "Com120";
+        Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);

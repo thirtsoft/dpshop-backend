@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.LigneCommande;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,14 +13,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class LigneCommandeDto {
 
-    private long id;
+    private Long id;
 
-    private long numero;
+    private Long numero;
 
     private int quantity;
 
     private double price;
 
+    @JsonIgnore
     private CommandeDto commandeDto;
 
     private ArticleDto articleDto;
@@ -34,7 +36,7 @@ public class LigneCommandeDto {
                 .numero(ligneCommande.getNumero())
                 .quantity(ligneCommande.getQuantity())
                 .price(ligneCommande.getPrice())
-                .commandeDto(CommandeDto.fromEntityToDto(ligneCommande.getCommande()))
+    //            .commandeDto(CommandeDto.fromEntityToDto(ligneCommande.getCommande()))
                 .articleDto(ArticleDto.fromEntityToDto(ligneCommande.getArticle()))
                 .build();
     }
@@ -49,6 +51,7 @@ public class LigneCommandeDto {
         ligneCommande.setNumero(ligneCommandeDto.getNumero());
         ligneCommande.setQuantity(ligneCommandeDto.getQuantity());
         ligneCommande.setPrice(ligneCommandeDto.getPrice());
+        ligneCommande.setArticle(ArticleDto.fromDtoToEntity(ligneCommandeDto.getArticleDto()));
 
         return ligneCommande;
     }

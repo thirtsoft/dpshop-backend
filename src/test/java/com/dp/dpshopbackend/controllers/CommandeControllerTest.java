@@ -70,7 +70,7 @@ public class CommandeControllerTest {
         commandeDto = new CommandeDto();
         commandeDto.setId(1L);
         commandeDto.setReference("reCom");
-        commandeDto.setNumeroCommande("numCom");
+        commandeDto.setNumeroCommande(120L);
         commandeDto.setClientDto(clientDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(commandeController).build();

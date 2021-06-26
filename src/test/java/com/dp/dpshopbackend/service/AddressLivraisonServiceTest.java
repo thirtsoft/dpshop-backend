@@ -34,7 +34,7 @@ public class AddressLivraisonServiceTest {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("CLT")
-                .numeroCommande("Com120")
+                .numeroCommande(120L)
                 .statusCommande(StatusCommande.LIVREE)
                 .build();
         AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
@@ -62,7 +62,7 @@ public class AddressLivraisonServiceTest {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("CLT")
-                .numeroCommande("Com120")
+                .numeroCommande(120L)
                 .statusCommande(StatusCommande.LIVREE)
                 .build();
         AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
@@ -88,7 +88,7 @@ public class AddressLivraisonServiceTest {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("CLT")
-                .numeroCommande("Com120")
+                .numeroCommande(120L)
                 .statusCommande(StatusCommande.LIVREE)
                 .build();
         AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()

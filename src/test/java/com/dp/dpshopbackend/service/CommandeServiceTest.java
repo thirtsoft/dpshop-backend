@@ -41,7 +41,7 @@ public class CommandeServiceTest {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("CLT")
-                .numeroCommande("Com120")
+                .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
                 .clientDto(clientDto)
                 .build();
@@ -69,7 +69,7 @@ public class CommandeServiceTest {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("Com")
-                .numeroCommande("Com123")
+                .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
                 .clientDto(clientDto)
                 .build();
@@ -95,7 +95,7 @@ public class CommandeServiceTest {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("Com")
-                .numeroCommande("Com123")
+                .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
                 .clientDto(clientDto)
                 .build();
