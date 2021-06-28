@@ -38,6 +38,32 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public NotificationDto update(Long idNote, NotificationDto notificationDto) {
+        if (!notificationRepository.existsById(idNote)) {
+            throw new ResourceNotFoundException("Notification not found");
+        }
+
+        Optional<Notification> notificationOptional = notificationRepository.findById(idNote);
+
+        if (!notificationOptional.isPresent()) {
+            throw new ResourceNotFoundException("Notification not found");
+        }
+
+        NotificationDto notificationDTOResult = NotificationDto.fromEntityToDto(notificationOptional.get());
+        notificationDTOResult.setReference(notificationDto.getReference());
+        notificationDTOResult.setNbreEtoile(notificationDto.getNbreEtoile());
+        notificationDTOResult.setObservation(notificationDto.getObservation());
+        notificationDTOResult.setUtilisateurDto(notificationDto.getUtilisateurDto());
+        notificationDTOResult.setArticleDto(notificationDto.getArticleDto());
+
+        return NotificationDto.fromEntityToDto(
+                notificationRepository.save(
+                        NotificationDto.fromDtoToEntity(notificationDTOResult)
+                )
+        );
+    }
+
+    @Override
     public NotificationDto findById(Long id) {
         if (id == null) {
             log.error("Notification Id is null");

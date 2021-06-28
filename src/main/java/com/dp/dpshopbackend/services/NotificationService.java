@@ -8,9 +8,9 @@ public interface NotificationService {
 
     NotificationDto save(NotificationDto notificationDto);
 
-    NotificationDto findById(Long id);
+    NotificationDto update(Long idNote, NotificationDto notificationDto);
 
-    //  ScategorieDto findByLibelle(String libelle);
+    NotificationDto findById(Long id);
 
     List<NotificationDto> findAll();
 
