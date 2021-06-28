@@ -20,6 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,7 +95,6 @@ public class CommandeServiceImpl implements CommandeService {
             });
         }
 
-        //     Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
         Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
 
         if (commandeDto.getLcomms() != null) {
@@ -121,11 +122,38 @@ public class CommandeServiceImpl implements CommandeService {
 
         savedCmdClt.setTotal(total);
         savedCmdClt.setStatusCommande(StatusCommande.ENCOURS);
-        //     savedCmdClt.setLocalDateTime(new LocalD());
 
         return CommandeDto.fromEntityToDto(savedCmdClt);
 
 
+    }
+
+    @Override
+    public CommandeDto update(Long comId, CommandeDto commandeDto) {
+        if (!commandeRepository.existsById(comId)) {
+            throw new ResourceNotFoundException("Commande not found");
+        }
+
+        Optional<Commande> commandeOptional = commandeRepository.findById(comId);
+
+        if (!commandeOptional.isPresent()) {
+            throw new ResourceNotFoundException("Commande not found");
+        }
+
+        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
+        commandeDtoResult.setReference(commandeDto.getReference());
+        commandeDtoResult.setNumeroCommande(commandeDto.getNumeroCommande());
+        commandeDtoResult.setTotal(commandeDto.getTotal());
+        commandeDtoResult.setLocalDateTime(commandeDto.getLocalDateTime());
+        commandeDtoResult.setLcomms(commandeDto.getLcomms());
+        commandeDtoResult.setStatusCommande(commandeDto.getStatusCommande());
+        commandeDtoResult.setClientDto(commandeDto.getClientDto());
+
+        return CommandeDto.fromEntityToDto(
+                commandeRepository.save(
+                        CommandeDto.fromDtoToEntity(commandeDtoResult)
+                )
+        );
     }
 
     @Override
@@ -148,6 +176,12 @@ public class CommandeServiceImpl implements CommandeService {
         return commandeRepository.findAll().stream()
                 .map(CommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Page<CommandeDto> findCommandeByCustomerPageables(Long clientId, Pageable pageable) {
+        return commandeRepository.findCommandeByCustomerPageables(clientId, pageable)
+                .map(CommandeDto::fromEntityToDto);
     }
 
     @Override

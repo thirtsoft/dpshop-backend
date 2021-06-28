@@ -4,6 +4,9 @@ import com.dp.dpshopbackend.controller.api.CommandeApi;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.services.CommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,7 +15,7 @@ import java.util.List;
 @RestController
 public class CommandeController implements CommandeApi {
 
-    private CommandeService commandeService;
+    private final CommandeService commandeService;
 
     @Autowired
     public CommandeController(CommandeService commandeService) {
@@ -25,6 +28,12 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public ResponseEntity<CommandeDto> update(Long id, CommandeDto commandeDto) {
+        commandeDto.setId(id);
+        return ResponseEntity.ok(commandeService.save(commandeDto));
+    }
+
+    @Override
     public ResponseEntity<CommandeDto> findById(Long id) {
         return ResponseEntity.ok(commandeService.findById(id));
     }
@@ -32,6 +41,12 @@ public class CommandeController implements CommandeApi {
     @Override
     public List<CommandeDto> findAll() {
         return commandeService.findAll();
+    }
+
+    @Override
+    public Page<CommandeDto> getListCommandeByCustomerByPageables(Long clientId, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return commandeService.findCommandeByCustomerPageables(clientId, pageable);
     }
 
     @Override

@@ -33,4 +33,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select p from Article p where p.scategory.id =:scat")
     Page<Article> findArticleByScategoryPageables(@Param("scat") Long scatId, Pageable pageable);
+
+    @Query("select art from Article art where art.price like :price GROUP BY (art.price, art.id) ")
+    Page<Article> findArticlePageableGroupByPrice(@Param("price") double price, Pageable pageable);
 }

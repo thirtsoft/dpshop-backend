@@ -104,6 +104,12 @@ public class ArticleController implements ArticleApi {
         return articleService.findArticleByScategoryPageables(scatId, pageable);
     }
 
+    @Override
+    public Page<ArticleDto> getListArticleBySamePriceyByPageable(double price, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return articleService.findArticleBySamePricePageables(price, pageable);
+    }
+
 
     @Override
     public void delete(Long id) {

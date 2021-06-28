@@ -34,5 +34,7 @@ public interface ArticleService {
 
     Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable);
 
+    Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable);
+
     void delete(Long id);
 }

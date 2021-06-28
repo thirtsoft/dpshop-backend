@@ -128,6 +128,15 @@ public interface ArticleApi {
     Page<ArticleDto> getListArticleByScategoryByPageable(@RequestParam("id") Long scatId, @RequestParam(name = "page") int page,
                                                          @RequestParam(name = "size") int size);
 
+    @GetMapping(value = APP_ROOT + "/articles/searchArticleBySamePriceByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par price",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles qui ont le meme price par pages", responseContainer = "Page<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par price par pages / une liste vide")
+    })
+    Page<ArticleDto> getListArticleBySamePriceyByPageable(@RequestParam("price") double price, @RequestParam(name = "page") int page,
+                                                          @RequestParam(name = "size") int size);
+
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",
             notes = "Cette méthode permet de supprimer une Article par son ID", response = ArticleDto.class)

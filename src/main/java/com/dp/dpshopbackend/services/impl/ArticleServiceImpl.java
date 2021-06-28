@@ -175,6 +175,12 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable) {
+        return articleRepository.findArticlePageableGroupByPrice(price, pageable)
+                .map(ArticleDto::fromEntityToDto);
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Article Id is null");
