@@ -36,7 +36,7 @@ public class LigneCommandeDto {
                 .numero(ligneCommande.getNumero())
                 .quantity(ligneCommande.getQuantity())
                 .price(ligneCommande.getPrice())
-    //            .commandeDto(CommandeDto.fromEntityToDto(ligneCommande.getCommande()))
+  //              .commandeDto(CommandeDto.fromEntityToDto(ligneCommande.getCommande()))
                 .articleDto(ArticleDto.fromEntityToDto(ligneCommande.getArticle()))
                 .build();
     }
@@ -52,6 +52,7 @@ public class LigneCommandeDto {
         ligneCommande.setQuantity(ligneCommandeDto.getQuantity());
         ligneCommande.setPrice(ligneCommandeDto.getPrice());
         ligneCommande.setArticle(ArticleDto.fromDtoToEntity(ligneCommandeDto.getArticleDto()));
+  //      ligneCommande.setCommande(CommandeDto.fromDtoToEntity(ligneCommandeDto.getCommandeDto()));
 
         return ligneCommande;
     }

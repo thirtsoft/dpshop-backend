@@ -1,7 +1,5 @@
 package com.dp.dpshopbackend.services.impl;
 
-import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
@@ -10,7 +8,10 @@ import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.models.Client;
 import com.dp.dpshopbackend.models.Commande;
 import com.dp.dpshopbackend.models.LigneCommande;
+import com.dp.dpshopbackend.repository.ArticleRepository;
+import com.dp.dpshopbackend.repository.ClientRepository;
 import com.dp.dpshopbackend.repository.CommandeRepository;
+import com.dp.dpshopbackend.repository.LigneCommandeRepository;
 import com.dp.dpshopbackend.services.ArticleService;
 import com.dp.dpshopbackend.services.ClientService;
 import com.dp.dpshopbackend.services.CommandeService;
@@ -31,28 +32,36 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommandeServiceImpl implements CommandeService {
 
-    @Autowired
+    //  @Autowired
     private final CommandeRepository commandeRepository;
-
-    @Autowired
+    //   @Autowired
     private final LigneCommandeService ligneCommandeService;
-
-    @Autowired
+    //   @Autowired
     private final ArticleService articleService;
-
-    @Autowired
+    //    @Autowired
     private final ClientService clientService;
-
+    private final LigneCommandeRepository ligneCommandeRepository;
+    private final ClientRepository clientRepository;
+    private final ArticleRepository articleRepository;
+    double total = 0;
     Logger logger = LoggerFactory.getLogger(CommandeServiceImpl.class);
 
+    @Autowired
     public CommandeServiceImpl(CommandeRepository commandeRepository,
                                LigneCommandeService ligneCommandeService,
                                ArticleService articleService,
-                               ClientService clientService) {
+                               ClientService clientService,
+                               LigneCommandeRepository ligneCommandeRepository,
+                               ClientRepository clientRepository,
+                               ArticleRepository articleRepository
+    ) {
         this.commandeRepository = commandeRepository;
         this.ligneCommandeService = ligneCommandeService;
         this.articleService = articleService;
         this.clientService = clientService;
+        this.ligneCommandeRepository = ligneCommandeRepository;
+        this.clientRepository = clientRepository;
+        this.articleRepository = articleRepository;
     }
 
     @Override
@@ -60,12 +69,8 @@ public class CommandeServiceImpl implements CommandeService {
         System.out.println("Initial Numero Commande " + commandeDto.getNumeroCommande());
         logger.info("CommandeDto {}", commandeDto);
 
-        List<LigneCommandeDto> ligneCommandeDtoList = commandeDto.getLcomms();
-
-        if (ligneCommandeDtoList == null || ligneCommandeDtoList.size() == 0) {
-            throw new IllegalArgumentException("Vous devez au moins commander un produit");
-        }
-        ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
+        //    ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
+        Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
         if (clientOptional == null) {
             log.warn("Client with ID {} was not found in the DB", commandeDto.getClientDto().getId());
             throw new IllegalArgumentException("Vous devez selectionner un client");
@@ -74,25 +79,49 @@ public class CommandeServiceImpl implements CommandeService {
         if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
                 if (ligCmdClt.getArticleDto() != null) {
-                    ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
+                    //          ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
+                    Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
                     if (articleDto == null) {
                         log.warn("L'article avec l'ID " + ligCmdClt.getArticleDto().getId() + " n'existe pas");
                     }
+
                 } else {
                     log.warn("Impossible d'enregister une commande avec un aticle NULL");
+
                 }
+
             });
         }
 
+        //     Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
         Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
 
         if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
-                LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligCmdClt);
-                ligneCommande.setCommande(savedCmdClt);
-                ligneCommandeService.save(LigneCommandeDto.fromEntityToDto(ligneCommande));
-            });
+                        LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligCmdClt);
+                        ligneCommande.setCommande(savedCmdClt);
+                        //        ligneCommandeService.save(LigneCommandeDto.fromEntityToDto(ligneCommande));
+                        ligneCommandeRepository.save(ligneCommande);
+
+                        Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
+
+                        articleDto.get().setQuantity(articleDto.get().getQuantity() - ligneCommande.getQuantity());
+
+                        ligneCommande.setNumero(savedCmdClt.getNumeroCommande());
+                        ligneCommande.setPrice(articleDto.get().getPrice());
+
+                        //             total += (ligCmdClt.getQuantity() * ligCmdClt.getPrice());
+
+                        total += (ligneCommande.getQuantity() * ligneCommande.getPrice());
+                    }
+
+            );
+
         }
+
+        savedCmdClt.setTotal(total);
+        savedCmdClt.setStatusCommande(StatusCommande.ENCOURS);
+        //     savedCmdClt.setLocalDateTime(new LocalD());
 
         return CommandeDto.fromEntityToDto(savedCmdClt);
 
