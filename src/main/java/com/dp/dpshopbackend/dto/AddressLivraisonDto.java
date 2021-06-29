@@ -26,7 +26,9 @@ public class AddressLivraisonDto {
 
     private String country;
 
-    private CommandeDto commandeDto;
+    //   private CommandeDto commandeDto;
+
+    private StateDto stateDto;
 
     public static AddressLivraisonDto fromEntityToDto(AddressLivraison addressLivraison) {
         if (addressLivraison == null) {
@@ -41,7 +43,8 @@ public class AddressLivraisonDto {
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
                 .country(addressLivraison.getCountry())
-                .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
+                .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
+                //          .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
                 .build();
     }
 
@@ -57,6 +60,7 @@ public class AddressLivraisonDto {
         addressLivraison.setQuartier(addressClientDto.getQuartier());
         addressLivraison.setCity(addressClientDto.getCity());
         addressLivraison.setCountry(addressClientDto.getCountry());
+        addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
 
         return addressLivraison;
     }

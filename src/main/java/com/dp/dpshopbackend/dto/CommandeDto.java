@@ -2,7 +2,6 @@ package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.Commande;
-import com.dp.dpshopbackend.models.LigneCommande;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,6 +31,8 @@ public class CommandeDto {
 
     private ClientDto clientDto;
 
+    private AddressLivraisonDto addressLivraisonDto;
+
     //  @JsonIgnore
     //   private List<LigneCommandeDto> lcomms;
     private List<LigneCommandeDto> lcomms = new ArrayList<>();
@@ -49,7 +50,8 @@ public class CommandeDto {
                 .localDateTime(commande.getLocalDateTime())
                 .statusCommande(commande.getStatusCommande())
                 .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
-       //         .lcomms((List<LigneCommandeDto>) LigneCommandeDto.fromEntityToDto((LigneCommande) commande.getLcomms()))
+                .addressLivraisonDto(AddressLivraisonDto.fromEntityToDto(commande.getAddressLivraison()))
+                //         .lcomms((List<LigneCommandeDto>) LigneCommandeDto.fromEntityToDto((LigneCommande) commande.getLcomms()))
                 .build();
 
     }
@@ -65,7 +67,8 @@ public class CommandeDto {
         commande.setNumeroCommande(commandeDto.getNumeroCommande());
         commande.setTotal(commandeDto.getTotal());
         commande.setClient(ClientDto.fromDtoToEntity(commandeDto.getClientDto()));
-     //   commande.setLcomms((List<LigneCommande>) LigneCommandeDto.fromDtoToEntity((LigneCommandeDto) commandeDto.getLcomms()));
+        commande.setAddressLivraison(AddressLivraisonDto.fromDtoToEntity(commandeDto.getAddressLivraisonDto()));
+        //   commande.setLcomms((List<LigneCommande>) LigneCommandeDto.fromDtoToEntity((LigneCommandeDto) commandeDto.getLcomms()));
         commande.setLocalDateTime(commandeDto.getLocalDateTime());
         commande.setStatusCommande(commandeDto.getStatusCommande());
 

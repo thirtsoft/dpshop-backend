@@ -37,6 +37,6 @@ public class AddressLivraison implements Serializable {
     private String country;
 
     @ManyToOne
-    @JoinColumn(name = "comId")
-    private Commande commande;
+    @JoinColumn(name = "stateId")
+    private State state;
 }

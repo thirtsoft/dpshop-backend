@@ -8,9 +8,9 @@ public interface AddressLivraisonService {
 
     AddressLivraisonDto save(AddressLivraisonDto addressLivraisonDto);
 
-    AddressLivraisonDto findById(Long id);
+    AddressLivraisonDto update(Long idAddress, AddressLivraisonDto addressLivraisonDto);
 
-    //  ScategorieDto findByLibelle(String libelle);
+    AddressLivraisonDto findById(Long id);
 
     List<AddressLivraisonDto> findAll();
 

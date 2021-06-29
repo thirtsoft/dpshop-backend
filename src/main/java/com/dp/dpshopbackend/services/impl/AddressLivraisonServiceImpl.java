@@ -38,6 +38,34 @@ public class AddressLivraisonServiceImpl implements AddressLivraisonService {
     }
 
     @Override
+    public AddressLivraisonDto update(Long idAddress, AddressLivraisonDto addressLivraisonDto) {
+        if (!addressLivraisonRepository.existsById(idAddress)) {
+            throw new ResourceNotFoundException("AddressLivraison not found");
+        }
+
+        Optional<AddressLivraison> addressLivraisonOptional = addressLivraisonRepository.findById(idAddress);
+
+        if (!addressLivraisonOptional.isPresent()) {
+            throw new ResourceNotFoundException("AddressLivraison not found");
+        }
+
+        AddressLivraisonDto addressLivraisonDtoResult = AddressLivraisonDto.fromEntityToDto(addressLivraisonOptional.get());
+        addressLivraisonDtoResult.setReference(addressLivraisonDto.getReference());
+        addressLivraisonDtoResult.setPhone(addressLivraisonDto.getPhone());
+        addressLivraisonDtoResult.setQuartier(addressLivraisonDto.getQuartier());
+        addressLivraisonDtoResult.setRue(addressLivraisonDto.getRue());
+        addressLivraisonDtoResult.setCity(addressLivraisonDto.getCity());
+        addressLivraisonDtoResult.setCountry(addressLivraisonDto.getCountry());
+        addressLivraisonDtoResult.setStateDto(addressLivraisonDto.getStateDto());
+
+        return AddressLivraisonDto.fromEntityToDto(
+                addressLivraisonRepository.save(
+                        AddressLivraisonDto.fromDtoToEntity(addressLivraisonDtoResult)
+                )
+        );
+    }
+
+    @Override
     public AddressLivraisonDto findById(Long id) {
         if (id == null) {
             log.error("AddressLivraison Id is null");

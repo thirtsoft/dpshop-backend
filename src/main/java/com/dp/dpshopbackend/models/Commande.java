@@ -49,5 +49,9 @@ public class Commande implements Serializable {
     @OneToMany(mappedBy = "commande")
     private List<LigneCommande> lcomms = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "billingAddress")
+    private AddressLivraison addressLivraison;
+
 
 }
