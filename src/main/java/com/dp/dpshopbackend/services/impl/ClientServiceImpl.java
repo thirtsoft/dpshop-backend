@@ -8,6 +8,7 @@ import com.dp.dpshopbackend.services.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -37,6 +38,33 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public ClientDto update(Long idClient, ClientDto clientDto) {
+        if (!clientRepository.existsById(idClient)) {
+            throw new ResourceNotFoundException("Client not found");
+        }
+
+        Optional<Client> clientOptional = clientRepository.findById(idClient);
+
+        if (!clientOptional.isPresent()) {
+            throw new ResourceNotFoundException("Client not found");
+        }
+
+        ClientDto clientDtoResult = ClientDto.fromEntityToDto(clientOptional.get());
+
+        clientDtoResult.setReference(clientDto.getReference());
+        clientDtoResult.setFirstName(clientDto.getFirstName());
+        clientDtoResult.setLastName(clientDto.getLastName());
+        clientDtoResult.setPhoneClient(clientDto.getPhoneClient());
+        clientDtoResult.setEmail(clientDto.getEmail());
+
+        return ClientDto.fromEntityToDto(
+                clientRepository.save(
+                        ClientDto.fromDtoToEntity(clientDtoResult)
+                )
+        );
+    }
+
+    @Override
     public ClientDto findById(Long id) {
         if (id == null) {
             log.error("Client Id is null");
@@ -48,6 +76,20 @@ public class ClientServiceImpl implements ClientService {
         return Optional.of(ClientDto.fromEntityToDto(client.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Client avec l'Id = " + id + "n'a été trouvé")
+        );
+    }
+
+    @Override
+    public ClientDto findByReference(String reference) {
+        if (!StringUtils.hasLength(reference)) {
+            log.error("Client REFERENCE is null");
+        }
+
+        Optional<Client> clientOptional = clientRepository.findClientByReference(reference);
+
+        return Optional.of(ClientDto.fromEntityToDto(clientOptional.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Client avec l'Id = " + reference + "n'a été trouvé")
         );
     }
 
