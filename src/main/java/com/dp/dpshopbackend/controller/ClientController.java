@@ -14,7 +14,7 @@ import java.util.List;
 @CrossOrigin
 public class ClientController implements ClientApi {
 
-    private ClientService clientService;
+    private final ClientService clientService;
 
     @Autowired
     public ClientController(ClientService clientService) {
@@ -27,8 +27,19 @@ public class ClientController implements ClientApi {
     }
 
     @Override
+    public ResponseEntity<ClientDto> update(Long id, ClientDto clientDto) {
+        clientDto.setId(id);
+        return ResponseEntity.ok(clientService.save(clientDto));
+    }
+
+    @Override
     public ResponseEntity<ClientDto> findById(Long id) {
         return ResponseEntity.ok(clientService.findById(id));
+    }
+
+    @Override
+    public ResponseEntity<ClientDto> findByReference(String reference) {
+        return ResponseEntity.ok(clientService.findByReference(reference));
     }
 
     @Override
