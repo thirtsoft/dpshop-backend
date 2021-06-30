@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class AddressLivraisonController implements AddressLivraisonApi {
 
-    private AddressLivraisonService addressLivraisonService;
+    private final AddressLivraisonService addressLivraisonService;
 
     @Autowired
     public AddressLivraisonController(AddressLivraisonService addressLivraisonService) {
@@ -21,6 +21,12 @@ public class AddressLivraisonController implements AddressLivraisonApi {
 
     @Override
     public ResponseEntity<AddressLivraisonDto> save(AddressLivraisonDto addressLivraisonDto) {
+        return ResponseEntity.ok(addressLivraisonService.save(addressLivraisonDto));
+    }
+
+    @Override
+    public ResponseEntity<AddressLivraisonDto> update(Long id, AddressLivraisonDto addressLivraisonDto) {
+        addressLivraisonDto.setId(id);
         return ResponseEntity.ok(addressLivraisonService.save(addressLivraisonDto));
     }
 

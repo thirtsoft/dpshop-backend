@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class NotificationController implements NotificationApi {
 
-    private NotificationService notificationService;
+    private final NotificationService notificationService;
 
     @Autowired
     public NotificationController(NotificationService notificationService) {
@@ -21,6 +21,12 @@ public class NotificationController implements NotificationApi {
 
     @Override
     public ResponseEntity<NotificationDto> save(NotificationDto notificationDto) {
+        return ResponseEntity.ok(notificationService.save(notificationDto));
+    }
+
+    @Override
+    public ResponseEntity<NotificationDto> update(Long id, NotificationDto notificationDto) {
+        notificationDto.setId(id);
         return ResponseEntity.ok(notificationService.save(notificationDto));
     }
 

@@ -66,7 +66,7 @@ public class AddressLivraisonControllerTest {
         addressLivraisonDto = new AddressLivraisonDto();
         addressLivraisonDto.setReference("aaa");
         addressLivraisonDto.setCity("ccc");
-        addressLivraisonDto.setCommandeDto(commandeDto);
+        //    addressLivraisonDto.setCommandeDto(commandeDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(addressLivraisonController).build();
     }

@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend;
 
-import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.models.*;
 import com.dp.dpshopbackend.repository.*;
 import org.slf4j.Logger;
@@ -34,6 +33,8 @@ public class DpshopBackendApplication implements CommandLineRunner {
     private CountryRepository countryRepository;
     @Autowired
     private StateRepository stateRepository;
+    @Autowired
+    private AddressLivraisonRepository addressLivraisonRepository;
 
 
     public static void main(String[] args) {
@@ -116,13 +117,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         articleRepository.save(p18);
         articleRepository.save(p19);
         articleRepository.save(p20);
-/*
-		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p1)));
-		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p2)));
-		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p3)));
-		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p4)));
-		ArticleDto.fromEntityToDto(articleRepository.save(ArticleDto.fromDtoToEntity(p5)));
-*/
+
         Fournisseur f1 = new Fournisseur((long) 1, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", p1);
         Fournisseur f2 = new Fournisseur((long) 2, "f2", "f2", "f2", "f2", "f2", "f2", "f2", "f2", p2);
         Fournisseur f3 = new Fournisseur((long) 3, "f3", "f3", "f3", "f3", "f3", "f3", "f3", "f3", p2);
@@ -131,37 +126,61 @@ public class DpshopBackendApplication implements CommandLineRunner {
         fournisseurRepository.save(f2);
         fournisseurRepository.save(f3);
         fournisseurRepository.save(f4);
-/*
-		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f1)));
-		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f2)));
-		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f3)));
-		FournisseurDto.fromEntityToDto(fournisseurRepository.save(FournisseurDto.fromDtoToEntity(f4)));
-*/
+
         Client cl1 = new Client((long) 1, "cl1", "cl1", "cl1", "cl1", "cl1");
         Client cl2 = new Client((long) 2, "cl2", "cl2", "cl2", "cl2", "cl2");
         Client cl3 = new Client((long) 3, "cl3", "cl3", "cl3", "cl3", "cl3");
         Client cl4 = new Client((long) 4, "cl4", "cl4", "cl4", "cl4", "cl4");
-        clientRepository.save(cl1);clientRepository.save(cl2);
-        clientRepository.save(cl3); clientRepository.save(cl4);
+        clientRepository.save(cl1);
+        clientRepository.save(cl2);
+        clientRepository.save(cl3);
+        clientRepository.save(cl4);
 
-        Country count1 = new Country(1L, "SENEGAL"); Country count2 = new Country(2L, "Etats-Unies");
-        Country count3 = new Country(3L, "Guinnée-Conakry"); Country count4 = new Country(4L, "Japon");
-        Country count5 = new Country(5L, "Gambie"); Country count6 = new Country(6L, "Chine");
-        Country count7 = new Country(7L, "Arabie-Souadite"); Country count8 = new Country(8L, "France");
-        Country count9 = new Country(9L, "Nigeria"); Country count10 = new Country(10L, "Inde");
-        countryRepository.save(count1);countryRepository.save(count2);countryRepository.save(count3);countryRepository.save(count4);
-        countryRepository.save(count5);countryRepository.save(count6);countryRepository.save(count7);countryRepository.save(count8);
-        countryRepository.save(count9);countryRepository.save(count10);
+        Country count1 = new Country(1L, "SENEGAL");
+        Country count2 = new Country(2L, "Etats-Unies");
+        Country count3 = new Country(3L, "Guinnée-Conakry");
+        Country count4 = new Country(4L, "Japon");
+        Country count5 = new Country(5L, "Gambie");
+        Country count6 = new Country(6L, "Chine");
+        Country count7 = new Country(7L, "Arabie-Souadite");
+        Country count8 = new Country(8L, "France");
+        Country count9 = new Country(9L, "Nigeria");
+        Country count10 = new Country(10L, "Inde");
+        countryRepository.save(count1);
+        countryRepository.save(count2);
+        countryRepository.save(count3);
+        countryRepository.save(count4);
+        countryRepository.save(count5);
+        countryRepository.save(count6);
+        countryRepository.save(count7);
+        countryRepository.save(count8);
+        countryRepository.save(count9);
+        countryRepository.save(count10);
 
-        State state1 = new State(1L, "Dakar", count1); State state2 = new State(2L, "Ziguinchor", count1);
-        State state3 = new State(3L, "Thies", count1); State state4 = new State(4L, "Fatick", count1);
-        State state5 = new State(5L, "California", count2);State state6 = new State(6L, "Japon", count4);
-        State state7 = new State(7L, "Labe", count3);State state8 = new State(8L, "Chine", count6);
-        State state9 = new State(9L, "Dalaba", count3);State state10 = new State(10L, "Accra", count9);
-        stateRepository.save(state1);stateRepository.save(state2);stateRepository.save(state3);stateRepository.save(state4);stateRepository.save(state5);
-        stateRepository.save(state6);stateRepository.save(state7);stateRepository.save(state8);stateRepository.save(state9);stateRepository.save(state10);
+        State state1 = new State(1L, "Dakar", count1);
+        State state2 = new State(2L, "Ziguinchor", count1);
+        State state3 = new State(3L, "Thies", count1);
+        State state4 = new State(4L, "Fatick", count1);
+        State state5 = new State(5L, "California", count2);
+        State state6 = new State(6L, "Japon", count4);
+        State state7 = new State(7L, "Labe", count3);
+        State state8 = new State(8L, "Chine", count6);
+        State state9 = new State(9L, "Dalaba", count3);
+        State state10 = new State(10L, "Accra", count9);
+        stateRepository.save(state1);
+        stateRepository.save(state2);
+        stateRepository.save(state3);
+        stateRepository.save(state4);
+        stateRepository.save(state5);
+        stateRepository.save(state6);
+        stateRepository.save(state7);
+        stateRepository.save(state8);
+        stateRepository.save(state9);
+        stateRepository.save(state10);
 
-
-
+        AddressLivraison a1 = addressLivraisonRepository.save(new AddressLivraison(1L, "add1", "add1", "add1", "add1", "add1", "add1", state1));
+        AddressLivraison a2 = addressLivraisonRepository.save(new AddressLivraison(2L, "add2", "add2", "add2", "add2", "add2", "add2", state2));
+        AddressLivraison a3 = addressLivraisonRepository.save(new AddressLivraison(3L, "add3", "add3", "add3", "add3", "add3", "add3", state3));
+        AddressLivraison a4 = addressLivraisonRepository.save(new AddressLivraison(4L, "add4", "add4", "add4", "add4", "add4", "add4", state4));
     }
 }

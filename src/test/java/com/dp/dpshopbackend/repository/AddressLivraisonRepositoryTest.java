@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.models.AddressLivraison;
 import com.dp.dpshopbackend.models.Commande;
+import com.dp.dpshopbackend.models.State;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,13 +24,20 @@ public class AddressLivraisonRepositoryTest {
     @Autowired
     private CommandeRepository commandeRepository;
 
+    @Autowired
+    private StateRepository stateRepository;
+
     @Test
     @Rollback(false)
     public void testCreateAddressLivraison() {
         Long comId = (long) 1;
         Commande commande = commandeRepository.findById(comId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
+
+
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
 
         AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 
@@ -42,8 +50,10 @@ public class AddressLivraisonRepositoryTest {
     public void TestUpdateAddressLivraison() {
         Long comId = (long) 1;
         Commande commande = commandeRepository.findById(comId).orElse(null);
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
         addressLivraisonRepository.save(addressLivraison);
 
         String refAddLivraison = "123EST";
@@ -65,8 +75,10 @@ public class AddressLivraisonRepositoryTest {
     public void testFindById() {
         Long comId = (long) 1;
         Commande commande = commandeRepository.findById(comId).orElse(null);
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
 
         AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 
@@ -80,11 +92,13 @@ public class AddressLivraisonRepositoryTest {
     public void testFindAll() {
         Long comId = (long) 1;
         Commande commande = commandeRepository.findById(comId).orElse(null);
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
         addressLivraisonRepository.save(addressLivraison);
 
-        AddressLivraison addressLivraison1 = new AddressLivraison(2L, "liv2", "liv2", "liv2", "liv2", "liv2", "liv", commande);
+        AddressLivraison addressLivraison1 = new AddressLivraison(2L, "liv2", "liv2", "liv2", "liv2", "liv2", "liv", state);
         addressLivraisonRepository.save(addressLivraison1);
 
         List<AddressLivraison> addresseLivraisons = addressLivraisonRepository.findAll();
@@ -98,8 +112,10 @@ public class AddressLivraisonRepositoryTest {
     public void testDelete() {
         Long comId = (long) 1;
         Commande commande = commandeRepository.findById(comId).orElse(null);
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", commande);
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
 
         AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 

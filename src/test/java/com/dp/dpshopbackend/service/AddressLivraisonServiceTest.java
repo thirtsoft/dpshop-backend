@@ -2,15 +2,19 @@ package com.dp.dpshopbackend.service;
 
 import com.dp.dpshopbackend.dto.AddressLivraisonDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.dto.StateDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.AddressLivraison;
+import com.dp.dpshopbackend.models.State;
 import com.dp.dpshopbackend.repository.AddressLivraisonRepository;
+import com.dp.dpshopbackend.repository.StateRepository;
 import com.dp.dpshopbackend.services.impl.AddressLivraisonServiceImpl;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +33,9 @@ public class AddressLivraisonServiceTest {
     @Mock
     private AddressLivraisonRepository addressLivraisonRepository;
 
+    @Autowired
+    private StateRepository stateRepository;
+
     @Test
     public void CreateAddressLivraisonTest() {
         CommandeDto commandeDto = CommandeDto.builder()
@@ -37,12 +44,15 @@ public class AddressLivraisonServiceTest {
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.LIVREE)
                 .build();
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
+
         AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
                 .id(1L)
                 .reference("CLT")
                 .city("city")
                 .country("country")
-                .commandeDto(commandeDto)
+                .stateDto(StateDto.fromEntityToDto(state))
                 .build();
         AddressLivraison addressLivraison = AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto);
         when(addressLivraisonRepository.save(addressLivraison)).thenReturn(addressLivraison);
@@ -65,12 +75,16 @@ public class AddressLivraisonServiceTest {
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.LIVREE)
                 .build();
+
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
+
         AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
                 .id(1L)
                 .reference("CLT")
                 .city("city")
                 .country("country")
-                .commandeDto(commandeDto)
+                .stateDto(StateDto.fromEntityToDto(state))
                 .build();
         AddressLivraison addressLivraison = AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto);
         when(addressLivraisonRepository.findAll()).thenReturn(singletonList(addressLivraison));
@@ -91,12 +105,16 @@ public class AddressLivraisonServiceTest {
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.LIVREE)
                 .build();
+
+        Long stateId = 1L;
+        State state = stateRepository.findById(stateId).orElse(null);
+
         AddressLivraisonDto addressLivraisonDto = AddressLivraisonDto.builder()
                 .id(1L)
                 .reference("CLT")
                 .city("city")
                 .country("country")
-                .commandeDto(commandeDto)
+                .stateDto(StateDto.fromEntityToDto(state))
                 .build();
         Optional<AddressLivraison> addressLivraison = Optional.ofNullable(AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto));
         when(addressLivraisonRepository.findById(addressLivraison.get().getId())).thenReturn(addressLivraison);
