@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.controller.api;
 
-import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -10,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
@@ -55,6 +55,21 @@ public interface CommandeApi {
     })
     List<CommandeDto> findAll();
 
+    @GetMapping(value = APP_ROOT + "/commandes/countSumOfCommande", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfCommande();
+
+    @GetMapping(value = APP_ROOT + "/commandes/countSumOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le montant de Commande du moi",
+            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du moi encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le montant des Commande par moi / somme nulle")
+    })
+    BigDecimal sumTotalOfCommandesByMonth();
 
     @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByCustomerByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commande par client",

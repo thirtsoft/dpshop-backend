@@ -25,6 +25,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -176,6 +177,16 @@ public class CommandeServiceImpl implements CommandeService {
         return commandeRepository.findAll().stream()
                 .map(CommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public BigDecimal countNumberOfCommande() {
+        return commandeRepository.countNumberOfCommande();
+    }
+
+    @Override
+    public BigDecimal sumTotalOfCommandesByMonth() {
+        return commandeRepository.sumTotalOfCommandesByMonth();
     }
 
     @Override

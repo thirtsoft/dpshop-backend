@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -41,6 +42,16 @@ public class CommandeController implements CommandeApi {
     @Override
     public List<CommandeDto> findAll() {
         return commandeService.findAll();
+    }
+
+    @Override
+    public BigDecimal countNumberOfCommande() {
+        return commandeService.countNumberOfCommande();
+    }
+
+    @Override
+    public BigDecimal sumTotalOfCommandesByMonth() {
+        return commandeService.sumTotalOfCommandesByMonth();
     }
 
     @Override
