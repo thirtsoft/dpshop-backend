@@ -2,12 +2,18 @@ package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.models.Role;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class RoleDto {
+
+    Long id;
 
     private RoleName name;
 
@@ -17,6 +23,7 @@ public class RoleDto {
         }
 
         return RoleDto.builder()
+                .id(role.getId())
                 .name(role.getName())
                 .build();
     }
@@ -27,6 +34,7 @@ public class RoleDto {
         }
 
         Role role = new Role();
+        role.setId(roleDto.getId());
         role.setName(roleDto.getName());
 
         return role;

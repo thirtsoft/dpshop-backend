@@ -14,13 +14,13 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Role extends AbstractEntity {
+public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /*@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Enumerated(EnumType.STRING)
     @NaturalId
