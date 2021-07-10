@@ -10,7 +10,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Table(name = "utilisateur")
+@Table(name = "utilisateur", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {
+                "username"
+        }),
+        @UniqueConstraint(columnNames = {
+                "email"
+        })
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
