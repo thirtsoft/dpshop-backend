@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend;
 
+import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.models.*;
 import com.dp.dpshopbackend.repository.*;
 import org.slf4j.Logger;
@@ -35,6 +36,8 @@ public class DpshopBackendApplication implements CommandLineRunner {
     private StateRepository stateRepository;
     @Autowired
     private AddressLivraisonRepository addressLivraisonRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     public static void main(String[] args) {
@@ -182,5 +185,12 @@ public class DpshopBackendApplication implements CommandLineRunner {
         AddressLivraison a2 = addressLivraisonRepository.save(new AddressLivraison(2L, "add2", "add2", "add2", "add2", "add2", "add2", state2));
         AddressLivraison a3 = addressLivraisonRepository.save(new AddressLivraison(3L, "add3", "add3", "add3", "add3", "add3", "add3", state3));
         AddressLivraison a4 = addressLivraisonRepository.save(new AddressLivraison(4L, "add4", "add4", "add4", "add4", "add4", "add4", state4));
+
+        Role useRole = new Role(RoleName.ROLE_USER);
+        Role managerRole = new Role(RoleName.ROLE_MANAGER);
+        Role adminRole = new Role(RoleName.ROLE_ADMIN);
+        roleRepository.save(useRole);
+        roleRepository.save(managerRole);
+        roleRepository.save(adminRole);
     }
 }

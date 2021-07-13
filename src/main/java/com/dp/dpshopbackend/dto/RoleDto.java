@@ -17,6 +17,13 @@ public class RoleDto {
 
     private RoleName name;
 
+   /* public RoleDto() {
+    }
+*/
+    public RoleDto(RoleName name) {
+        this.name = name;
+    }
+
     public static RoleDto formEntityToDto(Role role) {
         if (role == null) {
             return null;
@@ -38,5 +45,21 @@ public class RoleDto {
         role.setName(roleDto.getName());
 
         return role;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public RoleName getName() {
+        return name;
+    }
+
+    public void setName(RoleName name) {
+        this.name = name;
     }
 }
