@@ -1,9 +1,11 @@
 package com.dp.dpshopbackend.services.impl;
 
+import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Notification;
 import com.dp.dpshopbackend.repository.NotificationRepository;
+import com.dp.dpshopbackend.services.ArticleService;
 import com.dp.dpshopbackend.services.NotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +25,13 @@ public class NotificationServiceImpl implements NotificationService {
     @Autowired
     private final NotificationRepository notificationRepository;
 
-    public NotificationServiceImpl(NotificationRepository notificationRepository) {
+    @Autowired
+    private final ArticleService articleService;
+
+    public NotificationServiceImpl(NotificationRepository notificationRepository,
+                                   ArticleService articleService) {
         this.notificationRepository = notificationRepository;
+        this.articleService = articleService;
     }
 
     @Override
@@ -35,6 +42,19 @@ public class NotificationServiceImpl implements NotificationService {
                         NotificationDto.fromDtoToEntity(notificationDto)
                 )
         );
+    }
+
+    @Override
+    public NotificationDto saveNotificationToArticle(Long id, NotificationDto notificationDto) {
+        ArticleDto articleDTOOptional = articleService.findById(id);
+        notificationDto.setArticleDto(articleDTOOptional);
+
+        return NotificationDto.fromEntityToDto(
+                notificationRepository.save(
+                        NotificationDto.fromDtoToEntity(notificationDto)
+                )
+        );
+
     }
 
     @Override
@@ -53,7 +73,7 @@ public class NotificationServiceImpl implements NotificationService {
         notificationDTOResult.setReference(notificationDto.getReference());
         notificationDTOResult.setNbreEtoile(notificationDto.getNbreEtoile());
         notificationDTOResult.setObservation(notificationDto.getObservation());
-        notificationDTOResult.setUtilisateurDto(notificationDto.getUtilisateurDto());
+        //    notificationDTOResult.setUtilisateurDto(notificationDto.getUtilisateurDto());
         notificationDTOResult.setArticleDto(notificationDto.getArticleDto());
 
         return NotificationDto.fromEntityToDto(

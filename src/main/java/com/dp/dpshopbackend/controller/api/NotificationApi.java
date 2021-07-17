@@ -24,6 +24,18 @@ public interface NotificationApi {
     })
     ResponseEntity<NotificationDto> save(@RequestBody NotificationDto notificationDto);
 
+    @PostMapping(value = APP_ROOT + "/notifications/createNotificationToArticle",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Enregistrer une Notification pour un article donnée",
+            notes = "Cette méthode permet d'ajouter une Notification pour un article donnée",
+            response = NotificationDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "La Notification a été crée"),
+            @ApiResponse(code = 400, message = "Aucune Notification  crée / modifié")
+
+    })
+    ResponseEntity<NotificationDto> saveNotificationToArticle(@RequestParam("id") Long id, @RequestBody NotificationDto notificationDto);
+
     @PutMapping(value = APP_ROOT + "/notifications/update/{idNote}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une Commande par son ID",

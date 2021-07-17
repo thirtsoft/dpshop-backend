@@ -48,7 +48,7 @@ public class NotificationServiceTest {
                 .nbreEtoile("4etoile")
                 .observation("bon")
                 .articleDto(articleDto)
-                .utilisateurDto(utilisateurDto)
+                //             .utilisateurDto(utilisateurDto)
                 .build();
         Notification notification = NotificationDto.fromDtoToEntity(notificationDto);
         when(notificationRepository.save(notification)).thenReturn(notification);
@@ -81,7 +81,7 @@ public class NotificationServiceTest {
                 .nbreEtoile("4etoile")
                 .observation("bon")
                 .articleDto(articleDto)
-                .utilisateurDto(utilisateurDto)
+                //           .utilisateurDto(utilisateurDto)
                 .build();
         Notification notification = NotificationDto.fromDtoToEntity(notificationDto);
         when(notificationRepository.findAll()).thenReturn(singletonList(notification));
@@ -112,7 +112,7 @@ public class NotificationServiceTest {
                 .nbreEtoile("4etoile")
                 .observation("bon")
                 .articleDto(articleDto)
-                .utilisateurDto(utilisateurDto)
+                //         .utilisateurDto(utilisateurDto)
                 .build();
         Optional<Notification> notification = Optional.ofNullable(NotificationDto.fromDtoToEntity(notificationDto));
         when(notificationRepository.findById(notification.get().getId())).thenReturn(notification);

@@ -27,6 +27,11 @@ public class NotificationController implements NotificationApi {
     }
 
     @Override
+    public ResponseEntity<NotificationDto> saveNotificationToArticle(Long id, NotificationDto notificationDto) {
+        return ResponseEntity.ok(notificationService.saveNotificationToArticle(id, notificationDto));
+    }
+
+    @Override
     public ResponseEntity<NotificationDto> update(Long id, NotificationDto notificationDto) {
         notificationDto.setId(id);
         return ResponseEntity.ok(notificationService.save(notificationDto));

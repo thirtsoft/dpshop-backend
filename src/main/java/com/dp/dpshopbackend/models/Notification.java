@@ -32,8 +32,10 @@ public class Notification implements Serializable {
     @JoinColumn(name = "prodId")
     private Article article;
 
+    /*
     @ManyToOne
     @JoinColumn(name = "userId")
     private Utilisateur utilisateur;
+    */
 
 }
