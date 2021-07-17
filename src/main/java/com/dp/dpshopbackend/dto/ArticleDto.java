@@ -6,8 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Transient;
-
 @Data
 @Builder
 @AllArgsConstructor
@@ -21,6 +19,8 @@ public class ArticleDto {
     private String designation;
 
     private int quantity;
+
+    private int quantite;
 
     private double price;
 
@@ -36,6 +36,22 @@ public class ArticleDto {
 
     private ScategoryDto scategoryDto;
 
+    public ArticleDto(long id, String reference, String designation, int quantity,
+                      double price, double currentPrice, boolean promo, boolean selected,
+                      String description, String photo, ScategoryDto scategoryDto) {
+        this.id = id;
+        this.reference = reference;
+        this.designation = designation;
+        this.quantity = quantity;
+        this.price = price;
+        this.currentPrice = currentPrice;
+        this.promo = promo;
+        this.selected = selected;
+        this.description = description;
+        this.photo = photo;
+        this.scategoryDto = scategoryDto;
+    }
+
     public static ArticleDto fromEntityToDto(Article article) {
         if (article == null) {
             return null;
@@ -46,6 +62,7 @@ public class ArticleDto {
                 .reference(article.getReference())
                 .designation(article.getDesignation())
                 .quantity(article.getQuantity())
+                .quantite(article.getQuantite())
                 .price(article.getPrice())
                 .currentPrice(article.getCurrentPrice())
                 .promo(article.isPromo())
@@ -66,6 +83,7 @@ public class ArticleDto {
         article.setReference(articleDto.getReference());
         article.setDesignation(articleDto.getDesignation());
         article.setQuantity(articleDto.getQuantity());
+        article.setQuantite(articleDto.getQuantite());
         article.setPrice(articleDto.getPrice());
         article.setCurrentPrice(articleDto.getCurrentPrice());
         article.setPromo(articleDto.isPromo());

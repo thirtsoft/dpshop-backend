@@ -27,6 +27,9 @@ public class Article implements Serializable {
     @Column(name = "quantity", length = 50)
     private int quantity;
 
+    @Transient
+    private int quantite = 1;
+
     @Column(name = "price", length = 50)
     private double price;
 
@@ -46,4 +49,20 @@ public class Article implements Serializable {
     @ManyToOne
     @JoinColumn(name = "scatId")
     private Scategory scategory;
+
+    public Article(Long id, String reference, String designation, int quantity,
+                   double price, double currentPrice, boolean promo, boolean selected,
+                   String description, String photo, Scategory scategory) {
+        this.id = id;
+        this.reference = reference;
+        this.designation = designation;
+        this.quantity = quantity;
+        this.price = price;
+        this.currentPrice = currentPrice;
+        this.promo = promo;
+        this.selected = selected;
+        this.description = description;
+        this.photo = photo;
+        this.scategory = scategory;
+    }
 }
