@@ -5,11 +5,13 @@ import com.dp.dpshopbackend.dto.NotificationDto;
 import com.dp.dpshopbackend.services.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
 @RestController
+@CrossOrigin
 public class NotificationController implements NotificationApi {
 
     private final NotificationService notificationService;

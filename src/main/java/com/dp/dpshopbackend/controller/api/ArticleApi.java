@@ -35,7 +35,7 @@ public interface ArticleApi {
             @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
 
     })
-    ResponseEntity<ArticleDto> saveArticleWithFile(@RequestPart(name = "article") String articleDto,
+    ResponseEntity<ArticleDto> saveArticleWithFile(@RequestParam(name = "article") String articleDto,
                                                    @RequestParam(name = "photoArticle") MultipartFile photoArticle) throws IOException;
 
     @PutMapping(value = APP_ROOT + "/articles/update/{idArticle}",
