@@ -1,18 +1,19 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Utilisateur;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-
-/*@Getter
-@Setter*/
 public class UtilisateurPOSTDto {
 
     private long id;
@@ -41,8 +42,12 @@ public class UtilisateurPOSTDto {
                 .id(utilisateur.getId())
                 .username(utilisateur.getUsername())
                 .email(utilisateur.getEmail())
-              /*  .roleDtos(builder().roleDtos)*/
                 .password(utilisateur.getPassword())
+                .roleDtos(utilisateur.getRoles() != null ?
+                        utilisateur.getRoles().stream()
+                                .map(RoleDto::formEntityToDto)
+                                .collect(Collectors.toSet()) : null
+                )
                 .build();
 
     }
@@ -62,7 +67,7 @@ public class UtilisateurPOSTDto {
         return utilisateur;
     }
 
-   /* public UtilisateurPOSTDto() { }*/
+    /* public UtilisateurPOSTDto() { }*/
 
     public long getId() {
         return id;

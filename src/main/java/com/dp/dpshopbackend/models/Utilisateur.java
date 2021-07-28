@@ -1,7 +1,5 @@
 package com.dp.dpshopbackend.models;
 
-import lombok.Data;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -9,17 +7,9 @@ import java.util.Set;
 
 @Entity
 @Table(name = "utilisateur", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {
-                "username"
-        }),
-        @UniqueConstraint(columnNames = {
-                "email"
-        })
+        @UniqueConstraint(columnNames = "username"),
+        @UniqueConstraint(columnNames = "email")
 })
-@Data
-/*
-@AllArgsConstructor
-@NoArgsConstructor*/
 public class Utilisateur implements Serializable {
 
     @Id
@@ -67,6 +57,14 @@ public class Utilisateur implements Serializable {
         this.name = name;
         this.username = username;
         this.mobile = mobile;
+        this.email = email;
+        this.password = password;
+    }
+
+    public Utilisateur(String username,
+                       String email,
+                       String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }

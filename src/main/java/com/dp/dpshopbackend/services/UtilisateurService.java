@@ -10,8 +10,6 @@ public interface UtilisateurService {
 
     UtilisateurDto findById(Long id);
 
-    //  ScategorieDto findByLibelle(String libelle);
-
     List<UtilisateurDto> findAll();
 
     void delete(Long id);

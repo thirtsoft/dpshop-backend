@@ -1,7 +1,6 @@
 package com.dp.dpshopbackend.models;
 
 import com.dp.dpshopbackend.enumeration.RoleName;
-import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -9,9 +8,6 @@ import java.io.Serializable;
 
 @Entity
 @Table(name = "roles")
-@Data
-/*@AllArgsConstructor
-@NoArgsConstructor*/
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -22,14 +18,14 @@ public class Role implements Serializable {
 
     @Enumerated(EnumType.STRING)
     @NaturalId
-    @Column(length = 90)
+    @Column(length = 20)
     private RoleName name;
 
     public Role() {
     }
 
-    public Role(RoleName roleName) {
-        this.name = roleName;
+    public Role(RoleName name) {
+        this.name = name;
     }
 
     public Long getId() {

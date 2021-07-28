@@ -7,7 +7,6 @@ import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.message.request.LoginForm;
 import com.dp.dpshopbackend.message.request.SignUpForm;
 import com.dp.dpshopbackend.message.response.JwtsResponse;
-import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.models.Role;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.security.jwt.JwtsProvider;
@@ -26,7 +25,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -73,8 +71,8 @@ public class UtilisateurPostServiceImpl implements UtilisateurPostService {
                 signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword())
         );
-        String[] roleArr = signUpRequest.getRoles();
-   //     Set  roleArr = signUpRequest.getRole();
+        //      String[] roleArr = signUpRequest.getRoles();
+        Set roleArr = signUpRequest.getRole();
         Set roles = new HashSet<>();
 
      /*   roleArr.forEach(role -> {
@@ -101,8 +99,8 @@ public class UtilisateurPostServiceImpl implements UtilisateurPostService {
             roles.add(userRole);
         }
 
-        for (String role: roleArr) {
-            switch (role.toLowerCase()) {
+        for (Object role : roleArr) {
+            switch (role.toString()) {
                 case "admin":
                     Role adminRole = (RoleDto.fromDtoToEntity(authorityService.findByName(RoleName.ROLE_ADMIN)));
 
@@ -156,7 +154,6 @@ public class UtilisateurPostServiceImpl implements UtilisateurPostService {
                 userPrinciple.getUsername(),
                 userPrinciple.getPassword(),
                 roles);
-
 
 
     }

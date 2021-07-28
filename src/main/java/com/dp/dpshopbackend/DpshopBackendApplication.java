@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 @SpringBootApplication
 public class DpshopBackendApplication implements CommandLineRunner {
@@ -38,6 +39,8 @@ public class DpshopBackendApplication implements CommandLineRunner {
     private AddressLivraisonRepository addressLivraisonRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
 
 
     public static void main(String[] args) {
@@ -192,5 +195,26 @@ public class DpshopBackendApplication implements CommandLineRunner {
         roleRepository.save(useRole);
         roleRepository.save(managerRole);
         roleRepository.save(adminRole);
+        Utilisateur user = new Utilisateur();
+        user.setId(1L);
+        user.setUsername("User");
+        user.setName("User");
+        user.setPassword("user1234");
+    //    user.setRoles((Set<Role>) useRole);
+        Utilisateur manager = new Utilisateur();
+        manager.setId(2L);
+        manager.setUsername("Manager");
+        manager.setName("Manager");
+        manager.setPassword("manager1234");
+    //    manager.setRoles((Set<Role>) managerRole);
+        Utilisateur admin = new Utilisateur();
+        admin.setId(3L);
+        admin.setUsername("Admin");
+        admin.setName("Admin");
+        admin.setPassword("admin1234");
+       // admin.setRoles((Set<Role>) adminRole);
+        utilisateurRepository.save(user);
+        utilisateurRepository.save(manager);
+        utilisateurRepository.save(admin);
     }
 }

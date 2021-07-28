@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.security;
 
+
 import com.dp.dpshopbackend.security.jwt.JwtAuthEntryPoint;
 import com.dp.dpshopbackend.security.jwt.JwtAuthTokenFilter;
 import com.dp.dpshopbackend.security.service.UserDetailsServiceImpl;
@@ -47,6 +48,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
+
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -73,11 +75,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers(  "/**/auth/signUp").permitAll()
-             /*   .antMatchers(APP_ROOT + "/categories/**").permitAll()
+                .antMatchers("/**/auth/signUp").permitAll()
+                .antMatchers("/**/auth/registerUser").permitAll()
+                .antMatchers("/**/auth/authenticated").permitAll()
+                .antMatchers("/**/categories/**").permitAll()
+                .antMatchers("/**/utilisateurs/all").permitAll()
                 .antMatchers(APP_ROOT + "/clients/**").permitAll()
                 .antMatchers(APP_ROOT + "/countries/**").permitAll()
-                .antMatchers(APP_ROOT + "/notifications/**").permitAll()*/
+                .antMatchers(APP_ROOT + "/notifications/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
