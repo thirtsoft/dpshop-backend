@@ -1,6 +1,6 @@
 package com.dp.dpshopbackend.security.service;
 
-import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
+import com.dp.dpshopbackend.models.Utilisateur;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -12,16 +12,12 @@ import java.util.stream.Collectors;
 
 public class UserPrinciple implements UserDetails {
 
-    private Long id;
-
-    private String username;
-
-    private String email;
-
     @JsonIgnore
     private final String password;
-
-    private Collection<? extends GrantedAuthority> authorities;
+    private final Long id;
+    private final String username;
+    private final String email;
+    private final Collection<? extends GrantedAuthority> authorities;
 
     public UserPrinciple(Long id, String username, String email, String password,
                          Collection<? extends GrantedAuthority> authorities) {
@@ -32,6 +28,21 @@ public class UserPrinciple implements UserDetails {
         this.authorities = authorities;
     }
 
+    public static UserPrinciple build(Utilisateur utilisateur) {
+        List<GrantedAuthority> authorities = utilisateur.getRoles()
+                .stream()
+                .map(role -> new SimpleGrantedAuthority(role.getName().name()))
+                .collect(Collectors.toList());
+
+        return new UserPrinciple(
+                utilisateur.getId(),
+                utilisateur.getUsername(),
+                utilisateur.getEmail(),
+                utilisateur.getPassword(),
+                authorities
+        );
+    }
+/*
     public static UserPrinciple build(UtilisateurPOSTDto utilisateurPOSTDto) {
         List<GrantedAuthority> authorities = utilisateurPOSTDto.getRoleDtos()
                 .stream()
@@ -45,7 +56,7 @@ public class UserPrinciple implements UserDetails {
                 utilisateurPOSTDto.getPassword(),
                 authorities
         );
-    }
+    }*/
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

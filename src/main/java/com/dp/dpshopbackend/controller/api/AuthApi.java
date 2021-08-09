@@ -30,7 +30,7 @@ public interface AuthApi {
         */
     @PostMapping(value = APP_ROOT + "/auth/authenticated", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "S'authentifier",
-            notes = "Cette méthode permet à un utilisateur de s'authentifier", response = UtilisateurPOSTDto.class)
+            notes = "Cette méthode permet à un utilisateur de s'authentifier", response = Utilisateur.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'utilisateur a été authentifié"),
             @ApiResponse(code = 400, message = "Aucun Utilisateur avec ces paramètres")

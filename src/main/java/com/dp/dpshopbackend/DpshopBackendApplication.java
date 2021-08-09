@@ -206,13 +206,13 @@ public class DpshopBackendApplication implements CommandLineRunner {
         manager.setUsername("Manager");
         manager.setName("Manager");
         manager.setPassword("manager1234");
-    //    manager.setRoles((Set<Role>) managerRole);
+ //       manager.setRoles((Set<Role>) managerRole);
         Utilisateur admin = new Utilisateur();
         admin.setId(3L);
         admin.setUsername("Admin");
         admin.setName("Admin");
         admin.setPassword("admin1234");
-       // admin.setRoles((Set<Role>) adminRole);
+ //       admin.setRoles((Set<Role>) adminRole);
         utilisateurRepository.save(user);
         utilisateurRepository.save(manager);
         utilisateurRepository.save(admin);

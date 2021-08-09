@@ -49,6 +49,14 @@ public class Utilisateur implements Serializable {
     public Utilisateur() {
     }
 
+    public Utilisateur(String username,
+                       String email,
+                       String password) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+
     public Utilisateur(String name,
                        String username,
                        String mobile,
@@ -61,12 +69,15 @@ public class Utilisateur implements Serializable {
         this.password = password;
     }
 
-    public Utilisateur(String username,
-                       String email,
-                       String password) {
+    public Utilisateur(Long id, String name, String username, String mobile,
+                       String email, String password, Set<Role> roles) {
+        this.id = id;
+        this.name = name;
         this.username = username;
+        this.mobile = mobile;
         this.email = email;
         this.password = password;
+        this.roles = roles;
     }
 
     public Long getId() {

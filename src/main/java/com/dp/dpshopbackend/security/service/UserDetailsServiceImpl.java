@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.security.service;
 
-import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         Utilisateur utilisateur = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User Not Found with -> username or email : " + username));
 
-        return UserPrinciple.build(UtilisateurPOSTDto.fromEntityToDto(utilisateur));
+        return UserPrinciple.build(utilisateur);
+        //   return UserPrinciple.build(UtilisateurPOSTDto.fromEntityToDto(utilisateur));
     }
 }
