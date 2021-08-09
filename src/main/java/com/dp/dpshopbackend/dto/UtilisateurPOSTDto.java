@@ -26,6 +26,8 @@ public class UtilisateurPOSTDto {
 
     private Set<RoleDto> roleDtos = new HashSet<>();
 
+    //  private Set<String> roleDtos;
+
     public UtilisateurPOSTDto(String username, String email, String password) {
         this.username = username;
         this.email = email;
@@ -43,11 +45,13 @@ public class UtilisateurPOSTDto {
                 .username(utilisateur.getUsername())
                 .email(utilisateur.getEmail())
                 .password(utilisateur.getPassword())
+                //            .roleDtos(utilisateur.getRoles())
+                /*
                 .roleDtos(utilisateur.getRoles() != null ?
                         utilisateur.getRoles().stream()
                                 .map(RoleDto::formEntityToDto)
                                 .collect(Collectors.toSet()) : null
-                )
+                )*/
                 .build();
 
     }

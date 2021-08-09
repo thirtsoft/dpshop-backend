@@ -71,8 +71,8 @@ public class UtilisateurPostServiceImpl implements UtilisateurPostService {
                 signUpRequest.getEmail(),
                 passwordEncoder.encode(signUpRequest.getPassword())
         );
-        //      String[] roleArr = signUpRequest.getRoles();
-        Set roleArr = signUpRequest.getRole();
+        String[] roleArr = signUpRequest.getRoles();
+        //    Set roleArr = signUpRequest.getRole();
         Set roles = new HashSet<>();
 
      /*   roleArr.forEach(role -> {

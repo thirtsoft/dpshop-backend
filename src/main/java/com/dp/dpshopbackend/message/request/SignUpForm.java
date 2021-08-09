@@ -2,7 +2,6 @@ package com.dp.dpshopbackend.message.request;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 
 /*@Data*/
@@ -20,11 +19,11 @@ public class SignUpForm {
 
     //  private Set role;
 
-    private Set<String> role;
+//    private Set<String> role;
 
-    //   private String[] roles;
+    private String[] roles;
 
-    @Size(min = 6, max = 40)
+    @Size(min = 6, max = 20)
     private String password;
 
     public String getName() {
@@ -51,12 +50,12 @@ public class SignUpForm {
         this.email = email;
     }
 
-    public Set<String> getRole() {
-        return role;
+    public String[] getRoles() {
+        return roles;
     }
 
-    public void setRole(Set<String> role) {
-        this.role = role;
+    public void setRoles(String[] roles) {
+        this.roles = roles;
     }
 
     public String getPassword() {

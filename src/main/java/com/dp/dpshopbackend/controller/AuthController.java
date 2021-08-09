@@ -122,8 +122,97 @@ public class AuthController implements AuthApi {
             return ResponseEntity.ok(utilisateurPOSTDtomResult);
         }
     */
+
     @Override
-    public ResponseEntity<Utilisateur> registerUser(SignUpForm signUpForm) {
+    public ResponseEntity<?> signUp(SignUpForm signUpForm) {
+        if (utilisateurRepository.existsByUsername(signUpForm.getUsername())) {
+            throw new ResourceNotFoundException("Fail -> Error: Username is already taken!");
+        }
+        if (utilisateurRepository.existsByEmail(signUpForm.getEmail())) {
+            throw new ResourceNotFoundException("Error: Email is already in use!");
+        }
+        UtilisateurPOSTDto utilisateurPOSTResult = new UtilisateurPOSTDto(
+                signUpForm.getUsername(),
+                signUpForm.getEmail(),
+                encoder.encode(signUpForm.getPassword()));
+
+        //    Set<String> strRoles = signUpForm.getRole();
+        String[] strRoles = signUpForm.getRoles();
+        Set<RoleDto> roles = new HashSet<>();
+        if (strRoles == null) {
+            RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+            roles.add(userRole);
+        }
+
+        for (String role : strRoles) {
+            switch (role.toLowerCase()) {
+                case "admin":
+                    RoleDto adminRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_ADMIN)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+                    roles.add(adminRole);
+                    break;
+
+                case "manager":
+                    RoleDto manager = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_MANAGER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+                    roles.add(manager);
+                    break;
+
+                case "user":
+                    RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
+                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+                    roles.add(userRole);
+                    break;
+
+                default:
+                    return ResponseEntity.badRequest().body("Specified role not found");
+
+            }
+        }
+/*
+        if (strRoles == null) {
+            RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+            roles.add(userRole);
+
+        } else {
+            strRoles.forEach(role -> {
+                switch (role) {
+                    case "admin":
+                        RoleDto adminRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_ADMIN)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+                        roles.add(adminRole);
+
+                        break;
+                    case "manager":
+                        RoleDto manager = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_MANAGER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+                        roles.add(manager);
+
+                        break;
+                    default:
+                        RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
+                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+                        roles.add(userRole);
+
+                }
+            });
+        }
+        */
+        utilisateurPOSTResult.setRoleDtos((Set<RoleDto>) RoleDto.formEntityToDto((Role) roles));
+
+        return ResponseEntity.ok(
+                UtilisateurPOSTDto.fromEntityToDto(
+                        utilisateurRepository.save(
+                                UtilisateurPOSTDto.fromDtoToEntity(utilisateurPOSTResult)
+                        )
+                )
+        );
+    }
+
+    @Override
+    public ResponseEntity<?> registerUser(SignUpForm signUpForm) {
         if (utilisateurRepository.existsByUsername(signUpForm.getUsername())) {
             throw new ResourceNotFoundException("Fail -> Error: Username is already taken!");
         }
@@ -131,29 +220,44 @@ public class AuthController implements AuthApi {
             throw new ResourceNotFoundException("Error: Email is already in use!");
         }
         // Create new user's account
-        /*
-        UtilisateurPOSTDto utilisateurPOSTDto = new UtilisateurPOSTDto(signUpForm.getUsername(),
-                signUpForm.getEmail(),
-                encoder.encode(signUpForm.getPassword()));
-*/
-        Utilisateur utilisateur = new Utilisateur(signUpForm.getUsername(),
+        Utilisateur utilisateur = new Utilisateur(
+                signUpForm.getUsername(),
                 signUpForm.getEmail(),
                 encoder.encode(signUpForm.getPassword()
                 )
         );
-        Set<String> strRoles = signUpForm.getRole();
+        //      Set<String> strRoles = signUpForm.getRole();
+        String[] strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
-        //  Set<RoleDto> rolesDtos = new HashSet<>();
 
+        if (strRoles == null) {
+            roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
+        }
+
+        for (String role : strRoles) {
+            switch (role.toLowerCase()) {
+                case "admin":
+                    roles.add(roleRepository.findByName(RoleName.ROLE_ADMIN).get());
+                    break;
+
+                case "manager":
+                    roles.add(roleRepository.findByName(RoleName.ROLE_MANAGER).get());
+                    break;
+
+                case "user":
+                    roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
+                    break;
+
+                default:
+                    return ResponseEntity.badRequest().body("Specified role not found");
+
+            }
+        }
+/*
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-/*
-            RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-            rolesDtos.add(userRole);
-            */
         } else {
             strRoles.forEach(role -> {
                 switch (role) {
@@ -161,48 +265,24 @@ public class AuthController implements AuthApi {
                         Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
-/*
-                        RoleDto adminRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                        rolesDtos.add(adminRole);
-*/
                         break;
                     case "manager":
                         Role modRole = roleRepository.findByName(RoleName.ROLE_MANAGER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(modRole);
-                        /*
-                        RoleDto manager = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_MANAGER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                        rolesDtos.add(manager);
-*/
                         break;
                     default:
+
                         Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
                                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(userRole);
-/*
-                        RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                        rolesDtos.add(userRole);
-                        */
 
                 }
             });
-        }
+        }*/
 
-        //    utilisateurPOSTDto.setRoleDtos(rolesDtos);
         utilisateur.setRoles(roles);
         return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
-/*
-        return ResponseEntity.ok(
-                UtilisateurPOSTDto.fromEntityToDto(
-                        utilisateurRepository.save(
-                                UtilisateurPOSTDto.fromDtoToEntity(utilisateurPOSTDto)
-                        )
-                )
-        );
-        */
 
     }
 
