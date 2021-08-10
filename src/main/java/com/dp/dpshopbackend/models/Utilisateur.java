@@ -37,8 +37,11 @@ public class Utilisateur implements Serializable {
     @Column(name = "activated")
     private boolean activated = false;
 
-    @Column(name = "password", length = 100)
+    @Column(name = "password", length = 80)
     private String password;
+
+    @Column(name = "accountVerified")
+    private boolean accountVerified;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -150,6 +153,14 @@ public class Utilisateur implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isAccountVerified() {
+        return accountVerified;
+    }
+
+    public void setAccountVerified(boolean accountVerified) {
+        this.accountVerified = accountVerified;
     }
 
     public Set<Role> getRoles() {

@@ -10,10 +10,12 @@ import com.dp.dpshopbackend.message.request.SignUpForm;
 import com.dp.dpshopbackend.message.response.JwtsResponse;
 import com.dp.dpshopbackend.models.Role;
 import com.dp.dpshopbackend.models.Utilisateur;
+import com.dp.dpshopbackend.repository.ConfirmTokenRepository;
 import com.dp.dpshopbackend.repository.RoleRepository;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.security.jwt.JwtsProvider;
 import com.dp.dpshopbackend.security.service.UserPrinciple;
+import com.dp.dpshopbackend.services.EmailService;
 import com.dp.dpshopbackend.services.UtilisateurPostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +54,12 @@ public class AuthController implements AuthApi {
 
     @Autowired
     JwtsProvider jwtsProvider;
+
+    @Autowired
+    private ConfirmTokenRepository confirmTokenRepository;
+
+    @Autowired
+    private EmailService emailService;
 
     @Autowired
     public AuthController(UtilisateurPostService utilisateurPostService) {
