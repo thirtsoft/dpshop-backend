@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
 public interface CommandeRepository extends JpaRepository<Commande, Long> {
@@ -19,7 +20,27 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select sum(c.total) from Commande c where month(c.localDateTime) = month(current_date)")
     BigDecimal sumTotalOfCommandesByMonth();
 
+    @Query("select sum(c.total) from Commande c where month(c.dateCommande) = month(current_date)")
+    BigDecimal sumTotaleOfCommandeByMonth();
+
+    @Query("select sum(c.total) from Commande c where year(c.dateCommande) = year(current_date)")
+    BigDecimal sumTotalOfCommandesByYear();
+
+    /*
     @Query("select com from Commande com where com.client.id =:clientId")
     Page<Commande> findCommandeByCustomerPageables(@Param("clientId") Long clientId, Pageable pageable);
+    */
+
+    @Query("select EXTRACT(month from(c.dateCommande)), count(c) from Commande c group by EXTRACT(month from(c.dateCommande))")
+    List<?> countNumberOfCommandeByMonth();
+
+    @Query("select EXTRACT(month from(c.dateCommande)), sum(c.total) from Commande c group by EXTRACT(month from(c.dateCommande))")
+    List<?> sumTotalOfCommandeByMonth();
+
+    @Query("select p from Commande p where p.utilisateur.id =:user")
+    List<Commande> ListCommandeByCustomerId(@Param("user") Long userId);
+
+    @Query("select com from Commande com where com.utilisateur.id =:userId")
+    Page<Commande> findCommandeByUtilisateurPageables(@Param("userId") Long userId, Pageable pageable);
 
 }

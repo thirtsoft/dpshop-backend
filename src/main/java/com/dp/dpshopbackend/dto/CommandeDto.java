@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.Commande;
+import com.dp.dpshopbackend.models.Utilisateur;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -27,9 +29,13 @@ public class CommandeDto {
 
     private LocalDateTime localDateTime;
 
+    private Date dateCommande;
+
     private StatusCommande statusCommande;
 
-    private ClientDto clientDto;
+  //  private ClientDto clientDto;
+
+    private UtilisateurPOSTDto utilisateurPOSTDto;
 
     private AddressLivraisonDto addressLivraisonDto;
 
@@ -48,8 +54,9 @@ public class CommandeDto {
                 .numeroCommande(commande.getNumeroCommande())
                 .total(commande.getTotal())
                 .localDateTime(commande.getLocalDateTime())
+                .dateCommande(commande.getDateCommande())
                 .statusCommande(commande.getStatusCommande())
-                .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
+                .utilisateurPOSTDto(UtilisateurPOSTDto.fromEntityToDto(commande.getUtilisateur()))
                 .addressLivraisonDto(AddressLivraisonDto.fromEntityToDto(commande.getAddressLivraison()))
                 //         .lcomms((List<LigneCommandeDto>) LigneCommandeDto.fromEntityToDto((LigneCommande) commande.getLcomms()))
                 .build();
@@ -65,8 +72,9 @@ public class CommandeDto {
         commande.setId(commandeDto.getId());
         commande.setReference(commandeDto.getReference());
         commande.setNumeroCommande(commandeDto.getNumeroCommande());
+        commande.setDateCommande(commandeDto.getDateCommande());
         commande.setTotal(commandeDto.getTotal());
-        commande.setClient(ClientDto.fromDtoToEntity(commandeDto.getClientDto()));
+        commande.setUtilisateur(UtilisateurPOSTDto.fromDtoToEntity(commandeDto.getUtilisateurPOSTDto()));
         commande.setAddressLivraison(AddressLivraisonDto.fromDtoToEntity(commandeDto.getAddressLivraisonDto()));
         //   commande.setLcomms((List<LigneCommande>) LigneCommandeDto.fromDtoToEntity((LigneCommandeDto) commandeDto.getLcomms()));
         commande.setLocalDateTime(commandeDto.getLocalDateTime());

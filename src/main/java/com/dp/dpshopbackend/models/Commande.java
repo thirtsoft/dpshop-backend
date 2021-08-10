@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.models;
 
 import com.dp.dpshopbackend.enumeration.StatusCommande;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -10,6 +11,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 
@@ -34,17 +36,25 @@ public class Commande implements Serializable {
     @Column(name = "totalCommande", length = 150)
     private double total;
 
-    @Column(name = "dateCommande", length = 100)
+    @Column(name = "localDateTime", length = 100)
     private LocalDateTime localDateTime;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT")
+    private Date dateCommande;
 
     //  @Enumerated(EnumType.STRING)
     //  @NaturalId
     @Column(length = 100)
     private StatusCommande statusCommande;
-
+/*
     @ManyToOne
     @JoinColumn(name = "clientId")
     private Client client;
+    */
+
+    @ManyToOne
+    @JoinColumn(name = "userId")
+    private Utilisateur utilisateur;
 
     @OneToMany(mappedBy = "commande")
     private List<LigneCommande> lcomms = new ArrayList<>();

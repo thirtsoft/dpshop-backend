@@ -47,6 +47,30 @@ public interface CommandeApi {
     })
     ResponseEntity<CommandeDto> findById(@PathVariable("idCommande") Long id);
 
+    @GetMapping(value = APP_ROOT + "/commandes/countNumberOfCommande", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfCommande();
+
+    @GetMapping(value = APP_ROOT + "/commandes/sumTotalOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le montant de Commande du moi",
+            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du moi encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le montant des Commande par moi / somme nulle")
+    })
+    BigDecimal sumTotaleOfCommandeByMonth();
+
+    @GetMapping(value = APP_ROOT + "/commandes/sumTotalOfCommandeByYear", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le montant de Commande d'une années",
+            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande de l'année encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le montant des Commande par années / somme nulle")
+    })
+    BigDecimal sumTotaleOfCommandeByYear();
+
     @GetMapping(value = APP_ROOT + "/commandes/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes", responseContainer = "List<CommandeDto>")
@@ -55,21 +79,21 @@ public interface CommandeApi {
     })
     List<CommandeDto> findAll();
 
-    @GetMapping(value = APP_ROOT + "/commandes/countSumOfCommande", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi le nombre de Commande",
-            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande")
+    @GetMapping(value = APP_ROOT + "/commandes/numberOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste du nombre de Commandes par moi",
+            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par moi", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+            @ApiResponse(code = 200, message = "La liste du nombre de Commandes par moi / une liste vide")
     })
-    BigDecimal countNumberOfCommande();
+    List<?> countNumberOfCommandeByMonth();
 
-    @GetMapping(value = APP_ROOT + "/commandes/countSumOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi le montant de Commande du moi",
-            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du moi encours")
+    @GetMapping(value = APP_ROOT + "/commandes/sumTotaleOfCommandeByMonthByList", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des sommes des Commandes par moi",
+            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par moi", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Le montant des Commande par moi / somme nulle")
+            @ApiResponse(code = 200, message = "La liste des sommes des Commandes par moi / une liste vide")
     })
-    BigDecimal sumTotalOfCommandesByMonth();
+    List<?> getSumTotaleOfCommandeByMonth();
 
     @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByCustomerByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commande par client",
@@ -78,6 +102,15 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
     })
     Page<CommandeDto> getListCommandeByCustomerByPageables(@RequestParam("clientId") Long clientId, @RequestParam(name = "page") int page,
+                                                           @RequestParam(name = "size") int size);
+
+    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUtilisateurByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commande par client",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
+    })
+    Page<CommandeDto> getListCommandeByUtilisateurByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
                                                            @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/commandes/delete/{idCommande}")

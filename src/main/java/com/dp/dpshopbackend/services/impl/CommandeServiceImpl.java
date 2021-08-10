@@ -5,17 +5,12 @@ import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Article;
-import com.dp.dpshopbackend.models.Client;
 import com.dp.dpshopbackend.models.Commande;
 import com.dp.dpshopbackend.models.LigneCommande;
-import com.dp.dpshopbackend.repository.ArticleRepository;
-import com.dp.dpshopbackend.repository.ClientRepository;
-import com.dp.dpshopbackend.repository.CommandeRepository;
-import com.dp.dpshopbackend.repository.LigneCommandeRepository;
-import com.dp.dpshopbackend.services.ArticleService;
-import com.dp.dpshopbackend.services.ClientService;
-import com.dp.dpshopbackend.services.CommandeService;
-import com.dp.dpshopbackend.services.LigneCommandeService;
+import com.dp.dpshopbackend.models.Utilisateur;
+import com.dp.dpshopbackend.repository.*;
+import com.dp.dpshopbackend.services.*;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +21,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -35,16 +31,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CommandeServiceImpl implements CommandeService {
 
-    //  @Autowired
     private final CommandeRepository commandeRepository;
-    //   @Autowired
     private final LigneCommandeService ligneCommandeService;
-    //   @Autowired
     private final ArticleService articleService;
-    //    @Autowired
     private final ClientService clientService;
+    private final UtilisateurService utilisateurService;
     private final LigneCommandeRepository ligneCommandeRepository;
     private final ClientRepository clientRepository;
+    private final UtilisateurRepository utilisateurRepository;
     private final ArticleRepository articleRepository;
     double total = 0;
     Logger logger = LoggerFactory.getLogger(CommandeServiceImpl.class);
@@ -54,17 +48,21 @@ public class CommandeServiceImpl implements CommandeService {
                                LigneCommandeService ligneCommandeService,
                                ArticleService articleService,
                                ClientService clientService,
+                               UtilisateurService utilisateurService,
                                LigneCommandeRepository ligneCommandeRepository,
                                ClientRepository clientRepository,
-                               ArticleRepository articleRepository
+                               ArticleRepository articleRepository,
+                               UtilisateurRepository utilisateurRepository
     ) {
         this.commandeRepository = commandeRepository;
         this.ligneCommandeService = ligneCommandeService;
         this.articleService = articleService;
         this.clientService = clientService;
+        this.utilisateurService = utilisateurService;
         this.ligneCommandeRepository = ligneCommandeRepository;
         this.clientRepository = clientRepository;
         this.articleRepository = articleRepository;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     @Override
@@ -73,9 +71,10 @@ public class CommandeServiceImpl implements CommandeService {
         logger.info("CommandeDto {}", commandeDto);
 
         //    ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
-        Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
-        if (clientOptional == null) {
-            log.warn("Client with ID {} was not found in the DB", commandeDto.getClientDto().getId());
+        //     Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
+        Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById((commandeDto.getUtilisateurPOSTDto().getId()));
+        if (utilisateurOptional == null) {
+            log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
             throw new IllegalArgumentException("Vous devez selectionner un client");
         }
 
@@ -123,6 +122,7 @@ public class CommandeServiceImpl implements CommandeService {
 
         savedCmdClt.setTotal(total);
         savedCmdClt.setStatusCommande(StatusCommande.ENCOURS);
+        savedCmdClt.setDateCommande(new Date());
 
         return CommandeDto.fromEntityToDto(savedCmdClt);
 
@@ -148,7 +148,8 @@ public class CommandeServiceImpl implements CommandeService {
         commandeDtoResult.setLocalDateTime(commandeDto.getLocalDateTime());
         commandeDtoResult.setLcomms(commandeDto.getLcomms());
         commandeDtoResult.setStatusCommande(commandeDto.getStatusCommande());
-        commandeDtoResult.setClientDto(commandeDto.getClientDto());
+        //    commandeDtoResult.setClientDto(commandeDto.getClientDto());
+        commandeDtoResult.setUtilisateurPOSTDto(commandeDto.getUtilisateurPOSTDto());
 
         return CommandeDto.fromEntityToDto(
                 commandeRepository.save(
@@ -185,13 +186,45 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
-    public BigDecimal sumTotalOfCommandesByMonth() {
-        return commandeRepository.sumTotalOfCommandesByMonth();
+    public BigDecimal sumTotaleOfCommandeByMonth() {
+        return commandeRepository.sumTotaleOfCommandeByMonth();
+    }
+
+    @Override
+    public BigDecimal sumTotalOfCommandesByYear() {
+        return commandeRepository.sumTotalOfCommandesByYear();
+    }
+
+    @Override
+    public List<CommandeDto> findCommandeByCustomerId(Long userId) {
+        return commandeRepository.ListCommandeByCustomerId(userId)
+                .stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<?> countNumberTotalOfCommandeByMonth() {
+        return commandeRepository.countNumberOfCommandeByMonth()
+                .stream()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<?> sumTotalOfCommandeByMonth() {
+        return commandeRepository.sumTotalOfCommandeByMonth()
+                .stream()
+                .collect(Collectors.toList());
     }
 
     @Override
     public Page<CommandeDto> findCommandeByCustomerPageables(Long clientId, Pageable pageable) {
-        return commandeRepository.findCommandeByCustomerPageables(clientId, pageable)
+        return null;
+    }
+
+    @Override
+    public Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable) {
+        return commandeRepository.findCommandeByUtilisateurPageables(userId, pageable)
                 .map(CommandeDto::fromEntityToDto);
     }
 

@@ -3,6 +3,7 @@ package com.dp.dpshopbackend.controllers;
 import com.dp.dpshopbackend.controller.CommandeController;
 import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
 import com.dp.dpshopbackend.services.ClientService;
 import com.dp.dpshopbackend.services.CommandeService;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -53,6 +54,7 @@ public class CommandeControllerTest {
     private ClientDto clientDto;
     private CommandeDto commandeDto;
     private List<CommandeDto> commandeDtoList;
+    private UtilisateurPOSTDto utilisateurPOSTDto;
 
     public static String asJsonString(final Object obj) {
         try {
@@ -67,11 +69,17 @@ public class CommandeControllerTest {
         clientDto = new ClientDto();
         clientDto.setReference("cl1");
         clientDto.setLastName("diallo");
+        utilisateurPOSTDto = new UtilisateurPOSTDto();
+        utilisateurPOSTDto.setId(1L);
+        utilisateurPOSTDto.setEmail("thirdiallo@gmail.com");
+        utilisateurPOSTDto.setUsername("thir");
+        utilisateurPOSTDto.setPassword("passer1234");
         commandeDto = new CommandeDto();
         commandeDto.setId(1L);
         commandeDto.setReference("reCom");
         commandeDto.setNumeroCommande(120L);
-        commandeDto.setClientDto(clientDto);
+   //     commandeDto.setClientDto(clientDto);
+        commandeDto.setUtilisateurPOSTDto(utilisateurPOSTDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(commandeController).build();
     }
