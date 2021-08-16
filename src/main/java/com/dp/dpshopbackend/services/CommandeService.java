@@ -19,9 +19,19 @@ public interface CommandeService {
 
     BigDecimal countNumberOfCommande();
 
-    BigDecimal sumTotalOfCommandesByMonth();
+    BigDecimal sumTotaleOfCommandeByMonth();
+
+    BigDecimal sumTotalOfCommandesByYear();
+
+    List<CommandeDto> findCommandeByCustomerId(Long userId);
+
+    List<?> countNumberTotalOfCommandeByMonth();
+
+    List<?> sumTotalOfCommandeByMonth();
 
     Page<CommandeDto> findCommandeByCustomerPageables(Long clientId, Pageable pageable);
+
+    Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable);
 
     void delete(Long id);
 

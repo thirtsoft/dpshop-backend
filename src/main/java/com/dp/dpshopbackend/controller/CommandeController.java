@@ -42,18 +42,33 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
-    public List<CommandeDto> findAll() {
-        return commandeService.findAll();
-    }
-
-    @Override
     public BigDecimal countNumberOfCommande() {
         return commandeService.countNumberOfCommande();
     }
 
     @Override
-    public BigDecimal sumTotalOfCommandesByMonth() {
-        return commandeService.sumTotalOfCommandesByMonth();
+    public BigDecimal sumTotaleOfCommandeByMonth() {
+        return commandeService.sumTotaleOfCommandeByMonth();
+    }
+
+    @Override
+    public BigDecimal sumTotaleOfCommandeByYear() {
+        return commandeService.sumTotalOfCommandesByYear();
+    }
+
+    @Override
+    public List<CommandeDto> findAll() {
+        return commandeService.findAll();
+    }
+
+    @Override
+    public List<?> countNumberOfCommandeByMonth() {
+        return commandeService.countNumberTotalOfCommandeByMonth();
+    }
+
+    @Override
+    public List<?> getSumTotaleOfCommandeByMonth() {
+        return commandeService.sumTotalOfCommandeByMonth();
     }
 
     @Override
@@ -61,6 +76,13 @@ public class CommandeController implements CommandeApi {
         final Pageable pageable = PageRequest.of(page, size);
         return commandeService.findCommandeByCustomerPageables(clientId, pageable);
     }
+
+    @Override
+    public Page<CommandeDto> getListCommandeByUtilisateurByPageables(Long userId, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return commandeService.findCommandeByUtilisateurPageables(userId, pageable);
+    }
+
 
     @Override
     public void delete(Long id) {

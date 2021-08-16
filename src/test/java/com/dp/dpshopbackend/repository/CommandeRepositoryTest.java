@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.models.Client;
 import com.dp.dpshopbackend.models.Commande;
+import com.dp.dpshopbackend.models.Utilisateur;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -23,11 +24,17 @@ public class CommandeRepositoryTest {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
+
     @Test
     @Rollback(false)
     public void testCreateCommande() {
         Long clientId = (long) 1;
         Client client = clientRepository.findById(clientId).orElse(null);
+
+        Long userId = 1L;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         String reference = "Com120";
         Long numeroCommande = 120L;
@@ -37,7 +44,8 @@ public class CommandeRepositoryTest {
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotal(total);
-        commande.setClient(client);
+        //      commande.setClient(client);
+        commande.setUtilisateur(utilisateur);
 
         Commande commandeResult = commandeRepository.save(commande);
 
@@ -51,6 +59,9 @@ public class CommandeRepositoryTest {
         Long clientId = (long) 1;
         Client client = clientRepository.findById(clientId).orElse(null);
 
+        Long userId = 1L;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
+
         String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
@@ -59,7 +70,8 @@ public class CommandeRepositoryTest {
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotal(total);
-        commande.setClient(client);
+        //      commande.setClient(client);
+        commande.setUtilisateur(utilisateur);
 
         Commande commandeResult = commandeRepository.save(commande);
 
@@ -82,6 +94,9 @@ public class CommandeRepositoryTest {
         Long clientId = (long) 1;
         Client client = clientRepository.findById(clientId).orElse(null);
 
+        Long userId = 1L;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
+
         String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
@@ -90,7 +105,8 @@ public class CommandeRepositoryTest {
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotal(total);
-        commande.setClient(client);
+        //       commande.setClient(client);
+        commande.setUtilisateur(utilisateur);
 
         Commande commandeResult = commandeRepository.save(commande);
 
@@ -105,6 +121,9 @@ public class CommandeRepositoryTest {
         Long clientId = (long) 1;
         Client client = clientRepository.findById(clientId).orElse(null);
 
+        Long userId = 1L;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
+
         String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
@@ -113,7 +132,9 @@ public class CommandeRepositoryTest {
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotal(total);
-        commande.setClient(client);
+        //      commande.setClient(client);
+        commande.setUtilisateur(utilisateur);
+
         commandeRepository.save(commande);
 
         String refCom = "refCom120";
@@ -134,6 +155,9 @@ public class CommandeRepositoryTest {
         Long clientId = (long) 1;
         Client client = clientRepository.findById(clientId).orElse(null);
 
+        Long userId = 1L;
+        Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
+
         String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
@@ -142,7 +166,8 @@ public class CommandeRepositoryTest {
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotal(total);
-        commande.setClient(client);
+        //     commande.setClient(client);
+        commande.setUtilisateur(utilisateur);
         Commande commandeResult = commandeRepository.save(commande);
 
         boolean isExistBeforeDelete = commandeRepository.findById(commandeResult.getId()).isPresent();

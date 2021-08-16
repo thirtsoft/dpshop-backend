@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend;
 
+import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.models.*;
 import com.dp.dpshopbackend.repository.*;
 import org.slf4j.Logger;
@@ -13,6 +14,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Set;
 
 @SpringBootApplication
 public class DpshopBackendApplication implements CommandLineRunner {
@@ -35,6 +37,10 @@ public class DpshopBackendApplication implements CommandLineRunner {
     private StateRepository stateRepository;
     @Autowired
     private AddressLivraisonRepository addressLivraisonRepository;
+    @Autowired
+    private RoleRepository roleRepository;
+    @Autowired
+    private UtilisateurRepository utilisateurRepository;
 
 
     public static void main(String[] args) {
@@ -182,5 +188,33 @@ public class DpshopBackendApplication implements CommandLineRunner {
         AddressLivraison a2 = addressLivraisonRepository.save(new AddressLivraison(2L, "add2", "add2", "add2", "add2", "add2", "add2", state2));
         AddressLivraison a3 = addressLivraisonRepository.save(new AddressLivraison(3L, "add3", "add3", "add3", "add3", "add3", "add3", state3));
         AddressLivraison a4 = addressLivraisonRepository.save(new AddressLivraison(4L, "add4", "add4", "add4", "add4", "add4", "add4", state4));
+
+        Role useRole = new Role(RoleName.ROLE_USER);
+        Role managerRole = new Role(RoleName.ROLE_MANAGER);
+        Role adminRole = new Role(RoleName.ROLE_ADMIN);
+        roleRepository.save(useRole);
+        roleRepository.save(managerRole);
+        roleRepository.save(adminRole);
+        Utilisateur user = new Utilisateur();
+        user.setId(1L);
+        user.setUsername("User");
+        user.setName("User");
+        user.setPassword("user1234");
+    //    user.setRoles((Set<Role>) useRole);
+        Utilisateur manager = new Utilisateur();
+        manager.setId(2L);
+        manager.setUsername("Manager");
+        manager.setName("Manager");
+        manager.setPassword("manager1234");
+ //       manager.setRoles((Set<Role>) managerRole);
+        Utilisateur admin = new Utilisateur();
+        admin.setId(3L);
+        admin.setUsername("Admin");
+        admin.setName("Admin");
+        admin.setPassword("admin1234");
+ //       admin.setRoles((Set<Role>) adminRole);
+        utilisateurRepository.save(user);
+        utilisateurRepository.save(manager);
+        utilisateurRepository.save(admin);
     }
 }

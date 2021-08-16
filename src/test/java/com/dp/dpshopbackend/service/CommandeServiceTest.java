@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.service;
 
 import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.Commande;
 import com.dp.dpshopbackend.repository.CommandeRepository;
@@ -38,12 +39,19 @@ public class CommandeServiceTest {
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
+        UtilisateurPOSTDto utilisateurPOSTDto = UtilisateurPOSTDto.builder()
+                .id(1L)
+                .email("user@gmail.com")
+                .username("user")
+                .password("passer1234")
+                .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("CLT")
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
-                .clientDto(clientDto)
+                //          .clientDto(clientDto)
+                .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
         when(commandeRepository.save(commander)).thenReturn(commander);
@@ -66,12 +74,19 @@ public class CommandeServiceTest {
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
+        UtilisateurPOSTDto utilisateurPOSTDto = UtilisateurPOSTDto.builder()
+                .id(1L)
+                .email("user@gmail.com")
+                .username("user")
+                .password("passer1234")
+                .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("Com")
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
-                .clientDto(clientDto)
+                //            .clientDto(clientDto)
+                .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
         when(commandeRepository.findAll()).thenReturn(singletonList(commander));
@@ -92,12 +107,19 @@ public class CommandeServiceTest {
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
+        UtilisateurPOSTDto utilisateurPOSTDto = UtilisateurPOSTDto.builder()
+                .id(1L)
+                .email("user@gmail.com")
+                .username("user")
+                .password("passer1234")
+                .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
                 .reference("Com")
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
-                .clientDto(clientDto)
+                //           .clientDto(clientDto)
+                .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
 
         Optional<Commande> commander = Optional.ofNullable(CommandeDto.fromDtoToEntity(commandeDto));

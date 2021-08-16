@@ -5,7 +5,7 @@ import com.dp.dpshopbackend.enumeration.RoleName;
 
 import java.util.List;
 
-public interface RoleService {
+public interface AuthorityService {
 
     RoleDto saveRole(RoleDto roleDto);
 
