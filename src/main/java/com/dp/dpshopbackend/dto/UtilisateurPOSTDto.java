@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class UtilisateurPOSTDto {
 
-    private long id;
+    private Long id;
 
     private String username;
 

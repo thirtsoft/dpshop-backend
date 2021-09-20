@@ -65,7 +65,7 @@ public class AddressClientControllerTest {
 
     @Before
     public void setup() {
-        clientDto = new ClientDto(1L, "cl1", "cl1", "cl1", "cl1", "cl1");
+        clientDto = new ClientDto(1L, "cl1", "cl1", "cl1", "cl1");
         addressClientDto = new AddressClientDto();
         addressClientDto.setId(1L);
         addressClientDto.setCity("Dakar");

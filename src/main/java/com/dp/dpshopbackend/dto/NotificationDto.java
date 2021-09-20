@@ -12,11 +12,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class NotificationDto {
 
-    private long id;
+    private Long id;
 
     private String reference;
 
-    private String nbreEtoile;
+    private float nbreEtoile;
 
     private String observation;
 

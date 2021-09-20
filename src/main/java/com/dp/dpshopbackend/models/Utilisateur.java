@@ -1,8 +1,12 @@
 package com.dp.dpshopbackend.models;
 
+import com.dp.dpshopbackend.enumeration.RoleName;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -18,6 +22,12 @@ public class Utilisateur implements Serializable {
 
     @Column(name = "name", length = 100)
     private String name;
+
+    @Column(name = "firstName", length = 100)
+    private String firstName;
+
+    @Column(name = "lastName", length = 100)
+    private String lastName;
 
     @Column(name = "username", length = 90)
     private String username;
@@ -43,11 +53,20 @@ public class Utilisateur implements Serializable {
     @Column(name = "accountVerified")
     private boolean accountVerified;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "roleName")
+    private RoleName roleName;
+
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "utilisateur",
+            fetch = FetchType.LAZY)
+    private List<Commande> commandeList;
 
     public Utilisateur() {
     }
@@ -69,6 +88,18 @@ public class Utilisateur implements Serializable {
         this.username = username;
         this.mobile = mobile;
         this.email = email;
+        this.password = password;
+    }
+
+    public Utilisateur(String firstName,
+                       String lastName,
+                       String email,
+                       RoleName roleName,
+                       String password) {
+        this.firstName = firstName ;
+        this.lastName = lastName;
+        this.email = email;
+        this.roleName = roleName;
         this.password = password;
     }
 
@@ -169,5 +200,37 @@ public class Utilisateur implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public RoleName getRoleName() {
+        return roleName;
+    }
+
+    public void setRoleName(RoleName roleName) {
+        this.roleName = roleName;
+    }
+
+    public List<Commande> getCommandeList() {
+        return commandeList;
+    }
+
+    public void setCommandeList(List<Commande> commandeList) {
+        this.commandeList = commandeList;
     }
 }

@@ -11,6 +11,8 @@ public interface CommandeService {
 
     CommandeDto save(CommandeDto commandeDto);
 
+    CommandeDto saveWithAddresses(CommandeDto commandeDto);
+
     CommandeDto update(Long comId, CommandeDto commandeDto);
 
     CommandeDto findById(Long id);

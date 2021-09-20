@@ -35,7 +35,6 @@ public class CommandeServiceTest {
     public void CreateCommanderTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("Art")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
@@ -70,7 +69,6 @@ public class CommandeServiceTest {
     public void findAllTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
@@ -103,7 +101,6 @@ public class CommandeServiceTest {
     public void findByIdTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();

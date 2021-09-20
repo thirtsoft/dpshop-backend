@@ -23,5 +23,6 @@ public class State implements Serializable {
     private String name;
 
     @ManyToOne
+    @JoinColumn(name = "country_code")
     private Country country;
 }

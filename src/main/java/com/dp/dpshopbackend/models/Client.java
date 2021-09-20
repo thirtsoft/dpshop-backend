@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -19,9 +20,6 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reference", length = 50)
-    private String reference;
-
     @Column(name = "firstName", length = 90)
     private String firstName;
 
@@ -31,11 +29,33 @@ public class Client implements Serializable {
     @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "phoneClient", length = 30)
-    private String phoneClient;
+    @Column(name = "mobile", length = 30)
+    private String mobile;
 /*
     @OneToMany(mappedBy = "client")
     private List<Commande> commandeList;
     */
+
+    @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+    private List<Commande> commandeList = new ArrayList<>();
+
+    public Client(Long id, String firstName,
+                  String lastName, String mobile, String email) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.mobile = mobile;
+        this.email = email;
+    }
+
+    public void add(Commande commande) {
+        if (commande != null) {
+            if (commandeList == null) {
+                commandeList = new ArrayList<>();
+            }
+            commandeList.add(commande);
+            commande.setClient(this);
+        }
+    }
 
 }

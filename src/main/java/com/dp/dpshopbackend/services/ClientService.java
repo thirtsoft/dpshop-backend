@@ -12,8 +12,6 @@ public interface ClientService {
 
     ClientDto findById(Long id);
 
-    ClientDto findByReference(String reference);
-
     List<ClientDto> findAll();
 
     void delete(Long id);

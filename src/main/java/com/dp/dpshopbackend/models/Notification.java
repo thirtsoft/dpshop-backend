@@ -23,7 +23,7 @@ public class Notification implements Serializable {
     private String reference;
 
     @Column(name = "nbreEtoile", length = 60)
-    private String nbreEtoile;
+    private float nbreEtoile;
 
     @Column(name = "observation", length = 200)
     private String observation;

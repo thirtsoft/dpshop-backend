@@ -1,19 +1,11 @@
 package com.dp.dpshopbackend.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "ligneCommande")
-@Data
-@AllArgsConstructor
-@NoArgsConstructor
-@EqualsAndHashCode()
 public class LigneCommande implements Serializable {
 
     @Id
@@ -28,6 +20,10 @@ public class LigneCommande implements Serializable {
 
     @Column(name = "price", length = 70)
     private double price;
+
+    @Column(name = "created_date")
+    private Date createdDate;
+
 /*
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comId")
@@ -37,10 +33,88 @@ public class LigneCommande implements Serializable {
 
 
     @ManyToOne
-    @JoinColumn(name = "comId")
+    @JoinColumn(name = "comId", referencedColumnName = "id")
     private Commande commande;
 
     @ManyToOne
-    @JoinColumn(name = "prodId")
+    @JoinColumn(name = "prodId", referencedColumnName = "id")
     private Article article;
+
+    public LigneCommande() {
+    }
+
+    public LigneCommande(Commande commande, Article article, int quantity, double price) {
+        this.article = article;
+        this.quantity = quantity;
+        this.price = price;
+        this.commande = commande;
+        this.createdDate = new Date();
+
+    }
+
+    public LigneCommande(Long id, Long numero, int quantity, double price, Commande commande, Article article) {
+        this.id = id;
+        this.numero = numero;
+        this.quantity = quantity;
+        this.price = price;
+        this.createdDate = new Date();
+        this.commande = commande;
+        this.article = article;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getNumero() {
+        return numero;
+    }
+
+    public void setNumero(Long numero) {
+        this.numero = numero;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public Date getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public Commande getCommande() {
+        return commande;
+    }
+
+    public void setCommande(Commande commande) {
+        this.commande = commande;
+    }
+
+    public Article getArticle() {
+        return article;
+    }
+
+    public void setArticle(Article article) {
+        this.article = article;
+    }
 }

@@ -33,7 +33,6 @@ public class AddressClientServiceTest {
     public void CreateAddressClientTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
@@ -61,7 +60,6 @@ public class AddressClientServiceTest {
     public void findAllTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();
@@ -87,7 +85,6 @@ public class AddressClientServiceTest {
     public void findByIdTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .build();

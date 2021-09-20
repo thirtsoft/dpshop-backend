@@ -1,11 +1,16 @@
 package com.dp.dpshopbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "article")
@@ -40,15 +45,27 @@ public class Article implements Serializable {
 
     private boolean selected;
 
+    @CreationTimestamp
+    private Date createDate;
+
+    @UpdateTimestamp
+    private Date lastUpDated;
+
     @Column(name = "description", length = 250)
+    @Lob
     private String description;
 
     @Column(name = "photo")
     private String photo;
 
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "scatId")
     private Scategory scategory;
+
+    @JsonIgnore
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
+    private List<Notification> notificationList;
 
     public Article(Long id, String reference, String designation, int quantity,
                    double price, double currentPrice, boolean promo, boolean selected,
@@ -63,6 +80,15 @@ public class Article implements Serializable {
         this.selected = selected;
         this.description = description;
         this.photo = photo;
+        this.scategory = scategory;
+    }
+
+    public Article(String designation, String photo, double price, String description, Scategory scategory) {
+        super();
+        this.designation = designation;
+        this.photo = photo;
+        this.price = price;
+        this.description = description;
         this.scategory = scategory;
     }
 }

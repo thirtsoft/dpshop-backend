@@ -44,16 +44,6 @@ public interface ClientApi {
     })
     ResponseEntity<ClientDto> findById(@PathVariable("idClient") Long id);
 
-    @GetMapping(value = APP_ROOT + "/clients/searchClientbyReference/{reference}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Rechercher un Client par Reference",
-            notes = "Cette méthode permet de chercher un Client par son reference", response = ClientDto.class
-    )
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Le Client a été trouver"),
-            @ApiResponse(code = 404, message = "Aucun Client n'existe avec cette ID pas dans la BD")
-    })
-    ResponseEntity<ClientDto> findByReference(@PathVariable("reference") String reference);
-
 
     @GetMapping(value = APP_ROOT + "/clients/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Clients",

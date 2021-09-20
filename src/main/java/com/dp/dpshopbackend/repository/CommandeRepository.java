@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.models.Commande;
+import com.dp.dpshopbackend.models.Utilisateur;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,13 +18,13 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select count(p) from Commande p ")
     BigDecimal countNumberOfCommande();
 
-    @Query("select sum(c.total) from Commande c where month(c.localDateTime) = month(current_date)")
+    @Query("select sum(c.totalCommande) from Commande c where month(c.localDateTime) = month(current_date)")
     BigDecimal sumTotalOfCommandesByMonth();
 
-    @Query("select sum(c.total) from Commande c where month(c.dateCommande) = month(current_date)")
+    @Query("select sum(c.totalCommande) from Commande c where month(c.dateCommande) = month(current_date)")
     BigDecimal sumTotaleOfCommandeByMonth();
 
-    @Query("select sum(c.total) from Commande c where year(c.dateCommande) = year(current_date)")
+    @Query("select sum(c.totalCommande) from Commande c where year(c.dateCommande) = year(current_date)")
     BigDecimal sumTotalOfCommandesByYear();
 
     /*
@@ -31,10 +32,12 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     Page<Commande> findCommandeByCustomerPageables(@Param("clientId") Long clientId, Pageable pageable);
     */
 
+    List<Commande> findAllByUtilisateurOrderByCreatedDateDesc(Utilisateur utilisateur);
+
     @Query("select EXTRACT(month from(c.dateCommande)), count(c) from Commande c group by EXTRACT(month from(c.dateCommande))")
     List<?> countNumberOfCommandeByMonth();
 
-    @Query("select EXTRACT(month from(c.dateCommande)), sum(c.total) from Commande c group by EXTRACT(month from(c.dateCommande))")
+    @Query("select EXTRACT(month from(c.dateCommande)), sum(c.totalCommande) from Commande c group by EXTRACT(month from(c.dateCommande))")
     List<?> sumTotalOfCommandeByMonth();
 
     @Query("select p from Commande p where p.utilisateur.id =:user")

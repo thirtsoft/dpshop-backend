@@ -26,6 +26,16 @@ public interface CommandeApi {
     })
     ResponseEntity<CommandeDto> save(@RequestBody CommandeDto commandeDto);
 
+    @PostMapping(value = APP_ROOT + "/commandes/saveWithAddresses", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Enregistrer une Commande",
+            notes = "Cette méthode permet d'ajouter une Commande", response = CommandeDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "La Commande a été crée"),
+            @ApiResponse(code = 400, message = "Aucune Commande  crée / modifié")
+
+    })
+    ResponseEntity<CommandeDto> saveWithAddresses(@RequestBody CommandeDto commandeDto);
+
     @PutMapping(value = APP_ROOT + "/commandes/update/{idCommande}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une Commande par son ID",

@@ -51,10 +51,9 @@ public class ClientServiceImpl implements ClientService {
 
         ClientDto clientDtoResult = ClientDto.fromEntityToDto(clientOptional.get());
 
-        clientDtoResult.setReference(clientDto.getReference());
         clientDtoResult.setFirstName(clientDto.getFirstName());
         clientDtoResult.setLastName(clientDto.getLastName());
-        clientDtoResult.setPhoneClient(clientDto.getPhoneClient());
+        clientDtoResult.setMobile(clientDto.getMobile());
         clientDtoResult.setEmail(clientDto.getEmail());
 
         return ClientDto.fromEntityToDto(
@@ -79,7 +78,7 @@ public class ClientServiceImpl implements ClientService {
         );
     }
 
-    @Override
+   /* @Override
     public ClientDto findByReference(String reference) {
         if (!StringUtils.hasLength(reference)) {
             log.error("Client REFERENCE is null");
@@ -91,7 +90,7 @@ public class ClientServiceImpl implements ClientService {
                 new ResourceNotFoundException(
                         "Aucnun Client avec l'Id = " + reference + "n'a été trouvé")
         );
-    }
+    }*/
 
     @Override
     public List<ClientDto> findAll() {

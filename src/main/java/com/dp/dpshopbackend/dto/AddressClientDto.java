@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddressClientDto {
 
-    private long id;
+    private Long id;
 
     private String reference;
 

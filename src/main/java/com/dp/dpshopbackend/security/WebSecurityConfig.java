@@ -99,6 +99,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/numberOfCommandeByMonth").permitAll()
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/**").permitAll()
+
+                .antMatchers("/**/checkout/placeToOrder").permitAll()
+
+                .antMatchers("/**/checkout/purchase").permitAll()
+
                 .antMatchers("/**/countries/all").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
                 .antMatchers("/**/lignecommandes/all").permitAll()

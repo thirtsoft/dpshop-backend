@@ -37,7 +37,7 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //   Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article);
+        Notification notification = new Notification(1L, "Not1", 3, "4etoiles", article);
 
         Notification notificationResult = notificationRepository.save(notification);
 
@@ -55,11 +55,11 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //    Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article);
+        Notification notification = new Notification(1L, "Not1", 4, "4etoiles", article);
         notificationRepository.save(notification);
 
         String reference = "Not";
-        String nbreEtoile = "5etoiles";
+        float nbreEtoile = 5;
         notification.setId(2L);
         notification.setReference(reference);
         notification.setNbreEtoile(nbreEtoile);
@@ -80,7 +80,7 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //    Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article);
+        Notification notification = new Notification(1L, "Not1", 2, "4etoiles", article);
 
         Notification notificationResult = notificationRepository.save(notification);
 
@@ -99,11 +99,11 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //   Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article);
+        Notification notification = new Notification(1L, "Not1", 3, "4etoiles", article);
         notificationRepository.save(notification);
 
         //    Notification notification1 = new Notification(2L, "Not2", "bien22", "4etoiles22", article, utilisateur);
-        Notification notification1 = new Notification(2L, "Not2", "bien22", "4etoiles22", article);
+        Notification notification1 = new Notification(2L, "Not2", 4, "4etoiles22", article);
         notificationRepository.save(notification1);
 
         List<Notification> notifications = notificationRepository.findAll();
@@ -122,7 +122,7 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //    Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article);
+        Notification notification = new Notification(1L, "Not1", 5, "4etoiles", article);
         Notification notificationResult = notificationRepository.save(notification);
 
         boolean isExistBeforeDelete = notificationRepository.findById(notificationResult.getId()).isPresent();

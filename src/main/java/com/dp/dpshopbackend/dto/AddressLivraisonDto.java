@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddressLivraisonDto {
 
-    private long id;
+    private Long id;
 
     private String reference;
 
@@ -21,6 +21,8 @@ public class AddressLivraisonDto {
     private String phone;
 
     private String city;
+
+    private String state;
 
     private String rue;
 
@@ -42,8 +44,9 @@ public class AddressLivraisonDto {
                 .quartier(addressLivraison.getQuartier())
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
+                .state(addressLivraison.getState())
                 .country(addressLivraison.getCountry())
-                .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
+                //            .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
                 //          .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
                 .build();
     }
@@ -59,8 +62,9 @@ public class AddressLivraisonDto {
         addressLivraison.setPhone(addressClientDto.getPhone());
         addressLivraison.setQuartier(addressClientDto.getQuartier());
         addressLivraison.setCity(addressClientDto.getCity());
+        addressLivraison.setState(addressClientDto.getState());
         addressLivraison.setCountry(addressClientDto.getCountry());
-        addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
+        //    addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
 
         return addressLivraison;
     }

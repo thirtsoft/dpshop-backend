@@ -43,7 +43,7 @@ public class CommandeRepositoryTest {
         commande.setId(1L);
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
-        commande.setTotal(total);
+        commande.setTotalCommande(total);
         //      commande.setClient(client);
         commande.setUtilisateur(utilisateur);
 
@@ -69,7 +69,7 @@ public class CommandeRepositoryTest {
         commande.setId(1L);
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
-        commande.setTotal(total);
+        commande.setTotalCommande(total);
         //      commande.setClient(client);
         commande.setUtilisateur(utilisateur);
 
@@ -85,7 +85,7 @@ public class CommandeRepositoryTest {
 
         assertThat(commandeUpdate.getReference()).isEqualTo(refCom);
         assertThat(commandeUpdate.getNumeroCommande()).isEqualTo(numCom);
-        assertThat(commandeUpdate.getTotal()).isEqualTo(commande.getTotal());
+        assertThat(commandeUpdate.getTotalCommande()).isEqualTo(commande.getTotalCommande());
 
     }
 
@@ -104,7 +104,7 @@ public class CommandeRepositoryTest {
         commande.setId(1L);
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
-        commande.setTotal(total);
+        commande.setTotalCommande(total);
         //       commande.setClient(client);
         commande.setUtilisateur(utilisateur);
 
@@ -131,7 +131,7 @@ public class CommandeRepositoryTest {
         commande.setId(1L);
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
-        commande.setTotal(total);
+        commande.setTotalCommande(total);
         //      commande.setClient(client);
         commande.setUtilisateur(utilisateur);
 
@@ -165,7 +165,7 @@ public class CommandeRepositoryTest {
         commande.setId(1L);
         commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
-        commande.setTotal(total);
+        commande.setTotalCommande(total);
         //     commande.setClient(client);
         commande.setUtilisateur(utilisateur);
         Commande commandeResult = commandeRepository.save(commande);

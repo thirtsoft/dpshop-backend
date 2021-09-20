@@ -67,7 +67,6 @@ public class CommandeControllerTest {
     @Before
     public void setup() {
         clientDto = new ClientDto();
-        clientDto.setReference("cl1");
         clientDto.setLastName("diallo");
         utilisateurPOSTDto = new UtilisateurPOSTDto();
         utilisateurPOSTDto.setId(1L);

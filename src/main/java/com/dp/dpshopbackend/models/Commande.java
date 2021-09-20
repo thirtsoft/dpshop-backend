@@ -1,11 +1,10 @@
 package com.dp.dpshopbackend.models;
 
+import com.dp.dpshopbackend.dto.PlaceOrderDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.AllArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -15,12 +14,9 @@ import java.util.Date;
 import java.util.List;
 
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
-@EqualsAndHashCode()
 @Entity
 @Table(name = "commande")
+@Data
 public class Commande implements Serializable {
 
     @Id
@@ -33,8 +29,23 @@ public class Commande implements Serializable {
     @Column(name = "numeroCommande", length = 70)
     private Long numeroCommande;
 
+    private String firstName;
+
+    private String lastName;
+
+    private String email;
+
+    private String mobile;
+
+    private String address;
+
+    private String status;
+
+    @Column(name = "totalQuantity", length = 150)
+    private int totalQuantity;
+
     @Column(name = "totalCommande", length = 150)
-    private double total;
+    private double totalCommande;
 
     @Column(name = "localDateTime", length = 100)
     private LocalDateTime localDateTime;
@@ -42,26 +53,69 @@ public class Commande implements Serializable {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT")
     private Date dateCommande;
 
+    @Column(name = "created_date")
+    private Date createdDate;
+
     //  @Enumerated(EnumType.STRING)
     //  @NaturalId
     @Column(length = 100)
     private StatusCommande statusCommande;
-/*
+
+    @Column(name = "session_id")
+    private String sessionId;
+
+    @Column(name = "orderTrackingNumber")
+    private String orderTrackingNumber;
+
     @ManyToOne
     @JoinColumn(name = "clientId")
     private Client client;
-    */
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")
+    private AddressLivraison shippingAddress;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
+    private AddressLivraison billingAddress;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JsonIgnore
+    @JoinColumn(name = "userId", referencedColumnName = "id")
     private Utilisateur utilisateur;
 
-    @OneToMany(mappedBy = "commande")
+    /*
+    @OneToMany(mappedBy = "commande", fetch = FetchType.LAZY)
+    private List<LigneCommande> lcomms = new ArrayList<>();*/
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "commande", fetch = FetchType.LAZY)
     private List<LigneCommande> lcomms = new ArrayList<>();
 
-    @ManyToOne
+   /* @ManyToOne
     @JoinColumn(name = "billingAddress")
     private AddressLivraison addressLivraison;
+*/
+
+    public Commande() {
+    }
+
+
+    public Commande(PlaceOrderDto placeOrderDto, Utilisateur utilisateur, String sessionId) {
+        this.utilisateur = utilisateur;
+        this.createdDate = new Date();
+        this.totalCommande = placeOrderDto.getTotalPrice();
+        this.sessionId = sessionId;
+    }
+
+    public void add(LigneCommande ligneCommande) {
+        if (ligneCommande != null) {
+            if (lcomms == null) {
+                lcomms = new ArrayList<>();
+            }
+            lcomms.add(ligneCommande);
+            ligneCommande.setCommande(this);
+        }
+    }
 
 
 }

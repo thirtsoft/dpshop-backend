@@ -78,7 +78,7 @@ public class NotificationControllerTest {
         utilisateurDto.setName("tairou");
         utilisateurDto.setUsername("thir");
         //     notificationDto = new NotificationDto(1L, "note1", "note1", "note1", articleDto, utilisateurDto);
-        notificationDto = new NotificationDto(1L, "note1", "note1", "note1", articleDto);
+        notificationDto = new NotificationDto(1L, "note1", 1, "note1", articleDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(notificationController).build();
     }

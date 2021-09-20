@@ -37,10 +37,6 @@ public class ClientController implements ClientApi {
         return ResponseEntity.ok(clientService.findById(id));
     }
 
-    @Override
-    public ResponseEntity<ClientDto> findByReference(String reference) {
-        return ResponseEntity.ok(clientService.findByReference(reference));
-    }
 
     @Override
     public List<ClientDto> findAll() {

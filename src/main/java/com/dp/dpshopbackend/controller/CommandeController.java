@@ -31,6 +31,11 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public ResponseEntity<CommandeDto> saveWithAddresses(CommandeDto commandeDto) {
+        return ResponseEntity.ok(commandeService.saveWithAddresses(commandeDto));
+    }
+
+    @Override
     public ResponseEntity<CommandeDto> update(Long id, CommandeDto commandeDto) {
         commandeDto.setId(id);
         return ResponseEntity.ok(commandeService.save(commandeDto));

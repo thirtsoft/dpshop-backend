@@ -32,11 +32,10 @@ public class ClientServiceTest {
     public void CreateClientTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .email("CLT")
-                .phoneClient("CLT")
+                .mobile("CLT")
                 .build();
         Client client = ClientDto.fromDtoToEntity(clientDto);
         when(clientRepository.save(client)).thenReturn(client);
@@ -47,7 +46,7 @@ public class ClientServiceTest {
         assertThat(clientDto).isNotNull();
         assertThat(clientDtoSavedResult).isEqualTo(clientDto);
         assertThat(clientDtoSavedResult.getId()).isEqualTo(client.getId());
-        assertThat(clientDtoSavedResult.getReference()).isEqualTo(client.getReference());
+        assertThat(clientDtoSavedResult.getMobile()).isEqualTo(client.getMobile());
         assertThat(clientDtoSavedResult.getFirstName()).isEqualTo(client.getFirstName());
     }
 
@@ -55,11 +54,10 @@ public class ClientServiceTest {
     public void findAllTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .email("CLT")
-                .phoneClient("CLT")
+                .mobile("CLT")
                 .build();
         Client client = ClientDto.fromDtoToEntity(clientDto);
 
@@ -77,11 +75,10 @@ public class ClientServiceTest {
     public void findByIdTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .firstName("CLT")
                 .lastName("CLT")
                 .email("CLT")
-                .phoneClient("CLT")
+                .mobile("CLT")
                 .build();
         Optional<Client> client = Optional.ofNullable(ClientDto.fromDtoToEntity(clientDto));
         when(clientRepository.findById(client.get().getId())).thenReturn(client);
