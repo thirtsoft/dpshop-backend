@@ -31,6 +31,10 @@ public class LigneCommande implements Serializable {
     private Commande commande;
     */
 
+    private Long productId;
+
+    private String productName;
+
 
     @ManyToOne
     @JoinColumn(name = "comId", referencedColumnName = "id")
@@ -108,6 +112,22 @@ public class LigneCommande implements Serializable {
 
     public void setCommande(Commande commande) {
         this.commande = commande;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public Article getArticle() {

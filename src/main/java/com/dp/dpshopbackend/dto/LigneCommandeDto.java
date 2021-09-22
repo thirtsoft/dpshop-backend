@@ -21,6 +21,10 @@ public class LigneCommandeDto {
 
     private double price;
 
+    private Long productId;
+
+    private String productName;
+
     @JsonIgnore
     private CommandeDto commandeDto;
 
@@ -36,6 +40,8 @@ public class LigneCommandeDto {
                 .numero(ligneCommande.getNumero())
                 .quantity(ligneCommande.getQuantity())
                 .price(ligneCommande.getPrice())
+                .productId(ligneCommande.getProductId())
+                .productName(ligneCommande.getProductName())
   //              .commandeDto(CommandeDto.fromEntityToDto(ligneCommande.getCommande()))
                 .articleDto(ArticleDto.fromEntityToDto(ligneCommande.getArticle()))
                 .build();
@@ -51,6 +57,8 @@ public class LigneCommandeDto {
         ligneCommande.setNumero(ligneCommandeDto.getNumero());
         ligneCommande.setQuantity(ligneCommandeDto.getQuantity());
         ligneCommande.setPrice(ligneCommandeDto.getPrice());
+        ligneCommande.setProductId(ligneCommandeDto.getProductId());
+        ligneCommande.setProductName(ligneCommande.getProductName());
         ligneCommande.setArticle(ArticleDto.fromDtoToEntity(ligneCommandeDto.getArticleDto()));
   //      ligneCommande.setCommande(CommandeDto.fromDtoToEntity(ligneCommandeDto.getCommandeDto()));
 

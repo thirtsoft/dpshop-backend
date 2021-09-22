@@ -78,7 +78,7 @@ public class LigneCommandeControllerTest {
         commandeDto = new CommandeDto();
         commandeDto.setReference("reCom");
         commandeDto.setNumeroCommande(120L);
-        ligneCommandeDto = new LigneCommandeDto(1L, 10L, 12, 12500, commandeDto, articleDto);
+        ligneCommandeDto = new LigneCommandeDto(1L, 10L, 12, 12500, 1L, "Product-1", commandeDto, articleDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(ligneCommandeController).build();
     }
