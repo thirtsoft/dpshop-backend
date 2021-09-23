@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class StateDto {
 
-    private Long idState;
+    private Long id;
 
     private String name;
 
@@ -25,7 +25,7 @@ public class StateDto {
         }
 
         return StateDto.builder()
-                .idState(state.getIdState())
+                .id(state.getId())
                 .name(state.getName())
                 .countryDto(CountryDto.fromEntityToDto(state.getCountry()))
                 .build();
@@ -37,7 +37,7 @@ public class StateDto {
         }
 
         State state = new State();
-        state.setIdState(stateDto.getIdState());
+        state.setId(stateDto.getId());
         state.setName(stateDto.getName());
         state.setCountry(CountryDto.fromDtoToEntity(stateDto.getCountryDto()));
 

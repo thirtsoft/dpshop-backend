@@ -29,7 +29,7 @@ public class StateController implements StateApi {
 
     @Override
     public ResponseEntity<StateDto> update(Long id, StateDto stateDto) {
-        stateDto.setIdState(id);
+        stateDto.setId(id);
         return ResponseEntity.ok(stateService.save(stateDto));
     }
 
@@ -46,6 +46,11 @@ public class StateController implements StateApi {
     @Override
     public List<StateDto> findAll() {
         return stateService.findAll();
+    }
+
+    @Override
+    public List<StateDto> getAllStateByCountryCode(String code) {
+        return stateService.findAllStateByCountryCode(code);
     }
 
     @Override

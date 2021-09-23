@@ -16,13 +16,12 @@ public class State implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long idState;
+    private Long id;
 
     @Column(name = "name", length = 90)
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "country_code")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "countryId")
     private Country country;
 }

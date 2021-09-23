@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services.impl;
 
+import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.StateDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.State;
@@ -84,12 +85,21 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
+    public List<StateDto> findAllStateByCountryCode(String code) {
+        if (code == null) {
+            log.error("State Country is null");
+        }
+        return stateRepository.findByCountryCode(code).stream()
+                .map(StateDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Country Id is null");
         }
         stateRepository.deleteById(id);
-
-
     }
+
 }

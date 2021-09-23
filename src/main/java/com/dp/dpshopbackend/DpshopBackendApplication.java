@@ -106,16 +106,16 @@ public class DpshopBackendApplication implements CommandLineRunner {
         Client cl3 = clientRepository.save(new Client(3L, "cl3", "cl3", "cl3", "774567321"));
         Client cl4 = clientRepository.save(new Client(4L, "cl4", "cl4", "cl4", "776543298" ));
 
-        Country count1 = countryRepository.save(new Country(1L, "SENEGAL"));
-        Country count2 = countryRepository.save(new Country(2L, "Etats-Unies"));
-        Country count3 = countryRepository.save(new Country(3L, "Guinnée-Conakry"));
-        Country count4 = countryRepository.save(new Country(4L, "Japon"));
-        Country count5 = countryRepository.save(new Country(5L, "Gambie"));
-        Country count6 = countryRepository.save(new Country(6L, "Chine"));
-        Country count7 = countryRepository.save(new Country(7L, "Arabie-Souadite"));
-        Country count8 = countryRepository.save(new Country(8L, "France"));
-        Country count9 = countryRepository.save(new Country(9L, "Nigeria"));
-        Country count10 = countryRepository.save(new Country(10L, "Inde"));
+        Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
+        Country count2 = countryRepository.save(new Country(2L, "USA", "Etats-Unies"));
+        Country count3 = countryRepository.save(new Country(3L, "GUIN", "Guinnée-Conakry"));
+        Country count4 = countryRepository.save(new Country(4L, "JAP", "Japon"));
+        Country count5 = countryRepository.save(new Country(5L, "GB","Gambie"));
+        Country count6 = countryRepository.save(new Country(6L, "CH", "Chine"));
+        Country count7 = countryRepository.save(new Country(7L, "AR", "Arabie-Souadite"));
+        Country count8 = countryRepository.save(new Country(8L, "FR", "France"));
+        Country count9 = countryRepository.save(new Country(9L,  "NG", "Nigeria"));
+        Country count10 = countryRepository.save(new Country(10L,  "Ind", "Inde"));
 
         State state1 = stateRepository.save(new State(1L, "Dakar", count1));
         State state2 = stateRepository.save(new State(2L, "Ziguinchor", count1));

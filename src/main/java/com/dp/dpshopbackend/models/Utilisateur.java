@@ -23,39 +23,35 @@ public class Utilisateur implements Serializable {
     @Column(name = "name", length = 100)
     private String name;
 
-    @Column(name = "firstName", length = 100)
-    private String firstName;
-
-    @Column(name = "lastName", length = 100)
-    private String lastName;
-
-    @Column(name = "username", length = 90)
+    @Column(name = "username", length = 60)
     private String username;
 
     @Column(name = "mobile", length = 60)
     private String mobile;
 
-    @Column(name = "email", length = 90)
+    @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "photo", length = 90)
-    private String photo;
+  /*
+    @Column(name = "firstName", length = 100)
+    private String firstName;
 
-    @Column(name = "address", length = 150)
-    private String address;
-
-    @Column(name = "activated")
-    private boolean activated = false;
+    @Column(name = "lastName", length = 100)
+    private String lastName;*/
 
     @Column(name = "password", length = 80)
     private String password;
 
+
+    @Column(name = "activated")
+    private boolean activated = false;
+
     @Column(name = "accountVerified")
     private boolean accountVerified;
 
-    @Enumerated(EnumType.STRING)
+  /*  @Enumerated(EnumType.STRING)
     @Column(name = "roleName")
-    private RoleName roleName;
+    private RoleName roleName;*/
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "user_roles",
@@ -81,27 +77,14 @@ public class Utilisateur implements Serializable {
 
     public Utilisateur(String name,
                        String username,
-                       String mobile,
                        String email,
                        String password) {
         this.name = name;
         this.username = username;
-        this.mobile = mobile;
         this.email = email;
         this.password = password;
     }
 
-    public Utilisateur(String firstName,
-                       String lastName,
-                       String email,
-                       RoleName roleName,
-                       String password) {
-        this.firstName = firstName ;
-        this.lastName = lastName;
-        this.email = email;
-        this.roleName = roleName;
-        this.password = password;
-    }
 
     public Utilisateur(Long id, String name, String username, String mobile,
                        String email, String password, Set<Role> roles) {
@@ -154,22 +137,6 @@ public class Utilisateur implements Serializable {
         this.email = email;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public boolean isActivated() {
         return activated;
     }
@@ -200,30 +167,6 @@ public class Utilisateur implements Serializable {
 
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public RoleName getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(RoleName roleName) {
-        this.roleName = roleName;
     }
 
     public List<Commande> getCommandeList() {

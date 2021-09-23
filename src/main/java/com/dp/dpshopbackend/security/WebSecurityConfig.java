@@ -109,6 +109,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/lignecommandes/all").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/states/all").permitAll()
+                .antMatchers("/**/states/searchStateByCountryCode/**").permitAll()
                 .antMatchers("/**/utilisateurs/all").permitAll()
                 .antMatchers("/**/clients/**").permitAll()
                 .antMatchers("/**/notifications/**").permitAll()

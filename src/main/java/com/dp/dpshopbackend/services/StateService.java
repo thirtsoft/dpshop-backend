@@ -14,6 +14,8 @@ public interface StateService {
 
     List<StateDto> findAll();
 
+    List<StateDto> findAllStateByCountryCode(String code);
+
     void delete(Long id);
 
 }

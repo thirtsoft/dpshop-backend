@@ -139,12 +139,23 @@ public class AuthController implements AuthApi {
         if (utilisateurRepository.existsByEmail(signUpForm.getEmail())) {
             throw new ResourceNotFoundException("Error: Email is already in use!");
         }
-        UtilisateurPOSTDto utilisateurPOSTResult = new UtilisateurPOSTDto(
+      /*  UtilisateurPOSTDto utilisateurPOSTResult = new UtilisateurPOSTDto(
                 signUpForm.getUsername(),
                 signUpForm.getEmail(),
-                encoder.encode(signUpForm.getPassword()));
+                encoder.encode(signUpForm.getPassword()));*/
 
-        //    Set<String> strRoles = signUpForm.getRole();
+        // Create new user's account
+        Utilisateur utilisateur = new Utilisateur(
+                signUpForm.getName(),
+                signUpForm.getUsername(),
+                signUpForm.getEmail(),
+                encoder.encode(signUpForm.getPassword()
+                )
+        );
+
+        String[] strRoles = signUpForm.getRoles();
+        Set<Role> roles = new HashSet<>();
+        /*
         String[] strRoles = signUpForm.getRoles();
         Set<RoleDto> roles = new HashSet<>();
         if (strRoles == null) {
@@ -178,45 +189,37 @@ public class AuthController implements AuthApi {
 
             }
         }
-/*
+        */
+
         if (strRoles == null) {
-            RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
+            Role userRole = (roleRepository.findByName(RoleName.ROLE_USER)
+                    .orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
             roles.add(userRole);
 
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        RoleDto adminRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                        roles.add(adminRole);
-
-                        break;
-                    case "manager":
-                        RoleDto manager = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_MANAGER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                        roles.add(manager);
-
-                        break;
-                    default:
-                        RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                        roles.add(userRole);
-
-                }
-            });
         }
-        */
-        utilisateurPOSTResult.setRoleDtos((Set<RoleDto>) RoleDto.formEntityToDto((Role) roles));
+        for (String role : strRoles) {
+            switch (role.toLowerCase()) {
+                case "admin":
+                    roles.add(roleRepository.findByName(RoleName.ROLE_ADMIN).get());
+                    break;
 
-        return ResponseEntity.ok(
-                UtilisateurPOSTDto.fromEntityToDto(
-                        utilisateurRepository.save(
-                                UtilisateurPOSTDto.fromDtoToEntity(utilisateurPOSTResult)
-                        )
-                )
-        );
+                case "manager":
+                    roles.add(roleRepository.findByName(RoleName.ROLE_MANAGER).get());
+                    break;
+
+                case "user":
+                    roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
+                    break;
+
+                default:
+                    roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
+                //    return ResponseEntity.badRequest().body("Specified role not found");
+
+            }
+        }
+
+        utilisateur.setRoles(roles);
+        return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
     }
 
     @Override

@@ -1,10 +1,9 @@
 package com.dp.dpshopbackend.message.response;
 
-import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
-
+import com.dp.dpshopbackend.dto.UtilisateurDto;
 import java.util.List;
 
-public class JwtsResponse extends UtilisateurPOSTDto {
+public class JwtsResponse extends UtilisateurDto {
 
     private String token;
     private final Long id;
@@ -17,7 +16,7 @@ public class JwtsResponse extends UtilisateurPOSTDto {
     //  private Collection<? extends GrantedAuthority> authorities;
 
     public JwtsResponse(String accessToken, Long id, String username, String email,
-                        List<String> roles) {
+                            List<String> roles) {
 
         this.token = accessToken;
         this.id = id;
@@ -56,10 +55,6 @@ public class JwtsResponse extends UtilisateurPOSTDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<String> getRoles() {
-        return roles;
     }
 
 }

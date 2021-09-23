@@ -50,6 +50,8 @@ public class CommandeDto {
 
     private UtilisateurPOSTDto utilisateurPOSTDto;
 
+    private UtilisateurDto utilisateurDto;
+
     private ClientDto clientDto;
 
     private AddressLivraisonDto shippingAddressDto;
@@ -94,7 +96,7 @@ public class CommandeDto {
                 .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
                 .billingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getBillingAddress()))
                 .shippingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getShippingAddress()))
-                .utilisateurPOSTDto(UtilisateurPOSTDto.fromEntityToDto(commande.getUtilisateur()))
+                .utilisateurDto(UtilisateurDto.fromEntityToDto(commande.getUtilisateur()))
              /*   .addressLivraisonDto(AddressLivraisonDto.fromEntityToDto(commande.getAddressLivraison()))*/
                 //         .lcomms((List<LigneCommandeDto>) LigneCommandeDto.fromEntityToDto((LigneCommande) commande.getLcomms()))
                 .build();

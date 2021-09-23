@@ -1,21 +1,20 @@
 package com.dp.dpshopbackend.message.response;
 
 import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
-import org.springframework.security.core.GrantedAuthority;
 
-import java.util.Collection;
+import java.util.List;
 
 public class JwtResponse extends UtilisateurPOSTDto {
 
     private final Long id;
-    //   private List<String> roles;
-    private final Collection<? extends GrantedAuthority> authorities;
+    private List<String> roles;
+    //  private final Collection<? extends GrantedAuthority> authorities;
     private String token;
     private String type = "Bearer";
     private String username;
     private String email;
 
-  /*  public JwtResponse(String accessToken, Long id, String username, String email,
+    public JwtResponse(String accessToken, Long id, String username, String email,
                        List<String> roles) {
 
         this.token = accessToken;
@@ -23,16 +22,14 @@ public class JwtResponse extends UtilisateurPOSTDto {
         this.username = username;
         this.email = email;
         this.roles = roles;
-    }*/
+    }
 
-    public JwtResponse(String accessToken, Long id, String username, String email,
-                       Collection<? extends GrantedAuthority> authorities) {
+    public JwtResponse(String accessToken, Long id, String username, String email) {
 
         this.token = accessToken;
         this.id = id;
         this.username = username;
         this.email = email;
-        this.authorities = authorities;
     }
 
     public String getAccessToken() {
@@ -67,7 +64,4 @@ public class JwtResponse extends UtilisateurPOSTDto {
         this.username = username;
     }
 
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return authorities;
-    }
 }

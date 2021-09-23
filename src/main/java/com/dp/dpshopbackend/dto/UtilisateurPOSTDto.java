@@ -16,17 +16,19 @@ import java.util.stream.Collectors;
 @NoArgsConstructor
 public class UtilisateurPOSTDto {
 
-    private Long id;
+    private long id;
+
+    private String name;
 
     private String username;
+
+    private String mobile;
 
     private String email;
 
     private String password;
 
-    private Set<RoleDto> roleDtos = new HashSet<>();
-
-    //  private Set<String> roleDtos;
+    private Set<RoleDto> roles = new HashSet<>();
 
     public UtilisateurPOSTDto(String username, String email, String password) {
         this.username = username;
@@ -35,81 +37,37 @@ public class UtilisateurPOSTDto {
 
     }
 
-    public static UtilisateurPOSTDto fromEntityToDto(Utilisateur utilisateur) {
+    public static UtilisateurDto fromEntityToDto(Utilisateur utilisateur) {
         if (utilisateur == null) {
             return null;
         }
 
-        return UtilisateurPOSTDto.builder()
+        return UtilisateurDto.builder()
                 .id(utilisateur.getId())
+                .name(utilisateur.getName())
                 .username(utilisateur.getUsername())
+                .mobile(utilisateur.getMobile())
                 .email(utilisateur.getEmail())
                 .password(utilisateur.getPassword())
-                //            .roleDtos(utilisateur.getRoles())
-                /*
-                .roleDtos(utilisateur.getRoles() != null ?
-                        utilisateur.getRoles().stream()
-                                .map(RoleDto::formEntityToDto)
-                                .collect(Collectors.toSet()) : null
-                )*/
                 .build();
 
     }
 
-    public static Utilisateur fromDtoToEntity(UtilisateurPOSTDto UtilisateurPOSTDto) {
-        if (UtilisateurPOSTDto == null) {
+    public static Utilisateur fromDtoToEntity(UtilisateurPOSTDto utilisateurDto) {
+        if (utilisateurDto == null) {
             return null;
         }
 
         Utilisateur utilisateur = new Utilisateur();
-        utilisateur.setId(UtilisateurPOSTDto.getId());
-        utilisateur.setUsername(UtilisateurPOSTDto.getUsername());
-        utilisateur.setEmail(UtilisateurPOSTDto.getEmail());
-        utilisateur.setPassword(UtilisateurPOSTDto.getPassword());
+        utilisateur.setId(utilisateurDto.getId());
+        utilisateur.setName(utilisateurDto.getName());
+        utilisateur.setUsername(utilisateurDto.getUsername());
+        utilisateur.setMobile(utilisateurDto.getMobile());
+        utilisateur.setEmail(utilisateurDto.getEmail());
+        utilisateur.setPassword(utilisateurDto.getPassword());
         utilisateur.setRoles(utilisateur.getRoles());
 
         return utilisateur;
     }
 
-    /* public UtilisateurPOSTDto() { }*/
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public Set<RoleDto> getRoleDtos() {
-        return roleDtos;
-    }
-
-    public void setRoleDtos(Set<RoleDto> roleDtos) {
-        this.roleDtos = roleDtos;
-    }
 }

@@ -13,7 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CountryDto {
 
-    private Long idCountry;
+    private Long id;
+
+    private String code;
 
     private String name;
 
@@ -23,7 +25,8 @@ public class CountryDto {
         }
 
         return CountryDto.builder()
-                .idCountry(country.getIdCountry())
+                .id(country.getId())
+                .code(country.getCode())
                 .name(country.getName())
                 .build();
     }
@@ -34,7 +37,8 @@ public class CountryDto {
         }
 
         Country country = new Country();
-        country.setIdCountry(countryDto.getIdCountry());
+        country.setId(countryDto.getId());
+        country.setCode(countryDto.getCode());
         country.setName(countryDto.getName());
 
         return country;

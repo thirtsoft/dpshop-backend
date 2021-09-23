@@ -120,13 +120,15 @@ public class UtilisateurPostServiceImpl implements UtilisateurPostService {
             }
         }
 
-        utilisateurPOSTDto.setRoleDtos((Set<RoleDto>) RoleDto.formEntityToDto((Role) roles));
+        return null;
+
+     /*   utilisateurPOSTDto.setRoleDtos((Set<RoleDto>) RoleDto.formEntityToDto((Role) roles));
 
         return UtilisateurPOSTDto.fromEntityToDto(
                 utilisateurRepository.save(
                         UtilisateurPOSTDto.fromDtoToEntity(utilisateurPOSTDto)
                 )
-        );
+        );*/
 
     }
 
@@ -149,12 +151,14 @@ public class UtilisateurPostServiceImpl implements UtilisateurPostService {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        return new JwtsResponse(jwt,
+        return null;
+
+       /* return new JwtsResponse(jwt,
                 userPrinciple.getId(),
                 userPrinciple.getUsername(),
                 userPrinciple.getPassword(),
                 roles);
-
+*/
 
     }
 }

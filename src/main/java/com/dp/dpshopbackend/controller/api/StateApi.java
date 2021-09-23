@@ -61,6 +61,14 @@ public interface StateApi {
     })
     List<StateDto> findAll();
 
+    @GetMapping(value = APP_ROOT + "/states/searchStateByCountryCode", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des states",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des states", responseContainer = "List<StateDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des states / une liste vide")
+    })
+    List<StateDto> getAllStateByCountryCode(@RequestParam(name = "code") String code);
+
     @DeleteMapping(value = APP_ROOT + "/states/delete/{idState}")
     @ApiOperation(value = "Supprimer un State par son ID",
             notes = "Cette méthode permet de supprimer une State par son ID", response = StateDto.class)

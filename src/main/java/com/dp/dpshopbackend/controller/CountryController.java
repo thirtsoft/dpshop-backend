@@ -29,7 +29,7 @@ public class CountryController implements CountryApi {
 
     @Override
     public ResponseEntity<CountryDto> update(Long id, CountryDto countryDto) {
-        countryDto.setIdCountry(id);
+        countryDto.setId(id);
         return ResponseEntity.ok(countryService.save(countryDto));
     }
 
