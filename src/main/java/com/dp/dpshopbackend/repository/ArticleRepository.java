@@ -22,6 +22,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("select art from Article art where art.price like :price GROUP BY (art.price, art.id) ")
     List<Article> findArticleGroupByPrice(@Param("price") double price);
 
+    @Query("select p from Article p where p.price between :min and :max")
+    List<Article> findListArticleByPriceMinMax(@Param("min") double min, @Param("max") double max);
+
     @Query("select art from Article art where art.selected = true")
     List<Article> findArticleBySelected();
 

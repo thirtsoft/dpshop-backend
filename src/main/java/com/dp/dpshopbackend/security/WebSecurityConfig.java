@@ -90,6 +90,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/searchArticleByPrice/**").permitAll()
                 .antMatchers("/**/articles/searchbyReference/**").permitAll()
                 .antMatchers("/**/articles/photoArticle/**").permitAll()
+                .antMatchers("/**/articles/searchArticleByPriceMinMax/**").permitAll()
+
                 .antMatchers("/**/categories/**").permitAll()
                 .antMatchers("/**/commandes/create").permitAll()
                 .antMatchers("/**/commandes/all").permitAll()

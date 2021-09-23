@@ -87,6 +87,11 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public List<ArticleDto> getListArticleByPriceMinMax(String min, String max) {
+        return articleService.findListArticleByPriceMinMax(Double.parseDouble(min), Double.parseDouble(max));
+    }
+
+    @Override
     public List<ArticleDto> getListArticleBySelected() {
         return articleService.findListArticleBySelected();
     }

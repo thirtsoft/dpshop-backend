@@ -156,6 +156,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findListArticleByPriceMinMax(double min, double max) {
+        return articleRepository.findListArticleByPriceMinMax(min, max).stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<ArticleDto> findListArticleBySelected() {
         return articleRepository.findArticleBySelected().stream()
                 .map(ArticleDto::fromEntityToDto)
