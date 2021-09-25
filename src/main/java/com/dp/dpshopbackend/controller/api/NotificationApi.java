@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.NotificationDto;
+import com.dp.dpshopbackend.models.Notification;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -75,6 +76,14 @@ public interface NotificationApi {
             @ApiResponse(code = 200, message = "La liste des Notification / une liste vide")
     })
     List<NotificationDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/notifications/searchTop3RatingOrderByCreatedDateDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 3 dernières Notification",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 3 dernières Notification", responseContainer = "List<NotificationDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Notification / une liste vide")
+    })
+    ResponseEntity<List<Notification>> getTop3ByOrderByCreatedDateDesc();
 
     @DeleteMapping(value = APP_ROOT + "/notifications/delete/{idNotification}")
     @ApiOperation(value = "Supprimer une Notification par son ID",

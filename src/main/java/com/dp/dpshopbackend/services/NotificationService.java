@@ -16,5 +16,7 @@ public interface NotificationService {
 
     List<NotificationDto> findAll();
 
+    List<NotificationDto> findTop3RatingOrderByCreatedDateDesc();
+
     void delete(Long id);
 }

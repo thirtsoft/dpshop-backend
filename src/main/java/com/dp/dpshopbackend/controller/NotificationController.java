@@ -5,6 +5,7 @@ import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.models.Article;
+import com.dp.dpshopbackend.models.Notification;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.services.ArticleService;
 import com.dp.dpshopbackend.services.NotificationService;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -65,7 +67,6 @@ public class NotificationController implements NotificationApi {
         NotificationDto notificationDtoResult = notificationService.save(notificationDto);
 
 
-
         return new ResponseEntity<>(notificationDtoResult, HttpStatus.CREATED);
     }
 
@@ -83,6 +84,14 @@ public class NotificationController implements NotificationApi {
     @Override
     public List<NotificationDto> findAll() {
         return notificationService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<Notification>> getTop3ByOrderByCreatedDateDesc() {
+        List<NotificationDto> notificationDtoList = new ArrayList<>();
+        notificationDtoList = notificationService.findTop3RatingOrderByCreatedDateDesc();
+
+        return new ResponseEntity(notificationDtoList, HttpStatus.OK);
     }
 
     @Override

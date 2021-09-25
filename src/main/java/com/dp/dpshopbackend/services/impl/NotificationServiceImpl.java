@@ -105,6 +105,13 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public List<NotificationDto> findTop3RatingOrderByCreatedDateDesc() {
+        return notificationRepository.findTop3ByOrderByCreatedDateDesc().stream()
+                .map(NotificationDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Notification Id is null");
