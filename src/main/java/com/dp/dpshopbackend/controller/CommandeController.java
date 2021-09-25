@@ -2,17 +2,23 @@ package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.CommandeApi;
 import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.services.CommandeService;
+import com.dp.dpshopbackend.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -20,9 +26,12 @@ public class CommandeController implements CommandeApi {
 
     private final CommandeService commandeService;
 
+    private final UtilisateurService utilisateurService;
+
     @Autowired
-    public CommandeController(CommandeService commandeService) {
+    public CommandeController(CommandeService commandeService, UtilisateurService utilisateurService) {
         this.commandeService = commandeService;
+        this.utilisateurService = utilisateurService;
     }
 
     @Override
@@ -33,6 +42,20 @@ public class CommandeController implements CommandeApi {
     @Override
     public ResponseEntity<CommandeDto> saveWithAddresses(CommandeDto commandeDto) {
         return ResponseEntity.ok(commandeService.saveWithAddresses(commandeDto));
+    }
+
+    @Override
+    public ResponseEntity<CommandeDto> saveWithLoginUser(CommandeDto commandeDto, Long id) {
+
+        Utilisateur userInfo = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
+
+        UtilisateurDto userInfoDto = UtilisateurDto.fromEntityToDto(userInfo);
+
+        commandeDto.setUtilisateurDto(userInfoDto);
+        commandeService.save(commandeDto);
+
+        return new ResponseEntity<>(HttpStatus.CREATED);
+
     }
 
     @Override

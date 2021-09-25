@@ -78,7 +78,7 @@ public class NotificationControllerTest {
         utilisateurDto.setName("tairou");
         utilisateurDto.setUsername("thir");
         //     notificationDto = new NotificationDto(1L, "note1", "note1", "note1", articleDto, utilisateurDto);
-        notificationDto = new NotificationDto(1L, "note1", 1, "note1", articleDto);
+        notificationDto = new NotificationDto(1L, 1, "note1", articleDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(notificationController).build();
     }
@@ -92,8 +92,8 @@ public class NotificationControllerTest {
     public void PostMappingOfNotification() throws Exception {
         when(notificationService.save(any())).thenReturn(notificationDto);
         mockMvc.perform(post("/shop-mania/v1/notifications/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(notificationDto)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(notificationDto)))
                 .andExpect(status().isOk());
         verify(notificationService, times(1)).save(any());
     }
@@ -102,8 +102,8 @@ public class NotificationControllerTest {
     public void GetMappingOfAllNotifications() throws Exception {
         when(notificationService.findAll()).thenReturn(notificationDtoList);
         mockMvc.perform(get("/shop-mania/v1/notifications/all").
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(notificationDto))).
+                        contentType(MediaType.APPLICATION_JSON).
+                        content(asJsonString(notificationDto))).
                 andDo(MockMvcResultHandlers.print());
         verify(notificationService).findAll();
         verify(notificationService, times(1)).findAll();
@@ -114,8 +114,8 @@ public class NotificationControllerTest {
         Long artID = (long) 1;
         when(notificationService.findById(notificationDto.getId())).thenReturn(notificationDto);
         mockMvc.perform(get("/shop-mania/v1/notifications/" + artID).
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(notificationDto))).
+                        contentType(MediaType.APPLICATION_JSON).
+                        content(asJsonString(notificationDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
                 andDo(MockMvcResultHandlers.print());
     }

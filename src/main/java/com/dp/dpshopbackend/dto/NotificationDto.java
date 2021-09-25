@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,15 +16,23 @@ public class NotificationDto {
 
     private Long id;
 
-    private String reference;
-
     private float nbreEtoile;
 
     private String observation;
 
+    private Date createdDate;
+
     private ArticleDto articleDto;
 
- //   private UtilisateurDto utilisateurDto;
+    private UtilisateurDto utilisateurDto;
+
+    public NotificationDto(Long id, float nbreEtoile, String observation, ArticleDto articleDto) {
+        this.id = id;
+        this.nbreEtoile = nbreEtoile;
+        this.observation = observation;
+        this.createdDate = new Date();
+        this.articleDto = articleDto;
+    }
 
     public static NotificationDto fromEntityToDto(Notification notification) {
         if (notification == null) {
@@ -31,11 +41,11 @@ public class NotificationDto {
 
         return NotificationDto.builder()
                 .id(notification.getId())
-                .reference(notification.getReference())
                 .nbreEtoile(notification.getNbreEtoile())
                 .observation(notification.getObservation())
+                .createdDate(notification.getCreatedDate())
                 .articleDto(ArticleDto.fromEntityToDto(notification.getArticle()))
-   //             .utilisateurDto(UtilisateurDto.fromEntityToDto(notification.getUtilisateur()))
+                .utilisateurDto(UtilisateurDto.fromEntityToDto(notification.getUtilisateur()))
                 .build();
     }
 
@@ -46,11 +56,11 @@ public class NotificationDto {
 
         Notification notification = new Notification();
         notification.setId(notificationDto.getId());
-        notification.setReference(notificationDto.getReference());
         notification.setNbreEtoile(notificationDto.getNbreEtoile());
         notification.setObservation(notificationDto.getObservation());
+        notification.setCreatedDate(notificationDto.getCreatedDate());
         notification.setArticle(ArticleDto.fromDtoToEntity(notificationDto.getArticleDto()));
-     //   notification.setUtilisateur(UtilisateurDto.fromDtoToEntity(notificationDto.getUtilisateurDto()));
+        notification.setUtilisateur(UtilisateurDto.fromDtoToEntity(notificationDto.getUtilisateurDto()));
 
         return notification;
     }

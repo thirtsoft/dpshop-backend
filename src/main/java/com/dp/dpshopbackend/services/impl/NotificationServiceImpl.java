@@ -70,7 +70,6 @@ public class NotificationServiceImpl implements NotificationService {
         }
 
         NotificationDto notificationDTOResult = NotificationDto.fromEntityToDto(notificationOptional.get());
-        notificationDTOResult.setReference(notificationDto.getReference());
         notificationDTOResult.setNbreEtoile(notificationDto.getNbreEtoile());
         notificationDTOResult.setObservation(notificationDto.getObservation());
         //    notificationDTOResult.setUtilisateurDto(notificationDto.getUtilisateurDto());

@@ -1,20 +1,19 @@
 package com.dp.dpshopbackend.message.response;
 
-import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
-
 import java.util.List;
 
-public class JwtResponse extends UtilisateurPOSTDto {
+public class JwtResponse {
 
-    private final Long id;
-    private List<String> roles;
-    //  private final Collection<? extends GrantedAuthority> authorities;
     private String token;
     private String type = "Bearer";
+    private Long id;
     private String username;
     private String email;
 
-    public JwtResponse(String accessToken, Long id, String username, String email,
+    private List<String> roles;
+
+    public JwtResponse(String accessToken, Long id,
+                       String username, String email,
                        List<String> roles) {
 
         this.token = accessToken;
@@ -24,28 +23,44 @@ public class JwtResponse extends UtilisateurPOSTDto {
         this.roles = roles;
     }
 
-    public JwtResponse(String accessToken, Long id, String username, String email) {
+   /* public JwtResponse(String accessToken, Long id, String username, String email) {
 
         this.token = accessToken;
         this.id = id;
         this.username = username;
         this.email = email;
-    }
+    }*/
 
-    public String getAccessToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getTokenType() {
+    public String getType() {
         return type;
     }
 
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -56,12 +71,8 @@ public class JwtResponse extends UtilisateurPOSTDto {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public List<String> getRoles() {
+        return roles;
     }
 
 }

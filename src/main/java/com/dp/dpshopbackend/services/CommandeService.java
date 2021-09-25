@@ -13,6 +13,8 @@ public interface CommandeService {
 
     CommandeDto saveWithAddresses(CommandeDto commandeDto);
 
+    CommandeDto saveWithUtilisateur(Long userId, CommandeDto commandeDto);
+
     CommandeDto update(Long comId, CommandeDto commandeDto);
 
     CommandeDto findById(Long id);

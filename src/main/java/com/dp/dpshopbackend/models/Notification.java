@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "notation")
@@ -19,23 +20,30 @@ public class Notification implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reference", length = 60)
-    private String reference;
-
     @Column(name = "nbreEtoile", length = 60)
     private float nbreEtoile;
 
-    @Column(name = "observation", length = 200)
+    @Column(name = "observation")
+    @Lob
     private String observation;
 
+    @Column(name = "createdDate")
+    private Date createdDate;
+
     @ManyToOne
-    @JoinColumn(name = "prodId")
+    @JoinColumn(name = "artId")
     private Article article;
 
-    /*
     @ManyToOne
     @JoinColumn(name = "userId")
     private Utilisateur utilisateur;
-    */
+
+    public Notification(Long id, float nbEtoile, String observation, Article article) {
+        this.id = id;
+        this.nbreEtoile = nbEtoile;
+        this.observation = observation;
+        this.createdDate = new Date();
+        this.article = article;
+    }
 
 }

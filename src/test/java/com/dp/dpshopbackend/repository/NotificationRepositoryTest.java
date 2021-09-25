@@ -9,6 +9,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabas
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.annotation.Rollback;
 
+import java.util.Date;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -37,7 +38,7 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //   Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", 3, "4etoiles", article);
+        Notification notification = new Notification(1L, 3, "4etoiles", article);
 
         Notification notificationResult = notificationRepository.save(notification);
 
@@ -55,18 +56,18 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //    Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", 4, "4etoiles", article);
+        Notification notification = new Notification(1L,  4, "4etoiles", article);
         notificationRepository.save(notification);
 
         String reference = "Not";
         float nbreEtoile = 5;
         notification.setId(2L);
-        notification.setReference(reference);
+        notification.setCreatedDate(new Date());
         notification.setNbreEtoile(nbreEtoile);
 
         Notification notificationUpdate = notificationRepository.save(notification);
 
-        assertThat(notificationUpdate.getReference()).isEqualTo(reference);
+        assertThat(notificationUpdate.getCreatedDate()).isEqualTo(reference);
         assertThat(notificationUpdate.getNbreEtoile()).isEqualTo(nbreEtoile);
 
     }
@@ -80,7 +81,7 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //    Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", 2, "4etoiles", article);
+        Notification notification = new Notification(1L, 2, "4etoiles", article);
 
         Notification notificationResult = notificationRepository.save(notification);
 
@@ -99,11 +100,11 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //   Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", 3, "4etoiles", article);
+        Notification notification = new Notification(1L, 3, "4etoiles", article);
         notificationRepository.save(notification);
 
         //    Notification notification1 = new Notification(2L, "Not2", "bien22", "4etoiles22", article, utilisateur);
-        Notification notification1 = new Notification(2L, "Not2", 4, "4etoiles22", article);
+        Notification notification1 = new Notification(2L, 4, "4etoiles22", article);
         notificationRepository.save(notification1);
 
         List<Notification> notifications = notificationRepository.findAll();
@@ -122,7 +123,7 @@ public class NotificationRepositoryTest {
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
         //    Notification notification = new Notification(1L, "Not1", "bien", "4etoiles", article, utilisateur);
-        Notification notification = new Notification(1L, "Not1", 5, "4etoiles", article);
+        Notification notification = new Notification(1L, 5, "4etoiles", article);
         Notification notificationResult = notificationRepository.save(notification);
 
         boolean isExistBeforeDelete = notificationRepository.findById(notificationResult.getId()).isPresent();

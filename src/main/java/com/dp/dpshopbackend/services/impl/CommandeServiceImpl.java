@@ -198,6 +198,11 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
+    public CommandeDto saveWithUtilisateur(Long userId, CommandeDto commandeDto) {
+        return null;
+    }
+
+    @Override
     public CommandeDto update(Long comId, CommandeDto commandeDto) {
         if (!commandeRepository.existsById(comId)) {
             throw new ResourceNotFoundException("Commande not found");

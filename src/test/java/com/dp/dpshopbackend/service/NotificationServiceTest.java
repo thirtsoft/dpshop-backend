@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -44,7 +45,7 @@ public class NotificationServiceTest {
                 .build();
         NotificationDto notificationDto = NotificationDto.builder()
                 .id(1L)
-                .reference("ref")
+                .createdDate(new Date())
                 .nbreEtoile(4)
                 .observation("bon")
                 .articleDto(articleDto)
@@ -59,7 +60,7 @@ public class NotificationServiceTest {
         assertThat(notificationDto).isNotNull();
         assertThat(notificationDtoSavedResult).isEqualTo(notificationDto);
         assertThat(notificationDtoSavedResult.getId()).isEqualTo(notification.getId());
-        assertThat(notificationDtoSavedResult.getReference()).isEqualTo(notification.getReference());
+        assertThat(notificationDtoSavedResult.getCreatedDate()).isEqualTo(notification.getCreatedDate());
         assertThat(notificationDtoSavedResult.getNbreEtoile()).isEqualTo(notification.getNbreEtoile());
     }
 
@@ -77,7 +78,7 @@ public class NotificationServiceTest {
                 .build();
         NotificationDto notificationDto = NotificationDto.builder()
                 .id(1L)
-                .reference("ref")
+                .createdDate(new Date())
                 .nbreEtoile(4)
                 .observation("bon")
                 .articleDto(articleDto)
@@ -108,7 +109,7 @@ public class NotificationServiceTest {
                 .build();
         NotificationDto notificationDto = NotificationDto.builder()
                 .id(1L)
-                .reference("ref")
+                .createdDate(new Date())
                 .nbreEtoile(4)
                 .observation("bon")
                 .articleDto(articleDto)

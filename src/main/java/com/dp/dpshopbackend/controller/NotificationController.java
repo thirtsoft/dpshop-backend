@@ -1,14 +1,23 @@
 package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.NotificationApi;
+import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
+import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.models.Article;
+import com.dp.dpshopbackend.models.Utilisateur;
+import com.dp.dpshopbackend.services.ArticleService;
 import com.dp.dpshopbackend.services.NotificationService;
+import com.dp.dpshopbackend.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @CrossOrigin
@@ -16,9 +25,17 @@ public class NotificationController implements NotificationApi {
 
     private final NotificationService notificationService;
 
+    private final ArticleService articleService;
+
+    private final UtilisateurService utilisateurService;
+
     @Autowired
-    public NotificationController(NotificationService notificationService) {
+    public NotificationController(NotificationService notificationService,
+                                  ArticleService articleService,
+                                  UtilisateurService utilisateurService) {
         this.notificationService = notificationService;
+        this.articleService = articleService;
+        this.utilisateurService = utilisateurService;
     }
 
     @Override
@@ -29,6 +46,27 @@ public class NotificationController implements NotificationApi {
     @Override
     public ResponseEntity<NotificationDto> saveNotificationToArticle(Long id, NotificationDto notificationDto) {
         return ResponseEntity.ok(notificationService.saveNotificationToArticle(id, notificationDto));
+    }
+
+    @Override
+    public ResponseEntity<NotificationDto> saveRating(NotificationDto notificationDto, String reference, Long userId) {
+
+        //    Article article = Optional.of(ArticleDto.fromDtoToEntity(articleService.findById(artId))).get();
+
+        Article article = Optional.of(ArticleDto.fromDtoToEntity(articleService.findByReference(reference))).get();
+
+        Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(userId))).get();
+
+        notificationDto.setArticleDto(ArticleDto.fromEntityToDto(article));
+        notificationDto.setUtilisateurDto(UtilisateurDto.fromEntityToDto(utilisateur));
+
+        notificationDto.setCreatedDate(new Date());
+
+        NotificationDto notificationDtoResult = notificationService.save(notificationDto);
+
+
+
+        return new ResponseEntity<>(notificationDtoResult, HttpStatus.CREATED);
     }
 
     @Override

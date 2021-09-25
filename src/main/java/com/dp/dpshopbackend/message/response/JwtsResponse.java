@@ -3,20 +3,19 @@ package com.dp.dpshopbackend.message.response;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import java.util.List;
 
-public class JwtsResponse extends UtilisateurDto {
+public class JwtsResponse {
 
     private String token;
-    private final Long id;
+    private String type = "Bearer";
+    private Long id;
     private String username;
     private String email;
 
-    private String type = "Bearer";
+    private List<String> roles;
 
-    private final List<String> roles;
-    //  private Collection<? extends GrantedAuthority> authorities;
-
-    public JwtsResponse(String accessToken, Long id, String username, String email,
-                            List<String> roles) {
+    public JwtsResponse(String accessToken, Long id,
+                       String username, String email,
+                       List<String> roles) {
 
         this.token = accessToken;
         this.id = id;
@@ -25,28 +24,28 @@ public class JwtsResponse extends UtilisateurDto {
         this.roles = roles;
     }
 
-    public String getAccessToken() {
+    public String getToken() {
         return token;
     }
 
-    public void setAccessToken(String accessToken) {
-        this.token = accessToken;
+    public void setToken(String token) {
+        this.token = token;
     }
 
-    public String getTokenType() {
+    public String getType() {
         return type;
     }
 
-    public void setTokenType(String tokenType) {
-        this.type = tokenType;
+    public void setType(String type) {
+        this.type = type;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getId() {
+        return id;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUsername() {
@@ -57,4 +56,15 @@ public class JwtsResponse extends UtilisateurDto {
         this.username = username;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public List<String> getRoles() {
+        return roles;
+    }
 }

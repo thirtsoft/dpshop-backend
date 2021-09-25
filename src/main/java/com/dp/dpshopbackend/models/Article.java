@@ -51,7 +51,7 @@ public class Article implements Serializable {
     @UpdateTimestamp
     private Date lastUpDated;
 
-    @Column(name = "description", length = 250)
+    @Column(name = "description")
     @Lob
     private String description;
 
