@@ -4,10 +4,12 @@ import com.dp.dpshopbackend.controller.api.ClientApi;
 import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.services.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
@@ -39,8 +41,14 @@ public class ClientController implements ClientApi {
 
 
     @Override
-    public List<ClientDto> findAll() {
-        return clientService.findAll();
+    public ResponseEntity<List<ClientDto>> findAll() {
+        List<ClientDto> clientDtoList = clientService.findAll();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public BigDecimal countNumberOfClient() {
+        return clientService.countNumberOfClient();
     }
 
     @Override

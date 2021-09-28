@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -28,6 +30,8 @@ public class UtilisateurDto {
     private String password;
 
     private Set<RoleDto> roles = new HashSet<>();
+
+    private List<CommandeDto> commandeDtoList = new ArrayList<>();
 
     public UtilisateurDto(String username, String email, String password) {
         this.username = username;
@@ -67,6 +71,16 @@ public class UtilisateurDto {
         utilisateur.setRoles(utilisateur.getRoles());
 
         return utilisateur;
+    }
+
+    public void add(CommandeDto commandeDto) {
+        if (commandeDto != null) {
+            if (commandeDtoList == null) {
+                commandeDtoList = new ArrayList<>();
+            }
+            commandeDtoList.add(commandeDto);
+            commandeDto.setUtilisateurDto(this);
+        }
     }
 
 }

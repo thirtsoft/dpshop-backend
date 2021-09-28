@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.FournisseurDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface FournisseurService {
@@ -15,6 +16,8 @@ public interface FournisseurService {
     //  ScategorieDto findByLibelle(String libelle);
 
     List<FournisseurDto> findAll();
+
+    BigDecimal countNumberOfFournisseur();
 
     void delete(Long id);
 }

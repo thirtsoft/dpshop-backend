@@ -9,6 +9,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
@@ -51,6 +52,14 @@ public interface FournisseurApi {
             @ApiResponse(code = 200, message = "La liste des Fournisseur / une liste vide")
     })
     List<FournisseurDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/fournisseurs/countNumberOfFournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Fournisseur",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Fournisseur")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Fournisseur / le nombre est nulle")
+    })
+    BigDecimal countNumberOfFournisseurs();
 
     @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete/{idFournisseur}")
     @ApiOperation(value = "Supprimer un Fournisseur par son ID",

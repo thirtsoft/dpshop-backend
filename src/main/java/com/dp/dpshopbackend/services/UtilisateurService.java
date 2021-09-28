@@ -10,6 +10,8 @@ public interface UtilisateurService {
 
     UtilisateurDto findById(Long id);
 
+    UtilisateurDto findByUsername(String username);
+
     List<UtilisateurDto> findAll();
 
     void delete(Long id);

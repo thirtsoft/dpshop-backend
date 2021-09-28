@@ -100,6 +100,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/sumTotalOfCommandeByYear").permitAll()
                 .antMatchers("/**/commandes/numberOfCommandeByMonth").permitAll()
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
+                .antMatchers("/**/commandes/countNumberOfOrdersInMonth").permitAll()
+                .antMatchers("/**/commandes/countNumberOfOrdersByPendingStatus").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/**").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
@@ -108,14 +110,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/countries/all").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
+                .antMatchers("/**/fournisseurs/**").permitAll()
+                .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
+
                 .antMatchers("/**/lignecommandes/all").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/states/all").permitAll()
                 .antMatchers("/**/states/searchStateByCountryCode/**").permitAll()
                 .antMatchers("/**/utilisateurs/all").permitAll()
                 .antMatchers("/**/clients/**").permitAll()
+                .antMatchers("/**/clients/countNumberOfClient").permitAll()
                 .antMatchers("/**/notifications/**").permitAll()
                 .antMatchers("/**/notifications/all").permitAll()
+                .antMatchers("/**/notifications/countNumberOfNotification").permitAll()
                 .antMatchers("/**/notifications/createRatingToArticle/**").permitAll()
                 .antMatchers("/**/notifications/searchTop3RatingOrderByCreatedDateDesc").permitAll()
                 .anyRequest().authenticated()

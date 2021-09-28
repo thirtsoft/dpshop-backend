@@ -1,7 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.NotificationDto;
-import com.dp.dpshopbackend.models.Notification;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -9,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
@@ -45,7 +45,7 @@ public interface NotificationApi {
             @ApiResponse(code = 400, message = "Aucune Notification  crée / modifié")
 
     })
-    ResponseEntity<NotificationDto> saveRating(@RequestBody NotificationDto notificationDto,  @RequestParam("reference") String reference, @RequestParam Long id);
+    ResponseEntity<NotificationDto> saveRating(@RequestBody NotificationDto notificationDto, @RequestParam("reference") String reference, @RequestParam Long id);
 
     @PutMapping(value = APP_ROOT + "/notifications/update/{idNote}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -75,7 +75,7 @@ public interface NotificationApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Notification / une liste vide")
     })
-    List<NotificationDto> findAll();
+    ResponseEntity<List<NotificationDto>> findAll();
 
     @GetMapping(value = APP_ROOT + "/notifications/searchTop3RatingOrderByCreatedDateDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des 3 dernières Notification",
@@ -83,7 +83,15 @@ public interface NotificationApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Notification / une liste vide")
     })
-    ResponseEntity<List<Notification>> getTop3ByOrderByCreatedDateDesc();
+    ResponseEntity<List<NotificationDto>> getTop3ByOrderByCreatedDateDesc();
+
+    @GetMapping(value = APP_ROOT + "/notifications/countNumberOfNotification", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Notification",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Notification")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Notification / le nombre est nulle")
+    })
+    BigDecimal countNumberOfNotification();
 
     @DeleteMapping(value = APP_ROOT + "/notifications/delete/{idNotification}")
     @ApiOperation(value = "Supprimer une Notification par son ID",

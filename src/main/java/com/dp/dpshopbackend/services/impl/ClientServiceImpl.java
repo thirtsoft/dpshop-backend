@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -97,6 +98,11 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findAll().stream()
                 .map(ClientDto::fromEntityToDto)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public BigDecimal countNumberOfClient() {
+        return clientRepository.countNumberOfClient();
     }
 
     @Override

@@ -75,6 +75,22 @@ public interface CommandeApi {
     })
     BigDecimal countNumberOfCommande();
 
+    @GetMapping(value = APP_ROOT + "/commandes/countNumberOfOrdersInMonth", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande du mois",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande du mois")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfOrdersInMonth();
+
+    @GetMapping(value = APP_ROOT + "/commandes/countNumberOfOrdersByPendingStatus", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Commande encours",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Commande encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Commande / le nombre est nulle")
+    })
+    BigDecimal countNumberOfOrdersByStatusPending();
+
     @GetMapping(value = APP_ROOT + "/commandes/sumTotalOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande du moi",
             notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du moi encours")

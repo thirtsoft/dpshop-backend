@@ -53,6 +53,21 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public UtilisateurDto findByUsername(String username) {
+        if (username == null) {
+            log.error("Utilisateur with this username is null");
+            return null;
+        }
+
+        Optional<Utilisateur> utilisateur = utilisateurRepository.findByUsername(username);
+
+        return Optional.of(UtilisateurDto.fromEntityToDto(utilisateur.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Utilisateur avec l'Id = " + username + "n'a été trouvé")
+        );
+    }
+
+    @Override
     public List<UtilisateurDto> findAll() {
         return utilisateurRepository.findAll().stream()
                 .map(UtilisateurDto::fromEntityToDto)

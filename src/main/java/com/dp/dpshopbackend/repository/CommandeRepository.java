@@ -18,7 +18,13 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select count(p) from Commande p ")
     BigDecimal countNumberOfCommande();
 
-    @Query("select sum(c.totalCommande) from Commande c where month(c.localDateTime) = month(current_date)")
+    @Query("select count(c) from Commande c where month(c.dateCommande) = month(current_date)")
+    BigDecimal countNumberOfOrdersInMonth();
+
+    @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' ")
+    BigDecimal countNumberOfOrdersByStatusPending();
+
+    @Query("select sum(c.totalCommande) from Commande c where month(c.dateCommande) = month(current_date)")
     BigDecimal sumTotalOfCommandesByMonth();
 
     @Query("select sum(c.totalCommande) from Commande c where month(c.dateCommande) = month(current_date)")

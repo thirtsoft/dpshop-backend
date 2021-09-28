@@ -1,10 +1,8 @@
 package com.dp.dpshopbackend.models;
 
-import com.dp.dpshopbackend.enumeration.RoleName;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,10 +57,13 @@ public class Utilisateur implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "utilisateur",
-            fetch = FetchType.LAZY)
-    private List<Commande> commandeList;
+    /* @JsonIgnore
+     @OneToMany(mappedBy = "utilisateur",
+             fetch = FetchType.LAZY)
+     private List<Commande> commandeList;
+ */
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Commande> commandeList = new ArrayList<>();
 
     public Utilisateur() {
     }
@@ -85,7 +86,6 @@ public class Utilisateur implements Serializable {
         this.password = password;
     }
 
-
     public Utilisateur(Long id, String name, String username, String mobile,
                        String email, String password, Set<Role> roles) {
         this.id = id;
@@ -95,6 +95,16 @@ public class Utilisateur implements Serializable {
         this.email = email;
         this.password = password;
         this.roles = roles;
+    }
+
+    public void add(Commande commande) {
+        if (commande != null) {
+            if (commandeList == null) {
+                commandeList = new ArrayList<>();
+            }
+            commandeList.add(commande);
+            commande.setUtilisateur(this);
+        }
     }
 
     public Long getId() {

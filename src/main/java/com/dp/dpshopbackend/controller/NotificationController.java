@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -82,16 +83,25 @@ public class NotificationController implements NotificationApi {
     }
 
     @Override
-    public List<NotificationDto> findAll() {
-        return notificationService.findAll();
+    public ResponseEntity<List<NotificationDto>> findAll() {
+        List<NotificationDto> notificationDtoList = new ArrayList<>();
+        notificationDtoList = notificationService.findAll();
+
+        return new ResponseEntity(notificationDtoList, HttpStatus.OK);
+
     }
 
     @Override
-    public ResponseEntity<List<Notification>> getTop3ByOrderByCreatedDateDesc() {
+    public ResponseEntity<List<NotificationDto>> getTop3ByOrderByCreatedDateDesc() {
         List<NotificationDto> notificationDtoList = new ArrayList<>();
         notificationDtoList = notificationService.findTop3RatingOrderByCreatedDateDesc();
 
         return new ResponseEntity(notificationDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public BigDecimal countNumberOfNotification() {
+        return notificationService.countNumberOfNotification();
     }
 
     @Override

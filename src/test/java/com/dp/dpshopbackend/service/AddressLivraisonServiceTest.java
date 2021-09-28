@@ -42,7 +42,7 @@ public class AddressLivraisonServiceTest {
                 .id(1L)
                 .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.LIVREE)
+                .statusCommande(StatusCommande.REJETER)
                 .build();
         Long stateId = 1L;
         State state = stateRepository.findById(stateId).orElse(null);
@@ -73,7 +73,7 @@ public class AddressLivraisonServiceTest {
                 .id(1L)
                 .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.LIVREE)
+                .statusCommande(StatusCommande.ENCOURS)
                 .build();
 
         Long stateId = 1L;
@@ -103,7 +103,7 @@ public class AddressLivraisonServiceTest {
                 .id(1L)
                 .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.LIVREE)
+                .statusCommande(StatusCommande.PAYEE)
                 .build();
 
         Long stateId = 1L;

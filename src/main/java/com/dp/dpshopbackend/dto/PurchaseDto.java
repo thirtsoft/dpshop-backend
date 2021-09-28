@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.dto;
 
-import com.dp.dpshopbackend.models.AddressLivraison;
 import lombok.Data;
 
 import java.util.List;
@@ -8,6 +7,7 @@ import java.util.List;
 @Data
 public class PurchaseDto {
     private ClientDto clientDto;
+    private UtilisateurDto utilisateurDto;
     private AddressLivraisonDto shippingAddressDto;
     private AddressLivraisonDto billingAddressDto;
     private CommandeDto commandeDto;

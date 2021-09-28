@@ -3,7 +3,6 @@ package com.dp.dpshopbackend.models;
 import com.dp.dpshopbackend.dto.PlaceOrderDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -56,8 +55,7 @@ public class Commande implements Serializable {
     @Column(name = "created_date")
     private Date createdDate;
 
-    //  @Enumerated(EnumType.STRING)
-    //  @NaturalId
+    @Enumerated(EnumType.STRING)
     @Column(length = 100)
     private StatusCommande statusCommande;
 
@@ -80,7 +78,7 @@ public class Commande implements Serializable {
     private AddressLivraison billingAddress;
 
     @ManyToOne
-    @JsonIgnore
+    //   @JsonIgnore
     @JoinColumn(name = "userId", referencedColumnName = "id")
     private Utilisateur utilisateur;
 

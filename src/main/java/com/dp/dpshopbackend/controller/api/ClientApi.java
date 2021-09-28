@@ -8,6 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
@@ -51,7 +52,15 @@ public interface ClientApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Clients / une liste vide")
     })
-    List<ClientDto> findAll();
+    ResponseEntity<List<ClientDto>> findAll();
+
+    @GetMapping(value = APP_ROOT + "/clients/countNumberOfClient", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Client",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Client")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Client / le nombre est nulle")
+    })
+    BigDecimal countNumberOfClient();
 
     @DeleteMapping(value = APP_ROOT + "/clients/delete/{idClient}")
     @ApiOperation(value = "Supprimer un Client par son ID",

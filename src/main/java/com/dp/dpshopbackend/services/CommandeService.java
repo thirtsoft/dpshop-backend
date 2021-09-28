@@ -23,7 +23,11 @@ public interface CommandeService {
 
     BigDecimal countNumberOfCommande();
 
+    BigDecimal countNumberOfCommandesInMonth();
+
     BigDecimal sumTotaleOfCommandeByMonth();
+
+    BigDecimal countNumberOfOrdersByStatusPending();
 
     BigDecimal sumTotalOfCommandesByYear();
 

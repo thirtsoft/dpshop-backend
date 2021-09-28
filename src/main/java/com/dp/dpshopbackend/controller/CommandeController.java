@@ -3,7 +3,6 @@ package com.dp.dpshopbackend.controller;
 import com.dp.dpshopbackend.controller.api.CommandeApi;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
-import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.services.CommandeService;
 import com.dp.dpshopbackend.services.UtilisateurService;
@@ -72,6 +71,16 @@ public class CommandeController implements CommandeApi {
     @Override
     public BigDecimal countNumberOfCommande() {
         return commandeService.countNumberOfCommande();
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrdersInMonth() {
+        return commandeService.countNumberOfCommandesInMonth();
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrdersByStatusPending() {
+        return commandeService.countNumberOfOrdersByStatusPending();
     }
 
     @Override

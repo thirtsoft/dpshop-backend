@@ -259,8 +259,18 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
+    public BigDecimal countNumberOfCommandesInMonth() {
+        return commandeRepository.countNumberOfOrdersInMonth();
+    }
+
+    @Override
     public BigDecimal sumTotaleOfCommandeByMonth() {
         return commandeRepository.sumTotaleOfCommandeByMonth();
+    }
+
+    @Override
+    public BigDecimal countNumberOfOrdersByStatusPending() {
+        return commandeRepository.countNumberOfOrdersByStatusPending();
     }
 
     @Override

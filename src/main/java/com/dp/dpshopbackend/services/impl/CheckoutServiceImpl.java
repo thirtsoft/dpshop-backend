@@ -2,16 +2,24 @@ package com.dp.dpshopbackend.services.impl;
 
 import com.dp.dpshopbackend.dto.*;
 import com.dp.dpshopbackend.dto.checkout.Purchase;
+import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.Client;
 import com.dp.dpshopbackend.models.Commande;
 import com.dp.dpshopbackend.models.LigneCommande;
+import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.ClientRepository;
+import com.dp.dpshopbackend.security.service.UserPrinciple;
 import com.dp.dpshopbackend.services.CheckoutService;
+import com.dp.dpshopbackend.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -20,13 +28,28 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     private final ClientRepository clientRepository;
 
+    private final UtilisateurService utilisateurService;
+
     @Autowired
-    public CheckoutServiceImpl(ClientRepository clientRepository) {
+    public CheckoutServiceImpl(ClientRepository clientRepository,
+                               UtilisateurService utilisateurService) {
         this.clientRepository = clientRepository;
+        this.utilisateurService = utilisateurService;
     }
 
     @Override
     public PurchaseResponse placeOrder(PurchaseDto purchaseDto) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        authentication.getName();
+
+        UserPrinciple authUser = (UserPrinciple) authentication.getPrincipal();
+        Long userId = authUser.getId();
+
+
+        Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(userId))).get();
+
 
         // retrieve the order info from dto
         //    Commande commande = purchaseDto.getCommande();
@@ -36,6 +59,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         String orderTrackingNumber = generateOrderTrackingNumber();
         //    commande.setOrderTrackingNumber(orderTrackingNumber);
         commandeDto.setOrderTrackingNumber(orderTrackingNumber);
+
 
         // populate order with orderItems
         List<LigneCommandeDto> ligneCommandeDtos = purchaseDto.getLigneCommandeListDtos();
@@ -55,6 +79,11 @@ public class CheckoutServiceImpl implements CheckoutService {
         // populate custom with order
         ClientDto clientDto = purchaseDto.getClientDto();
         clientDto.add(commandeDto);
+
+        // populate loggin user with order
+        UtilisateurDto utilisateurDto = purchaseDto.getUtilisateurDto();
+        utilisateurDto.add(commandeDto);
+
 /*
         Client client = purchaseDto.getClient();
         client.add(commande);*/
@@ -75,6 +104,16 @@ public class CheckoutServiceImpl implements CheckoutService {
     @Override
     public PurchaseResponse placeToOrder(Purchase purchase) {
 
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        String login = authentication.getName();
+
+        //    Utilisateur user = utilisateurService.findByUsername(login);
+
+
+//        Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findByUsername(login))).get();
+
+
         System.out.println(purchase);
         // retrieve the order from dto
         Commande commande = purchase.getCommande();
@@ -82,6 +121,11 @@ public class CheckoutServiceImpl implements CheckoutService {
         // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
         commande.setOrderTrackingNumber(orderTrackingNumber);
+        commande.setStatusCommande(StatusCommande.ENCOURS);
+        commande.setDateCommande(new Date());
+
+        // attach loggin user to order
+//        commande.setUtilisateur(utilisateur);
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
@@ -94,6 +138,9 @@ public class CheckoutServiceImpl implements CheckoutService {
         // populate customer with order
         Client client = purchase.getClient();
         client.add(commande);
+
+        // populate utilisateur with order
+  //      utilisateur.add(commande);
 
         // save customer to database
         clientRepository.save(client);

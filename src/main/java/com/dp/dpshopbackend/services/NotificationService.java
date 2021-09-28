@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.NotificationDto;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface NotificationService {
@@ -17,6 +18,8 @@ public interface NotificationService {
     List<NotificationDto> findAll();
 
     List<NotificationDto> findTop3RatingOrderByCreatedDateDesc();
+
+    BigDecimal countNumberOfNotification();
 
     void delete(Long id);
 }
