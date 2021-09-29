@@ -131,6 +131,15 @@ public interface CommandeApi {
     })
     List<?> getSumTotaleOfCommandeByMonth();
 
+
+    @GetMapping(value = APP_ROOT + "/commandes/sumTotaleOfCommandeByYearList", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des sommes des Commandes par années",
+            notes = "Cette méthode permet de chercher et renvoyer liste des somme des Commandes par années", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des sommes des Commandes par années / une liste vide")
+    })
+    List<?> getSumTotalOfOrdersByYears();
+
     @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByCustomerByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commande par client",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<CommandeDto>")
@@ -147,7 +156,7 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
     })
     Page<CommandeDto> getListCommandeByUtilisateurByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
-                                                           @RequestParam(name = "size") int size);
+                                                              @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/commandes/delete/{idCommande}")
     @ApiOperation(value = "Supprimer une Commande par son ID",

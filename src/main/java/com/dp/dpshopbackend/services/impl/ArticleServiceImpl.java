@@ -170,6 +170,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findTop12ByOrderByCreateDateDesc() {
+        return articleRepository.findTop12ByOrderByCreateDateDesc().stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Page<ArticleDto> findArticleByPageable(Pageable pageable) {
         return articleRepository.findArticle(pageable)
                 .map(ArticleDto::fromEntityToDto);

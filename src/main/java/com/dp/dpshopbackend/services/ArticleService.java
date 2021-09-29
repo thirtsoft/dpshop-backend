@@ -1,10 +1,8 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.models.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -33,6 +31,8 @@ public interface ArticleService {
     List<ArticleDto> findListArticleByPriceMinMax(double min, double max);
 
     List<ArticleDto> findListArticleBySelected();
+
+    List<ArticleDto> findTop12ByOrderByCreateDateDesc();
 
     Page<ArticleDto> findArticleByPageable(Pageable pageable);
 

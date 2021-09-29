@@ -1,12 +1,14 @@
 package com.dp.dpshopbackend.services.impl;
 
-import com.dp.dpshopbackend.dto.*;
+import com.dp.dpshopbackend.dto.ArticleDto;
+import com.dp.dpshopbackend.dto.ClientDto;
+import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.models.Commande;
 import com.dp.dpshopbackend.models.LigneCommande;
-import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.*;
 import com.dp.dpshopbackend.services.*;
 import lombok.extern.slf4j.Slf4j;
@@ -69,8 +71,8 @@ public class CommandeServiceImpl implements CommandeService {
         logger.info("CommandeDto {}", commandeDto);
 
         ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
-       // Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
-    //    Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById((commandeDto.getUtilisateurPOSTDto().getId()));
+        // Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
+        //    Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById((commandeDto.getUtilisateurPOSTDto().getId()));
         if (clientOptional == null) {
             log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
             throw new IllegalArgumentException("Vous devez selectionner un client");
@@ -79,8 +81,8 @@ public class CommandeServiceImpl implements CommandeService {
         if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
                 if (ligCmdClt.getArticleDto() != null) {
-                              ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
-                //    Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
+                    ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
+                    //    Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
                     if (articleDto == null) {
                         log.warn("L'article avec l'ID " + ligCmdClt.getArticleDto().getId() + " n'existe pas");
                     }
@@ -296,6 +298,13 @@ public class CommandeServiceImpl implements CommandeService {
     @Override
     public List<?> sumTotalOfCommandeByMonth() {
         return commandeRepository.sumTotalOfCommandeByMonth()
+                .stream()
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<?> sumTotalOfOrdersByYears() {
+        return commandeRepository.sumTotalOfCommandeByYears()
                 .stream()
                 .collect(Collectors.toList());
     }

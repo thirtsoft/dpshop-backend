@@ -97,6 +97,11 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public List<ArticleDto> getTop12ByOrderByCreateDateDesc() {
+        return articleService.findTop12ByOrderByCreateDateDesc();
+    }
+
+    @Override
     public Page<ArticleDto> getListArticleByPageable(int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
         return articleService.findArticleByPageable(pageable);

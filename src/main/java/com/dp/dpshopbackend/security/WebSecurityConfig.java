@@ -21,8 +21,6 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -83,6 +81,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/all").permitAll()
                 .antMatchers("/**/articles/**").permitAll()
                 .antMatchers("/**/articles/searchArticleByselectedIsTrue").permitAll()
+                .antMatchers("/**/articles/searchTop12ArticleOrderByCreatedDateDesc").permitAll()
                 .antMatchers("/**/articles/searchArticleByKeyword").permitAll()
                 .antMatchers("/**/articles/articlesByScategories").permitAll()
                 .antMatchers("/**/articles/searchArticleByScategoryByPageables").permitAll()
@@ -99,10 +98,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/sumTotalOfCommandeByMonth").permitAll()
                 .antMatchers("/**/commandes/sumTotalOfCommandeByYear").permitAll()
                 .antMatchers("/**/commandes/numberOfCommandeByMonth").permitAll()
-                .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
+
                 .antMatchers("/**/commandes/countNumberOfOrdersInMonth").permitAll()
                 .antMatchers("/**/commandes/countNumberOfOrdersByPendingStatus").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/**").permitAll()
+
+                .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
+                .antMatchers("/**/commandes/sumTotaleOfCommandeByYearList").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
 
@@ -114,6 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
 
                 .antMatchers("/**/lignecommandes/all").permitAll()
+                .antMatchers("/**/lignecommandes/findListArticleGroupByIdDesc").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/states/all").permitAll()
                 .antMatchers("/**/states/searchStateByCountryCode/**").permitAll()
@@ -125,6 +128,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/notifications/countNumberOfNotification").permitAll()
                 .antMatchers("/**/notifications/createRatingToArticle/**").permitAll()
                 .antMatchers("/**/notifications/searchTop3RatingOrderByCreatedDateDesc").permitAll()
+
+                .antMatchers("/**/addresslivraisons/all").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

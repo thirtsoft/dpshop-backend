@@ -133,12 +133,16 @@ public class DpshopBackendApplication implements CommandLineRunner {
         AddressLivraison a3 = addressLivraisonRepository.save(new AddressLivraison(3L, "add3", "add3", "add3", "add3", "add3", "add3", state3));
         AddressLivraison a4 = addressLivraisonRepository.save(new AddressLivraison(4L, "add4", "add4", "add4", "add4", "add4", "add4", state4));
 */
+        /*
         Role useRole = new Role(RoleName.ROLE_USER);
+        Role assistantRole = new Role(RoleName.ROLE_ASSISTANT);
         Role managerRole = new Role(RoleName.ROLE_MANAGER);
         Role adminRole = new Role(RoleName.ROLE_ADMIN);
         roleRepository.save(useRole);
+        roleRepository.save(assistantRole);
         roleRepository.save(managerRole);
         roleRepository.save(adminRole);
+        */
         Utilisateur user = new Utilisateur();
         user.setId(1L);
         user.setUsername("User");

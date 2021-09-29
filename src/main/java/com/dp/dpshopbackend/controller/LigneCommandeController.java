@@ -8,13 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @CrossOrigin
 public class LigneCommandeController implements LigneCommandeApi {
 
-    private LigneCommandeService ligneCommandeService;
+    private final LigneCommandeService ligneCommandeService;
 
     @Autowired
     public LigneCommandeController(LigneCommandeService ligneCommandeService) {
@@ -34,6 +35,14 @@ public class LigneCommandeController implements LigneCommandeApi {
     @Override
     public List<LigneCommandeDto> findAll() {
         return ligneCommandeService.findAll();
+    }
+
+    @Override
+    public List<LigneCommandeDto> getArticlesGroupByProductIdOrderByCreatedDateDesc() {
+        List<LigneCommandeDto> ligneCommandeDtoList = new ArrayList<>();
+        ligneCommandeDtoList = ligneCommandeService.findArticlesGroupByProductIdOrderByCreatedDateDesc();
+
+        return ligneCommandeDtoList;
     }
 
     @Override

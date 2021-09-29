@@ -109,6 +109,11 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public List<?> getSumTotalOfOrdersByYears() {
+        return commandeService.sumTotalOfOrdersByYears();
+    }
+
+    @Override
     public Page<CommandeDto> getListCommandeByCustomerByPageables(Long clientId, int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
         return commandeService.findCommandeByCustomerPageables(clientId, pageable);

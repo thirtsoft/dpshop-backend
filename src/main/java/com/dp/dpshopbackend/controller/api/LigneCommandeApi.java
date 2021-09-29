@@ -20,6 +20,9 @@ public interface LigneCommandeApi {
     @GetMapping(value = APP_ROOT + "/lignecommandes/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<LigneCommandeDto> findAll();
 
+    @GetMapping(value = APP_ROOT + "/lignecommandes/findListArticleGroupByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    List<LigneCommandeDto> getArticlesGroupByProductIdOrderByCreatedDateDesc();
+
     @DeleteMapping(value = APP_ROOT + "/lignecommandes/delete/{idLignecommande}")
     void delete(@PathVariable("idLignecommande") Long id);
 }

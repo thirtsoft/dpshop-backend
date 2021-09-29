@@ -46,6 +46,9 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select EXTRACT(month from(c.dateCommande)), sum(c.totalCommande) from Commande c group by EXTRACT(month from(c.dateCommande))")
     List<?> sumTotalOfCommandeByMonth();
 
+    @Query("select EXTRACT(year from(v.dateCommande)), sum(v.totalCommande) from Commande v group by EXTRACT(year from(v.dateCommande))")
+    List<?> sumTotalOfCommandeByYears();
+
     @Query("select p from Commande p where p.utilisateur.id =:user")
     List<Commande> ListCommandeByCustomerId(@Param("user") Long userId);
 

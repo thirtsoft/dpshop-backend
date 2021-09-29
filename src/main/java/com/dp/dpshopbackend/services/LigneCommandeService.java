@@ -10,9 +10,9 @@ public interface LigneCommandeService {
 
     LigneCommandeDto findById(Long id);
 
-    //  ScategorieDto findByLibelle(String libelle);
-
     List<LigneCommandeDto> findAll();
+
+    List<LigneCommandeDto> findArticlesGroupByProductIdOrderByCreatedDateDesc();
 
     void delete(Long id);
 }

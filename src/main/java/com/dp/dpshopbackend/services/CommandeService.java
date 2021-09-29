@@ -37,6 +37,8 @@ public interface CommandeService {
 
     List<?> sumTotalOfCommandeByMonth();
 
+    List<?> sumTotalOfOrdersByYears();
+
     Page<CommandeDto> findCommandeByCustomerPageables(Long clientId, Pageable pageable);
 
     Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable);

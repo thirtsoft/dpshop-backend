@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -28,7 +31,9 @@ public class AddressLivraisonDto {
 
     private String country;
 
-    //   private CommandeDto commandeDto;
+    //  private CommandeDto commandeDto;
+
+    private List<CommandeDto> commandeDtoList = new ArrayList<>();
 
     private StateDto stateDto;
 
@@ -47,7 +52,7 @@ public class AddressLivraisonDto {
                 .state(addressLivraison.getState())
                 .country(addressLivraison.getCountry())
                 //            .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
-                //          .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
+                //        .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
                 .build();
     }
 
@@ -64,7 +69,7 @@ public class AddressLivraisonDto {
         addressLivraison.setCity(addressClientDto.getCity());
         addressLivraison.setState(addressClientDto.getState());
         addressLivraison.setCountry(addressClientDto.getCountry());
-        //    addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
+        //    addressLivraison.setCommande(CommandeDto.fromDtoToEntity(addressClientDto.getCommandeDto()));
 
         return addressLivraison;
     }

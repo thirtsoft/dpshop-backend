@@ -60,6 +60,18 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     }
 
     @Override
+    public List<LigneCommandeDto> findArticlesGroupByProductIdOrderByCreatedDateDesc() {
+
+        return ligneCommandeRepository.findArticlesGroupByProductId().stream()
+                .map(LigneCommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+
+       /* return ligneCommandeRepository.findArticlesGroupByProductId()
+                .stream()
+                .collect(Collectors.toList());*/
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("LigneCommande Id is null");

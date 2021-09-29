@@ -119,6 +119,14 @@ public interface ArticleApi {
     List<ArticleDto> getListArticleBySelected();
 
 
+    @GetMapping(value = APP_ROOT + "/articles/searchTop12ArticleOrderByCreatedDateDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 12 derniers Articles enregistrées",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 12 derniers Articles enregistrés", responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles selectionner / une liste vide")
+    })
+    List<ArticleDto> getTop12ByOrderByCreateDateDesc();
+
     @GetMapping(value = APP_ROOT + "/articles/searchArticleByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par pages",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par pages", responseContainer = "Page<ArticleDto>")
