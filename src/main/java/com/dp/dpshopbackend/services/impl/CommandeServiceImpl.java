@@ -74,7 +74,7 @@ public class CommandeServiceImpl implements CommandeService {
         // Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
         //    Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById((commandeDto.getUtilisateurPOSTDto().getId()));
         if (clientOptional == null) {
-            log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
+            //      log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
             throw new IllegalArgumentException("Vous devez selectionner un client");
         }
 
@@ -142,7 +142,7 @@ public class CommandeServiceImpl implements CommandeService {
         // Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
         //    Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById((commandeDto.getUtilisateurPOSTDto().getId()));
         if (clientOptional == null) {
-            log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
+            //     log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
             throw new IllegalArgumentException("Vous devez selectionner un client");
         }
 
@@ -224,7 +224,6 @@ public class CommandeServiceImpl implements CommandeService {
         commandeDtoResult.setLcomms(commandeDto.getLcomms());
         commandeDtoResult.setStatusCommande(commandeDto.getStatusCommande());
         //    commandeDtoResult.setClientDto(commandeDto.getClientDto());
-        commandeDtoResult.setUtilisateurPOSTDto(commandeDto.getUtilisateurPOSTDto());
 
         return CommandeDto.fromEntityToDto(
                 commandeRepository.save(
@@ -282,10 +281,11 @@ public class CommandeServiceImpl implements CommandeService {
 
     @Override
     public List<CommandeDto> findCommandeByCustomerId(Long userId) {
-        return commandeRepository.ListCommandeByCustomerId(userId)
+        return null;
+        /*return commandeRepository.ListCommandeByCustomerId(userId)
                 .stream()
                 .map(CommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
+                .collect(Collectors.toList());*/
     }
 
     @Override
@@ -316,8 +316,9 @@ public class CommandeServiceImpl implements CommandeService {
 
     @Override
     public Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable) {
-        return commandeRepository.findCommandeByUtilisateurPageables(userId, pageable)
-                .map(CommandeDto::fromEntityToDto);
+        return null;
+       /* return commandeRepository.findCommandeByUtilisateurPageables(userId, pageable)
+                .map(CommandeDto::fromEntityToDto);*/
     }
 
     @Override

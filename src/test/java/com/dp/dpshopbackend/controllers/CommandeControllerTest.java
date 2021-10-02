@@ -77,8 +77,8 @@ public class CommandeControllerTest {
         commandeDto.setId(1L);
         commandeDto.setReference("reCom");
         commandeDto.setNumeroCommande(120L);
-   //     commandeDto.setClientDto(clientDto);
-        commandeDto.setUtilisateurPOSTDto(utilisateurPOSTDto);
+        //     commandeDto.setClientDto(clientDto);
+        //    commandeDto.setUtilisateurPOSTDto(utilisateurPOSTDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(commandeController).build();
     }
@@ -92,8 +92,8 @@ public class CommandeControllerTest {
     public void PostMappingOfCommande() throws Exception {
         when(commandeService.save(any())).thenReturn(commandeDto);
         mockMvc.perform(post("/shop-mania/v1/commandes/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(commandeDto)))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(asJsonString(commandeDto)))
                 .andExpect(status().isOk());
         verify(commandeService, times(1)).save(any());
     }
@@ -102,8 +102,8 @@ public class CommandeControllerTest {
     public void GetMappingOfAllCommandes() throws Exception {
         when(commandeService.findAll()).thenReturn(commandeDtoList);
         mockMvc.perform(get("/shop-mania/v1/commandes/all").
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(commandeDto))).
+                        contentType(MediaType.APPLICATION_JSON).
+                        content(asJsonString(commandeDto))).
                 andDo(MockMvcResultHandlers.print());
         verify(commandeService).findAll();
         verify(commandeService, times(1)).findAll();
@@ -114,8 +114,8 @@ public class CommandeControllerTest {
         Long artID = (long) 1;
         when(commandeService.findById(commandeDto.getId())).thenReturn(commandeDto);
         mockMvc.perform(get("/shop-mania/v1/commandes/" + artID).
-                contentType(MediaType.APPLICATION_JSON).
-                content(asJsonString(commandeDto))).
+                        contentType(MediaType.APPLICATION_JSON).
+                        content(asJsonString(commandeDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
                 andDo(MockMvcResultHandlers.print());
     }

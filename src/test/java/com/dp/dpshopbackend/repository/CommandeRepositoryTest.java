@@ -45,7 +45,7 @@ public class CommandeRepositoryTest {
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //      commande.setClient(client);
-        commande.setUtilisateur(utilisateur);
+
 
         Commande commandeResult = commandeRepository.save(commande);
 
@@ -71,7 +71,7 @@ public class CommandeRepositoryTest {
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //      commande.setClient(client);
-        commande.setUtilisateur(utilisateur);
+
 
         Commande commandeResult = commandeRepository.save(commande);
 
@@ -106,7 +106,6 @@ public class CommandeRepositoryTest {
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //       commande.setClient(client);
-        commande.setUtilisateur(utilisateur);
 
         Commande commandeResult = commandeRepository.save(commande);
 
@@ -133,7 +132,7 @@ public class CommandeRepositoryTest {
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //      commande.setClient(client);
-        commande.setUtilisateur(utilisateur);
+
 
         commandeRepository.save(commande);
 
@@ -167,7 +166,7 @@ public class CommandeRepositoryTest {
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //     commande.setClient(client);
-        commande.setUtilisateur(utilisateur);
+        //    commande.setUtilisateur(utilisateur);
         Commande commandeResult = commandeRepository.save(commande);
 
         boolean isExistBeforeDelete = commandeRepository.findById(commandeResult.getId()).isPresent();

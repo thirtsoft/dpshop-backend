@@ -81,8 +81,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         clientDto.add(commandeDto);
 
         // populate loggin user with order
-        UtilisateurDto utilisateurDto = purchaseDto.getUtilisateurDto();
-        utilisateurDto.add(commandeDto);
+
 
 /*
         Client client = purchaseDto.getClient();
@@ -108,10 +107,18 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         String login = authentication.getName();
 
+        String currentPrincipalName = authentication.getName();
+
+        //    UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        //    Utilisateur currentUser = utilisateurService.findByUsername(userPrincipal);
+
+        //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
+
+
         //    Utilisateur user = utilisateurService.findByUsername(login);
 
 
-//        Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findByUsername(login))).get();
+        //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findByUsername(login))).get();
 
 
         System.out.println(purchase);
@@ -140,7 +147,12 @@ public class CheckoutServiceImpl implements CheckoutService {
         client.add(commande);
 
         // populate utilisateur with order
-  //      utilisateur.add(commande);
+
+        //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
+
+
+        //    Utilisateur utilisateur = purchase.getUtilisateur();
+        //    utilisateur.add(commande);
 
         // save customer to database
         clientRepository.save(client);

@@ -14,11 +14,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Client implements Serializable {
+public class Client extends Utilisateur implements Serializable {
 
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id;*/
 
     @Column(name = "firstName", length = 90)
     private String firstName;
@@ -29,6 +29,15 @@ public class Client implements Serializable {
     @Column(name = "email", length = 50)
     private String email;
 
+    @Column(name = "username", length = 30)
+    private String username;
+
+    @Column(name = "name", length = 30)
+    private String name;
+
+    @Column(name = "password", length = 30)
+    private String password;
+
     @Column(name = "mobile", length = 30)
     private String mobile;
 /*
@@ -36,16 +45,35 @@ public class Client implements Serializable {
     private List<Commande> commandeList;
     */
 
+  /*  @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId", referencedColumnName = "id")
+    private Utilisateur utilisateur;*/
+
+
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
     private List<Commande> commandeList = new ArrayList<>();
 
-    public Client(Long id, String firstName,
-                  String lastName, String mobile, String email) {
-        this.id = id;
+    public Client(String firstName, String lastName, String mobile,
+                  String email,
+                  String username,
+                  String password,
+                  String name) {
+        Utilisateur utilisateur = new Utilisateur();
+        //    this.id = this.getId();
         this.firstName = firstName;
         this.lastName = lastName;
         this.mobile = mobile;
         this.email = email;
+
+
+    }
+
+    public Client(String firstName, String lastName, String email, String mobile) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.mobile = mobile;
+
     }
 
     public void add(Commande commande) {

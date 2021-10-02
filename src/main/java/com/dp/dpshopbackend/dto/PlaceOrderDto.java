@@ -12,11 +12,11 @@ public class PlaceOrderDto {
     @NotNull
     private Double totalPrice;
 
-    public PlaceOrderDto() {}
+    public PlaceOrderDto() {
+    }
 
     public PlaceOrderDto(Commande commande) {
         this.setId(commande.getId());
-        this.setUtilisateur(commande.getUtilisateur());
         this.setTotalPrice(commande.getTotalCommande());
     }
 

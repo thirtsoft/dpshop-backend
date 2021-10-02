@@ -30,16 +30,6 @@ public class CommandeDto {
 
     private double total;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
-    private String mobile;
-
-    private String address;
-
     private String orderTrackingNumber;
 
     private LocalDateTime localDateTime;
@@ -47,10 +37,6 @@ public class CommandeDto {
     private Date dateCommande;
 
     private StatusCommande statusCommande;
-
-    private UtilisateurPOSTDto utilisateurPOSTDto;
-
-    private UtilisateurDto utilisateurDto;
 
     private ClientDto clientDto;
 
@@ -83,11 +69,6 @@ public class CommandeDto {
                 .id(commande.getId())
                 .reference(commande.getReference())
                 .numeroCommande(commande.getNumeroCommande())
-                .firstName(commande.getFirstName())
-                .lastName(commande.getLastName())
-                .email(commande.getEmail())
-                .mobile(commande.getMobile())
-                .address(commande.getAddress())
                 .total(commande.getTotalCommande())
                 .localDateTime(commande.getLocalDateTime())
                 .dateCommande(commande.getDateCommande())
@@ -96,7 +77,7 @@ public class CommandeDto {
                 .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
                 .billingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getBillingAddress()))
                 .shippingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getShippingAddress()))
-                .utilisateurDto(UtilisateurDto.fromEntityToDto(commande.getUtilisateur()))
+
              /*   .addressLivraisonDto(AddressLivraisonDto.fromEntityToDto(commande.getAddressLivraison()))*/
                 //         .lcomms((List<LigneCommandeDto>) LigneCommandeDto.fromEntityToDto((LigneCommande) commande.getLcomms()))
                 .build();
@@ -112,18 +93,12 @@ public class CommandeDto {
         commande.setId(commandeDto.getId());
         commande.setReference(commandeDto.getReference());
         commande.setNumeroCommande(commandeDto.getNumeroCommande());
-        commande.setFirstName(commandeDto.getFirstName());
-        commande.setLastName(commandeDto.getLastName());
-        commande.setEmail(commandeDto.getEmail());
-        commande.setMobile(commandeDto.getMobile());
-        commande.setAddress(commande.getAddress());
         commande.setDateCommande(commandeDto.getDateCommande());
         commande.setOrderTrackingNumber(commandeDto.getOrderTrackingNumber());
         commande.setTotalCommande(commandeDto.getTotal());
         commande.setClient(ClientDto.fromDtoToEntity(commandeDto.getClientDto()));
         commande.setBillingAddress(AddressLivraisonDto.fromDtoToEntity(commandeDto.getBillingAddressDto()));
         commande.setShippingAddress(AddressLivraisonDto.fromDtoToEntity(commandeDto.getShippingAddressDto()));
-        commande.setUtilisateur(UtilisateurDto.fromDtoToEntity(commandeDto.getUtilisateurDto()));
       /*  commande.setAddressLivraison(AddressLivraisonDto.fromDtoToEntity(commandeDto.getAddressLivraisonDto()));*/
         //   commande.setLcomms((List<LigneCommande>) LigneCommandeDto.fromDtoToEntity((LigneCommandeDto) commandeDto.getLcomms()));
         commande.setLocalDateTime(commandeDto.getLocalDateTime());

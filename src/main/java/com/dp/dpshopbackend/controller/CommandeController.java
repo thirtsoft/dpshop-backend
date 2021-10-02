@@ -50,7 +50,7 @@ public class CommandeController implements CommandeApi {
 
         UtilisateurDto userInfoDto = UtilisateurDto.fromEntityToDto(userInfo);
 
-        commandeDto.setUtilisateurDto(userInfoDto);
+        //    commandeDto.setUtilisateurDto(userInfoDto);
         commandeService.save(commandeDto);
 
         return new ResponseEntity<>(HttpStatus.CREATED);

@@ -73,14 +73,5 @@ public class UtilisateurDto {
         return utilisateur;
     }
 
-    public void add(CommandeDto commandeDto) {
-        if (commandeDto != null) {
-            if (commandeDtoList == null) {
-                commandeDtoList = new ArrayList<>();
-            }
-            commandeDtoList.add(commandeDto);
-            commandeDto.setUtilisateurDto(this);
-        }
-    }
 
 }

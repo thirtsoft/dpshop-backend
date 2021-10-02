@@ -50,7 +50,7 @@ public class CommandeServiceTest {
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
                 //          .clientDto(clientDto)
-                .utilisateurPOSTDto(utilisateurPOSTDto)
+                //        .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
         when(commandeRepository.save(commander)).thenReturn(commander);
@@ -84,7 +84,7 @@ public class CommandeServiceTest {
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
                 //            .clientDto(clientDto)
-                .utilisateurPOSTDto(utilisateurPOSTDto)
+                //        .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
         when(commandeRepository.findAll()).thenReturn(singletonList(commander));
@@ -116,7 +116,7 @@ public class CommandeServiceTest {
                 .numeroCommande(120L)
                 .statusCommande(StatusCommande.PAYEE)
                 //           .clientDto(clientDto)
-                .utilisateurPOSTDto(utilisateurPOSTDto)
+                //        .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
 
         Optional<Commande> commander = Optional.ofNullable(CommandeDto.fromDtoToEntity(commandeDto));

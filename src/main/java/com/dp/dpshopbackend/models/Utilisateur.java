@@ -2,9 +2,7 @@ package com.dp.dpshopbackend.models;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,13 +27,6 @@ public class Utilisateur implements Serializable {
 
     @Column(name = "email", length = 50)
     private String email;
-
-  /*
-    @Column(name = "firstName", length = 100)
-    private String firstName;
-
-    @Column(name = "lastName", length = 100)
-    private String lastName;*/
 
     @Column(name = "password", length = 80)
     private String password;
@@ -62,8 +53,13 @@ public class Utilisateur implements Serializable {
              fetch = FetchType.LAZY)
      private List<Commande> commandeList;
  */
-    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-    private List<Commande> commandeList = new ArrayList<>();
+
+    /*@OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Commande> commandeList = new ArrayList<>();*/
+
+   /* @OneToOne
+    @PrimaryKeyJoinColumn
+    private Client client;*/
 
     public Utilisateur() {
     }
@@ -97,15 +93,6 @@ public class Utilisateur implements Serializable {
         this.roles = roles;
     }
 
-    public void add(Commande commande) {
-        if (commande != null) {
-            if (commandeList == null) {
-                commandeList = new ArrayList<>();
-            }
-            commandeList.add(commande);
-            commande.setUtilisateur(this);
-        }
-    }
 
     public Long getId() {
         return id;
@@ -179,11 +166,5 @@ public class Utilisateur implements Serializable {
         this.roles = roles;
     }
 
-    public List<Commande> getCommandeList() {
-        return commandeList;
-    }
 
-    public void setCommandeList(List<Commande> commandeList) {
-        this.commandeList = commandeList;
-    }
 }

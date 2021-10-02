@@ -28,18 +28,6 @@ public class Commande implements Serializable {
     @Column(name = "numeroCommande", length = 70)
     private Long numeroCommande;
 
-    private String firstName;
-
-    private String lastName;
-
-    private String email;
-
-    private String mobile;
-
-    private String address;
-
-    private String status;
-
     @Column(name = "totalQuantity", length = 150)
     private int totalQuantity;
 
@@ -77,10 +65,9 @@ public class Commande implements Serializable {
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private AddressLivraison billingAddress;
 
-    @ManyToOne
-    //   @JsonIgnore
-    @JoinColumn(name = "userId", referencedColumnName = "id")
-    private Utilisateur utilisateur;
+  /*  @ManyToOne
+    @JoinColumn(name = "userId")
+    private Utilisateur utilisateur;*/
 
     /*
     @OneToMany(mappedBy = "commande", fetch = FetchType.LAZY)
@@ -98,8 +85,7 @@ public class Commande implements Serializable {
     }
 
 
-    public Commande(PlaceOrderDto placeOrderDto, Utilisateur utilisateur, String sessionId) {
-        this.utilisateur = utilisateur;
+    public Commande(PlaceOrderDto placeOrderDto, String sessionId) {
         this.createdDate = new Date();
         this.totalCommande = placeOrderDto.getTotalPrice();
         this.sessionId = sessionId;

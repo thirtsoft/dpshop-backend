@@ -101,11 +101,11 @@ public class DpshopBackendApplication implements CommandLineRunner {
         Fournisseur f3 = fournisseurRepository.save(new Fournisseur((long) 3, "f3", "f3", "f3", "f3", "f3", "f3", "f3", "f3", p2));
         Fournisseur f4 = fournisseurRepository.save(new Fournisseur((long) 4, "f4", "f4", "f4", "f4", "f4", "f4", "f4", "f4", p1));
 
-        Client cl1 = clientRepository.save(new Client(1L, "cl1", "cl1", "cl1", "779440310" ));
-        Client cl2 = clientRepository.save(new Client(2L, "cl2", "cl2", "cl2", "778102567" ));
-        Client cl3 = clientRepository.save(new Client(3L, "cl3", "cl3", "cl3", "774567321"));
-        Client cl4 = clientRepository.save(new Client(4L, "cl4", "cl4", "cl4", "776543298" ));
-
+      /*  Client cl1 = clientRepository.save(new Client("cl1", "cl1", "cl1", "779440310" ));
+        Client cl2 = clientRepository.save(new Client("cl2", "cl2", "cl2", "778102567" ));
+        Client cl3 = clientRepository.save(new Client("cl3", "cl3", "cl3", "774567321"));
+        Client cl4 = clientRepository.save(new Client("cl4", "cl4", "cl4", "776543298" ));
+*/
         Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
         Country count2 = countryRepository.save(new Country(2L, "USA", "Etats-Unies"));
         Country count3 = countryRepository.save(new Country(3L, "GUIN", "Guinnée-Conakry"));
@@ -133,7 +133,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         AddressLivraison a3 = addressLivraisonRepository.save(new AddressLivraison(3L, "add3", "add3", "add3", "add3", "add3", "add3", state3));
         AddressLivraison a4 = addressLivraisonRepository.save(new AddressLivraison(4L, "add4", "add4", "add4", "add4", "add4", "add4", state4));
 */
-        /*
+
         Role useRole = new Role(RoleName.ROLE_USER);
         Role assistantRole = new Role(RoleName.ROLE_ASSISTANT);
         Role managerRole = new Role(RoleName.ROLE_MANAGER);
@@ -142,7 +142,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         roleRepository.save(assistantRole);
         roleRepository.save(managerRole);
         roleRepository.save(adminRole);
-        */
+
         Utilisateur user = new Utilisateur();
         user.setId(1L);
         user.setUsername("User");

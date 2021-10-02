@@ -48,6 +48,9 @@ public class CheckoutController implements CheckoutApi {
 
         Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
 
-        return null;
+        //    purchase.setUtilisateur(utilisateur);
+        PurchaseResponse response = this.checkoutService.placeToOrder(purchase);
+
+        return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

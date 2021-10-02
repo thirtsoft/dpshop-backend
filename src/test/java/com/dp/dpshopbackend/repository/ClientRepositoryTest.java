@@ -27,7 +27,7 @@ public class ClientRepositoryTest {
         String lastName = "diallo";
         String email = "thirdiallo@gmail.com";
         String mobile = "779440310";
-        Client client = new Client(1L, firstName, lastName, email, mobile);
+        Client client = new Client(firstName, lastName, email, mobile);
 
         Client clientResult = clientRepository.save(client);
 
@@ -38,7 +38,7 @@ public class ClientRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateClient() {
-        Client client = new Client(1L, "Cl1", "Cl1", "cl1@gmail.com", "779440310");
+        Client client = new Client("Cl1", "Cl1", "cl1@gmail.com", "779440310");
         clientRepository.save(client);
 
         String firstName = "client1";
@@ -58,7 +58,7 @@ public class ClientRepositoryTest {
 
     @Test
     public void testFindById() {
-        Client client = new Client(1L, "Cl1", "Cl1", "cl1@gmail.com", "779440310");
+        Client client = new Client("Cl1", "Cl1", "cl1@gmail.com", "779440310");
 
         Client clientResult = clientRepository.save(client);
 
@@ -70,10 +70,10 @@ public class ClientRepositoryTest {
 
     @Test
     public void testFindAll() {
-        Client client = new Client(1L, "Cl1", "Cl1", "cl1@gmail.com", "779440310");
+        Client client = new Client("Cl1", "Cl1", "cl1@gmail.com", "779440310");
         clientRepository.save(client);
 
-        Client client1 = new Client(2L, "Cl1", "Cl1", "cl1@gmail.com", "779440310");
+        Client client1 = new Client("Cl1", "Cl1", "cl1@gmail.com", "779440310");
         clientRepository.save(client);
 
         List<Client> clientList = clientRepository.findAll();
@@ -85,7 +85,7 @@ public class ClientRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        Client client = new Client(1L,  "Cl1", "Cl1", "cl1@gmail.com", "779440310");
+        Client client = new Client("Cl1", "Cl1", "cl1@gmail.com", "779440310");
 
         Client clientResult = clientRepository.save(client);
 
