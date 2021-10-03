@@ -1,8 +1,6 @@
 package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.AuthApi;
-import com.dp.dpshopbackend.dto.RoleDto;
-import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
 import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.message.request.LoginForm;
@@ -20,6 +18,7 @@ import com.dp.dpshopbackend.services.UtilisateurPostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -28,6 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.security.Principal;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -217,7 +217,7 @@ public class AuthController implements AuthApi {
 
                 default:
                     roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
-                //    return ResponseEntity.badRequest().body("Specified role not found");
+                    //    return ResponseEntity.badRequest().body("Specified role not found");
 
             }
         }
@@ -299,6 +299,22 @@ public class AuthController implements AuthApi {
         utilisateur.setRoles(roles);
         return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
 
+    }
+
+    @Override
+    public String getcurrentUserName(Principal principal) {
+        return null;
+    }
+
+    @Override
+    public String getcurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = null;
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserName = authentication.getName();
+        }
+        System.out.println("CurrentUser " + currentUserName);
+        return currentUserName;
     }
 
 }

@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.controller.api;
 
-import com.dp.dpshopbackend.dto.UtilisateurPOSTDto;
 import com.dp.dpshopbackend.message.request.LoginForm;
 import com.dp.dpshopbackend.message.request.SignUpForm;
 import com.dp.dpshopbackend.models.Utilisateur;
@@ -9,10 +8,12 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
@@ -56,6 +57,24 @@ public interface AuthApi {
             @ApiResponse(code = 400, message = "Aucun Compte  crée / modifié")
     })
     ResponseEntity<?> registerUser(@Valid @RequestBody SignUpForm signUpForm);
+
+    @GetMapping(value = APP_ROOT + "/auth/currentUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get Current User",
+            notes = "Cette méthode permet de récuperer l'utilisateur courrant", response = Utilisateur.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "L'utilisateur est retourné"),
+            @ApiResponse(code = 400, message = "Aucun Compte  crée / modifié")
+    })
+    String getcurrentUserName(Principal principal);
+
+    @GetMapping(value = APP_ROOT + "/auth/currentLogginUser", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Get Current User",
+            notes = "Cette méthode permet de récuperer l'utilisateur courrant", response = Utilisateur.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "L'utilisateur est retourné"),
+            @ApiResponse(code = 400, message = "Aucun Compte  crée / modifié")
+    })
+    String getcurrentUser();
 
 
 }

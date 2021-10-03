@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.enumeration.StatusCommande;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -55,6 +56,14 @@ public interface CommandeApi {
             @ApiResponse(code = 400, message = "L'Artilce a n'est pas modifiée")
     })
     ResponseEntity<CommandeDto> update(@PathVariable("idCommande") Long id, @RequestBody CommandeDto commandeDto);
+
+    @PatchMapping(value = APP_ROOT + "/commandes/updateStatusOfCommande/{id}")
+    @ApiOperation(value = "Modifier une Commande par son Status",
+            notes = "Cette méthode permet de modifier une Commande par son Status", response = CommandeDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
+    })
+    ResponseEntity<CommandeDto> updateStatusOfCommande(@RequestParam("status") StatusCommande statusCommande, @PathVariable("id") String id);
 
     @GetMapping(value = APP_ROOT + "/commandes/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Commande par ID",

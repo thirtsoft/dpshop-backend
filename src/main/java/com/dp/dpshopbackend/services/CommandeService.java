@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.CommandeDto;
+import com.dp.dpshopbackend.enumeration.StatusCommande;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -16,6 +17,8 @@ public interface CommandeService {
     CommandeDto saveWithUtilisateur(Long userId, CommandeDto commandeDto);
 
     CommandeDto update(Long comId, CommandeDto commandeDto);
+
+    CommandeDto updateStatusOfCommande(StatusCommande statusCommande, String id);
 
     CommandeDto findById(Long id);
 

@@ -3,6 +3,7 @@ package com.dp.dpshopbackend.controller;
 import com.dp.dpshopbackend.controller.api.CommandeApi;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.services.CommandeService;
 import com.dp.dpshopbackend.services.UtilisateurService;
@@ -61,6 +62,12 @@ public class CommandeController implements CommandeApi {
     public ResponseEntity<CommandeDto> update(Long id, CommandeDto commandeDto) {
         commandeDto.setId(id);
         return ResponseEntity.ok(commandeService.save(commandeDto));
+    }
+
+    @Override
+    public ResponseEntity<CommandeDto> updateStatusOfCommande(StatusCommande statusCommande, String id) {
+        CommandeDto newCommandeDto = commandeService.updateStatusOfCommande(statusCommande, id);
+        return new ResponseEntity<>(newCommandeDto, HttpStatus.OK);
     }
 
     @Override

@@ -233,6 +233,22 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
+    public CommandeDto updateStatusOfCommande(StatusCommande statusCommande, String id) {
+
+        Optional<Commande> commandeOptional = commandeRepository.findById(Long.valueOf(id));
+
+        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
+
+        commandeDtoResult.setStatusCommande(statusCommande);
+
+        return CommandeDto.fromEntityToDto(
+                commandeRepository.save(
+                        CommandeDto.fromDtoToEntity(commandeDtoResult)
+                )
+        );
+    }
+
+    @Override
     public CommandeDto findById(Long id) {
         if (id == null) {
             log.error("Commande Id is null");
