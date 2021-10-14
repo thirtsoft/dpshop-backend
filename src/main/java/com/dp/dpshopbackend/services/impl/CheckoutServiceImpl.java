@@ -8,6 +8,7 @@ import com.dp.dpshopbackend.models.Commande;
 import com.dp.dpshopbackend.models.LigneCommande;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.ClientRepository;
+import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.security.service.UserPrinciple;
 import com.dp.dpshopbackend.services.CheckoutService;
 import com.dp.dpshopbackend.services.UtilisateurService;
@@ -30,11 +31,15 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     private final UtilisateurService utilisateurService;
 
+    private final UtilisateurRepository utilisateurRepository;
+
     @Autowired
     public CheckoutServiceImpl(ClientRepository clientRepository,
-                               UtilisateurService utilisateurService) {
+                               UtilisateurService utilisateurService,
+                               UtilisateurRepository utilisateurRepository) {
         this.clientRepository = clientRepository;
         this.utilisateurService = utilisateurService;
+        this.utilisateurRepository = utilisateurRepository;
     }
 
     @Override
@@ -78,7 +83,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate custom with order
         ClientDto clientDto = purchaseDto.getClientDto();
-        clientDto.add(commandeDto);
+        //    clientDto.add(commandeDto);
 
         // populate loggin user with order
 
@@ -111,8 +116,6 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         //    UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
         //    Utilisateur currentUser = utilisateurService.findByUsername(userPrincipal);
-
-        //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
 
 
         //    Utilisateur user = utilisateurService.findByUsername(login);
@@ -147,8 +150,6 @@ public class CheckoutServiceImpl implements CheckoutService {
         client.add(commande);
 
         // populate utilisateur with order
-
-        //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
 
 
         //    Utilisateur utilisateur = purchase.getUtilisateur();

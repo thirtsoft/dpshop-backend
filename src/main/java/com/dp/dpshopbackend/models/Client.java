@@ -15,8 +15,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Client extends Utilisateur implements Serializable {
-
-   /* @Id
+/*
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;*/
 

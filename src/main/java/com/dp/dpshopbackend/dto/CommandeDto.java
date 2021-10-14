@@ -1,16 +1,12 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.enumeration.StatusCommande;
-import com.dp.dpshopbackend.models.*;
+import com.dp.dpshopbackend.models.Commande;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.CascadeType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -40,6 +36,8 @@ public class CommandeDto {
 
     private ClientDto clientDto;
 
+    //   private UtilisateurDto utilisateurDto;
+
     private AddressLivraisonDto shippingAddressDto;
 
     private AddressLivraisonDto billingAddressDto;
@@ -49,16 +47,6 @@ public class CommandeDto {
     //  @JsonIgnore
     //   private List<LigneCommandeDto> lcomms;
     private List<LigneCommandeDto> lcomms = new ArrayList<>();
-
-    public void add(LigneCommandeDto ligneCommandeDto) {
-        if (ligneCommandeDto != null) {
-            if (lcomms == null) {
-                lcomms = new ArrayList<>();
-            }
-            lcomms.add(ligneCommandeDto);
-            ligneCommandeDto.setCommandeDto(this);
-        }
-    }
 
     public static CommandeDto fromEntityToDto(Commande commande) {
         if (commande == null) {
@@ -75,10 +63,11 @@ public class CommandeDto {
                 .statusCommande(commande.getStatusCommande())
                 .orderTrackingNumber(commande.getOrderTrackingNumber())
                 .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
+                //        .utilisateurDto(UtilisateurDto.fromEntityToDto(commande.getUtilisateur()))
                 .billingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getBillingAddress()))
                 .shippingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getShippingAddress()))
 
-             /*   .addressLivraisonDto(AddressLivraisonDto.fromEntityToDto(commande.getAddressLivraison()))*/
+                /*   .addressLivraisonDto(AddressLivraisonDto.fromEntityToDto(commande.getAddressLivraison()))*/
                 //         .lcomms((List<LigneCommandeDto>) LigneCommandeDto.fromEntityToDto((LigneCommande) commande.getLcomms()))
                 .build();
 
@@ -97,14 +86,25 @@ public class CommandeDto {
         commande.setOrderTrackingNumber(commandeDto.getOrderTrackingNumber());
         commande.setTotalCommande(commandeDto.getTotal());
         commande.setClient(ClientDto.fromDtoToEntity(commandeDto.getClientDto()));
+        //    commande.setUtilisateur(UtilisateurDto.fromDtoToEntity(commandeDto.getUtilisateurDto()));
         commande.setBillingAddress(AddressLivraisonDto.fromDtoToEntity(commandeDto.getBillingAddressDto()));
         commande.setShippingAddress(AddressLivraisonDto.fromDtoToEntity(commandeDto.getShippingAddressDto()));
-      /*  commande.setAddressLivraison(AddressLivraisonDto.fromDtoToEntity(commandeDto.getAddressLivraisonDto()));*/
+        /*  commande.setAddressLivraison(AddressLivraisonDto.fromDtoToEntity(commandeDto.getAddressLivraisonDto()));*/
         //   commande.setLcomms((List<LigneCommande>) LigneCommandeDto.fromDtoToEntity((LigneCommandeDto) commandeDto.getLcomms()));
         commande.setLocalDateTime(commandeDto.getLocalDateTime());
         commande.setStatusCommande(commandeDto.getStatusCommande());
 
         return commande;
+    }
+
+    public void add(LigneCommandeDto ligneCommandeDto) {
+        if (ligneCommandeDto != null) {
+            if (lcomms == null) {
+                lcomms = new ArrayList<>();
+            }
+            lcomms.add(ligneCommandeDto);
+            ligneCommandeDto.setCommandeDto(this);
+        }
     }
 
 }

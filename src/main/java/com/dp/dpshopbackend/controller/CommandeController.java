@@ -101,8 +101,21 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
-    public List<CommandeDto> findAll() {
-        return commandeService.findAll();
+    public ResponseEntity<List<CommandeDto>> findAll() {
+        List<CommandeDto> commandeDtoList = commandeService.findAll();
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<CommandeDto>> getListOrderByStatusPending() {
+        List<CommandeDto> commandeDtoList = commandeService.findListOrderByStatusPending();
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<CommandeDto>> findListOrderByUserId(Long userId) {
+        List<CommandeDto> commandeDtoList = commandeService.findListOrderByUserId(userId);
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -123,7 +136,8 @@ public class CommandeController implements CommandeApi {
     @Override
     public Page<CommandeDto> getListCommandeByCustomerByPageables(Long clientId, int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
-        return commandeService.findCommandeByCustomerPageables(clientId, pageable);
+        //    return commandeService.findCommandeByCustomerPageables(clientId, pageable);
+        return null;
     }
 
     @Override

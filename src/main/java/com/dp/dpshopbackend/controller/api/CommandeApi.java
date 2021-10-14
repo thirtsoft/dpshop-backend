@@ -122,7 +122,24 @@ public interface CommandeApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
     })
-    List<CommandeDto> findAll();
+    ResponseEntity<List<CommandeDto>> findAll();
+
+
+    @GetMapping(value = APP_ROOT + "/commandes/findListOrderByStatuePending", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commandes dont le status encours",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes dont le status est encours", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> getListOrderByStatusPending();
+
+    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commandes par user",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> findListOrderByUserId(@PathVariable(name = "userId") Long userId);
 
     @GetMapping(value = APP_ROOT + "/commandes/numberOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par moi",

@@ -35,6 +35,18 @@ public class Utilisateur implements UserDetails, Serializable {
     @Column(name = "password", length = 80)
     private String password;
 
+    @Column(name = "firstName", length = 90)
+    private String firstName;
+
+    @Column(name = "lastName", length = 70)
+    private String lastName;
+
+    @Column(name = "emailLivraison", length = 50)
+    private String emailLivraison;
+
+    @Column(name = "mobileLivraison", length = 30)
+    private String mobileLivraison;
+
 
     @Column(name = "activated")
     private boolean activated = false;
@@ -58,7 +70,7 @@ public class Utilisateur implements UserDetails, Serializable {
      private List<Commande> commandeList;
  */
 
-    /*@OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+   /* @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     private List<Commande> commandeList = new ArrayList<>();*/
 
    /* @OneToOne
@@ -118,6 +130,10 @@ public class Utilisateur implements UserDetails, Serializable {
         return username;
     }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public boolean isAccountNonExpired() {
         return false;
@@ -136,10 +152,6 @@ public class Utilisateur implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return false;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getMobile() {
@@ -195,5 +207,47 @@ public class Utilisateur implements UserDetails, Serializable {
         this.roles = roles;
     }
 
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmailLivraison() {
+        return emailLivraison;
+    }
+
+    public void setEmailLivraison(String emailLivraison) {
+        this.emailLivraison = emailLivraison;
+    }
+
+    public String getMobileLivraison() {
+        return mobileLivraison;
+    }
+
+    public void setMobileLivraison(String mobileLivraison) {
+        this.mobileLivraison = mobileLivraison;
+    }
+
+    /*public void add(Commande commande) {
+        if (commande != null) {
+            if (commandeList == null) {
+                commandeList = new ArrayList<>();
+            }
+            commandeList.add(commande);
+            commande.setUtilisateur(this);
+        }
+    }
+*/
 
 }

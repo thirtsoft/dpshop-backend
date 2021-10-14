@@ -29,10 +29,16 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select sum(c.totalCommande) from Commande c where year(c.dateCommande) = year(current_date)")
     BigDecimal sumTotalOfCommandesByYear();
 
-    /*
-    @Query("select com from Commande com where com.client.id =:clientId")
+
+   /* @Query("select com from Commande com where com.client.id =:clientId")
     Page<Commande> findCommandeByCustomerPageables(@Param("clientId") Long clientId, Pageable pageable);
-    */
+*/
+   /* @Query("select com from Commande com where com.utilisateur.id =:userId")
+    List<Commande> findListOrderByUserId(@Param("userId") Long id);*/
+
+    @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' ")
+    List<Commande> findListOrderByStatusPending();
+
 
     //  List<Commande> findAllByUtilisateurOrderByCreatedDateDesc(Utilisateur utilisateur);
 

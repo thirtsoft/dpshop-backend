@@ -1,7 +1,6 @@
 package com.dp.dpshopbackend.services.impl;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
-import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
@@ -70,14 +69,11 @@ public class CommandeServiceImpl implements CommandeService {
         System.out.println("Initial Numero Commande " + commandeDto.getNumeroCommande());
         logger.info("CommandeDto {}", commandeDto);
 
-        ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
-        // Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
-        //    Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById((commandeDto.getUtilisateurPOSTDto().getId()));
+      /*  ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
         if (clientOptional == null) {
-            //      log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
             throw new IllegalArgumentException("Vous devez selectionner un client");
         }
-
+*/
         if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
                 if (ligCmdClt.getArticleDto() != null) {
@@ -138,13 +134,12 @@ public class CommandeServiceImpl implements CommandeService {
         System.out.println("Initial Numero Commande " + commandeDto.getNumeroCommande());
         logger.info("CommandeDto {}", commandeDto);
 
-        ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
-        // Optional<Client> clientOptional = clientRepository.findById(commandeDto.getClientDto().getId());
-        //    Optional<Utilisateur> utilisateurOptional = utilisateurRepository.findById((commandeDto.getUtilisateurPOSTDto().getId()));
+       /* ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
+
         if (clientOptional == null) {
             //     log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
             throw new IllegalArgumentException("Vous devez selectionner un client");
-        }
+        }*/
 
         if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
@@ -271,6 +266,18 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
+    public List<CommandeDto> findListOrderByStatusPending() {
+        return commandeRepository.findListOrderByStatusPending().stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommandeDto> findListOrderByUserId(Long userId) {
+        return null;
+    }
+
+    @Override
     public BigDecimal countNumberOfCommande() {
         return commandeRepository.countNumberOfCommande();
     }
@@ -295,14 +302,11 @@ public class CommandeServiceImpl implements CommandeService {
         return commandeRepository.sumTotalOfCommandesByYear();
     }
 
-    @Override
+   /* @Override
     public List<CommandeDto> findCommandeByCustomerId(Long userId) {
         return null;
-        /*return commandeRepository.ListCommandeByCustomerId(userId)
-                .stream()
-                .map(CommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());*/
-    }
+
+    }*/
 
     @Override
     public List<?> countNumberTotalOfCommandeByMonth() {
@@ -325,10 +329,6 @@ public class CommandeServiceImpl implements CommandeService {
                 .collect(Collectors.toList());
     }
 
-    @Override
-    public Page<CommandeDto> findCommandeByCustomerPageables(Long clientId, Pageable pageable) {
-        return null;
-    }
 
     @Override
     public Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable) {

@@ -101,7 +101,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/commandes/countNumberOfOrdersInMonth").permitAll()
                 .antMatchers("/**/commandes/countNumberOfOrdersByPendingStatus").permitAll()
-                .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/**").permitAll()
+                .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/***").permitAll()
+
+                .antMatchers("/**/commandes/searchCommandeByCustomerByPageables/**").permitAll()
+                .antMatchers("/**/commandes/searchCommandeByUser/*").permitAll()
 
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByYearList").permitAll()

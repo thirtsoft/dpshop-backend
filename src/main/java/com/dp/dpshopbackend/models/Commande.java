@@ -18,6 +18,7 @@ import java.util.List;
 @Data
 public class Commande implements Serializable {
 
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -56,6 +57,10 @@ public class Commande implements Serializable {
     @ManyToOne
     @JoinColumn(name = "clientId")
     private Client client;
+
+  /*  @ManyToOne
+    @JoinColumn(name = "userId")
+    private Utilisateur utilisateur;*/
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")
