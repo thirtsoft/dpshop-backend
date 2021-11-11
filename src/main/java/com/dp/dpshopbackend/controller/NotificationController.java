@@ -5,7 +5,6 @@ import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.models.Article;
-import com.dp.dpshopbackend.models.Notification;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.services.ArticleService;
 import com.dp.dpshopbackend.services.NotificationService;
@@ -88,7 +87,12 @@ public class NotificationController implements NotificationApi {
         notificationDtoList = notificationService.findAll();
 
         return new ResponseEntity(notificationDtoList, HttpStatus.OK);
+    }
 
+    @Override
+    public ResponseEntity<List<NotificationDto>> getAllNotificationsOrderByIdDesc() {
+        List<NotificationDto> notificationDtoList = notificationService.findByOrderByIdDesc();
+        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.AddressLivraisonDto;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +34,8 @@ public interface ArticleService {
     List<ArticleDto> findListArticleBySelected();
 
     List<ArticleDto> findTop12ByOrderByCreateDateDesc();
+
+    List<ArticleDto> findByOrderByIdDesc();
 
     Page<ArticleDto> findArticleByPageable(Pageable pageable);
 

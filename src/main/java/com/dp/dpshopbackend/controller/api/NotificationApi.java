@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.NotificationDto;
+import com.dp.dpshopbackend.models.Mail;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -76,6 +77,15 @@ public interface NotificationApi {
             @ApiResponse(code = 200, message = "La liste des Notification / une liste vide")
     })
     ResponseEntity<List<NotificationDto>> findAll();
+
+    @GetMapping(value = APP_ROOT + "/articles/searchAllNotificationsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
+            responseContainer = "List<NotificationDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<NotificationDto> > getAllNotificationsOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/notifications/searchTop3RatingOrderByCreatedDateDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des 3 dernières Notification",

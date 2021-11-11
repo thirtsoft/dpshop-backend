@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.controller.api.StateApi;
 import com.dp.dpshopbackend.dto.StateDto;
 import com.dp.dpshopbackend.services.StateService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,6 +47,12 @@ public class StateController implements StateApi {
     @Override
     public List<StateDto> findAll() {
         return stateService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<StateDto>> getAllStatesOrderByIdDesc() {
+        List<StateDto> stateDtoList = stateService.findByOrderByIdDesc();
+        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
     }
 
     @Override

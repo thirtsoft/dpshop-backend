@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
+import com.dp.dpshopbackend.models.Mail;
 import com.dp.dpshopbackend.models.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,6 +13,8 @@ import java.util.List;
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
     List<Notification> findTop3ByOrderByCreatedDateDesc();
+
+    List<Notification> findByOrderByIdDesc();
 
     @Query("select count(c) from Notification c where month(c.createdDate) = month(current_date)")
     BigDecimal countNumberOfNotification();

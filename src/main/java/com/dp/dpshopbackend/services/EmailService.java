@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.CountryDto;
 import com.dp.dpshopbackend.models.EmailMessage;
 import com.dp.dpshopbackend.models.Mail;
 
@@ -16,6 +17,8 @@ public interface EmailService {
     Mail findById(Long id);
 
     List<Mail> findAll();
+
+    List<Mail> findByOrderByIdDesc();
 
     void delete(Long id);
 

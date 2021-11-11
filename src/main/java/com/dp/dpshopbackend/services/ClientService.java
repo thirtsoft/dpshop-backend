@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.CategoryDto;
 import com.dp.dpshopbackend.dto.ClientDto;
 
 import java.math.BigDecimal;
@@ -14,6 +15,8 @@ public interface ClientService {
     ClientDto findById(Long id);
 
     List<ClientDto> findAll();
+
+    List<ClientDto> findByOrderByIdDesc();
 
     BigDecimal countNumberOfClient();
 

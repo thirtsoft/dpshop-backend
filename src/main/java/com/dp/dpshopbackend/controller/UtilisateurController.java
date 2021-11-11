@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.controller.api.UtilisateurApi;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,7 +15,7 @@ import java.util.List;
 @CrossOrigin
 public class UtilisateurController implements UtilisateurApi {
 
-    private UtilisateurService utilisateurService;
+    private final UtilisateurService utilisateurService;
 
     @Autowired
     public UtilisateurController(UtilisateurService utilisateurService) {
@@ -34,6 +35,12 @@ public class UtilisateurController implements UtilisateurApi {
     @Override
     public List<UtilisateurDto> findAll() {
         return utilisateurService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateursOrderByIdDesc() {
+        List<UtilisateurDto> utilisateurDtoList = utilisateurService.findByOrderByIdDesc();
+        return new ResponseEntity<>(utilisateurDtoList, HttpStatus.OK);
     }
 
     @Override

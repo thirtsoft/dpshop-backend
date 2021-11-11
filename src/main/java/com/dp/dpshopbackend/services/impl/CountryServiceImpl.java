@@ -83,6 +83,13 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
+    public List<CountryDto> findByOrderByIdDesc() {
+        return countryRepository.findByOrderByIdDesc().stream()
+                .map(CountryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Country Id is null");

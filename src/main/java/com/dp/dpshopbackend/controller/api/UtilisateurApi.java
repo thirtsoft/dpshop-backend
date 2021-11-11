@@ -1,6 +1,10 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +23,16 @@ public interface UtilisateurApi {
 
     @GetMapping(value = APP_ROOT + "/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
     List<UtilisateurDto> findAll();
+
+
+    @GetMapping(value = APP_ROOT + "/articles/searchAllUtilisateurOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
+            responseContainer = "List<UtilisateurDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<UtilisateurDto> > getAllUtilisateursOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete/{idUtilisateur}")
     void delete(@PathVariable("idUtilisateur") Long id);

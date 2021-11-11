@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
+import com.dp.dpshopbackend.models.Client;
 import com.dp.dpshopbackend.models.Commande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -38,6 +39,8 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
     @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' ")
     List<Commande> findListOrderByStatusPending();
+
+    List<Commande> findByOrderByIdDesc();
 
 
     //  List<Commande> findAllByUtilisateurOrderByCreatedDateDesc(Utilisateur utilisateur);

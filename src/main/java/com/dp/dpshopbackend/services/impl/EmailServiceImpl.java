@@ -90,6 +90,11 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    public List<Mail> findByOrderByIdDesc() {
+        return mailRepository.findByOrderByIdDesc();
+    }
+
+    @Override
     public void delete(Long id) {
         mailRepository.deleteById(id);
     }

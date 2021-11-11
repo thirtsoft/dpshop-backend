@@ -68,6 +68,13 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     }
 
     @Override
+    public List<UtilisateurDto> findByOrderByIdDesc() {
+        return utilisateurRepository.findByOrderByIdDesc().stream()
+                .map(UtilisateurDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<UtilisateurDto> findAll() {
         return utilisateurRepository.findAll().stream()
                 .map(UtilisateurDto::fromEntityToDto)

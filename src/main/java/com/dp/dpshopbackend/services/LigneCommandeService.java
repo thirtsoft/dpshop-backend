@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 
 import java.util.List;
@@ -11,6 +12,8 @@ public interface LigneCommandeService {
     LigneCommandeDto findById(Long id);
 
     List<LigneCommandeDto> findAll();
+
+    List<LigneCommandeDto> findByOrderByIdDesc();
 
     List<LigneCommandeDto> findArticlesGroupByProductIdOrderByCreatedDateDesc();
 

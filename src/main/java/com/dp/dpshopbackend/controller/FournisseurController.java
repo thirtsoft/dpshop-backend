@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.controller.api.FournisseurApi;
 import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.services.FournisseurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,7 +16,7 @@ import java.util.List;
 @CrossOrigin
 public class FournisseurController implements FournisseurApi {
 
-    private FournisseurService fournisseurService;
+    private final FournisseurService fournisseurService;
 
     @Autowired
     public FournisseurController(FournisseurService fournisseurService) {
@@ -41,6 +42,12 @@ public class FournisseurController implements FournisseurApi {
     @Override
     public List<FournisseurDto> findAll() {
         return fournisseurService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc() {
+        List<FournisseurDto> fournisseurDtoList = fournisseurService.findByOrderByIdDesc();
+        return new ResponseEntity<>(fournisseurDtoList, HttpStatus.OK);
     }
 
     @Override

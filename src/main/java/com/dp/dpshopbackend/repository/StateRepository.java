@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
+import com.dp.dpshopbackend.models.Scategory;
 import com.dp.dpshopbackend.models.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,5 +14,7 @@ public interface StateRepository extends JpaRepository<State, Long> {
 
     @Query("select p from State p where p.country.code =:code")
     List<State> findByCountryCode(@Param("code") String code);
+
+    List<State> findByOrderByIdDesc();
 
 }

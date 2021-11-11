@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.CategoryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -60,6 +61,15 @@ public interface CategoryApi {
             @ApiResponse(code = 200, message = "La liste des Categories / une liste vide")
     })
     List<CategoryDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/articles/searchAllCategorieOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
+            responseContainer = "List<CategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CategoryDto> > getAllCategoriesOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/categories/delete/{idCategory}")
     @ApiOperation(value = "Supprimer un Category par son ID",

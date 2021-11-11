@@ -32,6 +32,8 @@ public class ArticleDto {
 
     private String description;
 
+    private String manufactured;
+
     private String photo;
 
     private ScategoryDto scategoryDto;
@@ -68,6 +70,7 @@ public class ArticleDto {
                 .promo(article.isPromo())
                 .selected(article.isSelected())
                 .description(article.getDescription())
+                .manufactured(article.getManufactured())
                 .photo(article.getPhoto())
                 .scategoryDto(ScategoryDto.fromEntityToDto(article.getScategory()))
                 .build();
@@ -89,6 +92,7 @@ public class ArticleDto {
         article.setPromo(articleDto.isPromo());
         article.setSelected(articleDto.isSelected());
         article.setDescription(articleDto.getDescription());
+        article.setManufactured(articleDto.getManufactured());
         article.setPhoto(articleDto.getPhoto());
         article.setScategory(ScategoryDto.fromDtoToEntity(articleDto.getScategoryDto()));
 

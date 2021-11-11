@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
 
 import java.math.BigDecimal;
@@ -16,6 +17,8 @@ public interface NotificationService {
     NotificationDto findById(Long id);
 
     List<NotificationDto> findAll();
+
+    List<NotificationDto> findByOrderByIdDesc();
 
     List<NotificationDto> findTop3RatingOrderByCreatedDateDesc();
 

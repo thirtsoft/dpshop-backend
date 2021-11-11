@@ -266,6 +266,13 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
+    public List<CommandeDto> findByOrderByIdDesc() {
+        return commandeRepository.findByOrderByIdDesc().stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<CommandeDto> findListOrderByStatusPending() {
         return commandeRepository.findListOrderByStatusPending().stream()
                 .map(CommandeDto::fromEntityToDto)

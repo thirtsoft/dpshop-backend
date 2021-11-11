@@ -106,6 +106,13 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public List<NotificationDto> findByOrderByIdDesc() {
+        return notificationRepository.findByOrderByIdDesc().stream()
+                .map(NotificationDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<NotificationDto> findTop3RatingOrderByCreatedDateDesc() {
         return notificationRepository.findTop3ByOrderByCreatedDateDesc().stream()
                 .map(NotificationDto::fromEntityToDto)

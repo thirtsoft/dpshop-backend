@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.AddressLivraisonDto;
 import com.dp.dpshopbackend.dto.CountryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -50,6 +51,15 @@ public interface CountryApi {
             @ApiResponse(code = 200, message = "La liste des countries / une liste vide")
     })
     List<CountryDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/countries/searchAllCountryOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Country par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Country par ordre descroissante",
+            responseContainer = "List<CountryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Country par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CountryDto>> getAllCountryOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/countries/delete/{idCountry}")
     @ApiOperation(value = "Supprimer un Country par son ID",

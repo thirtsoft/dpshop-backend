@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.CategoryDto;
 import com.dp.dpshopbackend.dto.ClientDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -53,6 +54,15 @@ public interface ClientApi {
             @ApiResponse(code = 200, message = "La liste des Clients / une liste vide")
     })
     ResponseEntity<List<ClientDto>> findAll();
+
+    @GetMapping(value = APP_ROOT + "/articles/searchAllClientsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
+            responseContainer = "List<ClientDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ClientDto> > getAllClientsOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/clients/countNumberOfClient", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Client",

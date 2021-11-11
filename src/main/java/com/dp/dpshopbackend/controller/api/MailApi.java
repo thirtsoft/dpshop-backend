@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.models.Mail;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -40,6 +41,15 @@ public interface MailApi {
             @ApiResponse(code = 200, message = "La liste des emails / une liste vide")
     })
     ResponseEntity<List<Mail>> findAll();
+
+    @GetMapping(value = APP_ROOT + "/articles/searchAllMailOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
+            responseContainer = "List<Mail>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<Mail> > getAllMailsOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/mails/delete/{idMail}")
     @ApiOperation(value = "Supprimer un emails par son ID",

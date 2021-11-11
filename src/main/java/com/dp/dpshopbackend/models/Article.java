@@ -55,6 +55,10 @@ public class Article implements Serializable {
     @Lob
     private String description;
 
+    @Column(name = "manufactured")
+    @Lob
+    private String manufactured;
+
     @Column(name = "photo")
     private String photo;
 

@@ -101,6 +101,13 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
+    public List<ClientDto> findByOrderByIdDesc() {
+        return clientRepository.findByOrderByIdDesc().stream()
+                .map(ClientDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public BigDecimal countNumberOfClient() {
         return clientRepository.countNumberOfClient();
     }

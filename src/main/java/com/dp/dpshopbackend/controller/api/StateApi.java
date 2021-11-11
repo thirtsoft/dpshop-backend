@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.CountryDto;
 import com.dp.dpshopbackend.dto.StateDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -60,6 +61,15 @@ public interface StateApi {
             @ApiResponse(code = 200, message = "La liste des states / une liste vide")
     })
     List<StateDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/countries/searchAllStatesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des States par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des States par ordre descroissante",
+            responseContainer = "List<StateDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des States par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<StateDto>> getAllStatesOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/states/searchStateByCountryCode", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des states",

@@ -99,6 +99,13 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    public List<CategoryDto> findByOrderByIdDesc() {
+        return categoryRepository.findByOrderByIdDesc().stream()
+                .map(CategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Categorie Id is null");

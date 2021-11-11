@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.controller.api.LigneCommandeApi;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.services.LigneCommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,12 @@ public class LigneCommandeController implements LigneCommandeApi {
     @Override
     public List<LigneCommandeDto> findAll() {
         return ligneCommandeService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandeOrderByIdDesc() {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findByOrderByIdDesc();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override

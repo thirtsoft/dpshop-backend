@@ -61,6 +61,13 @@ public class AddresseClientServiceImpl implements AddresseClientService {
     }
 
     @Override
+    public List<AddressClientDto> findByOrderByIdDesc() {
+        return addresseClientRepository.findByOrderByIdDesc().stream()
+                .map(AddressClientDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("AddressClient Id is null");

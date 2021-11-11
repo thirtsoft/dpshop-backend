@@ -89,6 +89,13 @@ public class AddressLivraisonServiceImpl implements AddressLivraisonService {
     }
 
     @Override
+    public List<AddressLivraisonDto> findByOrderByIdDesc() {
+        return addressLivraisonRepository.findByOrderByIdDesc().stream()
+                .map(AddressLivraisonDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("AddressLivraison Id is null");

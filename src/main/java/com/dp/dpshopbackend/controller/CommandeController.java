@@ -107,6 +107,12 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public ResponseEntity<List<CommandeDto>> getAllCommandesOrderByIdDesc() {
+        List<CommandeDto> commandeDtoList = commandeService.findByOrderByIdDesc();
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<List<CommandeDto>> getListOrderByStatusPending() {
         List<CommandeDto> commandeDtoList = commandeService.findListOrderByStatusPending();
         return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);

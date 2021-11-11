@@ -52,6 +52,15 @@ public interface AddressLivraisonApi {
     })
     List<AddressLivraisonDto> findAll();
 
+    @GetMapping(value = APP_ROOT + "/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des AddressLivraisons par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des AddressLivraisons par ordre descroissante",
+            responseContainer = "List<AddressLivraisonDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des AddressLivraisons par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<AddressLivraisonDto>> getAllAddressLivraisonsOrderByIdDesc();
+
     @DeleteMapping(value = APP_ROOT + "/addresslivraisons/delete/{idAddressLivraison}")
     @ApiOperation(value = "Supprimer une AddressLivraison par son ID",
             notes = "Cette méthode permet de supprimer une AddressLivraison par son ID", response = ClientDto.class)

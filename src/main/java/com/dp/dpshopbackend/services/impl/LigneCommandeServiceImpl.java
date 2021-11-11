@@ -60,6 +60,13 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     }
 
     @Override
+    public List<LigneCommandeDto> findByOrderByIdDesc() {
+        return ligneCommandeRepository.findByOrderByIdDesc().stream()
+                .map(LigneCommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<LigneCommandeDto> findArticlesGroupByProductIdOrderByCreatedDateDesc() {
 
         return ligneCommandeRepository.findArticlesGroupByProductId().stream()

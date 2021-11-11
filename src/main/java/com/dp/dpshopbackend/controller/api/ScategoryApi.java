@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.NotificationDto;
 import com.dp.dpshopbackend.dto.ScategoryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -61,6 +62,15 @@ public interface ScategoryApi {
             @ApiResponse(code = 200, message = "La liste des Scategories / une liste vide")
     })
     List<ScategoryDto> findAll();
+
+    @GetMapping(value = APP_ROOT + "/articles/searchAllSubCategoryOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
+            responseContainer = "List<ScategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ScategoryDto> > getAllSubCategoryOrderByIdDesc();
 
     @DeleteMapping(value = APP_ROOT + "/scategories/delete/{idScategory}")
     @ApiOperation(value = "Supprimer un Scategory par son ID",

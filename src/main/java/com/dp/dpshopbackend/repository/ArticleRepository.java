@@ -1,7 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.models.Article;
-import com.dp.dpshopbackend.models.Notification;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,6 +20,8 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findArticleByScategory(@Param("scat") Long scatId);
 
     List<Article> findTop12ByOrderByCreateDateDesc();
+
+    List<Article> findByOrderByIdDesc();
 
     @Query("select art from Article art where art.price like :price GROUP BY (art.price, art.id) ")
     List<Article> findArticleGroupByPrice(@Param("price") double price);

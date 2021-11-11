@@ -91,6 +91,13 @@ public class FournisseurServiceImpl implements FournisseurService {
     }
 
     @Override
+    public List<FournisseurDto> findByOrderByIdDesc() {
+        return fournisseurRepository.findByOrderByIdDesc().stream()
+                .map(FournisseurDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public BigDecimal countNumberOfFournisseur() {
         return fournisseurRepository.countNumberOfFournisseur();
     }

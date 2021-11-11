@@ -85,6 +85,13 @@ public class StateServiceImpl implements StateService {
     }
 
     @Override
+    public List<StateDto> findByOrderByIdDesc() {
+        return stateRepository.findByOrderByIdDesc().stream()
+                .map(StateDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<StateDto> findAllStateByCountryCode(String code) {
         if (code == null) {
             log.error("State Country is null");

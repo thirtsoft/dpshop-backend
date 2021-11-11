@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.CountryDto;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface CountryService {
     CountryDto findById(Long id);
 
     List<CountryDto> findAll();
+
+    List<CountryDto> findByOrderByIdDesc();
 
     void delete(Long id);
 }

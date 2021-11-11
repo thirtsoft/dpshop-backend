@@ -47,6 +47,12 @@ public class ClientController implements ClientApi {
     }
 
     @Override
+    public ResponseEntity<List<ClientDto>> getAllClientsOrderByIdDesc() {
+        List<ClientDto> clientDtoList = clientService.findByOrderByIdDesc();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public BigDecimal countNumberOfClient() {
         return clientService.countNumberOfClient();
     }

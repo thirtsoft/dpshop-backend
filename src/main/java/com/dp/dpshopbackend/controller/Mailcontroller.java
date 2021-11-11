@@ -39,6 +39,12 @@ public class Mailcontroller implements MailApi {
     }
 
     @Override
+    public ResponseEntity<List<Mail>> getAllMailsOrderByIdDesc() {
+        List<Mail> mailList = emailService.findByOrderByIdDesc();
+        return new ResponseEntity<>(mailList, HttpStatus.OK);
+    }
+
+    @Override
     public void delete(Long id) {
         emailService.delete(id);
     }

@@ -81,6 +81,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleDtoResult.setSelected(articleDto.isSelected());
         articleDtoResult.setPromo(articleDto.isPromo());
         articleDtoResult.setDescription(articleDto.getDescription());
+        articleDtoResult.setManufactured(articleDto.getManufactured());
         articleDtoResult.setScategoryDto(articleDto.getScategoryDto());
 
         return ArticleDto.fromEntityToDto(
@@ -172,6 +173,13 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public List<ArticleDto> findTop12ByOrderByCreateDateDesc() {
         return articleRepository.findTop12ByOrderByCreateDateDesc().stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ArticleDto> findByOrderByIdDesc() {
+        return articleRepository.findByOrderByIdDesc().stream()
                 .map(ArticleDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }

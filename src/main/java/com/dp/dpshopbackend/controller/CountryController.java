@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.controller.api.CountryApi;
 import com.dp.dpshopbackend.dto.CountryDto;
 import com.dp.dpshopbackend.services.CountryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,6 +42,12 @@ public class CountryController implements CountryApi {
     @Override
     public List<CountryDto> findAll() {
         return countryService.findAll();
+    }
+
+    @Override
+    public ResponseEntity<List<CountryDto>> getAllCountryOrderByIdDesc() {
+        List<CountryDto> countryDtoList = countryService.findByOrderByIdDesc();
+        return new ResponseEntity<>(countryDtoList, HttpStatus.OK);
     }
 
     @Override
