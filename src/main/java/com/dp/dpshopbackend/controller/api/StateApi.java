@@ -62,7 +62,7 @@ public interface StateApi {
     })
     List<StateDto> findAll();
 
-    @GetMapping(value = APP_ROOT + "/countries/searchAllStatesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/states/searchAllStatesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des States par ordre descroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des States par ordre descroissante",
             responseContainer = "List<StateDto>")

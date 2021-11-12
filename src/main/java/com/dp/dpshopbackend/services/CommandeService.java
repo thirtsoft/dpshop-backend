@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.services;
 
-import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import org.springframework.data.domain.Page;
@@ -34,6 +33,8 @@ public interface CommandeService {
     BigDecimal countNumberOfCommande();
 
     BigDecimal countNumberOfCommandesInMonth();
+
+    BigDecimal sumTotalOfCommandeByDay();
 
     BigDecimal sumTotaleOfCommandeByMonth();
 

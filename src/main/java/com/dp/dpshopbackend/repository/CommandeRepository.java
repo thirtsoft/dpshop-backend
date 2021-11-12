@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.models.Client;
 import com.dp.dpshopbackend.models.Commande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,6 +19,9 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
 
     @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' ")
     BigDecimal countNumberOfOrdersByStatusPending();
+
+    @Query("select sum(c.totalCommande) from Commande c where c.dateCommande > current_date")
+    BigDecimal sumTotalOfCommandeByDay();
 
     @Query("select sum(c.totalCommande) from Commande c where month(c.dateCommande) = month(current_date)")
     BigDecimal sumTotalOfCommandesByMonth();

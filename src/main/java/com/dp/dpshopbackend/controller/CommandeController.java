@@ -91,6 +91,11 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public BigDecimal sumTotaleOfCommandeByDay() {
+        return commandeService.sumTotalOfCommandeByDay();
+    }
+
+    @Override
     public BigDecimal sumTotaleOfCommandeByMonth() {
         return commandeService.sumTotaleOfCommandeByMonth();
     }

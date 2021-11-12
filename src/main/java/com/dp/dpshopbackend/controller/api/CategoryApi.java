@@ -62,7 +62,7 @@ public interface CategoryApi {
     })
     List<CategoryDto> findAll();
 
-    @GetMapping(value = APP_ROOT + "/articles/searchAllCategorieOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/categories/searchAllCategorieOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
             responseContainer = "List<CategoryDto>")

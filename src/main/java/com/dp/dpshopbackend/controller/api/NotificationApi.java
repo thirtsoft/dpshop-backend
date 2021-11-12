@@ -78,7 +78,7 @@ public interface NotificationApi {
     })
     ResponseEntity<List<NotificationDto>> findAll();
 
-    @GetMapping(value = APP_ROOT + "/articles/searchAllNotificationsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/notifications/searchAllNotificationsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
             responseContainer = "List<NotificationDto>")

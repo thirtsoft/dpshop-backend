@@ -46,10 +46,15 @@ public class LigneCommandeController implements LigneCommandeApi {
 
     @Override
     public List<LigneCommandeDto> getArticlesGroupByProductIdOrderByCreatedDateDesc() {
-        List<LigneCommandeDto> ligneCommandeDtoList = new ArrayList<>();
-        ligneCommandeDtoList = ligneCommandeService.findArticlesGroupByProductIdOrderByCreatedDateDesc();
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findArticlesGroupByProductIdOrderByCreatedDateDesc();
 
         return ligneCommandeDtoList;
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandesByCommandeId(Long comId) {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findListLigneCommandeByCommandeId(comId);
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
     @Override

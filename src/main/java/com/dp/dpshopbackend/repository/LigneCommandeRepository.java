@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.models.Country;
 import com.dp.dpshopbackend.models.LigneCommande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,5 +16,8 @@ public interface LigneCommandeRepository extends JpaRepository<LigneCommande, Lo
     List<LigneCommande> findArticlesGroupByProductId();
 
     List<LigneCommande> findByOrderByIdDesc();
+
+    @Query("select p from LigneCommande p where p.commande.id =:num")
+    List<LigneCommande> ListLigneCommandeByCommandeId(@Param("num") Long comId);
 
 }

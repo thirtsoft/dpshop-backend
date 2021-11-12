@@ -68,14 +68,16 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
 
     @Override
     public List<LigneCommandeDto> findArticlesGroupByProductIdOrderByCreatedDateDesc() {
-
         return ligneCommandeRepository.findArticlesGroupByProductId().stream()
                 .map(LigneCommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
+    }
 
-       /* return ligneCommandeRepository.findArticlesGroupByProductId()
-                .stream()
-                .collect(Collectors.toList());*/
+    @Override
+    public List<LigneCommandeDto> findListLigneCommandeByCommandeId(Long comId) {
+        return ligneCommandeRepository.ListLigneCommandeByCommandeId(comId).stream()
+                .map(LigneCommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
@@ -84,8 +86,6 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
             log.error("LigneCommande Id is null");
             return;
         }
-
         ligneCommandeRepository.deleteById(id);
-
     }
 }

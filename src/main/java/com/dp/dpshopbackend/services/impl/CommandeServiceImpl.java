@@ -295,6 +295,11 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
+    public BigDecimal sumTotalOfCommandeByDay() {
+        return commandeRepository.sumTotalOfCommandeByDay();
+    }
+
+    @Override
     public BigDecimal sumTotaleOfCommandeByMonth() {
         return commandeRepository.sumTotaleOfCommandeByMonth();
     }

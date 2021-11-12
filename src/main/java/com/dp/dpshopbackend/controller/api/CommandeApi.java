@@ -101,6 +101,14 @@ public interface CommandeApi {
     })
     BigDecimal countNumberOfOrdersByStatusPending();
 
+    @GetMapping(value = APP_ROOT + "/commandes/sumTotalOfCommandeByDay", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le montant de Commande du jour",
+            notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du jour encours")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le montant des Commande par jour / somme nulle")
+    })
+    BigDecimal sumTotaleOfCommandeByDay();
+
     @GetMapping(value = APP_ROOT + "/commandes/sumTotalOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le montant de Commande du moi",
             notes = "Cette méthode permet de chercher et renvoyer le montant de Commande du moi encours")
@@ -125,7 +133,7 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> findAll();
 
-    @GetMapping(value = APP_ROOT + "/articles/searchAllComandesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/commandes/searchAllComandesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
             responseContainer = "List<CommandeDto>")
@@ -133,7 +141,6 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
     ResponseEntity<List<CommandeDto> > getAllCommandesOrderByIdDesc();
-
 
     @GetMapping(value = APP_ROOT + "/commandes/findListOrderByStatuePending", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes dont le status encours",
