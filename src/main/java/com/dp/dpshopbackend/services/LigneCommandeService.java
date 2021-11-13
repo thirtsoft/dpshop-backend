@@ -18,5 +18,7 @@ public interface LigneCommandeService {
 
     List<LigneCommandeDto> findListLigneCommandeByCommandeId(Long comId);
 
+    List<LigneCommandeDto> findTop200LigneCommandeOrderByIdDesc();
+
     void delete(Long id);
 }

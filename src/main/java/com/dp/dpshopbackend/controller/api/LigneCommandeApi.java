@@ -50,6 +50,15 @@ public interface LigneCommandeApi {
     })
     ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandesByCommandeId(Long comId);
 
+    @GetMapping(value = APP_ROOT + "/lignecommandes/searchTopLigneCommandesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 200 dernières LigneCommandes  par ordre décroissant",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 200 derniers LigneCommandes par ID décroissant",
+            responseContainer = "List<LigneCommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des 200 dernières LigneCommandes  par ID décroissant / une liste vide")
+    })
+    ResponseEntity<List<LigneCommandeDto>> getTop200LigneCommandesOrderByIdDesc();
+
     @DeleteMapping(value = APP_ROOT + "/lignecommandes/delete/{idLignecommande}")
     @ApiOperation(value = "Supprimer un LigneCommande par son ID",
             notes = "Cette méthode permet de supprimer une LigneCommande par son ID", response = LigneCommandeDto.class)

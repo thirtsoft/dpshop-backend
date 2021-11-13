@@ -20,4 +20,6 @@ public interface LigneCommandeRepository extends JpaRepository<LigneCommande, Lo
     @Query("select p from LigneCommande p where p.commande.id =:num")
     List<LigneCommande> ListLigneCommandeByCommandeId(@Param("num") Long comId);
 
+    List<LigneCommande> findTop200ByOrderByIdDesc();
+
 }

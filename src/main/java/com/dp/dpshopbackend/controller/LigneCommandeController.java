@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -54,6 +53,12 @@ public class LigneCommandeController implements LigneCommandeApi {
     @Override
     public ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandesByCommandeId(Long comId) {
         List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findListLigneCommandeByCommandeId(comId);
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeDto>> getTop200LigneCommandesOrderByIdDesc() {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findTop200LigneCommandeOrderByIdDesc();
         return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
