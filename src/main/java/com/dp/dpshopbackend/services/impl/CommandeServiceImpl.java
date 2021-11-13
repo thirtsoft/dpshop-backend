@@ -314,6 +314,13 @@ public class CommandeServiceImpl implements CommandeService {
         return commandeRepository.sumTotalOfCommandesByYear();
     }
 
+    @Override
+    public List<?> countNumberOfCommandeByDay() {
+        return commandeRepository.countNumberOfCommandeByDay()
+                .stream()
+                .collect(Collectors.toList());
+    }
+
    /* @Override
     public List<CommandeDto> findCommandeByCustomerId(Long userId) {
         return null;

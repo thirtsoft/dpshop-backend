@@ -130,6 +130,12 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public List<?> countNumberOfCommandeByDay() {
+        List<?> commandeDtoList = commandeService.countNumberOfCommandeByDay();
+        return commandeDtoList;
+    }
+
+    @Override
     public List<?> countNumberOfCommandeByMonth() {
         return commandeService.countNumberTotalOfCommandeByMonth();
     }

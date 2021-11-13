@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.controller.api;
 
-import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
 import io.swagger.annotations.ApiOperation;
@@ -140,7 +139,7 @@ public interface CommandeApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<CommandeDto> > getAllCommandesOrderByIdDesc();
+    ResponseEntity<List<CommandeDto>> getAllCommandesOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/commandes/findListOrderByStatuePending", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes dont le status encours",
@@ -157,6 +156,14 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
     ResponseEntity<List<CommandeDto>> findListOrderByUserId(@PathVariable(name = "userId") Long userId);
+
+    @GetMapping(value = APP_ROOT + "/commandes/numberOfCommandeByDay", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste du nombre de Commandes par jour",
+            notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par jour", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste du nombre de Commandes par jour / une liste vide")
+    })
+    List<?> countNumberOfCommandeByDay();
 
     @GetMapping(value = APP_ROOT + "/commandes/numberOfCommandeByMonth", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par moi",

@@ -39,13 +39,16 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
    /* @Query("select com from Commande com where com.utilisateur.id =:userId")
     List<Commande> findListOrderByUserId(@Param("userId") Long id);*/
 
-    @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' ")
+    @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' order by id Desc ")
     List<Commande> findListOrderByStatusPending();
 
     List<Commande> findByOrderByIdDesc();
 
 
     //  List<Commande> findAllByUtilisateurOrderByCreatedDateDesc(Utilisateur utilisateur);
+
+    @Query("select EXTRACT(day from(c.dateCommande)), count(c) from Commande c group by EXTRACT(day from(c.dateCommande))")
+    List<?> countNumberOfCommandeByDay();
 
     @Query("select EXTRACT(month from(c.dateCommande)), count(c) from Commande c group by EXTRACT(month from(c.dateCommande))")
     List<?> countNumberOfCommandeByMonth();

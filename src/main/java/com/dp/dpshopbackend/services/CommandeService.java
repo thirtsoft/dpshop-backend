@@ -42,6 +42,8 @@ public interface CommandeService {
 
     BigDecimal sumTotalOfCommandesByYear();
 
+    List<?> countNumberOfCommandeByDay();
+
     List<?> countNumberTotalOfCommandeByMonth();
 
     List<?> sumTotalOfCommandeByMonth();
