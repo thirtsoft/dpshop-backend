@@ -21,6 +21,8 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
+import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
@@ -89,8 +91,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/searchArticleByPrice/**").permitAll()
                 .antMatchers("/**/articles/searchbyReference/**").permitAll()
                 .antMatchers("/**/articles/photoArticle/**").permitAll()
-                .antMatchers("/**/articles/searchArticleByPriceMinMax/**").permitAll()
-
+                .antMatchers("/**/articles/uploadArticlePhoto/**").permitAll()
                 .antMatchers("/**/categories/**").permitAll()
                 .antMatchers("/**/scategories/**").permitAll()
                 .antMatchers("/**/fournisseurs/**").permitAll()

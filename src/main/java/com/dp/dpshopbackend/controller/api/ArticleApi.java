@@ -178,14 +178,14 @@ public interface ArticleApi {
     })
     byte[] getPhotoArticle(@PathVariable("idArticle") Long id) throws Exception;
 
-    @PostMapping(path = APP_ROOT + "/articles/uploadArticlePhoto/{idArticle}")
+    @PostMapping(path = APP_ROOT + "/articles/uploadArticlePhoto/{id}")
     @ApiOperation(value = "Enregistrer une photo dans un dossier",
             notes = "Cette méthode permet d'enregistrer la photo d'un article dans un dossier externe utilisateur")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
 
     })
-    void uploadPhotoArticle(@RequestParam(name = "photoArticle") MultipartFile photoArticle,
-                            @PathVariable("idArticle") Long idArticle) throws IOException;
+    void uploadPhotoArticle(MultipartFile photoArticle,
+                            @PathVariable("id") String id) throws IOException;
 
 }
