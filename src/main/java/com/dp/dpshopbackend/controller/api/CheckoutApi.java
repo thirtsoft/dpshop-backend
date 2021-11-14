@@ -21,6 +21,9 @@ public interface CheckoutApi {
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<PurchaseResponse> purchase(@RequestBody Purchase purchase);
 
+    @PostMapping(value = APP_ROOT + "/checkout/placeToOrderWithUser",
+            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    ResponseEntity<PurchaseResponse> purchaseWithUser(@RequestBody Purchase purchase, @RequestParam Long id);
 
 
     @PostMapping(value = APP_ROOT + "/checkout/placeToOrderWithLoginUser",

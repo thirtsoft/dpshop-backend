@@ -14,11 +14,11 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Client extends Utilisateur implements Serializable {
-/*
+public class Client implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;*/
+    private Long id;
 
     @Column(name = "firstName", length = 90)
     private String firstName;

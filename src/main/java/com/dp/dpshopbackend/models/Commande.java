@@ -58,9 +58,9 @@ public class Commande implements Serializable {
     @JoinColumn(name = "clientId")
     private Client client;
 
-  /*  @ManyToOne
+    @ManyToOne
     @JoinColumn(name = "userId")
-    private Utilisateur utilisateur;*/
+    private Utilisateur utilisateur;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "shipping_address_id", referencedColumnName = "id")

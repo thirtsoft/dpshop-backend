@@ -114,6 +114,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
 
+                .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
+
                 .antMatchers("/**/checkout/purchase").permitAll()
 
                 .antMatchers("/**/countries/all").permitAll()

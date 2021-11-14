@@ -5,6 +5,7 @@ import com.dp.dpshopbackend.dto.PurchaseDto;
 import com.dp.dpshopbackend.dto.PurchaseResponse;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.dto.checkout.Purchase;
+import com.dp.dpshopbackend.models.Commande;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.services.CheckoutService;
 import com.dp.dpshopbackend.services.UtilisateurService;
@@ -44,15 +45,27 @@ public class CheckoutController implements CheckoutApi {
     }
 
     @Override
+    public ResponseEntity<PurchaseResponse> purchaseWithUser(Purchase purchase, Long id) {
+        UtilisateurDto utilisateurDto = Optional.of(utilisateurService.findById(id)).get();
+        Utilisateur utilisateur = UtilisateurDto.fromDtoToEntity(utilisateurDto);
+
+        purchase.setUtilisateur(utilisateur);
+
+        PurchaseResponse response = this.checkoutService.placeToOrderWithUser(purchase);
+
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<PurchaseResponse> purchaseWithLoginUser(Purchase purchase, Long id) {
 
         UtilisateurDto utilisateurDto = Optional.of(utilisateurService.findById(id)).get();
 
         Utilisateur utilisateur = UtilisateurDto.fromDtoToEntity(utilisateurDto);
 
-        //    purchase.setUtilisateur(utilisateur);
+        purchase.setUtilisateur(utilisateur);
 
-        PurchaseResponse response = this.checkoutService.placeToOrder(purchase);
+        PurchaseResponse response = this.checkoutService.placeToOrderWithUser(purchase);
 
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }

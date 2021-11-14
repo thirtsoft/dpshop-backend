@@ -162,6 +162,43 @@ public class CheckoutServiceImpl implements CheckoutService {
         return new PurchaseResponse(orderTrackingNumber);
     }
 
+    @Override
+    public PurchaseResponse placeToOrderWithUser(Purchase purchase) {
+
+        System.out.println(purchase);
+        // retrieve the order from dto
+        Commande commande = purchase.getCommande();
+
+        Utilisateur utilisateur = purchase.getUtilisateur();
+
+        // generate tracking number
+        String orderTrackingNumber = generateOrderTrackingNumber();
+        commande.setOrderTrackingNumber(orderTrackingNumber);
+        commande.setStatusCommande(StatusCommande.ENCOURS);
+        commande.setDateCommande(new Date());
+
+        // attach loggin user to order
+        commande.setUtilisateur(utilisateur);
+
+        // populate order with orderItems
+        List<LigneCommande> ligneCommandeList = purchase.getLcomms();
+        ligneCommandeList.forEach(item -> commande.add(item));
+
+        // populate order with shippingAddress and billingAddress
+        commande.setBillingAddress(purchase.getBillingAddress());
+        commande.setShippingAddress(purchase.getShippingAddress());
+
+        // populate customer with order
+        Client client = purchase.getClient();
+        client.add(commande);
+
+        // save customer to database
+        clientRepository.save(client);
+
+        // return response
+        return new PurchaseResponse(orderTrackingNumber);
+    }
+
     private String generateOrderTrackingNumber() {
         // generate a random UUID (UUID version-4)
         return UUID.randomUUID().toString();

@@ -8,7 +8,7 @@ import java.util.List;
 @Data
 public class Purchase {
     private Client client;
-  //  private Utilisateur utilisateur;
+    private Utilisateur utilisateur;
     private AddressLivraison shippingAddress;
     private AddressLivraison billingAddress;
     private Commande commande;

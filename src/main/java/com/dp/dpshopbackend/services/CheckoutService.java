@@ -9,4 +9,6 @@ public interface CheckoutService {
     PurchaseResponse placeOrder(PurchaseDto purchaseDto);
 
     PurchaseResponse placeToOrder(Purchase purchase);
+
+    PurchaseResponse placeToOrderWithUser(Purchase purchase);
 }
