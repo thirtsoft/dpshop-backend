@@ -1,5 +1,8 @@
 package com.dp.dpshopbackend.models;
 
+import com.dp.dpshopbackend.services.CheckoutService;
+import com.dp.dpshopbackend.services.impl.CheckoutServiceImpl;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -56,9 +59,9 @@ public class LigneCommande implements Serializable {
 
     }
 
-    public LigneCommande(Long id, Long numero, int quantity, double price, Commande commande, Article article) {
+    public LigneCommande(Long id, int quantity, double price, Commande commande, Article article) {
         this.id = id;
-        this.numero = numero;
+        this.numero = commande.getNumeroCommande();
         this.quantity = quantity;
         this.price = price;
         this.createdDate = new Date();

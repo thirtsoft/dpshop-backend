@@ -13,6 +13,8 @@ import com.dp.dpshopbackend.security.service.UserPrinciple;
 import com.dp.dpshopbackend.services.CheckoutService;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.joda.time.LocalDateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
@@ -52,12 +54,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         UserPrinciple authUser = (UserPrinciple) authentication.getPrincipal();
         Long userId = authUser.getId();
 
-
         Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(userId))).get();
 
-
-        // retrieve the order info from dto
-        //    Commande commande = purchaseDto.getCommande();
         CommandeDto commandeDto = purchaseDto.getCommandeDto();
 
         // generated tracking number
@@ -69,31 +67,13 @@ public class CheckoutServiceImpl implements CheckoutService {
         // populate order with orderItems
         List<LigneCommandeDto> ligneCommandeDtos = purchaseDto.getLigneCommandeListDtos();
         ligneCommandeDtos.forEach(item -> commandeDto.add(item));
-    /*
-        List<LigneCommande> ligneCommandeList = purchaseDto.getLigneCommandeList();
-        ligneCommandeList.forEach(item -> commande.add(item));*/
 
         // populate order with shippingAddress and billingAddress
         commandeDto.setBillingAddressDto(purchaseDto.getBillingAddressDto());
         commandeDto.setShippingAddressDto(purchaseDto.getShippingAddressDto());
 
-        /*
-        commande.setBillingAddress(purchaseDto.getBillingAddress());
-        commande.setShippingAddress(purchaseDto.getShippingAddress());*/
-
         // populate custom with order
         ClientDto clientDto = purchaseDto.getClientDto();
-        //    clientDto.add(commandeDto);
-
-        // populate loggin user with order
-
-
-/*
-        Client client = purchaseDto.getClient();
-        client.add(commande);*/
-
-        // save to the database
-        //    clientRepository.save(client);
 
         ClientDto.fromEntityToDto(
                 clientRepository.save(
@@ -114,16 +94,6 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         String currentPrincipalName = authentication.getName();
 
-        //    UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
-        //    Utilisateur currentUser = utilisateurService.findByUsername(userPrincipal);
-
-
-        //    Utilisateur user = utilisateurService.findByUsername(login);
-
-
-        //    Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findByUsername(login))).get();
-
-
         System.out.println(purchase);
         // retrieve the order from dto
         Commande commande = purchase.getCommande();
@@ -133,9 +103,6 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setOrderTrackingNumber(orderTrackingNumber);
         commande.setStatusCommande(StatusCommande.ENCOURS);
         commande.setDateCommande(new Date());
-
-        // attach loggin user to order
-//        commande.setUtilisateur(utilisateur);
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
@@ -148,12 +115,6 @@ public class CheckoutServiceImpl implements CheckoutService {
         // populate customer with order
         Client client = purchase.getClient();
         client.add(commande);
-
-        // populate utilisateur with order
-
-
-        //    Utilisateur utilisateur = purchase.getUtilisateur();
-        //    utilisateur.add(commande);
 
         // save customer to database
         clientRepository.save(client);
@@ -173,7 +134,9 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
+        Long numCommande = generateNumeroCommande();
         commande.setOrderTrackingNumber(orderTrackingNumber);
+        commande.setNumeroCommande(numCommande);
         commande.setStatusCommande(StatusCommande.ENCOURS);
         commande.setDateCommande(new Date());
 
@@ -202,5 +165,10 @@ public class CheckoutServiceImpl implements CheckoutService {
     private String generateOrderTrackingNumber() {
         // generate a random UUID (UUID version-4)
         return UUID.randomUUID().toString();
+    }
+
+    public long generateNumeroCommande() {
+        final String FORMAT = "yyyyMMddHHmmss";
+        return Long.parseLong(DateTimeFormat.forPattern(FORMAT).print(LocalDateTime.now()));
     }
 }
