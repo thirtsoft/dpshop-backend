@@ -2,8 +2,11 @@ package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
+import com.dp.dpshopbackend.models.Commande;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -50,8 +53,12 @@ public interface CommandeService {
 
     List<?> sumTotalOfOrdersByYears();
 
-    /*   Page<CommandeDto> findCommandeByCustomerPageables(Long clientId, Pageable pageable);
-     */
+    List<CommandeDto> findCommandesByUserOrderByIdDesc(Long userId);
+
+    List<CommandeDto> findCommandesByAddressLivraisonId(Long addLivraison);
+
+    List<CommandeDto> findCommandesByAddressAchatId(Long addAchat);
+
     Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable);
 
     void delete(Long id);

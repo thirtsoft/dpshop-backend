@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -157,6 +158,30 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> findListOrderByUserId(@PathVariable(name = "userId") Long userId);
 
+    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUserIdOrderByIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commandes par user",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> getCommandesByUserOrderByIdDesc(@PathVariable(name = "id") Long id);
+
+    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByBillingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commandes par user",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> getCommandesByBillingAddressOrderByIdDesc(@PathVariable(name = "id") Long id);
+
+    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByShippingAddressIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commandes par user",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> getCommandesByShippingAddressByIdDesc(@PathVariable(name = "id") Long id);
+
     @GetMapping(value = APP_ROOT + "/commandes/numberOfCommandeByDay", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste du nombre de Commandes par jour",
             notes = "Cette méthode permet de chercher et renvoyer la liste du nombre de Commandes par jour", responseContainer = "List<CommandeDto>")
@@ -207,6 +232,15 @@ public interface CommandeApi {
     })
     Page<CommandeDto> getListCommandeByUtilisateurByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
                                                               @RequestParam(name = "size") int size);
+
+    @GetMapping(value = APP_ROOT + "/commandes/searchCommandesByUtilisateurIdByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commande par client",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
+    })
+    Page<CommandeDto> getCommandesByUtilisateurIdByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
+                                                             @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = APP_ROOT + "/commandes/delete/{idCommande}")
     @ApiOperation(value = "Supprimer une Commande par son ID",

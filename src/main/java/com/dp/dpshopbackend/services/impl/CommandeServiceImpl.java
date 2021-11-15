@@ -348,12 +348,31 @@ public class CommandeServiceImpl implements CommandeService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<CommandeDto> findCommandesByUserOrderByIdDesc(Long userId) {
+        return commandeRepository.ListCommandeByCustomerId(userId).stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommandeDto> findCommandesByAddressLivraisonId(Long addLivraison) {
+        return commandeRepository.ListCommandeByAddressLivraisonId(addLivraison).stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<CommandeDto> findCommandesByAddressAchatId(Long addAchat) {
+        return commandeRepository.ListCommandeByAddressAchatId(addAchat).stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
 
     @Override
     public Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable) {
-        return null;
-       /* return commandeRepository.findCommandeByUtilisateurPageables(userId, pageable)
-                .map(CommandeDto::fromEntityToDto);*/
+        return commandeRepository.findCommandeByUtilisateurPageables(userId, pageable)
+                .map(CommandeDto::fromEntityToDto);
     }
 
     @Override

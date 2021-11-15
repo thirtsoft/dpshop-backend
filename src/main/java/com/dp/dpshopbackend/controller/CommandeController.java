@@ -130,6 +130,24 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public ResponseEntity<List<CommandeDto>> getCommandesByUserOrderByIdDesc(Long id) {
+        List<CommandeDto> commandeDtoList = commandeService.findListOrderByUserId(id);
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<CommandeDto>> getCommandesByBillingAddressOrderByIdDesc(Long id) {
+        List<CommandeDto> commandeDtoList = commandeService.findCommandesByAddressAchatId(id);
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<CommandeDto>> getCommandesByShippingAddressByIdDesc(Long id) {
+        List<CommandeDto> commandeDtoList = commandeService.findCommandesByAddressLivraisonId(id);
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public List<?> countNumberOfCommandeByDay() {
         List<?> commandeDtoList = commandeService.countNumberOfCommandeByDay();
         return commandeDtoList;
@@ -159,6 +177,12 @@ public class CommandeController implements CommandeApi {
 
     @Override
     public Page<CommandeDto> getListCommandeByUtilisateurByPageables(Long userId, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return commandeService.findCommandeByUtilisateurPageables(userId, pageable);
+    }
+
+    @Override
+    public Page<CommandeDto> getCommandesByUtilisateurIdByPageables(Long userId, int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
         return commandeService.findCommandeByUtilisateurPageables(userId, pageable);
     }
