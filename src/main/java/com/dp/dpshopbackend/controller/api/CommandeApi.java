@@ -64,7 +64,7 @@ public interface CommandeApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Le status de la Commande a été modifié")
     })
-    ResponseEntity<CommandeDto> updateStatusOfCommande(@RequestParam("status") StatusCommande statusCommande, @PathVariable("id") String id);
+    ResponseEntity<CommandeDto> updateStatusOfCommande(@RequestParam("status") String status, @PathVariable("id") String id);
 
     @GetMapping(value = APP_ROOT + "/commandes/{idCommande}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Commande par ID",

@@ -24,7 +24,7 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select count(c) from Commande c where month(c.dateCommande) = month(current_date)")
     BigDecimal countNumberOfOrdersInMonth();
 
-    @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' ")
+    @Query("select count(c) from Commande c where c.status = 'ENCOURS' ")
     BigDecimal countNumberOfOrdersByStatusPending();
 
     @Query("select sum(c.totalCommande) from Commande c where c.dateCommande > current_date")
@@ -39,14 +39,7 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select sum(c.totalCommande) from Commande c where year(c.dateCommande) = year(current_date)")
     BigDecimal sumTotalOfCommandesByYear();
 
-
-   /* @Query("select com from Commande com where com.client.id =:clientId")
-    Page<Commande> findCommandeByCustomerPageables(@Param("clientId") Long clientId, Pageable pageable);
-*/
-   /* @Query("select com from Commande com where com.utilisateur.id =:userId")
-    List<Commande> findListOrderByUserId(@Param("userId") Long id);*/
-
-    @Query("select count(c) from Commande c where c.statusCommande = 'ENCOURS' order by id Desc ")
+    @Query("select c from Commande c where c.status = 'ENCOURS' order by id Desc ")
     List<Commande> findListOrderByStatusPending();
 
     List<Commande> findByOrderByIdDesc();

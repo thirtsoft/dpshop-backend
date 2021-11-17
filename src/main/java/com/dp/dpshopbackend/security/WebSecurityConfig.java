@@ -17,6 +17,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
@@ -98,6 +99,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/create").permitAll()
                 .antMatchers("/**/commandes/all").permitAll()
                 .antMatchers("/**/commandes/countNumberOfCommande").permitAll()
+                .antMatchers("/**/commandes/sumTotalOfCommandeByDay").permitAll()
                 .antMatchers("/**/commandes/sumTotalOfCommandeByMonth").permitAll()
                 .antMatchers("/**/commandes/sumTotalOfCommandeByYear").permitAll()
                 .antMatchers("/**/commandes/numberOfCommandeByMonth").permitAll()
@@ -106,11 +108,21 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/countNumberOfOrdersByPendingStatus").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/***").permitAll()
 
-                .antMatchers("/**/commandes/searchCommandeByCustomerByPageables/**").permitAll()
+                .antMatchers("/**/commandes/searchCommandeByCustomerByPageables/***").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByUser/*").permitAll()
 
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByYearList").permitAll()
+
+                .antMatchers("/**/commandes/searchAllComandesOrderByIdDesc").permitAll()
+                .antMatchers("/**/commandes/findListOrderByStatuePending").permitAll()
+
+                .antMatchers("/**/commandes/searchCommandeByUserIdOrderByIdDesc/*").permitAll()
+                .antMatchers("/**/commandes/searchCommandeByBillingAddressIdDesc/*").permitAll()
+                .antMatchers("/**/commandes/searchCommandeByShippingAddressIdDesc/*").permitAll()
+
+                .antMatchers("/**/commandes/updateStatusOfCommande/*").permitAll()
+
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
 
@@ -124,6 +136,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
 
                 .antMatchers("/**/lignecommandes/all").permitAll()
+                .antMatchers("/**/lignecommandes/searchAllLigneCommandeOrderByIdDesc").permitAll()
+                .antMatchers("/**/lignecommandes/findListArticleGroupByIdDesc").permitAll()
+                .antMatchers("/**/lignecommandes/searchAllLigneCommandesByCommandeId/*").permitAll()
+                .antMatchers("/**/lignecommandes/searchTopLigneCommandesOrderByIdDesc").permitAll()
                 .antMatchers("/**/lignecommandes/findListArticleGroupByIdDesc").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/states/all").permitAll()

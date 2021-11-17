@@ -1,8 +1,5 @@
 package com.dp.dpshopbackend.models;
 
-import com.dp.dpshopbackend.services.CheckoutService;
-import com.dp.dpshopbackend.services.impl.CheckoutServiceImpl;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;

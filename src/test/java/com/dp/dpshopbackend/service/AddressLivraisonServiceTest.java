@@ -40,9 +40,8 @@ public class AddressLivraisonServiceTest {
     public void CreateAddressLivraisonTest() {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.REJETER)
+                .status("REJETER")
                 .build();
         Long stateId = 1L;
         State state = stateRepository.findById(stateId).orElse(null);
@@ -71,9 +70,8 @@ public class AddressLivraisonServiceTest {
     public void findAllTest() {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.ENCOURS)
+                .status("ENCOURS")
                 .build();
 
         Long stateId = 1L;
@@ -101,9 +99,8 @@ public class AddressLivraisonServiceTest {
     public void findByIdTest() {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.PAYEE)
+                .status("PAYEE")
                 .build();
 
         Long stateId = 1L;

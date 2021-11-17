@@ -36,12 +36,10 @@ public class CommandeRepositoryTest {
         Long userId = 1L;
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
-        commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //      commande.setClient(client);
@@ -62,12 +60,10 @@ public class CommandeRepositoryTest {
         Long userId = 1L;
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
-        commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //      commande.setClient(client);
@@ -75,15 +71,12 @@ public class CommandeRepositoryTest {
 
         Commande commandeResult = commandeRepository.save(commande);
 
-        String refCom = "RefCom";
         Long numCom = 120L;
         commande.setId(2L);
-        commande.setReference(refCom);
         commande.setNumeroCommande(numCom);
 
         Commande commandeUpdate = commandeRepository.save(commande);
 
-        assertThat(commandeUpdate.getReference()).isEqualTo(refCom);
         assertThat(commandeUpdate.getNumeroCommande()).isEqualTo(numCom);
         assertThat(commandeUpdate.getTotalCommande()).isEqualTo(commande.getTotalCommande());
 
@@ -97,12 +90,10 @@ public class CommandeRepositoryTest {
         Long userId = 1L;
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
-        commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //       commande.setClient(client);
@@ -123,12 +114,10 @@ public class CommandeRepositoryTest {
         Long userId = 1L;
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
-        commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //      commande.setClient(client);
@@ -136,10 +125,8 @@ public class CommandeRepositoryTest {
 
         commandeRepository.save(commande);
 
-        String refCom = "refCom120";
         Commande commande1 = new Commande();
         commande.setId(2L);
-        commande.setReference(refCom);
         commandeRepository.save(commande1);
 
         List<Commande> commandes = commandeRepository.findAll();
@@ -157,12 +144,10 @@ public class CommandeRepositoryTest {
         Long userId = 1L;
         Utilisateur utilisateur = utilisateurRepository.findById(userId).orElse(null);
 
-        String reference = "Com120";
         Long numeroCommande = 120L;
         double total = 30000;
         Commande commande = new Commande();
         commande.setId(1L);
-        commande.setReference(reference);
         commande.setNumeroCommande(numeroCommande);
         commande.setTotalCommande(total);
         //     commande.setClient(client);

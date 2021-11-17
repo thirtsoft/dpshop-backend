@@ -35,6 +35,8 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     private final UtilisateurRepository utilisateurRepository;
 
+    private final String status = "ENCOURS";
+
     @Autowired
     public CheckoutServiceImpl(ClientRepository clientRepository,
                                UtilisateurService utilisateurService,
@@ -101,7 +103,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
         commande.setOrderTrackingNumber(orderTrackingNumber);
-        commande.setStatusCommande(StatusCommande.ENCOURS);
+        commande.setStatus(status);
         commande.setDateCommande(new Date());
 
         // populate order with orderItems
@@ -137,7 +139,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         Long numCommande = generateNumeroCommande();
         commande.setOrderTrackingNumber(orderTrackingNumber);
         commande.setNumeroCommande(numCommande);
-        commande.setStatusCommande(StatusCommande.ENCOURS);
+        commande.setStatus(status);
         commande.setDateCommande(new Date());
 
         // attach loggin user to order

@@ -75,7 +75,6 @@ public class CommandeControllerTest {
         utilisateurPOSTDto.setPassword("passer1234");
         commandeDto = new CommandeDto();
         commandeDto.setId(1L);
-        commandeDto.setReference("reCom");
         commandeDto.setNumeroCommande(120L);
         //     commandeDto.setClientDto(clientDto);
         //    commandeDto.setUtilisateurPOSTDto(utilisateurPOSTDto);

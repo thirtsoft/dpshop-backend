@@ -3,7 +3,6 @@ package com.dp.dpshopbackend.services.impl;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
-import com.dp.dpshopbackend.enumeration.StatusCommande;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.models.Commande;
@@ -39,6 +38,7 @@ public class CommandeServiceImpl implements CommandeService {
     private final ClientRepository clientRepository;
     private final UtilisateurRepository utilisateurRepository;
     private final ArticleRepository articleRepository;
+    private final String status = "ENCOURS";
     double total = 0;
     Logger logger = LoggerFactory.getLogger(CommandeServiceImpl.class);
 
@@ -121,7 +121,7 @@ public class CommandeServiceImpl implements CommandeService {
         }
 
         savedCmdClt.setTotalCommande(total);
-        savedCmdClt.setStatusCommande(StatusCommande.ENCOURS);
+        savedCmdClt.setStatus(status);
         savedCmdClt.setDateCommande(new Date());
 
         return CommandeDto.fromEntityToDto(savedCmdClt);
@@ -188,7 +188,7 @@ public class CommandeServiceImpl implements CommandeService {
         }
 
         savedCmdClt.setTotalCommande(total);
-        savedCmdClt.setStatusCommande(StatusCommande.ENCOURS);
+        savedCmdClt.setStatus(status);
         savedCmdClt.setDateCommande(new Date());
 
         return CommandeDto.fromEntityToDto(savedCmdClt);
@@ -212,13 +212,11 @@ public class CommandeServiceImpl implements CommandeService {
         }
 
         CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
-        commandeDtoResult.setReference(commandeDto.getReference());
         commandeDtoResult.setNumeroCommande(commandeDto.getNumeroCommande());
         commandeDtoResult.setTotal(commandeDto.getTotal());
         commandeDtoResult.setLocalDateTime(commandeDto.getLocalDateTime());
         commandeDtoResult.setLcomms(commandeDto.getLcomms());
-        commandeDtoResult.setStatusCommande(commandeDto.getStatusCommande());
-        //    commandeDtoResult.setClientDto(commandeDto.getClientDto());
+        commandeDtoResult.setStatus(commandeDto.getStatus());
 
         return CommandeDto.fromEntityToDto(
                 commandeRepository.save(
@@ -228,13 +226,13 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
-    public CommandeDto updateStatusOfCommande(StatusCommande statusCommande, String id) {
+    public CommandeDto updateStatusOfCommande(String status, String id) {
 
         Optional<Commande> commandeOptional = commandeRepository.findById(Long.valueOf(id));
 
         CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
 
-        commandeDtoResult.setStatusCommande(statusCommande);
+        commandeDtoResult.setStatus(status);
 
         return CommandeDto.fromEntityToDto(
                 commandeRepository.save(
@@ -320,12 +318,6 @@ public class CommandeServiceImpl implements CommandeService {
                 .stream()
                 .collect(Collectors.toList());
     }
-
-   /* @Override
-    public List<CommandeDto> findCommandeByCustomerId(Long userId) {
-        return null;
-
-    }*/
 
     @Override
     public List<?> countNumberTotalOfCommandeByMonth() {

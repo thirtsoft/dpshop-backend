@@ -46,9 +46,8 @@ public class CommandeServiceTest {
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.PAYEE)
+                .status("PAYEE")
                 //          .clientDto(clientDto)
                 //        .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
@@ -61,7 +60,7 @@ public class CommandeServiceTest {
         assertThat(commandeDto).isNotNull();
         //    assertThat(commandeDtoSavedResult).isEqualTo(commandeDto);
         assertThat(commandeDtoSavedResult.getId()).isEqualTo(commander.getId());
-        assertThat(commandeDtoSavedResult.getReference()).isEqualTo(commander.getReference());
+        assertThat(commandeDtoSavedResult.getNumeroCommande()).isEqualTo(commander.getNumeroCommande());
         assertThat(commandeDtoSavedResult.getNumeroCommande()).isEqualTo(commander.getNumeroCommande());
     }
 
@@ -80,9 +79,8 @@ public class CommandeServiceTest {
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("Com")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.PAYEE)
+                .status("ENCOURS")
                 //            .clientDto(clientDto)
                 //        .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();
@@ -112,9 +110,8 @@ public class CommandeServiceTest {
                 .build();
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("Com")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.PAYEE)
+                .status("PAYEE")
                 //           .clientDto(clientDto)
                 //        .utilisateurPOSTDto(utilisateurPOSTDto)
                 .build();

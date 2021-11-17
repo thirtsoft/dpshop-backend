@@ -41,14 +41,14 @@ public interface LigneCommandeApi {
     })
     List<LigneCommandeDto> getArticlesGroupByProductIdOrderByCreatedDateDesc();
 
-    @GetMapping(value = APP_ROOT + "/lignecommandes/searchAllLigneCommandesByCommandeId", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/lignecommandes/searchAllLigneCommandesByCommandeId/{comId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des LigneCommandes  par commande ID",
             notes = "Cette méthode permet de chercher et renvoyer la liste des LigneCommandes par  commande ID",
             responseContainer = "List<LigneCommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des LigneCommandes  par commande ID / une liste vide")
     })
-    ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandesByCommandeId(Long comId);
+    ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandesByCommandeId(@PathVariable("comId") Long comId);
 
     @GetMapping(value = APP_ROOT + "/lignecommandes/searchTopLigneCommandesOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des 200 dernières LigneCommandes  par ordre décroissant",

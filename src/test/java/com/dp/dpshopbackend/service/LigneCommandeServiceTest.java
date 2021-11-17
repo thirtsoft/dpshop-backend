@@ -35,9 +35,8 @@ public class LigneCommandeServiceTest {
     public void CreateLigneCommandeTest() {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.PAYEE)
+                .status("PAYEE")
                 .build();
         ArticleDto articleDto = ArticleDto.builder()
                 .id(1L)
@@ -68,9 +67,8 @@ public class LigneCommandeServiceTest {
     public void findAllTest() {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.PAYEE)
+                .status("PAYEE")
                 .build();
         ArticleDto articleDto = ArticleDto.builder()
                 .id(1L)
@@ -99,9 +97,8 @@ public class LigneCommandeServiceTest {
     public void findByIdTest() {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
-                .reference("CLT")
                 .numeroCommande(120L)
-                .statusCommande(StatusCommande.PAYEE)
+                .status("PAYEE")
                 .build();
         ArticleDto articleDto = ArticleDto.builder()
                 .id(1L)

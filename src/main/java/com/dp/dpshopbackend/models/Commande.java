@@ -23,9 +23,6 @@ public class Commande implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reference", length = 70)
-    private String reference;
-
     @Column(name = "numeroCommande", length = 70)
     private Long numeroCommande;
 
@@ -38,15 +35,18 @@ public class Commande implements Serializable {
     @Column(name = "localDateTime", length = 100)
     private LocalDateTime localDateTime;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss", timezone = "GMT")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy", timezone = "GMT")
     private Date dateCommande;
 
     @Column(name = "created_date")
     private Date createdDate;
 
-    @Enumerated(EnumType.STRING)
+   /* @Enumerated(EnumType.STRING)
     @Column(length = 100)
-    private StatusCommande statusCommande;
+    private StatusCommande statusCommande;*/
+
+    @Column(name = "status")
+    private String status;
 
     @Column(name = "session_id")
     private String sessionId;

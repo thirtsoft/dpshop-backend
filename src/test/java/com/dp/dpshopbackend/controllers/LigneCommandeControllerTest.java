@@ -76,7 +76,6 @@ public class LigneCommandeControllerTest {
         articleDto.setReference("prod");
         articleDto.setDesignation("prod1");
         commandeDto = new CommandeDto();
-        commandeDto.setReference("reCom");
         commandeDto.setNumeroCommande(120L);
         ligneCommandeDto = new LigneCommandeDto(1L, 10L, 12, 12500, 1L, "Product-1", commandeDto, articleDto);
 

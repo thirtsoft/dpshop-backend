@@ -61,7 +61,6 @@ public class AddressLivraisonControllerTest {
     @Before
     public void setup() {
         commandeDto = new CommandeDto();
-        commandeDto.setReference("refCom");
         commandeDto.setNumeroCommande(120L);
         addressLivraisonDto = new AddressLivraisonDto();
         addressLivraisonDto.setReference("aaa");
