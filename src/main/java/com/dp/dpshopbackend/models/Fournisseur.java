@@ -42,9 +42,26 @@ public class Fournisseur implements Serializable {
     @Column(name = "paysFournisseur", length = 100)
     private String country;
 
+    private String subject;
+
+    private String message;
+
     @ManyToOne
     @JoinColumn(name = "artId")
     private Article article;
 
 
+    public Fournisseur(Long id, String reference, String firstName, String lastName, String address, String email, String telephoneFournisseur,
+                       String city, String country, Article article) {
+        this.id = id;
+        this.reference = reference;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.telephoneFournisseur = telephoneFournisseur;
+        this.city = city;
+        this.country = country;
+        this.article = article;
+    }
 }

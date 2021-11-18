@@ -30,7 +30,27 @@ public class FournisseurDto {
 
     private String country;
 
+    private String subject;
+
+    private String message;
+
     private ArticleDto articleDto;
+
+    public FournisseurDto(Long id, String reference, String firstName, String lastName,
+                          String address, String email, String telephoneFournisseur,
+                          String city, String country,
+                         ArticleDto articleDto) {
+        this.id = id;
+        this.reference = reference;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.address = address;
+        this.email = email;
+        this.telephoneFournisseur = telephoneFournisseur;
+        this.city = city;
+        this.country = country;
+        this.articleDto = articleDto;
+    }
 
     public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
         if (fournisseur == null) {
@@ -47,6 +67,8 @@ public class FournisseurDto {
                 .email(fournisseur.getEmail())
                 .city(fournisseur.getCity())
                 .country(fournisseur.getCountry())
+                .subject(fournisseur.getSubject())
+                .message(fournisseur.getMessage())
                 .articleDto(ArticleDto.fromEntityToDto(fournisseur.getArticle()))
                 .build();
     }
@@ -66,6 +88,8 @@ public class FournisseurDto {
         fournisseur.setEmail(fournisseurDto.getEmail());
         fournisseur.setCity(fournisseurDto.getCity());
         fournisseur.setCountry(fournisseurDto.getCountry());
+        fournisseur.setSubject(fournisseurDto.getSubject());
+        fournisseur.setMessage(fournisseurDto.getMessage());
         fournisseur.setArticle(ArticleDto.fromDtoToEntity(fournisseurDto.getArticleDto()));
 
         return fournisseur;

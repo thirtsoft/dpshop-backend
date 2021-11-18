@@ -96,10 +96,10 @@ public class DpshopBackendApplication implements CommandLineRunner {
         Article p19 = articleRepository.save(new Article(19L, "prod19", "product-19", 150, 10000.0, 1800.0, true, false, "prod1", "photo9.jpg", sc3));
         Article p20 = articleRepository.save(new Article(20L, "prod20", "product-20", 150, 12000.0, 1800.0, false, false, "prod1", "photo10.jpg", sc4));
 
-        Fournisseur f1 = fournisseurRepository.save(new Fournisseur((long) 1, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", p1));
-        Fournisseur f2 = fournisseurRepository.save(new Fournisseur((long) 2, "f2", "f2", "f2", "f2", "f2", "f2", "f2", "f2", p2));
-        Fournisseur f3 = fournisseurRepository.save(new Fournisseur((long) 3, "f3", "f3", "f3", "f3", "f3", "f3", "f3", "f3", p2));
-        Fournisseur f4 = fournisseurRepository.save(new Fournisseur((long) 4, "f4", "f4", "f4", "f4", "f4", "f4", "f4", "f4", p1));
+        Fournisseur f1 = fournisseurRepository.save(new Fournisseur(1L, "f1", "f1", "f1", "f1", "masterou@gmail.fr", "f1", "f1", "f1", p1));
+        Fournisseur f2 = fournisseurRepository.save(new Fournisseur(2L, "f2", "f2", "f2", "f2", "thirtsoft@gmail.com", "f2", "f2", "f2", p2));
+        Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "m.diallo233@unig-zig.sn", "f3", "f3", "f3", p2));
+        Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "thirtsoft@gmail.com", "f4", "f4", "f4", p1));
 
       /*  Client cl1 = clientRepository.save(new Client("cl1", "cl1", "cl1", "779440310" ));
         Client cl2 = clientRepository.save(new Client("cl2", "cl2", "cl2", "778102567" ));

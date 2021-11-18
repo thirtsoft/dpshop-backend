@@ -155,6 +155,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/notifications/searchTop3RatingOrderByCreatedDateDesc").permitAll()
 
                 .antMatchers("/**/addresslivraisons/all").permitAll()
+
+                .antMatchers("/**/emails/sendEmail").permitAll()
+                .antMatchers("/**/emails/sendMail").permitAll()
+
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
