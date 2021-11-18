@@ -116,6 +116,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/commandes/searchAllComandesOrderByIdDesc").permitAll()
                 .antMatchers("/**/commandes/findListOrderByStatuePending").permitAll()
+                .antMatchers("/**/commandes/findListOrderByStatuePayed").permitAll()
 
                 .antMatchers("/**/commandes/searchCommandeByUserIdOrderByIdDesc/*").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByBillingAddressIdDesc/*").permitAll()

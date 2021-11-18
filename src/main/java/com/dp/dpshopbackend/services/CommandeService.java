@@ -27,6 +27,8 @@ public interface CommandeService {
 
     List<CommandeDto> findListOrderByStatusPending();
 
+    List<CommandeDto> findListOrderByStatusPayed();
+
     List<CommandeDto> findListOrderByUserId(Long userId);
 
     BigDecimal countNumberOfCommande();

@@ -278,6 +278,13 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
+    public List<CommandeDto> findListOrderByStatusPayed() {
+        return commandeRepository.findListOrderByStatusPayed().stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public List<CommandeDto> findListOrderByUserId(Long userId) {
         return null;
     }

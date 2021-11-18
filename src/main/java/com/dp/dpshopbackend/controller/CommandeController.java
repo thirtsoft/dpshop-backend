@@ -123,6 +123,12 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
+    public ResponseEntity<List<CommandeDto>> getListOrderByStatusPayed() {
+        List<CommandeDto> commandeDtoList = commandeService.findListOrderByStatusPayed();
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public ResponseEntity<List<CommandeDto>> findListOrderByUserId(Long userId) {
         List<CommandeDto> commandeDtoList = commandeService.findListOrderByUserId(userId);
         return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);

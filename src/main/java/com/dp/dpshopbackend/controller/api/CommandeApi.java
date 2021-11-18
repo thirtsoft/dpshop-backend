@@ -1,12 +1,10 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.CommandeDto;
-import com.dp.dpshopbackend.enumeration.StatusCommande;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -149,6 +147,14 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La liste des Commandes / une liste vide")
     })
     ResponseEntity<List<CommandeDto>> getListOrderByStatusPending();
+
+    @GetMapping(value = APP_ROOT + "/commandes/findListOrderByStatuePayed", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Commandes payees",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes payees", responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Commandes payees / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> getListOrderByStatusPayed();
 
     @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",

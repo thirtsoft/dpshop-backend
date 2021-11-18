@@ -42,6 +42,9 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select c from Commande c where c.status = 'ENCOURS' order by id Desc ")
     List<Commande> findListOrderByStatusPending();
 
+    @Query("select c from Commande c where c.status = 'PAYEE' order by id Desc ")
+    List<Commande> findListOrderByStatusPayed();
+
     List<Commande> findByOrderByIdDesc();
 
     @Query("select EXTRACT(day from(c.dateCommande)), count(c) from Commande c group by EXTRACT(day from(c.dateCommande))")
