@@ -14,11 +14,16 @@ public class EmailDto {
 
     private Long id;
 
+    private String name;
+
+    private String email;
+
     private String recever;
 
     private String subject;
 
     private String message;
+
 
     private FournisseurDto fournisseurDto;
 
@@ -29,6 +34,8 @@ public class EmailDto {
 
         return EmailDto.builder()
                 .id(email.getId())
+                .name(email.getName())
+                .email(email.getEmail())
                 .recever(email.getRecever())
                 .subject(email.getSubject())
                 .message(email.getMessage())
@@ -43,6 +50,8 @@ public class EmailDto {
 
         Email email = new Email();
         email.setId(emailDto.getId());
+        email.setName(emailDto.getName());
+        email.setEmail(emailDto.getEmail());
         email.setRecever(emailDto.getRecever());
         email.setSubject(emailDto.getSubject());
         email.setMessage(emailDto.getMessage());

@@ -1,9 +1,9 @@
 package com.dp.dpshopbackend.services.impl;
 
-import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.EmailDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.Email;
 import com.dp.dpshopbackend.models.EmailMessage;
 import com.dp.dpshopbackend.models.Mail;
 import com.dp.dpshopbackend.repository.EmailMessageRepository;
@@ -19,8 +19,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -106,6 +108,31 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    public void sendEmailToManager(EmailDto emailDto) throws MailException {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nom: " + emailDto.getName()).append(System.lineSeparator());
+        sb.append("\n Message: " + emailDto.getMessage());
+
+        SimpleMailMessage mail = new SimpleMailMessage();
+
+    //    mail.setTo("thirdiallo@gmail.com");
+        mail.setTo(emailDto.getEmail());
+    //    mail.setFrom(emailDto.getEmail());
+        mail.setFrom("thirdiallo@gmail.com");
+        mail.setSubject(emailDto.getSubject());
+        mail.setText(sb.toString());
+
+        javaMailSender.send(mail);
+
+        EmailDto.fromEntityToDto(
+                emailRepository.save(
+                        EmailDto.fromDtoToEntity(emailDto)
+                )
+        );
+    }
+
+    @Override
     public void sendSimpleMessage(Mail mail) {
 
         SimpleMailMessage message = new SimpleMailMessage();
@@ -121,6 +148,21 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
+    public EmailDto findById(Long id) {
+        if (id == null) {
+            log.error("Country Id is null");
+            return null;
+        }
+
+        Optional<Email> optionalEmail = emailRepository.findById(id);
+
+        return Optional.of(EmailDto.fromEntityToDto(optionalEmail.get())).orElseThrow(() ->
+                new ResourceNotFoundException(
+                        "Aucnun Country avec l'Id = " + id + "n'a été trouvé")
+        );
+    }
+
+   /* @Override
     public Mail findById(Long id) {
         if (id == null) {
             log.error("AddressLivraison Id is null");
@@ -133,16 +175,25 @@ public class EmailServiceImpl implements EmailService {
                 new ResourceNotFoundException(
                         "Aucnun Mail avec l'Id = " + id + "n'a été trouvé")
         );
+    }*/
+
+    @Override
+    public List<EmailDto> findAll() {
+        return emailRepository.findAll().stream()
+                .map(EmailDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Mail> findAll() {
-        return mailRepository.findAll();
+    public List<EmailDto> findByOrderByIdDesc() {
+        return emailRepository.findByOrderByIdDesc().stream()
+                .map(EmailDto::fromEntityToDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public List<Mail> findByOrderByIdDesc() {
-        return mailRepository.findByOrderByIdDesc();
+    public BigDecimal countNumberOfEmail() {
+        return emailRepository.countNumberOfEmail();
     }
 
     @Override

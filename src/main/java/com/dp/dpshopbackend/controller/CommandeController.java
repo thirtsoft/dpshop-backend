@@ -129,14 +129,8 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
-    public ResponseEntity<List<CommandeDto>> findListOrderByUserId(Long userId) {
-        List<CommandeDto> commandeDtoList = commandeService.findListOrderByUserId(userId);
-        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity<List<CommandeDto>> getCommandesByUserOrderByIdDesc(Long id) {
-        List<CommandeDto> commandeDtoList = commandeService.findListOrderByUserId(id);
+        List<CommandeDto> commandeDtoList = commandeService.findCommandesByUserOrderByIdDesc(id);
         return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
     }
 
@@ -174,24 +168,10 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
-    public Page<CommandeDto> getListCommandeByCustomerByPageables(Long clientId, int page, int size) {
-        final Pageable pageable = PageRequest.of(page, size);
-        //    return commandeService.findCommandeByCustomerPageables(clientId, pageable);
-        return null;
-    }
-
-    @Override
-    public Page<CommandeDto> getListCommandeByUtilisateurByPageables(Long userId, int page, int size) {
-        final Pageable pageable = PageRequest.of(page, size);
-        return commandeService.findCommandeByUtilisateurPageables(userId, pageable);
-    }
-
-    @Override
     public Page<CommandeDto> getCommandesByUtilisateurIdByPageables(Long userId, int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
         return commandeService.findCommandeByUtilisateurPageables(userId, pageable);
     }
-
 
     @Override
     public void delete(Long id) {

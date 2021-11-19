@@ -1,8 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
-import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
-import com.dp.dpshopbackend.dto.ScategoryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -61,7 +59,7 @@ public interface FournisseurApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<FournisseurDto> > getAllFournisseursOrderByIdDesc();
+    ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc();
 
 
     @GetMapping(value = APP_ROOT + "/fournisseurs/countNumberOfFournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)

@@ -11,13 +11,17 @@ public class Email extends AbstractEntity {
      */
     private static final long serialVersionUID = 1L;
 
-    private static final String name = "Librairie Al-AMINE";
+    //  private static final String name = "Librairie Al-AMINE";
 
     private static final String from = "thirdiallo@gmail.com";
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private String name;
+
+    private String email;
 
     private String recever;
 
@@ -27,20 +31,6 @@ public class Email extends AbstractEntity {
 
     @ManyToOne
     private Fournisseur fournisseur;
-
-    public Email(String recever, String subject, String message) {
-        this.recever = this.fournisseur.getEmail();
-        this.subject = subject;
-        this.message = message;
-    }
-
-    public Email() {
-
-    }
-
-    public String getRecever() {
-        return recever;
-    }
 
     @Override
     public Long getId() {
@@ -52,25 +42,28 @@ public class Email extends AbstractEntity {
         this.id = id;
     }
 
-    public void setRecever(String recever) {
-        this.recever = recever;
-    }
-
-    public Fournisseur getFournisseur() {
-        return fournisseur;
-    }
-
-    public void setFournisseur(Fournisseur fournisseur) {
-        this.fournisseur = fournisseur;
-    }
-
     public String getName() {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
 
-    public String getFrom() {
-        return from;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getRecever() {
+        return recever;
+    }
+
+    public void setRecever(String recever) {
+        this.recever = recever;
     }
 
     public String getSubject() {
@@ -89,13 +82,11 @@ public class Email extends AbstractEntity {
         this.message = message;
     }
 
-    @Override
-    public String toString() {
-        return "Email{" +
-                "recever='" + recever + '\'' +
-                ", subject='" + subject + '\'' +
-                ", message='" + message + '\'' +
-                '}';
+    public Fournisseur getFournisseur() {
+        return fournisseur;
     }
 
+    public void setFournisseur(Fournisseur fournisseur) {
+        this.fournisseur = fournisseur;
+    }
 }

@@ -156,13 +156,13 @@ public interface CommandeApi {
     })
     ResponseEntity<List<CommandeDto>> getListOrderByStatusPayed();
 
-    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
+   /* @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUser/{userId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Commandes par user", responseContainer = "List<CommandeDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Commandes par user / une liste vide")
     })
-    ResponseEntity<List<CommandeDto>> findListOrderByUserId(@PathVariable(name = "userId") Long userId);
+    ResponseEntity<List<CommandeDto>> findListOrderByUserId(@PathVariable(name = "userId") Long userId);*/
 
     @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUserIdOrderByIdDesc/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commandes par user",
@@ -220,24 +220,6 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La liste des sommes des Commandes par années / une liste vide")
     })
     List<?> getSumTotalOfOrdersByYears();
-
-    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByCustomerByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Commande par client",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<CommandeDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
-    })
-    Page<CommandeDto> getListCommandeByCustomerByPageables(@RequestParam("clientId") Long clientId, @RequestParam(name = "page") int page,
-                                                           @RequestParam(name = "size") int size);
-
-    @GetMapping(value = APP_ROOT + "/commandes/searchCommandeByUtilisateurByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Commande par client",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Commande par Client par pages", responseContainer = "Page<CommandeDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Commande par Client par pages / une liste vide")
-    })
-    Page<CommandeDto> getListCommandeByUtilisateurByPageables(@RequestParam("userId") Long userId, @RequestParam(name = "page") int page,
-                                                              @RequestParam(name = "size") int size);
 
     @GetMapping(value = APP_ROOT + "/commandes/searchCommandesByUtilisateurIdByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Commande par client",

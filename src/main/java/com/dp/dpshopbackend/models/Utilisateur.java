@@ -5,9 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table(name = "utilisateur", uniqueConstraints = {
@@ -47,9 +45,10 @@ public class Utilisateur implements UserDetails, Serializable {
     @Column(name = "mobileLivraison", length = 30)
     private String mobileLivraison;
 
-
     @Column(name = "activated")
     private boolean activated = false;
+
+    private String photo = "avatar.jpg";
 
     @Column(name = "accountVerified")
     private boolean accountVerified;
@@ -64,18 +63,10 @@ public class Utilisateur implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    /* @JsonIgnore
-     @OneToMany(mappedBy = "utilisateur",
-             fetch = FetchType.LAZY)
-     private List<Commande> commandeList;
- */
 
-   /* @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
-    private List<Commande> commandeList = new ArrayList<>();*/
+    @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    private List<Commande> commandeList = new ArrayList<>();
 
-   /* @OneToOne
-    @PrimaryKeyJoinColumn
-    private Client client;*/
 
     public Utilisateur() {
     }
@@ -176,6 +167,22 @@ public class Utilisateur implements UserDetails, Serializable {
 
     public void setActivated(boolean activated) {
         this.activated = activated;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
+
+    public List<Commande> getCommandeList() {
+        return commandeList;
+    }
+
+    public void setCommandeList(List<Commande> commandeList) {
+        this.commandeList = commandeList;
     }
 
     @Override

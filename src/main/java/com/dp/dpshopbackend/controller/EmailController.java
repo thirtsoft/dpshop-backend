@@ -11,6 +11,8 @@ import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin
 public class EmailController implements EmailApi {
@@ -41,5 +43,32 @@ public class EmailController implements EmailApi {
         } catch (MailException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @Override
+    public ResponseEntity<EmailDto> sendEmailToManager(EmailDto emailDto) {
+        try {
+            emailService.sendEmailToManager(emailDto);
+            return new ResponseEntity<EmailDto>(emailDto, HttpStatus.OK);
+        } catch (MailException e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @Override
+    public ResponseEntity<EmailDto> findById(Long id) {
+        return ResponseEntity.ok(emailService.findById(id));
+    }
+
+    @Override
+    public ResponseEntity<List<EmailDto>> findAll() {
+        List<EmailDto> emailDtoList = emailService.findAll();
+        return new ResponseEntity<>(emailDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public ResponseEntity<List<EmailDto>> getAllClientsOrderByIdDesc() {
+        List<EmailDto> emailDtoList = emailService.findByOrderByIdDesc();
+        return new ResponseEntity<>(emailDtoList, HttpStatus.OK);
     }
 }

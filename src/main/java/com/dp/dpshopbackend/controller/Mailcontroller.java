@@ -29,20 +29,35 @@ public class Mailcontroller implements MailApi {
 
     @Override
     public ResponseEntity<Mail> findById(Long id) {
-        return new ResponseEntity<>(emailService.findById(id), HttpStatus.OK);
+        return null;
     }
 
     @Override
     public ResponseEntity<List<Mail>> findAll() {
-        List<Mail> mailList = emailService.findAll();
-        return new ResponseEntity<>(mailList, HttpStatus.OK);
+        return null;
     }
 
     @Override
     public ResponseEntity<List<Mail>> getAllMailsOrderByIdDesc() {
+        return null;
+    }
+
+   /* @Override
+    public ResponseEntity<Mail> findById(Long id) {
+        return new ResponseEntity<>(emailService.findById(id), HttpStatus.OK);
+    }*/
+
+   /* @Override
+    public ResponseEntity<List<Mail>> findAll() {
+        List<Mail> mailList = emailService.findAll();
+        return new ResponseEntity<>(mailList, HttpStatus.OK);
+    }*/
+
+    /*@Override
+    public ResponseEntity<List<Mail>> getAllMailsOrderByIdDesc() {
         List<Mail> mailList = emailService.findByOrderByIdDesc();
         return new ResponseEntity<>(mailList, HttpStatus.OK);
-    }
+    }*/
 
     @Override
     public void delete(Long id) {

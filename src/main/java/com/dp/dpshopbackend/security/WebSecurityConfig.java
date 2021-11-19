@@ -17,12 +17,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableWebSecurity
@@ -122,6 +119,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/searchCommandeByBillingAddressIdDesc/*").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByShippingAddressIdDesc/*").permitAll()
 
+                .antMatchers("/**/commandes/searchCommandesByUtilisateurIdByPageables/***").permitAll()
+
                 .antMatchers("/**/commandes/updateStatusOfCommande/*").permitAll()
 
 
@@ -156,8 +155,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/addresslivraisons/all").permitAll()
 
+                .antMatchers("/**/emails/all").permitAll()
+                .antMatchers("/**/emails/findById/*").permitAll()
+                .antMatchers("/**/emails/searchAllEmailssOrderByIdDesc").permitAll()
+
                 .antMatchers("/**/emails/sendEmail").permitAll()
                 .antMatchers("/**/emails/sendMail").permitAll()
+                .antMatchers("/**/emails/sendMailToManager").permitAll()
 
                 .anyRequest().authenticated()
                 .and()
