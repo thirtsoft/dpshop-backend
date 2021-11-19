@@ -1,6 +1,8 @@
 package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.AuthApi;
+import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
+import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.message.request.LoginForm;
@@ -14,6 +16,7 @@ import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.security.jwt.JwtsProvider;
 import com.dp.dpshopbackend.security.service.UserPrinciple;
 import com.dp.dpshopbackend.services.EmailService;
+import com.dp.dpshopbackend.services.HistoriqueLoginService;
 import com.dp.dpshopbackend.services.UtilisateurPostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,9 +31,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.security.Principal;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -60,6 +61,9 @@ public class AuthController implements AuthApi {
 
     @Autowired
     private EmailService emailService;
+
+    @Autowired
+    private HistoriqueLoginService historiqueLoginService;
 
     @Autowired
     public AuthController(UtilisateurPostService utilisateurPostService) {
@@ -100,6 +104,16 @@ public class AuthController implements AuthApi {
         List<String> roles = userPrinciple.getAuthorities().stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
+
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(userPrinciple.getId());
+        Utilisateur utilisateur = optionalUtilisateur.get();
+        UtilisateurDto utilisateurDto = UtilisateurDto.fromEntityToDto(utilisateur);
+        HistoriqueLoginDto historiqueLoginDto = new HistoriqueLoginDto();
+        historiqueLoginDto.setUtilisateurDto(utilisateurDto);
+        historiqueLoginDto.setAction("Connection");
+        historiqueLoginDto.setStatus("Valider");
+        historiqueLoginDto.setCreatedDate(new Date());
+        historiqueLoginService.saveHistoriqueLogin(historiqueLoginDto);
 
         return ResponseEntity.ok(new JwtsResponse(jwt,
                 userPrinciple.getId(),

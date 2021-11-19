@@ -29,6 +29,8 @@ public class UtilisateurDto {
 
     private String password;
 
+    private String photo = "avatar.jpg";
+
     private Set<RoleDto> roles = new HashSet<>();
 
     private List<CommandeDto> commandeDtoList = new ArrayList<>();
@@ -52,6 +54,7 @@ public class UtilisateurDto {
                 .mobile(utilisateur.getMobile())
                 .email(utilisateur.getEmail())
                 .password(utilisateur.getPassword())
+                .photo(utilisateur.getPhoto())
                 .build();
 
     }
@@ -68,6 +71,7 @@ public class UtilisateurDto {
         utilisateur.setMobile(utilisateurDto.getMobile());
         utilisateur.setEmail(utilisateurDto.getEmail());
         utilisateur.setPassword(utilisateurDto.getPassword());
+        utilisateur.setPhoto(utilisateurDto.getPhoto());
         utilisateur.setRoles(utilisateur.getRoles());
 
         return utilisateur;

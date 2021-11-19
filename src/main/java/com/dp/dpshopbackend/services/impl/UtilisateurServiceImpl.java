@@ -1,7 +1,9 @@
 package com.dp.dpshopbackend.services.impl;
 
+import com.dp.dpshopbackend.dto.StateDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.State;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.services.UtilisateurService;
@@ -19,10 +21,9 @@ import java.util.stream.Collectors;
 @Slf4j
 public class UtilisateurServiceImpl implements UtilisateurService {
 
-
-    @Autowired
     private final UtilisateurRepository utilisateurRepository;
 
+    @Autowired
     public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository) {
         this.utilisateurRepository = utilisateurRepository;
     }
@@ -35,6 +36,34 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                         UtilisateurDto.fromDtoToEntity(utilisateurDto)
                 )
         );
+    }
+
+    @Override
+    public UtilisateurDto update(Long id, UtilisateurDto utilisateurDto) {
+        if (!utilisateurRepository.existsById(id)) {
+            throw new ResourceNotFoundException("State not found");
+        }
+
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(id);
+
+        if (!optionalUtilisateur.isPresent()) {
+            throw new ResourceNotFoundException("State not found");
+        }
+
+        UtilisateurDto utilisateurDtoResult = UtilisateurDto.fromEntityToDto(optionalUtilisateur.get());
+
+        utilisateurDtoResult.setName(utilisateurDto.getName());
+        utilisateurDtoResult.setUsername(utilisateurDto.getUsername());
+        utilisateurDtoResult.setEmail(utilisateurDto.getEmail());
+        utilisateurDtoResult.setMobile(utilisateurDto.getMobile());
+        utilisateurDtoResult.setPassword(utilisateurDto.getPassword());
+
+        return UtilisateurDto.fromEntityToDto(
+                utilisateurRepository.save(
+                        UtilisateurDto.fromDtoToEntity(utilisateurDtoResult)
+                )
+        );
+
     }
 
     @Override
