@@ -17,9 +17,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+
+import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableWebSecurity
@@ -145,6 +148,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/states/all").permitAll()
                 .antMatchers("/**/states/searchStateByCountryCode/**").permitAll()
                 .antMatchers("/**/utilisateurs/all").permitAll()
+                .antMatchers("/**/utilisateurs/findById/{idUtilisateur}").permitAll()
+                .antMatchers("/**/utilisateurs/update/{idUser}").permitAll()
+                .antMatchers("/**/utilisateurs/avatar/{id}").permitAll()
+                .antMatchers("/**/utilisateurs/*").permitAll()
+                .antMatchers("/**/utilisateurs/updateCustomerProfileByUsername").permitAll()
                 .antMatchers("/**/clients/**").permitAll()
                 .antMatchers("/**/clients/countNumberOfClient").permitAll()
                 .antMatchers("/**/notifications/**").permitAll()

@@ -1,14 +1,13 @@
 package com.dp.dpshopbackend.services.impl;
 
-import com.dp.dpshopbackend.dto.StateDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
-import com.dp.dpshopbackend.models.State;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -22,6 +21,9 @@ import java.util.stream.Collectors;
 public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @Autowired
     public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository) {
@@ -56,7 +58,6 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         utilisateurDtoResult.setUsername(utilisateurDto.getUsername());
         utilisateurDtoResult.setEmail(utilisateurDto.getEmail());
         utilisateurDtoResult.setMobile(utilisateurDto.getMobile());
-        utilisateurDtoResult.setPassword(utilisateurDto.getPassword());
 
         return UtilisateurDto.fromEntityToDto(
                 utilisateurRepository.save(
@@ -95,6 +96,86 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                         "Aucnun Utilisateur avec l'Id = " + username + "n'a été trouvé")
         );
     }
+
+    @Override
+    public boolean updateUsernameOfUtilisateurByUsername(String username, String newUsername) {
+        Optional<Utilisateur> existsUser = utilisateurRepository.findByUsername(username);
+        Utilisateur user;
+        if (existsUser.isPresent()) {
+            user = existsUser.get();
+            user.setUsername(newUsername);
+            this.utilisateurRepository.save(user);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean updateUsernameOfUtilisateurByUserId(String id, String newUsername) {
+        Optional<Utilisateur> existsUser = utilisateurRepository.findById(Long.valueOf(id));
+        Utilisateur user;
+        if (existsUser.isPresent()) {
+            user = existsUser.get();
+            user.setUsername(newUsername);
+            this.utilisateurRepository.save(user);
+            return true;
+        }
+
+        return false;
+    }
+
+    @Override
+    public boolean updateCustomerPasswordByUsername(String username, String oldPass, String newPass) {
+        Optional<Utilisateur> existsUser = this.utilisateurRepository.findByUsername(username);
+        Utilisateur user;
+        if (existsUser.isPresent()) {
+            user = existsUser.get();
+
+            if (passwordEncoder.matches(oldPass, user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(newPass));
+                this.utilisateurRepository.save(user);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateCustomerPasswordByUserId(String id, String oldPass, String newPass) {
+        Optional<Utilisateur> existsUser = utilisateurRepository.findById(Long.valueOf(id));
+        Utilisateur user;
+        if (existsUser.isPresent()) {
+            user = existsUser.get();
+
+            if (passwordEncoder.matches(oldPass, user.getPassword())) {
+                user.setPassword(passwordEncoder.encode(newPass));
+                this.utilisateurRepository.save(user);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateCustomerProfileByUsername(String username, String name, String newUsername, String email, String mobile) {
+        Optional<Utilisateur> existsUser = this.utilisateurRepository.findByUsername(username);
+        Utilisateur user;
+        if (existsUser.isPresent()) {
+            user = existsUser.get();
+            user.setName(name);
+            user.setUsername(newUsername);
+            user.setEmail(email);
+            user.setMobile(mobile);
+
+            utilisateurRepository.save(user);
+
+            return true;
+
+        }
+        return false;
+    }
+
 
     @Override
     public List<UtilisateurDto> findByOrderByIdDesc() {

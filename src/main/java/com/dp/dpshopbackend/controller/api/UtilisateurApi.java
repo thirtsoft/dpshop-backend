@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -25,7 +26,7 @@ public interface UtilisateurApi {
 
     @GetMapping(value = APP_ROOT + "/utilisateurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Utilisateur",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Utilisateur", responseContainer = "List<Utilisateur>")
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Utilisateur", responseContainer = "List<UtilisateurDto>")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des HistoriqueLogin / une liste vide")
     })
@@ -51,7 +52,6 @@ public interface UtilisateurApi {
     })
     ResponseEntity<UtilisateurDto> getUtilisateurByUsername(@RequestParam(value = "username") String username);
 
-
     @GetMapping(value = APP_ROOT + "/utilisateurs/avatar/{id}")
     @ApiOperation(value = "Recupérer une photo par ID",
             notes = "Cette méthode permet de chercher et d'afficher la photo d'un Utilisateur par son ID"
@@ -68,7 +68,6 @@ public interface UtilisateurApi {
             notes = "Cette méthode permet d'enregistrer la photo d'un utilisateur dans un dossier externe utilisateur")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
-
     })
     void uploadUserPhoto(MultipartFile file, @PathVariable("id") Long id) throws IOException;
 
@@ -79,11 +78,61 @@ public interface UtilisateurApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'utilisateur a été été modifié"),
             @ApiResponse(code = 400, message = "Aucun utiisateur n'a été modifié")
-
     })
     ResponseEntity<UtilisateurDto> updateUtilisateur(@PathVariable(value = "idUser") Long idUser, @RequestBody UtilisateurDto utilisateur);
 
+    @PatchMapping(value = APP_ROOT + "/utilisateurs/updateUsernameOfUserByUsername")
+    @ApiOperation(value = "Modifier le username par son username",
+            notes = "Cette méthode permet de modifier le nom d'utilisateur d'un utilisateur par son username", response = UtilisateurDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nom d'utlisateur a été été modifié"),
+            @ApiResponse(code = 400, message = "Aucun username n'a été modifié")
+    })
+    ResponseEntity<Boolean> updateUsername(@RequestBody ObjectNode json);
+
+    @PatchMapping(value = APP_ROOT + "/utilisateurs/updateUsernameOfUserById")
+    @ApiOperation(value = "Modifier le username par son ID",
+            notes = "Cette méthode permet de modifier le nom d'utilisateur d'un utilisateur par son ID", response = UtilisateurDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nom d'utlisateur a été été modifié"),
+            @ApiResponse(code = 400, message = "Aucun username n'a été modifié")
+    })
+    ResponseEntity<Boolean> updateUsernameByUserId(@RequestBody ObjectNode json);
+
+    @PatchMapping(value = APP_ROOT + "/utilisateurs/updatePasswordByUsername")
+    @ApiOperation(value = "Modifier le mot de passe par son Username ",
+            notes = "Cette méthode permet de modifier le mot de passe d'un utilisateur par son Username", response = UtilisateurDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le mot de passe a été été modifié"),
+            @ApiResponse(code = 400, message = "Aucun mot de passe n'a été modifié avec ce username")
+    })
+    ResponseEntity<Boolean> updatePasswordByUsername(@RequestBody ObjectNode json);
+
+    @PatchMapping(value = APP_ROOT + "/utilisateurs/updatePasswordByUserId")
+    @ApiOperation(value = "Modifier le mot de passe par son ID ",
+            notes = "Cette méthode permet de modifier le mot de passe d'un utilisateur par son ID", response = UtilisateurDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le mot de passe a été été modifié"),
+            @ApiResponse(code = 400, message = "Aucun mot de passe n'a été modifié avec ce username")
+    })
+    ResponseEntity<Boolean> updatePasswordByUserId(@RequestBody ObjectNode json);
+
+    @PatchMapping(value = APP_ROOT + "/utilisateurs/updateCustomerProfileByUsername")
+    @ApiOperation(value = "Modifier le mot de passe par son username ",
+            notes = "Cette méthode permet de modifier le mot de passe d'un utilisateur par son username", response = UtilisateurDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le mot de passe a été été modifié"),
+            @ApiResponse(code = 400, message = "Aucun mot de passe n'a été modifié avec ce username")
+    })
+    ResponseEntity<Boolean> updateCustomerProfileByUsername(@RequestBody ObjectNode json);
 
     @DeleteMapping(value = APP_ROOT + "/utilisateurs/delete/{idUtilisateur}")
+    @ApiOperation(value = "Supprimer un utilisateur par son ID ",
+            notes = "Cette méthode permet de supprimer un utilisateur par son ID", response = UtilisateurDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le mot de passe a été été modifié"),
+            @ApiResponse(code = 400, message = "Aucun mot de passe n'a été modifié avec ce username")
+
+    })
     void delete(@PathVariable("idUtilisateur") Long id);
 }
