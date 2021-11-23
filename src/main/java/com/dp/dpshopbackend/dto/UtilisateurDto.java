@@ -33,7 +33,7 @@ public class UtilisateurDto {
 
     private Set<RoleDto> roles = new HashSet<>();
 
-    private List<CommandeDto> commandeDtoList = new ArrayList<>();
+  //  private List<CommandeDto> commandeDtoList = new ArrayList<>();
 
     public UtilisateurDto(String username, String email, String password) {
         this.username = username;

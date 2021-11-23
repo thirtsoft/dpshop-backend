@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -65,6 +66,7 @@ public class Utilisateur implements UserDetails, Serializable {
 
 
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Commande> commandeList = new ArrayList<>();
 
 

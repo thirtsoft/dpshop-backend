@@ -74,11 +74,11 @@ public class CommandeServiceImpl implements CommandeService {
             throw new IllegalArgumentException("Vous devez selectionner un client");
         }
 */
-        if (commandeDto.getLcomms() != null) {
+       /* if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
                 if (ligCmdClt.getArticleDto() != null) {
                     ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
-                    //    Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
+
                     if (articleDto == null) {
                         log.warn("L'article avec l'ID " + ligCmdClt.getArticleDto().getId() + " n'existe pas");
                     }
@@ -89,7 +89,7 @@ public class CommandeServiceImpl implements CommandeService {
                 }
 
             });
-        }
+        }*/
 
       /*  PurchaseDto purchaseDto = new PurchaseDto();
         commandeDto.setBillingAddressDto(purchaseDto.getBillingAddressDto());
@@ -97,11 +97,11 @@ public class CommandeServiceImpl implements CommandeService {
 
         Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
 
-        if (commandeDto.getLcomms() != null) {
+     /*   if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
                         LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligCmdClt);
                         ligneCommande.setCommande(savedCmdClt);
-                        //        ligneCommandeService.save(LigneCommandeDto.fromEntityToDto(ligneCommande));
+
                         ligneCommandeRepository.save(ligneCommande);
 
                         Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
@@ -111,14 +111,12 @@ public class CommandeServiceImpl implements CommandeService {
                         ligneCommande.setNumero(savedCmdClt.getNumeroCommande());
                         ligneCommande.setPrice(articleDto.get().getPrice());
 
-                        //             total += (ligCmdClt.getQuantity() * ligCmdClt.getPrice());
-
                         total += (ligneCommande.getQuantity() * ligneCommande.getPrice());
                     }
 
             );
 
-        }
+        }*/
 
         savedCmdClt.setTotalCommande(total);
         savedCmdClt.setStatus(status);
@@ -141,7 +139,7 @@ public class CommandeServiceImpl implements CommandeService {
             throw new IllegalArgumentException("Vous devez selectionner un client");
         }*/
 
-        if (commandeDto.getLcomms() != null) {
+       /* if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
                 if (ligCmdClt.getArticleDto() != null) {
                     ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
@@ -156,7 +154,7 @@ public class CommandeServiceImpl implements CommandeService {
                 }
 
             });
-        }
+        }*/
 
       /*  PurchaseDto purchaseDto = new PurchaseDto();
         commandeDto.setBillingAddressDto(purchaseDto.getBillingAddressDto());
@@ -164,7 +162,7 @@ public class CommandeServiceImpl implements CommandeService {
 
         Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
 
-        if (commandeDto.getLcomms() != null) {
+       /* if (commandeDto.getLcomms() != null) {
             commandeDto.getLcomms().forEach(ligCmdClt -> {
                         LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligCmdClt);
                         ligneCommande.setCommande(savedCmdClt);
@@ -178,14 +176,12 @@ public class CommandeServiceImpl implements CommandeService {
                         ligneCommande.setNumero(savedCmdClt.getNumeroCommande());
                         ligneCommande.setPrice(articleDto.get().getPrice());
 
-                        //             total += (ligCmdClt.getQuantity() * ligCmdClt.getPrice());
-
                         total += (ligneCommande.getQuantity() * ligneCommande.getPrice());
                     }
 
             );
 
-        }
+        }*/
 
         savedCmdClt.setTotalCommande(total);
         savedCmdClt.setStatus(status);

@@ -60,21 +60,16 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         CommandeDto commandeDto = purchaseDto.getCommandeDto();
 
-        // generated tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
-        //    commande.setOrderTrackingNumber(orderTrackingNumber);
         commandeDto.setOrderTrackingNumber(orderTrackingNumber);
 
 
-        // populate order with orderItems
-        List<LigneCommandeDto> ligneCommandeDtos = purchaseDto.getLigneCommandeListDtos();
-        ligneCommandeDtos.forEach(item -> commandeDto.add(item));
+      /*  List<LigneCommandeDto> ligneCommandeDtos = purchaseDto.getLigneCommandeListDtos();
+        ligneCommandeDtos.forEach(item -> commandeDto.add(item));*/
 
-        // populate order with shippingAddress and billingAddress
         commandeDto.setBillingAddressDto(purchaseDto.getBillingAddressDto());
         commandeDto.setShippingAddressDto(purchaseDto.getShippingAddressDto());
 
-        // populate custom with order
         ClientDto clientDto = purchaseDto.getClientDto();
 
         ClientDto.fromEntityToDto(
@@ -83,7 +78,6 @@ public class CheckoutServiceImpl implements CheckoutService {
                 )
         );
 
-        // return a response
         return new PurchaseResponse(orderTrackingNumber);
     }
 

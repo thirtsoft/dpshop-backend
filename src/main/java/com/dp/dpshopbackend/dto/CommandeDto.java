@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.dto;
 
 import com.dp.dpshopbackend.models.Commande;
+import com.dp.dpshopbackend.models.LigneCommande;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,7 +42,9 @@ public class CommandeDto {
 
     //  @JsonIgnore
     //   private List<LigneCommandeDto> lcomms;
-    private List<LigneCommandeDto> lcomms = new ArrayList<>();
+    //   private List<LigneCommandeDto> lcomms = new ArrayList<>();
+
+    private List<LigneCommande> lcomms = new ArrayList<>();
 
     public static CommandeDto fromEntityToDto(Commande commande) {
         if (commande == null) {
@@ -60,6 +63,7 @@ public class CommandeDto {
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(commande.getUtilisateur()))
                 .billingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getBillingAddress()))
                 .shippingAddressDto(AddressLivraisonDto.fromEntityToDto(commande.getShippingAddress()))
+                .lcomms(commande.getLcomms())
                 .build();
 
     }
@@ -79,13 +83,24 @@ public class CommandeDto {
         commande.setUtilisateur(UtilisateurDto.fromDtoToEntity(commandeDto.getUtilisateurDto()));
         commande.setBillingAddress(AddressLivraisonDto.fromDtoToEntity(commandeDto.getBillingAddressDto()));
         commande.setShippingAddress(AddressLivraisonDto.fromDtoToEntity(commandeDto.getShippingAddressDto()));
+        commande.setLcomms(commandeDto.getLcomms());
         commande.setLocalDateTime(commandeDto.getLocalDateTime());
         commande.setStatus(commandeDto.getStatus());
 
         return commande;
     }
 
-    public void add(LigneCommandeDto ligneCommandeDto) {
+  /*  public void add(LigneCommande ligneCommande) {
+        if (ligneCommande != null) {
+            if (lcomms == null) {
+                lcomms = new ArrayList<>();
+            }
+            lcomms.add(ligneCommande);
+            ligneCommande.setCommandeDto(this);
+        }
+    }*/
+
+    /*public void add(LigneCommandeDto ligneCommandeDto) {
         if (ligneCommandeDto != null) {
             if (lcomms == null) {
                 lcomms = new ArrayList<>();
@@ -93,6 +108,6 @@ public class CommandeDto {
             lcomms.add(ligneCommandeDto);
             ligneCommandeDto.setCommandeDto(this);
         }
-    }
+    }*/
 
 }

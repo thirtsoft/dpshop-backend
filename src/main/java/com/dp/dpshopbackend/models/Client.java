@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -40,10 +41,7 @@ public class Client implements Serializable {
 
     @Column(name = "mobile", length = 30)
     private String mobile;
-/*
-    @OneToMany(mappedBy = "client")
-    private List<Commande> commandeList;
-    */
+
 
   /*  @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "userId", referencedColumnName = "id")
@@ -51,6 +49,8 @@ public class Client implements Serializable {
 
 
     @OneToMany(mappedBy = "client", cascade = CascadeType.ALL)
+  //  @OneToMany(mappedBy = "client")
+    @JsonIgnore
     private List<Commande> commandeList = new ArrayList<>();
 
     public Client(String firstName, String lastName, String mobile,

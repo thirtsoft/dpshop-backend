@@ -13,7 +13,7 @@ import java.util.List;
 
 @Data
 @Builder
-@AllArgsConstructor
+//@AllArgsConstructor
 @NoArgsConstructor
 public class ClientDto {
 
@@ -27,7 +27,7 @@ public class ClientDto {
 
     private String mobile;
 
-    private List<CommandeDto> commandeDtoList = new ArrayList<>();
+  //  private List<CommandeDto> commandeDtoList = new ArrayList<>();
 
     public ClientDto(Long id, String firstName,
                      String lastName, String email, String mobile) {
@@ -38,7 +38,7 @@ public class ClientDto {
         this.mobile = mobile;
     }
 
-   public void add(CommandeDto commandeDto) {
+   /*public void add(CommandeDto commandeDto) {
         if (commandeDto != null) {
             if (commandeDtoList == null) {
                 commandeDtoList = new ArrayList<>();
@@ -46,7 +46,7 @@ public class ClientDto {
             commandeDtoList.add(commandeDto);
             commandeDto.setClientDto(this);
         }
-    }
+    }*/
 
     public static ClientDto fromEntityToDto(Client client) {
         if (client == null) {

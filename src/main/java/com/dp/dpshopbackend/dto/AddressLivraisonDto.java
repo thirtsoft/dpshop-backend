@@ -33,7 +33,7 @@ public class AddressLivraisonDto {
 
     //  private CommandeDto commandeDto;
 
-    private List<CommandeDto> commandeDtoList = new ArrayList<>();
+ //   private List<CommandeDto> commandeDtoList = new ArrayList<>();
 
     private StateDto stateDto;
 

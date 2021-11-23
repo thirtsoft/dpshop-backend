@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -45,6 +46,7 @@ public class AddressLivraison implements Serializable {
 
     @OneToOne
     @PrimaryKeyJoinColumn
+    @JsonIgnore
     private Commande commande;
 
     public AddressLivraison(Long id, String reference, String quartier,
