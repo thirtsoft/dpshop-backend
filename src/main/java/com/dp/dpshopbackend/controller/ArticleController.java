@@ -4,8 +4,6 @@ import com.dp.dpshopbackend.controller.api.ArticleApi;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.services.ArticleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -151,15 +149,13 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
-    public void uploadPhotoArticle(MultipartFile photoArticle, String id) throws IOException {
-        ArticleDto articleDto = articleService.findById(Long.valueOf(id));
-        articleDto.setPhoto(photoArticle.getOriginalFilename());
-        Files.write(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()), photoArticle.getBytes());
+    public void uploadPhotoArticle(MultipartFile file, Long id) throws IOException {
+        //    ArticleDto articleDto = articleService.findById(Long.valueOf(id));
+        ArticleDto articleDto = articleService.findById(id);
+        articleDto.setPhoto(file.getOriginalFilename());
+        Files.write(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()), file.getBytes());
 
         articleService.save(articleDto);
     }
-
-
-
 
 }

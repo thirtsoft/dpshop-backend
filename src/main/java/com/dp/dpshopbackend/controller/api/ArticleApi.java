@@ -185,7 +185,7 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
 
     })
-    void uploadPhotoArticle(MultipartFile photoArticle,
-                            @PathVariable("id") String id) throws IOException;
+    void uploadPhotoArticle(MultipartFile file,
+                            @PathVariable("id") Long id) throws IOException;
 
 }
