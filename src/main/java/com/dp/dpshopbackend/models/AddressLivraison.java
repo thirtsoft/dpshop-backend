@@ -22,8 +22,8 @@ public class AddressLivraison implements Serializable {
     @Column(name = "reference", length = 50)
     private String reference;
 
-    @Column(name = "quartier", length = 90)
-    private String quartier;
+    @Column(name = "zipcode", length = 90)
+    private String zipcode;
 
     @Column(name = "phone", length = 63)
     private String phone;
@@ -49,12 +49,12 @@ public class AddressLivraison implements Serializable {
     @JsonIgnore
     private Commande commande;
 
-    public AddressLivraison(Long id, String reference, String quartier,
+    public AddressLivraison(Long id, String reference, String zipcode,
                             String phone, String city, String rue, String country,
                             String state) {
         this.id = id;
         this.reference = reference;
-        this.quartier = quartier;
+        this.zipcode = zipcode;
         this.phone = phone;
         this.city = city;
         this.rue = rue;

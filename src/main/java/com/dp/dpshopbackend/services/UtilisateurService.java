@@ -1,12 +1,15 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.enumeration.RoleName;
 
 import java.util.List;
 
 public interface UtilisateurService {
 
     UtilisateurDto save(UtilisateurDto utilisateurDto);
+
+    void addRoleToUser(String username, RoleName roleName);
 
     UtilisateurDto update(Long id, UtilisateurDto utilisateurDto);
 

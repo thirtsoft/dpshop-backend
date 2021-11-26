@@ -3,12 +3,14 @@ package com.dp.dpshopbackend;
 import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.models.*;
 import com.dp.dpshopbackend.repository.*;
+import com.dp.dpshopbackend.services.UtilisateurService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,6 +45,10 @@ public class DpshopBackendApplication implements CommandLineRunner {
     private RoleRepository roleRepository;
     @Autowired
     private UtilisateurRepository utilisateurRepository;
+    @Autowired
+    private UtilisateurService utilisateurService;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 
     public static void main(String[] args) {
@@ -147,22 +153,23 @@ public class DpshopBackendApplication implements CommandLineRunner {
         user.setId(1L);
         user.setUsername("User");
         user.setName("User");
-        user.setPassword("user1234");
-    //    user.setRoles((Set<Role>) useRole);
+        user.setPassword(bCryptPasswordEncoder.encode("user1234"));
         Utilisateur manager = new Utilisateur();
         manager.setId(2L);
         manager.setUsername("Manager");
         manager.setName("Manager");
         manager.setPassword("manager1234");
- //       manager.setRoles((Set<Role>) managerRole);
         Utilisateur admin = new Utilisateur();
         admin.setId(3L);
         admin.setUsername("Admin");
         admin.setName("Admin");
-        admin.setPassword("admin1234");
- //       admin.setRoles((Set<Role>) adminRole);
+        admin.setPassword(bCryptPasswordEncoder.encode("admin1234"));
         utilisateurRepository.save(user);
         utilisateurRepository.save(manager);
         utilisateurRepository.save(admin);
+
+        utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
+        utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
+
     }
 }

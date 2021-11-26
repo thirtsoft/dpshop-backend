@@ -1,12 +1,16 @@
 package com.dp.dpshopbackend.services.impl;
 
 import com.dp.dpshopbackend.dto.UtilisateurDto;
+import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.Role;
 import com.dp.dpshopbackend.models.Utilisateur;
+import com.dp.dpshopbackend.repository.RoleRepository;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -22,12 +26,19 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     private final UtilisateurRepository utilisateurRepository;
 
+    private final RoleRepository roleRepository;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository) {
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository,
+                                  RoleRepository roleRepository) {
         this.utilisateurRepository = utilisateurRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
@@ -38,6 +49,15 @@ public class UtilisateurServiceImpl implements UtilisateurService {
                         UtilisateurDto.fromDtoToEntity(utilisateurDto)
                 )
         );
+    }
+
+    @Override
+    public void addRoleToUser(String username, RoleName roleName) {
+        Role role = roleRepository.findByName(roleName).get();
+        //    RoleDto roleDto = RoleDto.formEntityToDto(role);
+        Utilisateur utilisateur = utilisateurRepository.findByUsername(username).get();
+        //    UtilisateurDto utilisateurDto = UtilisateurDto.fromEntityToDto(utilisateur);
+        utilisateur.getRoles().add(role);
     }
 
     @Override

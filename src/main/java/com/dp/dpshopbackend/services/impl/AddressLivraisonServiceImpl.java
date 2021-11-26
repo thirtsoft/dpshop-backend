@@ -52,7 +52,7 @@ public class AddressLivraisonServiceImpl implements AddressLivraisonService {
         AddressLivraisonDto addressLivraisonDtoResult = AddressLivraisonDto.fromEntityToDto(addressLivraisonOptional.get());
         addressLivraisonDtoResult.setReference(addressLivraisonDto.getReference());
         addressLivraisonDtoResult.setPhone(addressLivraisonDto.getPhone());
-        addressLivraisonDtoResult.setQuartier(addressLivraisonDto.getQuartier());
+        addressLivraisonDtoResult.setZipcode(addressLivraisonDto.getZipcode());
         addressLivraisonDtoResult.setRue(addressLivraisonDto.getRue());
         addressLivraisonDtoResult.setCity(addressLivraisonDto.getCity());
         addressLivraisonDtoResult.setCountry(addressLivraisonDto.getCountry());

@@ -163,6 +163,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/notifications/searchTop3RatingOrderByCreatedDateDesc").permitAll()
 
                 .antMatchers("/**/addresslivraisons/all").permitAll()
+                .antMatchers("/**/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc").permitAll()
+
+                .antMatchers("/**/addresseclients/searchAllAddressClientsOrderByIdDesc").permitAll()
+
+
+
+
 
                 .antMatchers("/**/emails/all").permitAll()
                 .antMatchers("/**/emails/findById/*").permitAll()

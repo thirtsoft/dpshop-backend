@@ -19,7 +19,7 @@ public class AddressLivraisonDto {
 
     private String reference;
 
-    private String quartier;
+    private String zipcode;
 
     private String phone;
 
@@ -46,7 +46,7 @@ public class AddressLivraisonDto {
                 .id(addressLivraison.getId())
                 .reference(addressLivraison.getReference())
                 .phone(addressLivraison.getPhone())
-                .quartier(addressLivraison.getQuartier())
+                .zipcode(addressLivraison.getZipcode())
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
                 .state(addressLivraison.getState())
@@ -65,7 +65,7 @@ public class AddressLivraisonDto {
         addressLivraison.setId(addressClientDto.getId());
         addressLivraison.setReference(addressClientDto.getReference());
         addressLivraison.setPhone(addressClientDto.getPhone());
-        addressLivraison.setQuartier(addressClientDto.getQuartier());
+        addressLivraison.setZipcode(addressClientDto.getZipcode());
         addressLivraison.setCity(addressClientDto.getCity());
         addressLivraison.setState(addressClientDto.getState());
         addressLivraison.setCountry(addressClientDto.getCountry());
