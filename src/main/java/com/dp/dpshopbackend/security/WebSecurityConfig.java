@@ -27,8 +27,9 @@ import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
-        prePostEnabled = true
-)
+        securedEnabled = true,
+        jsr250Enabled = true,
+        prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -74,8 +75,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable().
-                authorizeRequests()
+        http.cors().and().csrf().disable()
+                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .authorizeRequests()
                 .antMatchers("/**/auth/signUp").permitAll()
                 .antMatchers("/**/auth/registerUser").permitAll()
                 .antMatchers("/**/auth/authenticated").permitAll()
@@ -135,7 +138,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/countries/all").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
-                .antMatchers("/**/fournisseurs/**").permitAll()
+           //     .antMatchers("/**/fournisseurs/**").permitAll()
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
 
                 .antMatchers("/**/lignecommandes/all").permitAll()
@@ -179,10 +182,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/emails/sendMail").permitAll()
                 .antMatchers("/**/emails/sendMailToManager").permitAll()
 
-                .anyRequest().authenticated()
-                .and()
-                .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+                .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }

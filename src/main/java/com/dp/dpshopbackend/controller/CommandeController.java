@@ -19,8 +19,8 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
 public class CommandeController implements CommandeApi {
 
     private final CommandeService commandeService;

@@ -22,8 +22,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
 public class UtilisateurController implements UtilisateurApi {
 
     private final UtilisateurService utilisateurService;

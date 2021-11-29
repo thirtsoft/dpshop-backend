@@ -21,8 +21,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
 public class NotificationController implements NotificationApi {
 
     private final NotificationService notificationService;

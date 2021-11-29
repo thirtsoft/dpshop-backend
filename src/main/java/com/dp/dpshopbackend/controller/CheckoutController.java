@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
 public class CheckoutController implements CheckoutApi {
 
     private final CheckoutService checkoutService;
