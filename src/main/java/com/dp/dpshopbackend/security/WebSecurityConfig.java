@@ -181,6 +181,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/emails/sendEmail").permitAll()
                 .antMatchers("/**/emails/sendMail").permitAll()
                 .antMatchers("/**/emails/sendMailToManager").permitAll()
+                .antMatchers("/**/historiqueLogins/searchAllHistoriqueLoginsOrderByIdDesc").permitAll()
 
                 .anyRequest().authenticated();
 
