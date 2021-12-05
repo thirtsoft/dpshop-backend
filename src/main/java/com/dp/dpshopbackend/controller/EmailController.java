@@ -38,10 +38,10 @@ public class EmailController implements EmailApi {
     }
 
     @Override
-    public ResponseEntity<EmailDto> sendMailToFournisseur(Long id, EmailDto emailDto) {
+    public ResponseEntity<EmailDto> sendMailToFournisseur(EmailDto emailDto) {
         try {
             emailDto.setCreateDate(new Date());
-            emailService.sendEmailToFournisseur(id, emailDto);
+            emailService.sendEmailToFournisseur(emailDto);
             return new ResponseEntity<>(emailDto, HttpStatus.OK);
         } catch (MailException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -49,10 +49,10 @@ public class EmailController implements EmailApi {
     }
 
     @Override
-    public ResponseEntity<EmailDto> sendMailToCustomer(Long id, EmailDto emailDto) {
+    public ResponseEntity<EmailDto> sendMailToCustomer(EmailDto emailDto) {
         try {
             emailDto.setCreateDate(new Date());
-            emailService.sendEmailToNewsletter(id, emailDto);
+            emailService.sendEmailToNewsletter(emailDto);
             return new ResponseEntity<>(emailDto, HttpStatus.OK);
         } catch (MailException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);

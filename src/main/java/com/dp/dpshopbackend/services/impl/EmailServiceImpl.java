@@ -75,18 +75,16 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmailToFournisseur(Long id, EmailDto emailDto) throws MailException {
-
-        FournisseurDto fournisseurDTOOptional = fournisseurService.findById(id);
+    public void sendEmailToFournisseur(EmailDto emailDto) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();
 
-        mail.setTo(fournisseurDTOOptional.getEmail());
+        mail.setTo(emailDto.getFournisseurDto().getEmail());
         mail.setFrom(EmailConstants.from);
         mail.setSubject(emailDto.getSubject());
         mail.setText(emailDto.getMessage());
 
-        emailDto.setFournisseurDto(fournisseurDTOOptional);
+        emailDto.setFournisseurDto(emailDto.getFournisseurDto());
         emailDto.setCreateDate(new Date());
 
         System.out.println(emailDto);
@@ -102,18 +100,16 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmailToNewsletter(Long id, EmailDto emailDto) throws MailException {
-
-        NewsletterDto newsletterDTOOptional = newsletterService.findById(id);
+    public void sendEmailToNewsletter(EmailDto emailDto) throws MailException {
 
         SimpleMailMessage mail = new SimpleMailMessage();
 
-        mail.setTo(newsletterDTOOptional.getCustomerEmail());
+        mail.setTo(emailDto.getNewsletterDto().getCustomerEmail());
         mail.setFrom(EmailConstants.from);
         mail.setSubject(emailDto.getSubject());
         mail.setText(emailDto.getMessage());
 
-        emailDto.setNewsletterDto(newsletterDTOOptional);
+        emailDto.setNewsletterDto(emailDto.getNewsletterDto());
         emailDto.setCreateDate(new Date());
 
         System.out.println(emailDto);

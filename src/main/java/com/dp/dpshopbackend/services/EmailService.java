@@ -10,9 +10,9 @@ public interface EmailService {
 
     void sendEmailToManager(EmailDto emailDto) throws MailException;
 
-    void sendEmailToFournisseur(Long id, EmailDto emailDto) throws MailException;
+    void sendEmailToFournisseur(EmailDto emailDto) throws MailException;
 
-    void sendEmailToNewsletter(Long id, EmailDto emailDto) throws MailException;
+    void sendEmailToNewsletter(EmailDto emailDto) throws MailException;
 
     void sendMailToAllNewsletters(EmailDto emailDto);
 

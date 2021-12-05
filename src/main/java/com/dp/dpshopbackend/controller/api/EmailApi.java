@@ -35,7 +35,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<EmailDto> sendMailToFournisseur(@RequestParam("id") Long id, @RequestBody EmailDto emailDto);
+    ResponseEntity<EmailDto> sendMailToFournisseur(@RequestBody EmailDto emailDto);
 
     @PostMapping(value = APP_ROOT + "/emails/sendToNewsletter")
     @ApiOperation(value = "Envoyer un email à un client",
@@ -45,7 +45,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<EmailDto> sendMailToCustomer(@RequestParam("id") Long id, @RequestBody EmailDto emailDto);
+    ResponseEntity<EmailDto> sendMailToCustomer(@RequestBody EmailDto emailDto);
 
     @PostMapping(value = APP_ROOT + "/emails/sendMailToAllCustomers")
     @ApiOperation(value = "Envoyer un email à plusieurs Clients",
