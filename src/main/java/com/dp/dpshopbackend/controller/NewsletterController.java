@@ -24,7 +24,7 @@ public class NewsletterController implements NewsletterApi {
 
     @Override
     public ResponseEntity<NewsletterDto> save(NewsletterDto newsletterDto) {
-        newsletterDto.setCode("NUMERO " + Math.random());
+        newsletterDto.setCode("ISNCRIPT" + Math.random()*100000);
         newsletterDto.setDateInscription(new Date());
         return ResponseEntity.ok(newsletterService.save(newsletterDto));
     }

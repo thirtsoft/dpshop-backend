@@ -20,10 +20,10 @@ public class Newsletter implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "code", length = 20)
+    @Column(name = "code", length = 90)
     private String code;
 
-    @Column(name = "customerEmail", length = 50)
+    @Column(name = "customerEmail", length = 90)
     private String customerEmail;
 
     @Column(name = "dateInscription", length = 50)

@@ -1,11 +1,12 @@
 package com.dp.dpshopbackend.models;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "email")
-public class Email extends AbstractEntity {
+public class Email implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +25,7 @@ public class Email extends AbstractEntity {
     @Lob
     private String message;
 
-    @Column(name = "dateEnvoie")
+    @Column(name = "createDate")
     private Date createDate;
 
     @ManyToOne
@@ -33,12 +34,10 @@ public class Email extends AbstractEntity {
     @ManyToOne
     private Newsletter newsletter;
 
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
