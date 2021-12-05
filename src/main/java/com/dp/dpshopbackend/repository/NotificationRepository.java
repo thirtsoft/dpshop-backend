@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.models.Mail;
 import com.dp.dpshopbackend.models.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

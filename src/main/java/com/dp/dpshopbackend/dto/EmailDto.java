@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,18 +16,19 @@ public class EmailDto {
 
     private Long id;
 
-    private String name;
+    private String customerName;
 
-    private String email;
-
-    private String recever;
+    private String recipient;
 
     private String subject;
 
     private String message;
 
+    private Date createDate;
 
     private FournisseurDto fournisseurDto;
+
+    private NewsletterDto newsletterDto;
 
     public static EmailDto fromEntityToDto(Email email) {
         if (email == null) {
@@ -34,12 +37,13 @@ public class EmailDto {
 
         return EmailDto.builder()
                 .id(email.getId())
-                .name(email.getName())
-                .email(email.getEmail())
-                .recever(email.getRecever())
+                .customerName(email.getCustomerName())
+                .recipient(email.getRecipient())
                 .subject(email.getSubject())
                 .message(email.getMessage())
+                .createDate(email.getCreateDate())
                 .fournisseurDto(FournisseurDto.fromEntityToDto(email.getFournisseur()))
+                .newsletterDto(NewsletterDto.fromEntityToDto(email.getNewsletter()))
                 .build();
     }
 
@@ -50,12 +54,13 @@ public class EmailDto {
 
         Email email = new Email();
         email.setId(emailDto.getId());
-        email.setName(emailDto.getName());
-        email.setEmail(emailDto.getEmail());
-        email.setRecever(emailDto.getRecever());
+        email.setCustomerName(emailDto.getCustomerName());
+        email.setRecipient(emailDto.getRecipient());
         email.setSubject(emailDto.getSubject());
         email.setMessage(emailDto.getMessage());
+        email.setCreateDate(emailDto.getCreateDate());
         email.setFournisseur(FournisseurDto.fromDtoToEntity(emailDto.getFournisseurDto()));
+        email.setNewsletter(NewsletterDto.fromDtoToEntity(emailDto.getNewsletterDto()));
 
         return email;
     }

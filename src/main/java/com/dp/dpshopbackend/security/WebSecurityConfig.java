@@ -180,8 +180,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/emails/searchAllEmailssOrderByIdDesc").permitAll()
 
                 .antMatchers("/**/emails/sendEmail").permitAll()
-                .antMatchers("/**/emails/sendMail").permitAll()
+                .antMatchers("/**/emails/sendToFournisseur").permitAll()
+                .antMatchers("/**/emails/sendToNewsletter").permitAll()
+                .antMatchers("/**/emails/sendMailToAllCustomers").permitAll()
                 .antMatchers("/**/emails/sendMailToManager").permitAll()
+                .antMatchers("/**/emails/findById/{idEmail}").permitAll()
+                .antMatchers("/**/emails/searchAllEmailsOrderByIdDesc").permitAll()
+                .antMatchers("/**/emails/countNumberOfEmail").permitAll()
+                .antMatchers("/**/emails/delete/{idEmail}").permitAll()
                 .antMatchers("/**/historiqueLogins/searchAllHistoriqueLoginsOrderByIdDesc").permitAll()
 
                 .anyRequest().authenticated();

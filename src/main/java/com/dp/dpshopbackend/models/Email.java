@@ -1,36 +1,37 @@
 package com.dp.dpshopbackend.models;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Table(name = "email")
 public class Email extends AbstractEntity {
 
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
-    //  private static final String name = "Librairie Al-AMINE";
-
-    private static final String from = "thirdiallo@gmail.com";
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    @Column(name = "customerName")
+    private String customerName;
 
-    private String email;
+    @Column(name = "recipient")
+    private String recipient;
 
-    private String recever;
-
+    @Column(name = "subject")
     private String subject;
 
+    @Column(name = "message")
+    @Lob
     private String message;
+
+    @Column(name = "dateEnvoie")
+    private Date createDate;
 
     @ManyToOne
     private Fournisseur fournisseur;
+
+    @ManyToOne
+    private Newsletter newsletter;
 
     @Override
     public Long getId() {
@@ -42,28 +43,20 @@ public class Email extends AbstractEntity {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getCustomerName() {
+        return customerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
-    public String getEmail() {
-        return email;
+    public String getRecipient() {
+        return recipient;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getRecever() {
-        return recever;
-    }
-
-    public void setRecever(String recever) {
-        this.recever = recever;
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
     }
 
     public String getSubject() {
@@ -82,11 +75,27 @@ public class Email extends AbstractEntity {
         this.message = message;
     }
 
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
     public Fournisseur getFournisseur() {
         return fournisseur;
     }
 
     public void setFournisseur(Fournisseur fournisseur) {
         this.fournisseur = fournisseur;
+    }
+
+    public Newsletter getNewsletter() {
+        return newsletter;
+    }
+
+    public void setNewsletter(Newsletter newsletter) {
+        this.newsletter = newsletter;
     }
 }

@@ -1,7 +1,6 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.FournisseurDto;
-import com.dp.dpshopbackend.models.Mail;
 
 import java.math.BigDecimal;
 import java.util.List;

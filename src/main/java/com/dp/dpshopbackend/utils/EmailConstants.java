@@ -2,7 +2,9 @@ package com.dp.dpshopbackend.utils;
 
 public interface EmailConstants {
 
-    public static String name = "Soul-Business";
+    String managerName = "Soul-Business";
 
-    public static String from = "thirdiallo@gmail.com";
+    String from = "bigsoul2018@gmail.com";
+
+    String to = "bigsoul2018@gmail.com";
 }
