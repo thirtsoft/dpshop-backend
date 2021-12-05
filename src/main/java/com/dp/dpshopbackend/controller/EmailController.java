@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -28,6 +29,7 @@ public class EmailController implements EmailApi {
     @Override
     public ResponseEntity<EmailDto> sendEmail(EmailDto emailDto) {
         try {
+            emailDto.setCreateDate(new Date());
             emailService.sendEmailToManager(emailDto);
             return new ResponseEntity<>(emailDto, HttpStatus.OK);
         } catch (MailException e) {
@@ -38,6 +40,7 @@ public class EmailController implements EmailApi {
     @Override
     public ResponseEntity<EmailDto> sendMailToFournisseur(Long id, EmailDto emailDto) {
         try {
+            emailDto.setCreateDate(new Date());
             emailService.sendEmailToFournisseur(id, emailDto);
             return new ResponseEntity<>(emailDto, HttpStatus.OK);
         } catch (MailException e) {
@@ -48,6 +51,7 @@ public class EmailController implements EmailApi {
     @Override
     public ResponseEntity<EmailDto> sendMailToCustomer(Long id, EmailDto emailDto) {
         try {
+            emailDto.setCreateDate(new Date());
             emailService.sendEmailToNewsletter(id, emailDto);
             return new ResponseEntity<>(emailDto, HttpStatus.OK);
         } catch (MailException e) {
