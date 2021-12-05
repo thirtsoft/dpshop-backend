@@ -1,0 +1,31 @@
+package com.dp.dpshopbackend.models;
+
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import javax.persistence.*;
+import java.io.Serializable;
+import java.util.Date;
+
+@Entity
+@Table(name = "newsletter")
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+public class Newsletter implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(name = "code", length = 20)
+    private String code;
+
+    @Column(name = "customerEmail", length = 50)
+    private String customerEmail;
+
+    @Column(name = "dateInscription", length = 50)
+    private Date dateInscription;
+}

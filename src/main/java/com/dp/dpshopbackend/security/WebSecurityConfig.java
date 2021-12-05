@@ -17,12 +17,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
-
-import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableWebSecurity
@@ -138,7 +135,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/countries/all").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
-           //     .antMatchers("/**/fournisseurs/**").permitAll()
+                //     .antMatchers("/**/fournisseurs/**").permitAll()
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
 
                 .antMatchers("/**/lignecommandes/all").permitAll()
@@ -171,7 +168,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/addresseclients/searchAllAddressClientsOrderByIdDesc").permitAll()
 
 
-
+                .antMatchers("/**/newsletters/create").permitAll()
+                .antMatchers("/**/newsletters/findById/{idNewsletter}").permitAll()
+                .antMatchers("/**/newsletters/countNumberOfNewsletters").permitAll()
+                .antMatchers("/**/newsletters/searchAllNewslettersOrderByIdDesc").permitAll()
+                .antMatchers("/**/newsletters/delete/{idNewsletter}").permitAll()
 
 
                 .antMatchers("/**/emails/all").permitAll()
