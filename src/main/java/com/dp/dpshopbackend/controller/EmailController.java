@@ -2,6 +2,8 @@ package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.EmailApi;
 import com.dp.dpshopbackend.dto.EmailDto;
+import com.dp.dpshopbackend.dto.FournisseurDto;
+import com.dp.dpshopbackend.dto.NewsletterDto;
 import com.dp.dpshopbackend.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,32 +40,30 @@ public class EmailController implements EmailApi {
     }
 
     @Override
-    public ResponseEntity<EmailDto> sendMailToFournisseur(EmailDto emailDto) {
+    public ResponseEntity<FournisseurDto> sendMailToFournisseur(FournisseurDto fournisseurDto) {
         try {
-            emailDto.setCreateDate(new Date());
-            emailService.sendEmailToFournisseur(emailDto);
-            return new ResponseEntity<>(emailDto, HttpStatus.OK);
+            emailService.sendEmailToFournisseur(fournisseurDto);
+            return new ResponseEntity<>(fournisseurDto, HttpStatus.OK);
         } catch (MailException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<EmailDto> sendMailToCustomer(EmailDto emailDto) {
+    public ResponseEntity<NewsletterDto> sendMailToCustomer(NewsletterDto newsletterDto) {
         try {
-            emailDto.setCreateDate(new Date());
-            emailService.sendEmailToNewsletter(emailDto);
-            return new ResponseEntity<>(emailDto, HttpStatus.OK);
+            emailService.sendEmailToNewsletter(newsletterDto);
+            return new ResponseEntity<>(newsletterDto, HttpStatus.OK);
         } catch (MailException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
     @Override
-    public ResponseEntity<EmailDto> sendMailToAllCustomers(EmailDto emailDto) {
+    public ResponseEntity<NewsletterDto> sendMailToAllCustomers(NewsletterDto newsletterDto) {
         try {
-            emailService.sendMailToAllNewsletters(emailDto);
-            return new ResponseEntity<>(emailDto, HttpStatus.OK);
+            emailService.sendMailToAllNewsletters(newsletterDto);
+            return new ResponseEntity<>(newsletterDto, HttpStatus.OK);
         } catch (MailException e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }

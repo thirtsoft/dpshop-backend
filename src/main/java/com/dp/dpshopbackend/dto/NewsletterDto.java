@@ -16,6 +16,10 @@ public class NewsletterDto {
 
     private String customerEmail;
 
+    private String subject;
+
+    private String message;
+
     private Date dateInscription;
 
     public static NewsletterDto fromEntityToDto(Newsletter newsletter) {
@@ -26,6 +30,8 @@ public class NewsletterDto {
                 .id(newsletter.getId())
                 .code(newsletter.getCode())
                 .customerEmail(newsletter.getCustomerEmail())
+                .subject(newsletter.getSubject())
+                .message(newsletter.getMessage())
                 .dateInscription(newsletter.getDateInscription())
                 .build();
     }
@@ -39,6 +45,8 @@ public class NewsletterDto {
         newsletter.setId(newsletterDto.getId());
         newsletter.setCode(newsletterDto.getCode());
         newsletter.setCustomerEmail(newsletterDto.getCustomerEmail());
+        newsletter.setSubject(newsletterDto.getSubject());
+        newsletter.setMessage(newsletterDto.getMessage());
         newsletter.setDateInscription(newsletterDto.getDateInscription());
 
         return newsletter;

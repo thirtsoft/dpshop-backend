@@ -5,6 +5,7 @@ import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.dto.NewsletterDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.Email;
+import com.dp.dpshopbackend.models.Fournisseur;
 import com.dp.dpshopbackend.repository.EmailRepository;
 import com.dp.dpshopbackend.services.EmailService;
 import com.dp.dpshopbackend.services.FournisseurService;
@@ -75,66 +76,62 @@ public class EmailServiceImpl implements EmailService {
     }
 
     @Override
-    public void sendEmailToFournisseur(EmailDto emailDto) throws MailException {
+    public void sendEmailToFournisseur(FournisseurDto fournisseurDto) throws MailException {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nom : " + EmailConstants.managerName).append(System.lineSeparator());
+        sb.append("\n Subject : " + fournisseurDto.getSubject());
+        sb.append("\n Message : " + fournisseurDto.getMessage());
 
         SimpleMailMessage mail = new SimpleMailMessage();
-
-        mail.setTo(emailDto.getFournisseurDto().getEmail());
+        mail.setTo(fournisseurDto.getEmail());
         mail.setFrom(EmailConstants.from);
-        mail.setSubject(emailDto.getSubject());
-        mail.setText(emailDto.getMessage());
+        mail.setSubject(fournisseurDto.getSubject());
+        mail.setText(fournisseurDto.getMessage());
 
-        emailDto.setFournisseurDto(emailDto.getFournisseurDto());
-        emailDto.setCreateDate(new Date());
-
-        System.out.println(emailDto);
 
         javaMailSender.send(mail);
 
-        EmailDto.fromEntityToDto(
-                emailRepository.save(
-                        EmailDto.fromDtoToEntity(emailDto)
-                )
-        );
 
     }
 
     @Override
-    public void sendEmailToNewsletter(EmailDto emailDto) throws MailException {
+    public void sendEmailToNewsletter(NewsletterDto newsletterDto) throws MailException {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nom : " + EmailConstants.managerName).append(System.lineSeparator());
+        sb.append("\n Subject : " + newsletterDto.getSubject());
+        sb.append("\n Message : " + newsletterDto.getMessage());
 
         SimpleMailMessage mail = new SimpleMailMessage();
 
-        mail.setTo(emailDto.getNewsletterDto().getCustomerEmail());
+        mail.setTo(newsletterDto.getCustomerEmail());
         mail.setFrom(EmailConstants.from);
-        mail.setSubject(emailDto.getSubject());
-        mail.setText(emailDto.getMessage());
-
-        emailDto.setNewsletterDto(emailDto.getNewsletterDto());
-        emailDto.setCreateDate(new Date());
-
-        System.out.println(emailDto);
+        mail.setSubject(newsletterDto.getSubject());
+        mail.setText(newsletterDto.getMessage());
 
         javaMailSender.send(mail);
 
-        EmailDto.fromEntityToDto(
-                emailRepository.save(
-                        EmailDto.fromDtoToEntity(emailDto)
-                )
-        );
+
     }
 
     @Override
-    public void sendMailToAllNewsletters(EmailDto emailDto) {
+    public void sendMailToAllNewsletters(NewsletterDto newsletterDto) {
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("Nom : " + EmailConstants.managerName).append(System.lineSeparator());
+        sb.append("\n Subject : " + newsletterDto.getSubject());
+        sb.append("\n Message : " + newsletterDto.getMessage());
 
         List<NewsletterDto> newsletterDtos = newsletterService.findAll();
 
         SimpleMailMessage mail = new SimpleMailMessage();
 
         for (int i = 0; i < newsletterDtos.size(); i++) {
-            NewsletterDto newsletterDto = newsletterDtos.get(i);
-            mail.setTo(newsletterDto.getCustomerEmail());
-            mail.setSubject(emailDto.getSubject());
-            mail.setText(emailDto.getMessage());
+            NewsletterDto newsletterDtoResult = newsletterDtos.get(i);
+            mail.setTo(newsletterDtoResult.getCustomerEmail());
+            mail.setSubject(newsletterDtoResult.getSubject());
+            mail.setText(newsletterDtoResult.getMessage());
             mail.setFrom(EmailConstants.from);
         }
 

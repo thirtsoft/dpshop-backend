@@ -1,6 +1,8 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.EmailDto;
+import com.dp.dpshopbackend.dto.FournisseurDto;
+import com.dp.dpshopbackend.dto.NewsletterDto;
 import org.springframework.mail.MailException;
 
 import java.math.BigDecimal;
@@ -10,11 +12,11 @@ public interface EmailService {
 
     void sendEmailToManager(EmailDto emailDto) throws MailException;
 
-    void sendEmailToFournisseur(EmailDto emailDto) throws MailException;
+    void sendEmailToFournisseur(FournisseurDto fournisseurDto) throws MailException;
 
-    void sendEmailToNewsletter(EmailDto emailDto) throws MailException;
+    void sendEmailToNewsletter(NewsletterDto newsletterDto) throws MailException;
 
-    void sendMailToAllNewsletters(EmailDto emailDto);
+    void sendMailToAllNewsletters(NewsletterDto newsletterDto);
 
     EmailDto findById(Long id);
 

@@ -2,6 +2,8 @@ package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.EmailDto;
+import com.dp.dpshopbackend.dto.FournisseurDto;
+import com.dp.dpshopbackend.dto.NewsletterDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
@@ -30,12 +32,12 @@ public interface EmailApi {
     @PostMapping(value = APP_ROOT + "/emails/sendToFournisseur")
     @ApiOperation(value = "Envoyer un email à un Fournisseurs",
             notes = "Cette méthode permet d'envoyer un email à un Fournisseurs",
-            response = EmailDto.class)
+            response = FournisseurDto.class)
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<EmailDto> sendMailToFournisseur(@RequestBody EmailDto emailDto);
+    ResponseEntity<FournisseurDto> sendMailToFournisseur(@RequestBody FournisseurDto fournisseurDto);
 
     @PostMapping(value = APP_ROOT + "/emails/sendToNewsletter")
     @ApiOperation(value = "Envoyer un email à un client",
@@ -45,7 +47,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<EmailDto> sendMailToCustomer(@RequestBody EmailDto emailDto);
+    ResponseEntity<NewsletterDto> sendMailToCustomer(@RequestBody NewsletterDto newsletterDto);
 
     @PostMapping(value = APP_ROOT + "/emails/sendMailToAllCustomers")
     @ApiOperation(value = "Envoyer un email à plusieurs Clients",
@@ -55,7 +57,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<EmailDto> sendMailToAllCustomers(@RequestBody EmailDto emailDto);
+    ResponseEntity<NewsletterDto> sendMailToAllCustomers(@RequestBody NewsletterDto newsletterDto);
 
 
     @PostMapping(value = APP_ROOT + "/emails/sendMailToManager")
