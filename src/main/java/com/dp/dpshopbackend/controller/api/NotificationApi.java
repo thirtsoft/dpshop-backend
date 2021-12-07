@@ -58,7 +58,7 @@ public interface NotificationApi {
     ResponseEntity<NotificationDto> update(@PathVariable("idNote") Long id, @RequestBody NotificationDto notificationDto);
 
 
-    @GetMapping(value = APP_ROOT + "/notifications/{idNotification}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/notifications/findById/{idNotification}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Notification par ID",
             notes = "Cette méthode permet de chercher une Notification par son ID", response = NotificationDto.class
     )
@@ -84,7 +84,7 @@ public interface NotificationApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<NotificationDto> > getAllNotificationsOrderByIdDesc();
+    ResponseEntity<List<NotificationDto>> getAllNotificationsOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/notifications/searchTop3RatingOrderByCreatedDateDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des 3 dernières Notification",
@@ -101,6 +101,23 @@ public interface NotificationApi {
             @ApiResponse(code = 200, message = "Le nombre de Notification / le nombre est nulle")
     })
     BigDecimal countNumberOfNotification();
+
+
+    @GetMapping(value = APP_ROOT + "/notifications/countNumberOfNotificationByProductId/{idProd}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre de Notification d'un produit",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre de Notification pour un produit donné")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre de Notification du produit / le nombre est nulle")
+    })
+    BigDecimal countNumberOfNotificationByProductId(@PathVariable("idProd") String prodRef);
+
+    @GetMapping(value = APP_ROOT + "/notifications/searchTop4RatingOrderByCreatedDateDescByProductId/{idProd}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des 4 dernières Notification d'un produit",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des 4 dernières Notification d'un produit", responseContainer = "List<NotificationDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des 4 dernières Notification d'un produit / une liste vide")
+    })
+    ResponseEntity<List<NotificationDto>> getTop4ByOrderByCreatedDateDescByProductId(@PathVariable("idProd") String prodRef);
 
     @DeleteMapping(value = APP_ROOT + "/notifications/delete/{idNotification}")
     @ApiOperation(value = "Supprimer une Notification par son ID",

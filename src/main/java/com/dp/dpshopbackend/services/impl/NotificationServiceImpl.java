@@ -125,6 +125,18 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
+    public BigDecimal countNumberOfNotificationByProductId(String prodRef) {
+        return notificationRepository.countNumberOfNotificationByProductId(prodRef);
+    }
+
+    @Override
+    public List<NotificationDto> findTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
+        return notificationRepository.findTop4ByOrderByCreatedDateDesc(prodRef).stream()
+                .map(NotificationDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public void delete(Long id) {
         if (id == null) {
             log.error("Notification Id is null");

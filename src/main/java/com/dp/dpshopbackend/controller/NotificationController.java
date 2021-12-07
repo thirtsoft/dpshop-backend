@@ -109,6 +109,17 @@ public class NotificationController implements NotificationApi {
     }
 
     @Override
+    public BigDecimal countNumberOfNotificationByProductId(String prodRef) {
+        return notificationService.countNumberOfNotificationByProductId(prodRef);
+    }
+
+    @Override
+    public ResponseEntity<List<NotificationDto>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
+        List<NotificationDto> notificationDtoList = notificationService.findTop4ByOrderByCreatedDateDescByProductId(prodRef);
+        return new ResponseEntity(notificationDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public void delete(Long id) {
         notificationService.delete(id);
     }

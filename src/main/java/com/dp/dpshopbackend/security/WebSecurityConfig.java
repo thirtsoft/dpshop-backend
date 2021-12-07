@@ -162,6 +162,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/notifications/createRatingToArticle/**").permitAll()
                 .antMatchers("/**/notifications/searchTop3RatingOrderByCreatedDateDesc").permitAll()
 
+                .antMatchers("/**/notifications/countNumberOfNotificationByProductId/{idProd}").permitAll()
+                .antMatchers("/**/notifications/searchTop4RatingOrderByCreatedDateDescByProductId/{idProd}").permitAll()
+
                 .antMatchers("/**/addresslivraisons/all").permitAll()
                 .antMatchers("/**/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc").permitAll()
 

@@ -13,7 +13,9 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "article")
+@Table(name = "article", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "reference"),
+})
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,7 +25,7 @@ public class Article implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "reference", length = 70)
+    @Column(name = "reference", length = 100)
     private String reference;
 
     @Column(name = "designation", length = 100)
