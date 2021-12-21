@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
@@ -125,6 +126,11 @@ public class ArticleController implements ArticleApi {
     public Page<ArticleDto> getListArticleBySamePriceyByPageable(double price, int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
         return articleService.findArticleBySamePricePageables(price, pageable);
+    }
+
+    @Override
+    public BigDecimal countNumberOfArticleInSubCategory(Long subCatId) {
+        return articleService.countNumberOfArticleInSubCategory(subCatId);
     }
 
 

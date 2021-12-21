@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
@@ -134,7 +135,7 @@ public interface ArticleApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<ArticleDto> > getAllArticlesOrderByIdDesc();
+    ResponseEntity<List<ArticleDto>> getAllArticlesOrderByIdDesc();
 
     @GetMapping(value = APP_ROOT + "/articles/searchArticleByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par pages",
@@ -161,6 +162,14 @@ public interface ArticleApi {
     })
     Page<ArticleDto> getListArticleBySamePriceyByPageable(@RequestParam("price") double price, @RequestParam(name = "page") int page,
                                                           @RequestParam(name = "size") int size);
+
+    @GetMapping(value = APP_ROOT + "/articles/countNumberOfArticleInSubCat/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi le nombre d'article pour une sous categorie",
+            notes = "Cette méthode permet de chercher et renvoyer le nombre d'article dans une sous categorie")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le nombre d'article / le nombre est nulle")
+    })
+    BigDecimal countNumberOfArticleInSubCategory(@PathVariable("subCatId") Long subCatId);
 
     @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",

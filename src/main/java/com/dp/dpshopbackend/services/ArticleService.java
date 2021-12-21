@@ -1,12 +1,13 @@
 package com.dp.dpshopbackend.services;
 
-import com.dp.dpshopbackend.dto.AddressLivraisonDto;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface ArticleService {
@@ -42,6 +43,8 @@ public interface ArticleService {
     Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable);
 
     Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable);
+
+    BigDecimal countNumberOfArticleInSubCategory(@Param("subcat") Long scatId);
 
     void delete(Long id);
 }
