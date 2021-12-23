@@ -37,6 +37,17 @@ public interface BlogApi {
     ResponseEntity<BlogDto> saveBlogWithFile(@RequestParam(name = "blog") String blogDto,
                                              @RequestParam(name = "photoBlog") MultipartFile photoBlog) throws IOException;
 
+    @PostMapping(value = APP_ROOT + "/blogs/createBlogWithFileInFolder")
+    @ApiOperation(value = "Enregistrer un Blog avec une photo dans le dossier webapps",
+            notes = "Cette méthode permet d'ajouter un Blog une photo dans le dossier webapps", response = BlogDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Le Blog a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Blog  crée / modifié")
+
+    })
+    ResponseEntity<BlogDto> saveBlogWithFileInFolder(@RequestParam(name = "blog") String blogDto,
+                                                     @RequestParam(name = "photoBlog") MultipartFile photoBlog) throws IOException;
+
     @PutMapping(value = APP_ROOT + "/blogs/update/{idBlog}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier un Blog par son ID",
@@ -101,6 +112,14 @@ public interface BlogApi {
     })
     byte[] getPhotoBlogle(@PathVariable("idBlog") Long id) throws Exception;
 
+    @GetMapping(value = APP_ROOT + "/blogs/photoBlogInFolder/{idBlog}")
+    @ApiOperation(value = "Recupérer une photo par ID dans le dossier webapps",
+            notes = "Cette méthode permet de récupérer la photo d'un blog par son ID dans le dossier webapps")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La photo est affiché")
+    })
+    byte[] getPhotoBlogleInContext(@PathVariable("idBlog") Long id) throws Exception;
+
     @PostMapping(path = APP_ROOT + "/blogs/uploadBlogPhoto/{id}")
     @ApiOperation(value = "Enregistrer une photo dans un dossier",
             notes = "Cette méthode permet d'enregistrer la photo d'un blog dans un dossier externe utilisateur")
@@ -108,8 +127,16 @@ public interface BlogApi {
             @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
 
     })
-    void uploadPhotoBlog(MultipartFile file,
-                         @PathVariable("id") Long id) throws IOException;
+    void uploadPhotoBlog(MultipartFile file, @PathVariable("id") Long id) throws IOException;
+
+    @PostMapping(path = APP_ROOT + "/blogs/uploadBlogPhotoInContext/{id}")
+    @ApiOperation(value = "Enregistrer une photo dans le dossier webapps",
+            notes = "Cette méthode permet d'enregistrer la photo d'un blog dans le dossier webapps")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier webapps")
+
+    })
+    void uploadPhotoBlogInContext(MultipartFile file, @PathVariable("id") Long id) throws IOException;
 
     @DeleteMapping(value = APP_ROOT + "/blogs/delete/{idBlog}")
     @ApiOperation(value = "Supprimer un Blog par son ID",
