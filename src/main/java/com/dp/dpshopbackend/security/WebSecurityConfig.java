@@ -64,7 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+           //     registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+                registry.addMapping("/**")
+                        .allowedOrigins("https://soulbusiness.herokuapp.com");
 
             }
         };
@@ -176,6 +178,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/newsletters/countNumberOfNewsletters").permitAll()
                 .antMatchers("/**/newsletters/searchAllNewslettersOrderByIdDesc").permitAll()
                 .antMatchers("/**/newsletters/delete/{idNewsletter}").permitAll()
+
+                .antMatchers("/**/blogs/createBlogWithFile").permitAll()
+                .antMatchers("/**/blogs/update/{idBlog}").permitAll()
+                .antMatchers("/**/blogs/findById/{idBlog}").permitAll()
+                .antMatchers("/**/blogs/searchTop5BlogOrderByCreatedDateDesc").permitAll()
+                .antMatchers("/**/blogs/searchAllBlogOrderByIdDesc").permitAll()
+                .antMatchers("/**/blogs/photoBlog/{idBlog}").permitAll()
+                .antMatchers("/**/blogs/uploadBlogPhoto/{id}").permitAll()
+                .antMatchers("/**/blogs/delete/{idBlog}").permitAll()
 
 
                 .antMatchers("/**/emails/all").permitAll()
