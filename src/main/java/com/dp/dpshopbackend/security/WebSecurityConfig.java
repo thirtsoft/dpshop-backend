@@ -64,7 +64,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-           //     registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+                //     registry.addMapping("/**").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/**")
                         .allowedOrigins("https://soulbusiness.herokuapp.com");
 
@@ -92,8 +92,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/searchArticleBySamePriceByPageables").permitAll()
                 .antMatchers("/**/articles/searchArticleByPrice/**").permitAll()
                 .antMatchers("/**/articles/searchbyReference/**").permitAll()
+                .antMatchers("/**/articles/countNumberOfArticleInSubCat/{subCatId}").permitAll()
                 .antMatchers("/**/articles/photoArticle/{idArticle}").permitAll()
+                .antMatchers("/**/articles/photoArticleInContext/{idArticle}").permitAll()
                 .antMatchers("/**/articles/uploadArticlePhoto/{id}").permitAll()
+                .antMatchers("/**/articles/uploadArticlePhotoInFolder/{id}").permitAll()
                 .antMatchers("/**/categories/all").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
@@ -177,16 +180,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/newsletters/searchAllNewslettersOrderByIdDesc").permitAll()
                 .antMatchers("/**/newsletters/delete/{idNewsletter}").permitAll()
 
-                .antMatchers("/**/blogs/createBlogWithFile").permitAll()
-                .antMatchers("/**/blogs/update/{idBlog}").permitAll()
+                .antMatchers("/**/blogs/searchAllBlogOrderByIdDesc").permitAll()
                 .antMatchers("/**/blogs/findById/{idBlog}").permitAll()
                 .antMatchers("/**/blogs/searchTop5BlogOrderByCreatedDateDesc").permitAll()
-                .antMatchers("/**/blogs/searchAllBlogOrderByIdDesc").permitAll()
                 .antMatchers("/**/blogs/photoBlog/{idBlog}").permitAll()
+                .antMatchers("/**/blogs/photoBlogInFolder/{idBlog}").permitAll()
                 .antMatchers("/**/blogs/uploadBlogPhoto/{id}").permitAll()
-                .antMatchers("/**/blogs/delete/{idBlog}").permitAll()
-
-
+                .antMatchers("/**/blogs/uploadBlogPhotoInContext/{id}").permitAll()
+                
                 .antMatchers("/**/emails/all").permitAll()
                 .antMatchers("/**/emails/findById/*").permitAll()
                 .antMatchers("/**/emails/searchAllEmailssOrderByIdDesc").permitAll()
