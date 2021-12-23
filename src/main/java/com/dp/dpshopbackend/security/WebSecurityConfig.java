@@ -187,7 +187,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/blogs/photoBlogInFolder/{idBlog}").permitAll()
                 .antMatchers("/**/blogs/uploadBlogPhoto/{id}").permitAll()
                 .antMatchers("/**/blogs/uploadBlogPhotoInContext/{id}").permitAll()
-                
+
                 .antMatchers("/**/emails/all").permitAll()
                 .antMatchers("/**/emails/findById/*").permitAll()
                 .antMatchers("/**/emails/searchAllEmailssOrderByIdDesc").permitAll()
