@@ -4,6 +4,8 @@ import com.dp.dpshopbackend.controller.api.ArticleApi;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.services.ArticleService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -26,8 +29,9 @@ import java.util.List;
 public class ArticleController implements ArticleApi {
 
     private final ArticleService articleService;
-
     private final String articlePhotosDir = "C://Users//Folio9470m//shopmania//productphotos//";
+    @Autowired
+    ServletContext context;
 
     @Autowired
     public ArticleController(ArticleService articleService) {
@@ -48,6 +52,25 @@ public class ArticleController implements ArticleApi {
         }
 
         return ResponseEntity.ok(articleService.save(articleDto));
+
+    }
+
+    @Override
+    public ResponseEntity<ArticleDto> saveArticleWithFileInFolder(String article, MultipartFile photoArticle) throws IOException {
+        ArticleDto articleDto = new ObjectMapper().readValue(article, ArticleDto.class);
+        if (photoArticle != null && !photoArticle.isEmpty()) {
+
+            String filename = photoArticle.getOriginalFilename();
+            String newFileName = FilenameUtils.getBaseName(filename) + "." + FilenameUtils.getExtension(filename);
+            File serverFile = new File(context.getRealPath("/PhotoProducts/" + File.separator + newFileName));
+            System.out.println("Image");
+            FileUtils.writeByteArrayToFile(serverFile, photoArticle.getBytes());
+
+            articleDto.setPhoto(filename);
+        }
+
+        return ResponseEntity.ok(articleService.save(articleDto));
+
 
     }
 
@@ -155,6 +178,12 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public byte[] getPhotoArticleInContext(Long id) throws Exception {
+        ArticleDto articleDto = articleService.findById(id);
+        return Files.readAllBytes(Paths.get(context.getRealPath("/PhotoProducts/") + articleDto.getPhoto()));
+    }
+
+    @Override
     public void uploadPhotoArticle(MultipartFile file, Long id) throws IOException {
         //    ArticleDto articleDto = articleService.findById(Long.valueOf(id));
         ArticleDto articleDto = articleService.findById(id);
@@ -162,6 +191,27 @@ public class ArticleController implements ArticleApi {
         Files.write(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()), file.getBytes());
 
         articleService.save(articleDto);
+    }
+
+    @Override
+    public void uploadPhotoArticleInFolder(MultipartFile file, Long id) throws IOException {
+        ArticleDto articleDto = articleService.findById(id);
+        String filename = file.getOriginalFilename();
+        String newFileName = FilenameUtils.getBaseName(filename) + "." + FilenameUtils.getExtension(filename);
+        File serverFile = new File(context.getRealPath("/PhotoProducts/" + File.separator + newFileName));
+
+        try {
+            System.out.println("Image");
+            FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
+
+            articleDto.setPhoto(filename);
+
+            articleService.save(articleDto);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        
     }
 
 }

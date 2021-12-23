@@ -39,6 +39,18 @@ public interface ArticleApi {
     ResponseEntity<ArticleDto> saveArticleWithFile(@RequestParam(name = "article") String articleDto,
                                                    @RequestParam(name = "photoArticle") MultipartFile photoArticle) throws IOException;
 
+    @PostMapping(value = APP_ROOT + "/articles/createWithFileInFolder")
+    @ApiOperation(value = "Enregistrer un Artilce avec une photo dans le dossier webapps",
+            notes = "Cette méthode permet d'ajouter un article une photo dans le dossier interne webapps", response = ArticleDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "L'Artilce a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
+
+    })
+    ResponseEntity<ArticleDto> saveArticleWithFileInFolder(@RequestParam(name = "article") String articleDto,
+                                                           @RequestParam(name = "photoArticle") MultipartFile photoArticle) throws IOException;
+
+
     @PutMapping(value = APP_ROOT + "/articles/update/{idArticle}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier un article par son ID",
@@ -49,7 +61,7 @@ public interface ArticleApi {
     })
     ResponseEntity<ArticleDto> update(@PathVariable("idArticle") Long id, @RequestBody ArticleDto articleDto);
 
-    @GetMapping(value = APP_ROOT + "/articles/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/articles/findById/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Artilce par ID",
             notes = "Cette méthode permet de chercher un Artilce par son ID", response = ArticleDto.class
     )
@@ -187,6 +199,14 @@ public interface ArticleApi {
     })
     byte[] getPhotoArticle(@PathVariable("idArticle") Long id) throws Exception;
 
+    @GetMapping(value = APP_ROOT + "/articles/photoArticleInContext/{idArticle}")
+    @ApiOperation(value = "Recupérer une photo par ID",
+            notes = "Cette méthode permet de récupérer la photo d'un article par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La photo est affiché")
+    })
+    byte[] getPhotoArticleInContext(@PathVariable("idArticle") Long id) throws Exception;
+
     @PostMapping(path = APP_ROOT + "/articles/uploadArticlePhoto/{id}")
     @ApiOperation(value = "Enregistrer une photo dans un dossier",
             notes = "Cette méthode permet d'enregistrer la photo d'un article dans un dossier externe utilisateur")
@@ -194,7 +214,16 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier utilisateur")
 
     })
-    void uploadPhotoArticle(MultipartFile file,
-                            @PathVariable("id") Long id) throws IOException;
+    void uploadPhotoArticle(MultipartFile file, @PathVariable("id") Long id) throws IOException;
+
+    @PostMapping(path = APP_ROOT + "/articles/uploadArticlePhotoInFolder/{id}")
+    @ApiOperation(value = "Enregistrer une photo dans le dossier webapps",
+            notes = "Cette méthode permet d'enregistrer la photo d'un article dans le dossier webapps")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La photo a été enregistré dans le dossier webapps")
+
+    })
+    void uploadPhotoArticleInFolder(MultipartFile file, @PathVariable("id") Long id) throws IOException;
+
 
 }
