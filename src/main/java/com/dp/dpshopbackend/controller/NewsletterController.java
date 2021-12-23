@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class NewsletterController implements NewsletterApi {
 
     @Override
     public ResponseEntity<NewsletterDto> save(NewsletterDto newsletterDto) {
-        newsletterDto.setCode("ISNCRIPT" + Math.random()*100000);
+        newsletterDto.setCode("ISNCRIPT" + Math.random() * 100000);
         newsletterDto.setDateInscription(new Date());
         return ResponseEntity.ok(newsletterService.save(newsletterDto));
     }
@@ -42,15 +43,15 @@ public class NewsletterController implements NewsletterApi {
 
     @Override
     public ResponseEntity<List<NewsletterDto>> findAll() {
-        List<NewsletterDto> newsletterDtoList = newsletterService.findAll();
+        List<NewsletterDto> newsletterDtoList = new ArrayList<>();
+        newsletterDtoList = newsletterService.findAll();
         return new ResponseEntity(newsletterDtoList, HttpStatus.OK);
     }
 
 
     @Override
     public ResponseEntity<List<NewsletterDto>> getAllNewslettersOrderByIdDesc() {
-        List<NewsletterDto> newsletterDtoList = newsletterService.findByOrderByIdDesc();
-        return new ResponseEntity(newsletterDtoList, HttpStatus.OK);
+        return new ResponseEntity(newsletterService.findByOrderByIdDesc(), HttpStatus.OK);
     }
 
     @Override
