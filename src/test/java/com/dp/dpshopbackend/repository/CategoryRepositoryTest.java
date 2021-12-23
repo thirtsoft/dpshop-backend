@@ -31,9 +31,6 @@ public class CategoryRepositoryTest {
 
         assertNotNull(categoryDtoResult);
 
-        //    assertEquals(1, fetchedCategory.getId());
-
-
     }
 
     @Test

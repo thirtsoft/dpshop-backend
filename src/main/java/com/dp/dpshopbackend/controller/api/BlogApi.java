@@ -34,7 +34,7 @@ public interface BlogApi {
             @ApiResponse(code = 400, message = "Aucun Blog  crée / modifié")
 
     })
-    ResponseEntity<BlogDto> saveBlogWithFile(@RequestParam(name = "Blog") String blogDto,
+    ResponseEntity<BlogDto> saveBlogWithFile(@RequestParam(name = "blog") String blogDto,
                                              @RequestParam(name = "photoBlog") MultipartFile photoBlog) throws IOException;
 
     @PutMapping(value = APP_ROOT + "/blogs/update/{idBlog}",
