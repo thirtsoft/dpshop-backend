@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.controllers;
 
-import com.dp.dpshopbackend.controller.NotificationController;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
