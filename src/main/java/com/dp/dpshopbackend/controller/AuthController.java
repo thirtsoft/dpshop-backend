@@ -17,7 +17,6 @@ import com.dp.dpshopbackend.security.jwt.JwtsProvider;
 import com.dp.dpshopbackend.security.service.UserPrinciple;
 import com.dp.dpshopbackend.services.EmailService;
 import com.dp.dpshopbackend.services.HistoriqueLoginService;
-import com.dp.dpshopbackend.services.UtilisateurPostService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,7 +38,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class AuthController implements AuthApi {
 
-    private final UtilisateurPostService utilisateurPostService;
 
     @Autowired
     AuthenticationManager authenticationManager;
@@ -65,10 +63,6 @@ public class AuthController implements AuthApi {
     @Autowired
     private HistoriqueLoginService historiqueLoginService;
 
-    @Autowired
-    public AuthController(UtilisateurPostService utilisateurPostService) {
-        this.utilisateurPostService = utilisateurPostService;
-    }
 
     /*
         @Override

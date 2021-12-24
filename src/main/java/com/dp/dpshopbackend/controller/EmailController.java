@@ -29,66 +29,51 @@ public class EmailController implements EmailApi {
 
 
     @Override
-    public ResponseEntity<EmailDto> sendEmail(EmailDto emailDto) {
-        try {
-            emailDto.setCreateDate(new Date());
-            emailService.sendEmailToManager(emailDto);
-            return new ResponseEntity<>(emailDto, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<EmailDto> sendEmail(EmailDto emailDto) throws MailException {
+        emailDto.setCreateDate(new Date());
+        emailService.sendEmailToManager(emailDto);
+        return new ResponseEntity<>(emailDto, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<FournisseurDto> sendMailToFournisseur(FournisseurDto fournisseurDto) {
-        try {
-            emailService.sendEmailToFournisseur(fournisseurDto);
-            return new ResponseEntity<>(fournisseurDto, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<FournisseurDto> sendMailToFournisseur(FournisseurDto fournisseurDto) throws MailException {
+        emailService.sendEmailToFournisseur(fournisseurDto);
+        return new ResponseEntity<>(fournisseurDto, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<NewsletterDto> sendMailToCustomer(NewsletterDto newsletterDto) {
-        try {
-            emailService.sendEmailToNewsletter(newsletterDto);
-            return new ResponseEntity<>(newsletterDto, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<NewsletterDto> sendMailToCustomer(NewsletterDto newsletterDto) throws MailException {
+        emailService.sendEmailToNewsletter(newsletterDto);
+        return new ResponseEntity<>(newsletterDto, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<NewsletterDto> sendMailToAllCustomers(NewsletterDto newsletterDto) {
-        return null;
+    public ResponseEntity<NewsletterDto> sendMailToAllCustomers(NewsletterDto newsletterDto) throws MailException {
+        emailService.sendMailToAllNewsletters(newsletterDto);
+        return new ResponseEntity<>(newsletterDto, HttpStatus.OK);
     }
 
     @Override
-    public ResponseEntity<EmailDto> sendEmailToManager(EmailDto emailDto) {
-        try {
-            emailService.sendEmailToManager(emailDto);
-            return new ResponseEntity<EmailDto>(emailDto, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    public ResponseEntity<EmailDto> sendEmailToManager(EmailDto emailDto) throws MailException {
+        emailService.sendEmailToManager(emailDto);
+        return new ResponseEntity<>(emailDto, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<EmailDto> getEmailById(Long id) {
-        return ResponseEntity.ok(emailService.findById(id));
+        return new ResponseEntity<>(emailService.findById(id), HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<EmailDto>> getAll() {
         List<EmailDto> emailDtoList = emailService.findAll();
-        return new ResponseEntity(emailDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(emailDtoList, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<List<EmailDto>> getAllNewsletterOrderByIdDesc() {
         List<EmailDto> emailDtoList = emailService.findByOrderByIdDesc();
-        return new ResponseEntity(emailDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(emailDtoList, HttpStatus.OK);
     }
 
     @Override

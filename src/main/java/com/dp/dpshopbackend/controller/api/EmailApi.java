@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.mail.MailException;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -26,7 +27,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<EmailDto> sendEmail(@RequestBody EmailDto emailDto);
+    ResponseEntity<EmailDto> sendEmail(@RequestBody EmailDto emailDto) throws MailException;
 
 
     @PostMapping(value = APP_ROOT + "/emails/sendToFournisseur")
@@ -37,7 +38,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<FournisseurDto> sendMailToFournisseur(@RequestBody FournisseurDto fournisseurDto);
+    ResponseEntity<FournisseurDto> sendMailToFournisseur(@RequestBody FournisseurDto fournisseurDto) throws MailException;
 
     @PostMapping(value = APP_ROOT + "/emails/sendToNewsletter")
     @ApiOperation(value = "Envoyer un email à un client",
@@ -47,7 +48,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<NewsletterDto> sendMailToCustomer(@RequestBody NewsletterDto newsletterDto);
+    ResponseEntity<NewsletterDto> sendMailToCustomer(@RequestBody NewsletterDto newsletterDto) throws MailException;
 
     @PostMapping(value = APP_ROOT + "/emails/sendMailToAllCustomers")
     @ApiOperation(value = "Envoyer un email à plusieurs Clients",
@@ -57,7 +58,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<NewsletterDto> sendMailToAllCustomers(@RequestBody NewsletterDto newsletterDto);
+    ResponseEntity<NewsletterDto> sendMailToAllCustomers(@RequestBody NewsletterDto newsletterDto) throws MailException;
 
 
     @PostMapping(value = APP_ROOT + "/emails/sendMailToManager")
@@ -68,7 +69,7 @@ public interface EmailApi {
             @ApiResponse(code = 200, message = "L'email a été envoyé / modifié"),
             @ApiResponse(code = 400, message = "Aucun Email  envoyé")
     })
-    ResponseEntity<EmailDto> sendEmailToManager(@RequestBody EmailDto emailDto);
+    ResponseEntity<EmailDto> sendEmailToManager(@RequestBody EmailDto emailDto) throws MailException;
 
     @GetMapping(value = APP_ROOT + "/emails/findById/{idEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Email par ID",
