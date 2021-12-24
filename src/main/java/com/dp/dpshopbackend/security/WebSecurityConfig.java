@@ -21,12 +21,17 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
-@Configuration
+/*@Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(
         securedEnabled = true,
         jsr250Enabled = true,
-        prePostEnabled = true)
+        prePostEnabled = true)*/
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(
+        prePostEnabled = true
+)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
@@ -47,7 +52,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(passwordEncoder());
     }
 
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
@@ -64,9 +68,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new WebMvcConfigurerAdapter() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                //     registry.addMapping("/**").allowedOrigins("http://localhost:4200");
-                registry.addMapping("/**")
-                        .allowedOrigins("https://soulbusiness.herokuapp.com");
+                //        registry.addMapping("/**").allowedOrigins("http://localhost:4200");
+                registry.addMapping("/**").allowedOrigins("https://soulbusiness.herokuapp.com");
 
             }
         };
@@ -81,6 +84,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/auth/signUp").permitAll()
                 .antMatchers("/**/auth/registerUser").permitAll()
                 .antMatchers("/**/auth/authenticated").permitAll()
+
                 .antMatchers("/**/articles/searchArticleByPrice/{price}").permitAll()
                 .antMatchers("/**/articles/all").permitAll()
                 .antMatchers("/**/articles/searchArticleByselectedIsTrue").permitAll()
@@ -96,9 +100,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/photoArticleInContext/{idArticle}").permitAll()
                 .antMatchers("/**/articles/uploadArticlePhoto/{id}").permitAll()
                 .antMatchers("/**/articles/uploadArticlePhotoInFolder/{id}").permitAll()
+
                 .antMatchers("/**/categories/all").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
+
                 .antMatchers("/**/fournisseurs/all").permitAll()
+
                 .antMatchers("/**/commandes/create").permitAll()
                 .antMatchers("/**/commandes/all").permitAll()
                 .antMatchers("/**/commandes/countNumberOfCommande").permitAll()
@@ -200,6 +207,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
     }
 
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,8 +42,7 @@ public class NewsletterController implements NewsletterApi {
 
     @Override
     public ResponseEntity<List<NewsletterDto>> findAll() {
-        List<NewsletterDto> newsletterDtoList = new ArrayList<>();
-        newsletterDtoList = newsletterService.findAll();
+        List<NewsletterDto> newsletterDtoList = newsletterService.findAll();
         return new ResponseEntity(newsletterDtoList, HttpStatus.OK);
     }
 
