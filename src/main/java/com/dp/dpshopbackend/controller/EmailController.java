@@ -16,8 +16,8 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
-@CrossOrigin
 public class EmailController implements EmailApi {
 
     private final EmailService emailService;
@@ -61,12 +61,7 @@ public class EmailController implements EmailApi {
 
     @Override
     public ResponseEntity<NewsletterDto> sendMailToAllCustomers(NewsletterDto newsletterDto) {
-        try {
-            emailService.sendMailToAllNewsletters(newsletterDto);
-            return new ResponseEntity<>(newsletterDto, HttpStatus.OK);
-        } catch (MailException e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        return null;
     }
 
     @Override
@@ -105,5 +100,4 @@ public class EmailController implements EmailApi {
     public void delete(Long id) {
         emailService.delete(id);
     }
-
 }
