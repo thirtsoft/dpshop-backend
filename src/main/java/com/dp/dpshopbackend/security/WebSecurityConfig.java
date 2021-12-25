@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         //    .allowedOrigins("http://localhost:4200")
-                        //   .allowedOrigins("http://localhost:8080/MyPharma")
+                        // .allowedOrigins("http://localhost:8080/shopmania")
                         .allowedOrigins("https://soulbusiness.herokuapp.com")
                         //      .allowedMethods("*")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
@@ -88,10 +88,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/all").permitAll()
                 .antMatchers("/**/articles/searchArticleByselectedIsTrue").permitAll()
                 .antMatchers("/**/articles/searchTop12ArticleOrderByCreatedDateDesc").permitAll()
-                .antMatchers("/**/articles/searchArticleByKeyword/*").permitAll()
+                .antMatchers("/**/articles/searchArticleByKeyword?*").permitAll()
                 .antMatchers("/**/articles/articlesByScategories/{scatId}").permitAll()
-                .antMatchers("/**/articles/searchArticleByScategoryByPageables/***").permitAll()
-                .antMatchers("/**/articles/searchArticleBySamePriceByPageables/***").permitAll()
+                .antMatchers("/**/articles/searchArticleByScategoryByPageables?*&*&*").permitAll()
+                .antMatchers("/**/articles/searchArticleBySamePriceByPageables?*&*&*").permitAll()
                 .antMatchers("/**/articles/searchArticleByPrice/{price}").permitAll()
                 .antMatchers("/**/articles/searchbyReference/{reference}").permitAll()
                 .antMatchers("/**/articles/countNumberOfArticleInSubCat/{subCatId}").permitAll()
@@ -115,9 +115,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/commandes/countNumberOfOrdersInMonth").permitAll()
                 .antMatchers("/**/commandes/countNumberOfOrdersByPendingStatus").permitAll()
-                //  .antMatchers("/**/commandes/searchCommandeByUtilisateurByPageables/***").permitAll()
-
-                //  .antMatchers("/**/commandes/searchCommandeByCustomerByPageables/***").permitAll()
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByYearList").permitAll()
 
@@ -129,13 +126,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/searchCommandeByBillingAddressIdDesc/{id}").permitAll()
                 .antMatchers("/**/commandes/searchCommandeByShippingAddressIdDesc/{id}").permitAll()
 
-                .antMatchers("/**/commandes/searchCommandesByUtilisateurIdByPageables/***").permitAll()
+                .antMatchers("/**/commandes/searchCommandesByUtilisateurIdByPageables?*&*&").permitAll()
 
-                .antMatchers("/**/commandes/updateStatusOfCommande/{id}/*").permitAll()
+                .antMatchers("/**/commandes/updateStatusOfCommande/{id}").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
 
-                .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
+                .antMatchers("/**/checkout/placeToOrderWithUser?*").permitAll()
 
                 .antMatchers("/**/checkout/purchase").permitAll()
 
@@ -151,7 +148,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/lignecommandes/findListArticleGroupByIdDesc").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/states/all").permitAll()
-                .antMatchers("/**/states/searchStateByCountryCode/**").permitAll()
+                .antMatchers("/**/states/searchStateByCountryCode?*").permitAll()
                 .antMatchers("/**/utilisateurs/all").permitAll()
                 .antMatchers("/**/utilisateurs/findById/{idUtilisateur}").permitAll()
                 .antMatchers("/**/utilisateurs/update/{idUser}").permitAll()
@@ -163,7 +160,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/clients/countNumberOfClient").permitAll()
                 .antMatchers("/**/notifications/all").permitAll()
                 .antMatchers("/**/notifications/countNumberOfNotification").permitAll()
-                .antMatchers("/**/notifications/createRatingToArticle/**").permitAll()
+                .antMatchers("/**/notifications/createRatingToArticle?*&*").permitAll()
                 .antMatchers("/**/notifications/searchTop3RatingOrderByCreatedDateDesc").permitAll()
 
                 .antMatchers("/**/notifications/countNumberOfNotificationByProductId/{idProd}").permitAll()
