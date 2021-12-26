@@ -117,7 +117,7 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<BlogDto> findTop5ByOrderByCreateDateDesc() {
-        return blogRepository.findTop5ByOrderByCreateDateDesc().stream()
+        return blogRepository.findTop5ByOrderByCreateDate().stream()
                 .map(BlogDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }

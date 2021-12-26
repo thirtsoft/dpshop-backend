@@ -12,7 +12,7 @@ public interface BlogRepository extends JpaRepository<Blog, Long> {
 
     Optional<Blog> findBlogByTitle(String title);
 
-    List<Blog> findTop5ByOrderByCreateDateDesc();
+    List<Blog> findTop5ByOrderByCreateDate();
 
     List<Blog> findByOrderByIdDesc();
 
