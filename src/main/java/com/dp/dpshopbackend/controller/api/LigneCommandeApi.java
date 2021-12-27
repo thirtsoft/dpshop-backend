@@ -17,7 +17,7 @@ public interface LigneCommandeApi {
     @PostMapping(value = APP_ROOT + "/lignecommandes/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<LigneCommandeDto> save(@RequestBody LigneCommandeDto ligneCommandeDto);
 
-    @GetMapping(value = APP_ROOT + "/lignecommandes/{idLignecommande}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/lignecommandes/findById/{idLignecommande}", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<LigneCommandeDto> findById(@PathVariable("idLignecommande") Long id);
 
     @GetMapping(value = APP_ROOT + "/lignecommandes/all", produces = MediaType.APPLICATION_JSON_VALUE)

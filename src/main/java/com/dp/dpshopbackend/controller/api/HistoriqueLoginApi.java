@@ -59,7 +59,7 @@ public interface HistoriqueLoginApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La liste des HistoriqueLogin  par ordre descroissante / une liste vide")
     })
-    ResponseEntity<List<HistoriqueLoginDto> > getAllHistoriqueLoginDtoOrderByIdDesc();
+    ResponseEntity<List<HistoriqueLoginDto>> getAllHistoriqueLoginDtoOrderByIdDesc();
 
 
     @GetMapping(value = APP_ROOT + "/historiqueLogins/countNumberOfHistoriqueLogin", produces = MediaType.APPLICATION_JSON_VALUE)

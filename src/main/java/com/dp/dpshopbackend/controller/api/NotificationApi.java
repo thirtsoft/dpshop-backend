@@ -102,7 +102,6 @@ public interface NotificationApi {
     })
     BigDecimal countNumberOfNotification();
 
-
     @GetMapping(value = APP_ROOT + "/notifications/countNumberOfNotificationByProductId/{idProd}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Notification d'un produit",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Notification pour un produit donné")
