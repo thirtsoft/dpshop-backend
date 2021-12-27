@@ -35,7 +35,7 @@ public interface ClientApi {
     })
     ResponseEntity<ClientDto> update(@PathVariable("idClient") Long id, @RequestBody ClientDto clientDto);
 
-    @GetMapping(value = APP_ROOT + "/clients/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = APP_ROOT + "/clients/findById/{idClient}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Client par ID",
             notes = "Cette méthode permet de chercher un Client par son ID", response = ClientDto.class
     )

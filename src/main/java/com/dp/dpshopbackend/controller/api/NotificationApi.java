@@ -57,7 +57,6 @@ public interface NotificationApi {
     })
     ResponseEntity<NotificationDto> update(@PathVariable("idNote") Long id, @RequestBody NotificationDto notificationDto);
 
-
     @GetMapping(value = APP_ROOT + "/notifications/findById/{idNotification}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Notification par ID",
             notes = "Cette méthode permet de chercher une Notification par son ID", response = NotificationDto.class
@@ -65,7 +64,6 @@ public interface NotificationApi {
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "La Notification a été trouver"),
             @ApiResponse(code = 404, message = "Aucune Notification n'existe avec cette ID pas dans la BD")
-
     })
     ResponseEntity<NotificationDto> findById(@PathVariable("idNotification") Long id);
 

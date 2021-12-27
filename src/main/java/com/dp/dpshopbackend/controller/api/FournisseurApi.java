@@ -61,7 +61,6 @@ public interface FournisseurApi {
     })
     ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc();
 
-
     @GetMapping(value = APP_ROOT + "/fournisseurs/countNumberOfFournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Fournisseur",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Fournisseur")

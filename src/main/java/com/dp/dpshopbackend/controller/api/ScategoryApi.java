@@ -34,7 +34,6 @@ public interface ScategoryApi {
     })
     ResponseEntity<ScategoryDto> update(@PathVariable("idScategory") Long id, @RequestBody ScategoryDto scategoryDto);
 
-
     @GetMapping(value = APP_ROOT + "/scategories/findById/{idScategory}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Scategory par ID",
             notes = "Cette méthode permet de chercher une Scategory par son ID", response = ScategoryDto.class

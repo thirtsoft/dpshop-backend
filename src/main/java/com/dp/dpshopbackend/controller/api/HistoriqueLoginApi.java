@@ -61,7 +61,6 @@ public interface HistoriqueLoginApi {
     })
     ResponseEntity<List<HistoriqueLoginDto>> getAllHistoriqueLoginDtoOrderByIdDesc();
 
-
     @GetMapping(value = APP_ROOT + "/historiqueLogins/countNumberOfHistoriqueLogin", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de HistoriqueLogin",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de HistoriqueLogin")
