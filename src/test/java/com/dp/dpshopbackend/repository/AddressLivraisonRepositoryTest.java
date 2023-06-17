@@ -37,7 +37,7 @@ public class AddressLivraisonRepositoryTest {
         State state = stateRepository.findById(stateId).orElse(null);
 
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", "liv");
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
 
         AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 
@@ -53,7 +53,7 @@ public class AddressLivraisonRepositoryTest {
         Long stateId = 1L;
         State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", "liv");
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
         addressLivraisonRepository.save(addressLivraison);
 
         String refAddLivraison = "123EST";
@@ -78,7 +78,7 @@ public class AddressLivraisonRepositoryTest {
         Long stateId = 1L;
         State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", "liv");
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
 
         AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 
@@ -95,10 +95,10 @@ public class AddressLivraisonRepositoryTest {
         Long stateId = 1L;
         State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", "liv");
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
         addressLivraisonRepository.save(addressLivraison);
 
-        AddressLivraison addressLivraison1 = new AddressLivraison(2L, "liv2", "liv2", "liv2", "liv2", "liv2", "liv", "liv");
+        AddressLivraison addressLivraison1 = new AddressLivraison(2L, "liv2", "liv2", "liv2", "liv2", "liv2", "liv", state);
         addressLivraisonRepository.save(addressLivraison1);
 
         List<AddressLivraison> addresseLivraisons = addressLivraisonRepository.findAll();
@@ -115,7 +115,7 @@ public class AddressLivraisonRepositoryTest {
         Long stateId = 1L;
         State state = stateRepository.findById(stateId).orElse(null);
 
-        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", "liv");
+        AddressLivraison addressLivraison = new AddressLivraison(1L, "liv", "liv", "liv", "liv", "liv", "liv", state);
 
         AddressLivraison addressLivraisonResult = addressLivraisonRepository.save(addressLivraison);
 

@@ -25,17 +25,17 @@ public class AddressLivraisonDto {
 
     private String city;
 
-    private String state;
+ //   private String state;
 
     private String rue;
 
     private String country;
 
+    private StateDto stateDto;
+
     //  private CommandeDto commandeDto;
 
  //   private List<CommandeDto> commandeDtoList = new ArrayList<>();
-
-    private StateDto stateDto;
 
     public static AddressLivraisonDto fromEntityToDto(AddressLivraison addressLivraison) {
         if (addressLivraison == null) {
@@ -49,8 +49,9 @@ public class AddressLivraisonDto {
                 .zipcode(addressLivraison.getZipcode())
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
-                .state(addressLivraison.getState())
+       //         .state(addressLivraison.getState())
                 .country(addressLivraison.getCountry())
+                .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
                 //            .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
                 //        .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
                 .build();
@@ -67,8 +68,9 @@ public class AddressLivraisonDto {
         addressLivraison.setPhone(addressClientDto.getPhone());
         addressLivraison.setZipcode(addressClientDto.getZipcode());
         addressLivraison.setCity(addressClientDto.getCity());
-        addressLivraison.setState(addressClientDto.getState());
+      //  addressLivraison.setState(addressClientDto.getState());
         addressLivraison.setCountry(addressClientDto.getCountry());
+        addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
         //    addressLivraison.setCommande(CommandeDto.fromDtoToEntity(addressClientDto.getCommandeDto()));
 
         return addressLivraison;

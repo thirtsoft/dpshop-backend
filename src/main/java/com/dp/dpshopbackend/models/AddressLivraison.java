@@ -28,8 +28,9 @@ public class AddressLivraison implements Serializable {
     @Column(name = "phone", length = 63)
     private String phone;
 
+    /*
     @Column(name = "state", length = 63)
-    private String state;
+    private String state;*/
 
     @Column(name = "ville", length = 70)
     private String city;
@@ -39,6 +40,11 @@ public class AddressLivraison implements Serializable {
 
     @Column(name = "pays", length = 70)
     private String country;
+
+    @ManyToOne
+    @JoinColumn(name = "stateId")
+    // @JsonIgnore
+    private State state;
 
    /* @ManyToOne
     @JoinColumn(name = "stateId")
@@ -51,7 +57,7 @@ public class AddressLivraison implements Serializable {
 
     public AddressLivraison(Long id, String reference, String zipcode,
                             String phone, String city, String rue, String country,
-                            String state) {
+                            State state) {
         this.id = id;
         this.reference = reference;
         this.zipcode = zipcode;

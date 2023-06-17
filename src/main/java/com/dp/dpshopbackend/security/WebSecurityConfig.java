@@ -129,7 +129,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/categories/delete/{idCategory}").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
-                .antMatchers("/**/checkout/placeToOrderWithUser/**").permitAll()
+                .antMatchers("/**/checkout/placeToOrderWithUser").permitAll()
                 .antMatchers("/**/checkout/purchase").permitAll()
 
                 .antMatchers("/**/clients/findById/{idClient}").permitAll()
@@ -230,7 +230,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/states/findById/{idState}").permitAll()
                 .antMatchers("/**/states/all").permitAll()
                 .antMatchers("/**/states/searchAllStatesOrderByIdDesc").permitAll()
-                .antMatchers("/**/states/searchStateByCountryCode/*").permitAll()
+                .antMatchers("/**/states/searchStateByCountryCode").permitAll()
                 .antMatchers("/**/states/delete/{idState}").permitAll()
 
                 .antMatchers("/**/utilisateurs/all").permitAll()
