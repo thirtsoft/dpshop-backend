@@ -25,4 +25,27 @@ public class Category implements Serializable {
 
     @Column(name = "designation", length = 90)
     private String designation;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
+    public Category(Long id, String code, String designation) {
+        this.id = id;
+        this.code = code;
+        this.designation = designation;
+    }
 }

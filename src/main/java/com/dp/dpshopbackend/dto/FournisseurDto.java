@@ -36,6 +36,22 @@ public class FournisseurDto {
 
     private ArticleDto articleDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public FournisseurDto(Long id, String reference, String firstName, String lastName,
                           String address, String email, String telephoneFournisseur,
                           String city, String country,
@@ -67,6 +83,7 @@ public class FournisseurDto {
                 .email(fournisseur.getEmail())
                 .city(fournisseur.getCity())
                 .country(fournisseur.getCountry())
+                .actif(fournisseur.getActif())
                 .subject(fournisseur.getSubject())
                 .message(fournisseur.getMessage())
                 .articleDto(ArticleDto.fromEntityToDto(fournisseur.getArticle()))
@@ -80,13 +97,13 @@ public class FournisseurDto {
 
         Fournisseur fournisseur = new Fournisseur();
         fournisseur.setId(fournisseurDto.getId());
-        fournisseur.setReference(fournisseurDto.getReference());
         fournisseur.setFirstName(fournisseurDto.getFirstName());
         fournisseur.setLastName(fournisseurDto.getLastName());
         fournisseur.setAddress(fournisseurDto.getAddress());
         fournisseur.setTelephoneFournisseur(fournisseurDto.getTelephoneFournisseur());
         fournisseur.setEmail(fournisseurDto.getEmail());
         fournisseur.setCity(fournisseurDto.getCity());
+        fournisseur.setActif(fournisseurDto.isActif());
         fournisseur.setCountry(fournisseurDto.getCountry());
         fournisseur.setSubject(fournisseurDto.getSubject());
         fournisseur.setMessage(fournisseurDto.getMessage());

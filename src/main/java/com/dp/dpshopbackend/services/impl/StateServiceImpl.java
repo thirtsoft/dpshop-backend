@@ -1,13 +1,11 @@
 package com.dp.dpshopbackend.services.impl;
 
-import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.StateDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.State;
 import com.dp.dpshopbackend.repository.StateRepository;
 import com.dp.dpshopbackend.services.StateService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +18,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class StateServiceImpl implements StateService {
 
-    @Autowired
     private final StateRepository stateRepository;
 
     public StateServiceImpl(StateRepository stateRepository) {
@@ -30,7 +27,7 @@ public class StateServiceImpl implements StateService {
 
     @Override
     public StateDto save(StateDto stateDto) {
-
+        stateDto.setActif(true);
         return StateDto.fromEntityToDto(
                 stateRepository.save(
                         StateDto.fromDtoToEntity(stateDto)
@@ -109,4 +106,22 @@ public class StateServiceImpl implements StateService {
         stateRepository.deleteById(id);
     }
 
+    @Override
+    public List<StateDto> findAllActiveStates() {
+        return stateRepository.findAll().stream()
+                .map(StateDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteState(Long stateId) {
+        if (stateId == null) {
+            log.error("state Id is null");
+            return;
+        }
+        Optional<State> stateOptional = stateRepository.findById(stateId);
+        State state = stateOptional.get();
+        state.setActif(false);
+        stateRepository.save(state);
+    }
 }

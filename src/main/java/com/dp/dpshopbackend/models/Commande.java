@@ -70,6 +70,7 @@ public class Commande implements Serializable {
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private AddressLivraison billingAddress;
 
+
   /*  @ManyToOne
     @JoinColumn(name = "userId")
     private Utilisateur utilisateur;*/
@@ -81,10 +82,23 @@ public class Commande implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "commande", fetch = FetchType.LAZY)
     private List<LigneCommande> lcomms = new ArrayList<>();
 
-   /* @ManyToOne
-    @JoinColumn(name = "billingAddress")
-    private AddressLivraison addressLivraison;
-*/
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
 
     public Commande() {
     }

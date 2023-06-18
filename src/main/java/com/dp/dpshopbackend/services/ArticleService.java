@@ -38,6 +38,8 @@ public interface ArticleService {
 
     List<ArticleDto> findByOrderByIdDesc();
 
+    List<ArticleDto> findAllActiveArticles();
+
     Page<ArticleDto> findArticleByPageable(Pageable pageable);
 
     Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable);
@@ -47,4 +49,6 @@ public interface ArticleService {
     BigDecimal countNumberOfArticleInSubCategory(@Param("subcat") Long scatId);
 
     void delete(Long id);
+
+    void deleteArticle(Long id);
 }

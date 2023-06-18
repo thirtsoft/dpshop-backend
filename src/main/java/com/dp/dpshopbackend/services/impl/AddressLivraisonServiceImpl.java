@@ -3,6 +3,7 @@ package com.dp.dpshopbackend.services.impl;
 import com.dp.dpshopbackend.dto.AddressLivraisonDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.models.AddressLivraison;
+import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.repository.AddressLivraisonRepository;
 import com.dp.dpshopbackend.services.AddressLivraisonService;
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +30,7 @@ public class AddressLivraisonServiceImpl implements AddressLivraisonService {
 
     @Override
     public AddressLivraisonDto save(AddressLivraisonDto addressLivraisonDto) {
-
+        addressLivraisonDto.setActif(true);
         return AddressLivraisonDto.fromEntityToDto(
                 addressLivraisonRepository.save(
                         AddressLivraisonDto.fromDtoToEntity(addressLivraisonDto)
@@ -103,5 +104,24 @@ public class AddressLivraisonServiceImpl implements AddressLivraisonService {
         }
         addressLivraisonRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<AddressLivraisonDto> findAllActiveAddressLivraisons() {
+        return addressLivraisonRepository.findAll().stream()
+                .map(AddressLivraisonDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteAddressLivraison(Long AddressLivraisonId) {
+        if (AddressLivraisonId == null) {
+            log.error("AddressLivraison Id is null");
+            return;
+        }
+        Optional<AddressLivraison> addressLivraisonOptional = addressLivraisonRepository.findById(AddressLivraisonId);
+        AddressLivraison addressLivraison = addressLivraisonOptional.get();
+        addressLivraison.setActif(false);
+        addressLivraisonRepository.save(addressLivraison);
     }
 }

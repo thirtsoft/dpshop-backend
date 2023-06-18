@@ -59,4 +59,15 @@ public class FournisseurController implements FournisseurApi {
     public void delete(Long id) {
         fournisseurService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<FournisseurDto>> getAllActiveFournisseurs() {
+        List<FournisseurDto> fournisseurDtoList = fournisseurService.findAllActiveFournisseurs();
+        return new ResponseEntity<>(fournisseurDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteFournisseur(Long idFournisseur) {
+        fournisseurService.deleteFournisseur(idFournisseur);
+    }
 }

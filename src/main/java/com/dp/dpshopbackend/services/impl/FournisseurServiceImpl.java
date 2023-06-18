@@ -29,7 +29,7 @@ public class FournisseurServiceImpl implements FournisseurService {
 
     @Override
     public FournisseurDto save(FournisseurDto fournisseurDto) {
-
+        fournisseurDto.setActif(true);
         return FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
                         FournisseurDto.fromDtoToEntity(fournisseurDto)
@@ -108,8 +108,26 @@ public class FournisseurServiceImpl implements FournisseurService {
             log.error("Fournisseur Id is null");
             return;
         }
-
         fournisseurRepository.deleteById(id);
+    }
 
+    @Override
+    public List<FournisseurDto> findAllActiveFournisseurs() {
+        return fournisseurRepository.findAll().stream()
+                .map(FournisseurDto::fromEntityToDto)
+                .collect(Collectors.toList()
+                );
+    }
+
+    @Override
+    public void deleteFournisseur(Long fournisseurId) {
+        if (fournisseurId == null) {
+            log.error("Fournisseur Id is null");
+            return;
+        }
+        Optional<Fournisseur> optionalFournisseur = fournisseurRepository.findById(fournisseurId);
+        Fournisseur fournisseur = optionalFournisseur.get();
+        fournisseur.setActif(false);
+        fournisseurRepository.save(fournisseur);
     }
 }

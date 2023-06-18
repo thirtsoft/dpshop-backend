@@ -22,6 +22,22 @@ public class NewsletterDto {
 
     private Date dateInscription;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static NewsletterDto fromEntityToDto(Newsletter newsletter) {
         if (newsletter == null) {
             return null;
@@ -33,6 +49,7 @@ public class NewsletterDto {
                 .subject(newsletter.getSubject())
                 .message(newsletter.getMessage())
                 .dateInscription(newsletter.getDateInscription())
+                .actif(newsletter.getActif())
                 .build();
     }
 
@@ -48,7 +65,7 @@ public class NewsletterDto {
         newsletter.setSubject(newsletterDto.getSubject());
         newsletter.setMessage(newsletterDto.getMessage());
         newsletter.setDateInscription(newsletterDto.getDateInscription());
-
+        newsletter.setActif(newsletterDto.isActif());
         return newsletter;
     }
 }

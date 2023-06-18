@@ -115,4 +115,15 @@ public class NotificationController implements NotificationApi {
     public void delete(Long id) {
         notificationService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<NotificationDto>> getAllActiveNotifications() {
+        List<NotificationDto> notificationDtoList = notificationService.findAllActiveNotifications();
+        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteNotification(Long idNotification) {
+        notificationService.deleteNotification(idNotification);
+    }
 }

@@ -204,4 +204,15 @@ public class UtilisateurController implements UtilisateurApi {
     public void delete(Long id) {
         utilisateurService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<UtilisateurDto>> getAllActiveUtilisateurs() {
+        List<UtilisateurDto> utilisateurDtoList = utilisateurService.findAllActiveUtilisateurs();
+        return new ResponseEntity<>(utilisateurDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteUtilisateur(Long idUtilisateur) {
+        utilisateurService.deleteUtilisateur(idUtilisateur);
+    }
 }

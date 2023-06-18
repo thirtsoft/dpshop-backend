@@ -10,7 +10,6 @@ import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,8 +30,8 @@ public class UtilisateurServiceImpl implements UtilisateurService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    //  @Autowired
+    //  private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UtilisateurServiceImpl(UtilisateurRepository utilisateurRepository,
@@ -43,7 +42,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
     @Override
     public UtilisateurDto save(UtilisateurDto utilisateurDto) {
-
+        utilisateurDto.setActif(true);
         return UtilisateurDto.fromEntityToDto(
                 utilisateurRepository.save(
                         UtilisateurDto.fromDtoToEntity(utilisateurDto)
@@ -57,6 +56,7 @@ public class UtilisateurServiceImpl implements UtilisateurService {
         //    RoleDto roleDto = RoleDto.formEntityToDto(role);
         Utilisateur utilisateur = utilisateurRepository.findByUsername(username).get();
         //    UtilisateurDto utilisateurDto = UtilisateurDto.fromEntityToDto(utilisateur);
+        utilisateur.setActif(true);
         utilisateur.getRoles().add(role);
     }
 
@@ -220,5 +220,24 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 
         utilisateurRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<UtilisateurDto> findAllActiveUtilisateurs() {
+        return utilisateurRepository.findAll().stream()
+                .map(UtilisateurDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteUtilisateur(Long utilisateurId) {
+        if (utilisateurId == null) {
+            log.error("utilisateurId Id is null");
+            return;
+        }
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(utilisateurId);
+        Utilisateur utilisateur = optionalUtilisateur.get();
+        utilisateur.setActif(false);
+        utilisateurRepository.save(utilisateur);
     }
 }

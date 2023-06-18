@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.AddressLivraisonDto;
+import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.CountryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -68,4 +69,21 @@ public interface CountryApi {
             @ApiResponse(code = 200, message = "La Country a été supprimé")
     })
     void delete(@PathVariable("idCountry") Long id);
+
+    @GetMapping(value = APP_ROOT + "/countries/search-all-active-countries", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des countries actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des countries actives",
+            responseContainer = "List<CountryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des countries par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CountryDto>> getAllActiveCountries();
+
+    @DeleteMapping(value = APP_ROOT + "/countries/delete-country/{idCountry}")
+    @ApiOperation(value = "Supprimer une countrie par son ID",
+            notes = "Cette méthode permet de supprimer une countries par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La countries a été supprimé")
+    })
+    void deleteCountry(@PathVariable("idCountry") Long idCountry);
 }

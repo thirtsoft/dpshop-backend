@@ -55,6 +55,23 @@ public class AddressLivraison implements Serializable {
     @JsonIgnore
     private Commande commande;
 
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public AddressLivraison(Long id, String reference, String zipcode,
                             String phone, String city, String rue, String country,
                             State state) {

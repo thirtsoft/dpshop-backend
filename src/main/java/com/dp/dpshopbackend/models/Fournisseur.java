@@ -50,6 +50,22 @@ public class Fournisseur implements Serializable {
     @JoinColumn(name = "artId")
     private Article article;
 
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public Fournisseur(Long id, String reference, String firstName, String lastName, String address, String email, String telephoneFournisseur,
                        String city, String country, Article article) {

@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.LigneCommandeApi;
+import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.services.LigneCommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,5 +66,16 @@ public class LigneCommandeController implements LigneCommandeApi {
     @Override
     public void delete(Long id) {
         ligneCommandeService.delete(id);
+    }
+
+    @Override
+    public ResponseEntity<List<LigneCommandeDto>> getAllActiveLigneCommandes() {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllActiveLigneCommandes();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteLigneCommande(Long idLignecommande) {
+        ligneCommandeService.deleteLigneCommande(idLignecommande);
     }
 }

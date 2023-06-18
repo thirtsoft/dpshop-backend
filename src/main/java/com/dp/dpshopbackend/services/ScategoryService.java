@@ -20,4 +20,8 @@ public interface ScategoryService {
     List<ScategoryDto> findByOrderByIdDesc();
 
     void delete(Long id);
+
+    List<ScategoryDto> findAllActiveSubcategories();
+
+    void deleteSubcategory(Long subcategoryId);
 }

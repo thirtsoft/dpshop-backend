@@ -133,6 +133,12 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public ResponseEntity<List<ArticleDto>> getAllActiveArticlesOrderByDesignation() {
+        List<ArticleDto> articleDtoList = articleService.findAllActiveArticles();
+        return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
+    }
+
+    @Override
     public Page<ArticleDto> getListArticleByPageable(int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
         return articleService.findArticleByPageable(pageable);
@@ -212,6 +218,11 @@ public class ArticleController implements ArticleApi {
             e.printStackTrace();
         }
 
+    }
+
+    @Override
+    public void deleteArticle(Long id) {
+        articleService.deleteArticle(id);
     }
 
 }

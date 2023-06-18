@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -76,4 +77,21 @@ public interface HistoriqueLoginApi {
             @ApiResponse(code = 200, message = "La HistoriqueLogin a été supprimé")
     })
     void delete(@PathVariable("idHisotiqueLogin") Long id);
+
+    @GetMapping(value = APP_ROOT + "/historiqueLogins/search-all-active-historiqueLogins", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des HistoriqueLogins actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des HistoriqueLogins actives",
+            responseContainer = "List<HistoriqueLoginDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des HistoriqueLogins par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<HistoriqueLoginDto>> getAllActiveHistoriqueLogins();
+
+    @DeleteMapping(value = APP_ROOT + "/historiqueLogins/delete-historiqueLogin/{idHisotiqueLogin}")
+    @ApiOperation(value = "Supprimer une HisotiqueLogin par son ID",
+            notes = "Cette méthode permet de supprimer une HisotiqueLogin par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La HisotiqueLogin a été supprimé")
+    })
+    void deleteHisotiqueLogin(@PathVariable("idHisotiqueLogin") Long idHisotiqueLogin);
 }

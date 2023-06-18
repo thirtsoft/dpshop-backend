@@ -135,4 +135,21 @@ public interface UtilisateurApi {
 
     })
     void delete(@PathVariable("idUtilisateur") Long id);
+
+    @GetMapping(value = APP_ROOT + "/utilisateurs/search-all-active-utilisateurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des utilisateurs actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des utilisateurs actives",
+            responseContainer = "List<UtilisateurDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des utilisateurs par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<UtilisateurDto>> getAllActiveUtilisateurs();
+
+    @DeleteMapping(value = APP_ROOT + "/newsletters/delete-utilisateur/{idUtilisateur}")
+    @ApiOperation(value = "Supprimer une utilisateur par son ID",
+            notes = "Cette méthode permet de supprimer une utilisateur par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La utilisateur a été supprimé")
+    })
+    void deleteUtilisateur(@PathVariable("idUtilisateur") Long idUtilisateur);
 }

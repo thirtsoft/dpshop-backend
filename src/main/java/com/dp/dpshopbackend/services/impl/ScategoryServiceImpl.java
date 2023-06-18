@@ -1,9 +1,7 @@
 package com.dp.dpshopbackend.services.impl;
 
-import com.dp.dpshopbackend.dto.CategoryDto;
 import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
-import com.dp.dpshopbackend.models.Category;
 import com.dp.dpshopbackend.models.Scategory;
 import com.dp.dpshopbackend.repository.ScategoryRepository;
 import com.dp.dpshopbackend.services.ScategoryService;
@@ -31,7 +29,7 @@ public class ScategoryServiceImpl implements ScategoryService {
 
     @Override
     public ScategoryDto save(ScategoryDto scategoryDto) {
-
+        scategoryDto.setActif(true);
         return ScategoryDto.fromEntityToDto(
                 scategoryRepository.save(
                         ScategoryDto.fromDtoToEntity(scategoryDto)
@@ -116,6 +114,24 @@ public class ScategoryServiceImpl implements ScategoryService {
             return;
         }
         scategoryRepository.deleteById(id);
+    }
 
+    @Override
+    public List<ScategoryDto> findAllActiveSubcategories() {
+        return scategoryRepository.findAll().stream()
+                .map(ScategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteSubcategory(Long subcategoryId) {
+        if (subcategoryId == null) {
+            log.error("Scategorie Id is null");
+            return;
+        }
+        Optional<Scategory> optionalScategory = scategoryRepository.findById(subcategoryId);
+        Scategory scategory = optionalScategory.get();
+        scategory.setActif(false);
+        scategoryRepository.save(scategory);
     }
 }

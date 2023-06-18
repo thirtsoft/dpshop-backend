@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.models.Article;
+import com.dp.dpshopbackend.models.Category;
 import com.dp.dpshopbackend.models.Client;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -17,5 +18,8 @@ public interface ClientRepository extends JpaRepository<Client, Long> {
     BigDecimal countNumberOfClient();
 
     List<Client> findByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from  Client act where act.actif=1 ORDER BY act.id desc")
+    List<Client> findAll();
 
 }

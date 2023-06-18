@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.EmailDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -76,4 +77,21 @@ public interface FournisseurApi {
             @ApiResponse(code = 200, message = "La Fournisseur a été supprimé")
     })
     void delete(@PathVariable("idFournisseur") Long id);
+
+    @GetMapping(value = APP_ROOT + "/fournisseurs/search-all-active-fournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des fournisseurs actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des fournisseurs actives",
+            responseContainer = "List<FournisseurDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des fournisseurs par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<FournisseurDto>> getAllActiveFournisseurs();
+
+    @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete-fournisseur/{idFournisseur}")
+    @ApiOperation(value = "Supprimer une fournisseur par son ID",
+            notes = "Cette méthode permet de supprimer une email par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La fournisseur a été supprimé")
+    })
+    void deleteFournisseur(@PathVariable("idFournisseur") Long idFournisseur);
 }

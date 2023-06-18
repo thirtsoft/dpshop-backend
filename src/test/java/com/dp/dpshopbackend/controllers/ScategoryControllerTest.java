@@ -66,8 +66,9 @@ public class ScategoryControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
+      //  categoryDto = new CategoryDto(1L, "PC", "PC");
+     //   scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
+        scategoryDto = new ScategoryDto();
         mockMvc = MockMvcBuilders.standaloneSetup(scategoryController).build();
     }
 

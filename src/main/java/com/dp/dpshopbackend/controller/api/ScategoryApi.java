@@ -78,4 +78,21 @@ public interface ScategoryApi {
             @ApiResponse(code = 200, message = "La Scategory a été supprimé")
     })
     void delete(@PathVariable("idScategory") Long id);
+
+    @GetMapping(value = APP_ROOT + "/scategories/search-all-active-scategories", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des scategories actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des scategories actives",
+            responseContainer = "List<ScategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des scategories par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ScategoryDto>> getAllActiveSubCategories();
+
+    @DeleteMapping(value = APP_ROOT + "/newsletters/delete-scategorie/{idScategory}")
+    @ApiOperation(value = "Supprimer une scategorie par son ID",
+            notes = "Cette méthode permet de supprimer une scategorie par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La scategorie a été supprimé")
+    })
+    void deleteSubCategory(@PathVariable("idScategory") Long idScategory);
 }

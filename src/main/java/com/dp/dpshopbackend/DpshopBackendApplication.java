@@ -71,6 +71,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        /*
         Category c1 = categoryRepository.save(new Category(1L, "cat1", "cat1"));
         Category c2 = categoryRepository.save(new Category(2L, "cat2", "cat2"));
         Category c3 = categoryRepository.save(new Category(3L, "cat3", "cat3"));
@@ -107,11 +108,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "m.diallo233@unig-zig.sn", "f3", "f3", "f3", p2));
         Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "thirtsoft@gmail.com", "f4", "f4", "f4", p1));
 
-      /*  Client cl1 = clientRepository.save(new Client("cl1", "cl1", "cl1", "779440310" ));
-        Client cl2 = clientRepository.save(new Client("cl2", "cl2", "cl2", "778102567" ));
-        Client cl3 = clientRepository.save(new Client("cl3", "cl3", "cl3", "774567321"));
-        Client cl4 = clientRepository.save(new Client("cl4", "cl4", "cl4", "776543298" ));
-*/
+
         Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
         Country count2 = countryRepository.save(new Country(2L, "USA", "Etats-Unies"));
         Country count3 = countryRepository.save(new Country(3L, "GUIN", "Guinnée-Conakry"));
@@ -134,11 +131,6 @@ public class DpshopBackendApplication implements CommandLineRunner {
         State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
         State state10 = stateRepository.save(new State(10L, "Accra", count9));
 
-       /* AddressLivraison a1 = addressLivraisonRepository.save(new AddressLivraison(1L, "add1", "add1", "add1", "add1", "add1", "add1", state1));
-        AddressLivraison a2 = addressLivraisonRepository.save(new AddressLivraison(2L, "add2", "add2", "add2", "add2", "add2", "add2", state2));
-        AddressLivraison a3 = addressLivraisonRepository.save(new AddressLivraison(3L, "add3", "add3", "add3", "add3", "add3", "add3", state3));
-        AddressLivraison a4 = addressLivraisonRepository.save(new AddressLivraison(4L, "add4", "add4", "add4", "add4", "add4", "add4", state4));
-*/
 
         Role useRole = new Role(RoleName.ROLE_USER);
         Role assistantRole = new Role(RoleName.ROLE_ASSISTANT);
@@ -170,6 +162,8 @@ public class DpshopBackendApplication implements CommandLineRunner {
 
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
         utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
+
+        */
 
     }
 }

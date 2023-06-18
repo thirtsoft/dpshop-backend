@@ -34,7 +34,6 @@ public interface ArticleApi {
     @ApiResponses(value = {
             @ApiResponse(code = 201, message = "L'Artilce a été crée"),
             @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
-
     })
     ResponseEntity<ArticleDto> saveArticleWithFile(@RequestParam(name = "article") String articleDto,
                                                    @RequestParam(name = "photoArticle") MultipartFile photoArticle) throws IOException;
@@ -149,6 +148,15 @@ public interface ArticleApi {
     })
     ResponseEntity<List<ArticleDto>> getAllArticlesOrderByIdDesc();
 
+    @GetMapping(value = APP_ROOT + "/articles/search-all-active-articles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles actives ordonnées par la designation",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles actives ordonnées par la designation",
+            responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ArticleDto>> getAllActiveArticlesOrderByDesignation();
+
     @GetMapping(value = APP_ROOT + "/articles/searchArticleByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par pages",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par pages", responseContainer = "Page<ArticleDto>")
@@ -224,6 +232,14 @@ public interface ArticleApi {
 
     })
     void uploadPhotoArticleInFolder(MultipartFile file, @PathVariable("id") Long id) throws IOException;
+
+    @DeleteMapping(value = APP_ROOT + "/articles/delete-article/{idArticle}")
+    @ApiOperation(value = "Supprimer un Article par son ID",
+            notes = "Cette méthode permet de supprimer une Article par son ID", response = ArticleDto.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'Article a été supprimé")
+    })
+    void deleteArticle(@PathVariable("idArticle") Long id);
 
 
 }

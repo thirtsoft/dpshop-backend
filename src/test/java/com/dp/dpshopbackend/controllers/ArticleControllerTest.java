@@ -67,8 +67,10 @@ public class ArticleControllerTest {
 
     @Before
     public void setup() {
+        /*
         categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
+        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);*/
+        scategoryDto = new ScategoryDto();
         articleDto = new ArticleDto(1L, "prod1", "prod1", 150, 1700.0, 1800.0, true, true, "prod1", "photo", scategoryDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();

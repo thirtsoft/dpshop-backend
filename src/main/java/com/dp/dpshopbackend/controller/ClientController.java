@@ -61,4 +61,15 @@ public class ClientController implements ClientApi {
     public void delete(Long id) {
         clientService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<ClientDto>> getAllActiveClients() {
+        List<ClientDto> clientDtoList = clientService.findAllActiveClients();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteClient(Long idClient) {
+        clientService.deleteClient(idClient);
+    }
 }

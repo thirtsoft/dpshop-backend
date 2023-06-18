@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.services.impl;
 
 import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.Category;
 import com.dp.dpshopbackend.models.Client;
 import com.dp.dpshopbackend.repository.ClientRepository;
 import com.dp.dpshopbackend.services.ClientService;
@@ -30,7 +31,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public ClientDto save(ClientDto clientDto) {
-
+        clientDto.setActif(true);
         return ClientDto.fromEntityToDto(
                 clientRepository.save(
                         ClientDto.fromDtoToEntity(clientDto)
@@ -121,5 +122,24 @@ public class ClientServiceImpl implements ClientService {
 
         clientRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<ClientDto> findAllActiveClients() {
+        return clientRepository.findAll().stream()
+                .map(ClientDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteClient(Long clientId) {
+        if (clientId == null) {
+            log.error("Client Id is null");
+            return;
+        }
+        Optional<Client> clientOptional = clientRepository.findById(clientId);
+        Client client = clientOptional.get();
+        client.setActif(false);
+        clientRepository.save(client);
     }
 }

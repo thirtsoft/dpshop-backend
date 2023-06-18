@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+@Data
 @Entity
 @Table(name = "utilisateur", uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
@@ -68,6 +70,23 @@ public class Utilisateur implements UserDetails, Serializable {
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Commande> commandeList = new ArrayList<>();
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
 
     public Utilisateur() {

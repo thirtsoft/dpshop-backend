@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.AddressLivraisonDto;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.CategoryDto;
 
@@ -20,5 +21,9 @@ public interface CategoryService {
     List<CategoryDto> findByOrderByIdDesc();
 
     void delete(Long id);
+
+    List<CategoryDto> findAllActiveCategories();
+
+    void deleteCategory(Long categoryId);
 
 }

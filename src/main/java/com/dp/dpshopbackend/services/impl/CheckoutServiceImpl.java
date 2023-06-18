@@ -62,6 +62,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         String orderTrackingNumber = generateOrderTrackingNumber();
         commandeDto.setOrderTrackingNumber(orderTrackingNumber);
+        commandeDto.setActif(true);
 
 
       /*  List<LigneCommandeDto> ligneCommandeDtos = purchaseDto.getLigneCommandeListDtos();
@@ -99,6 +100,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setOrderTrackingNumber(orderTrackingNumber);
         commande.setStatus(status);
         commande.setDateCommande(new Date());
+        commande.setActif(true);
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
@@ -135,6 +137,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setNumeroCommande(numCommande);
         commande.setStatus(status);
         commande.setDateCommande(new Date());
+        commande.setActif(true);
 
         // attach loggin user to order
         commande.setUtilisateur(utilisateur);

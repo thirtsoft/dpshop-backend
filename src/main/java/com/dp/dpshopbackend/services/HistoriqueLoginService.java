@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
 
 import java.math.BigDecimal;
@@ -19,6 +20,10 @@ public interface HistoriqueLoginService {
 
     BigDecimal countNumberOfHistoriqueLogins();
 
-    void deleteHistoriqueLogin(Long id);
+    void delete(Long id);
+
+    List<HistoriqueLoginDto> findAllActiveHistoriqueLogins();
+
+    void deleteHistoriqueLogin(Long historiqueLoginId);
 
 }

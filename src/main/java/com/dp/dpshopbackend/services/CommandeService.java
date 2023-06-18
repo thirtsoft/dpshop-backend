@@ -61,4 +61,8 @@ public interface CommandeService {
 
     void delete(Long id);
 
+    List<CommandeDto> findAllActiveCommandes();
+
+    void deleteCommande(Long commandeId);
+
 }

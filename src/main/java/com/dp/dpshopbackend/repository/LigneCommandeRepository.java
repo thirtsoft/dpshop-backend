@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
+import com.dp.dpshopbackend.models.HistoriqueLogin;
 import com.dp.dpshopbackend.models.LigneCommande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,5 +21,8 @@ public interface LigneCommandeRepository extends JpaRepository<LigneCommande, Lo
     List<LigneCommande> ListLigneCommandeByCommandeId(@Param("num") Long comId);
 
     List<LigneCommande> findTop200ByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from LigneCommande act where act.actif=1 ORDER BY act.id desc")
+    List<LigneCommande> findAll();
 
 }

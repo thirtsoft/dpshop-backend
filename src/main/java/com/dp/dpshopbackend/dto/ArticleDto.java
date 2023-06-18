@@ -38,6 +38,22 @@ public class ArticleDto {
 
     private ScategoryDto scategoryDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public ArticleDto(long id, String reference, String designation, int quantity,
                       double price, double currentPrice, boolean promo, boolean selected,
                       String description, String photo, ScategoryDto scategoryDto) {
@@ -72,6 +88,7 @@ public class ArticleDto {
                 .description(article.getDescription())
                 .manufactured(article.getManufactured())
                 .photo(article.getPhoto())
+                .actif(article.getActif())
                 .scategoryDto(ScategoryDto.fromEntityToDto(article.getScategory()))
                 .build();
     }
@@ -94,6 +111,7 @@ public class ArticleDto {
         article.setDescription(articleDto.getDescription());
         article.setManufactured(articleDto.getManufactured());
         article.setPhoto(articleDto.getPhoto());
+        article.setActif(articleDto.isActif());
         article.setScategory(ScategoryDto.fromDtoToEntity(articleDto.getScategoryDto()));
 
         return article;

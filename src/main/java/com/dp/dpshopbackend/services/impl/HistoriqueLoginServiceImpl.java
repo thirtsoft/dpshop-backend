@@ -34,6 +34,7 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
 
     @Override
     public HistoriqueLoginDto saveHistoriqueLogin(HistoriqueLoginDto historiqueLoginDto) {
+        historiqueLoginDto.setActif(true);
         return HistoriqueLoginDto.fromEntityToDto(
                 historiqueLoginRepository.save(
                         HistoriqueLoginDto.fromDtoToEntity(historiqueLoginDto)
@@ -45,11 +46,9 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
     public HistoriqueLoginDto saveHistoriqueLoginWithConnectedUser(HistoriqueLoginDto historiqueLoginDto, Long userId) {
 
         UtilisateurDto utilisateurDto = utilisateurService.findById(userId);
-
-
         historiqueLoginDto.setUtilisateurDto(utilisateurDto);
         historiqueLoginDto.setCreatedDate(new Date());
-
+        historiqueLoginDto.setActif(true);
         return HistoriqueLoginDto.fromEntityToDto(
                 historiqueLoginRepository.save(
                         HistoriqueLoginDto.fromDtoToEntity(historiqueLoginDto)
@@ -92,11 +91,30 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
     }
 
     @Override
-    public void deleteHistoriqueLogin(Long id) {
+    public void delete(Long id) {
         if (id == null) {
-            log.error("Fournisseur Id is null");
+            log.error("HistoriqueLogin Id is null");
             return;
         }
         historiqueLoginRepository.deleteById(id);
+    }
+
+    @Override
+    public List<HistoriqueLoginDto> findAllActiveHistoriqueLogins() {
+        return historiqueLoginRepository.findAll().stream()
+                .map(HistoriqueLoginDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteHistoriqueLogin(Long id) {
+        if (id == null) {
+            log.error("HistoriqueLogin Id is null");
+            return;
+        }
+        Optional<HistoriqueLogin> optionalHistoriqueLogin = historiqueLoginRepository.findById(id);
+        HistoriqueLogin historiqueLogin = optionalHistoriqueLogin.get();
+        historiqueLogin.setActif(false);
+        historiqueLoginRepository.save(historiqueLogin);
     }
 }

@@ -33,6 +33,22 @@ public class AddressLivraisonDto {
 
     private StateDto stateDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     //  private CommandeDto commandeDto;
 
  //   private List<CommandeDto> commandeDtoList = new ArrayList<>();
@@ -49,6 +65,7 @@ public class AddressLivraisonDto {
                 .zipcode(addressLivraison.getZipcode())
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
+                .actif(addressLivraison.getActif())
        //         .state(addressLivraison.getState())
                 .country(addressLivraison.getCountry())
                 .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
@@ -69,7 +86,8 @@ public class AddressLivraisonDto {
         addressLivraison.setZipcode(addressClientDto.getZipcode());
         addressLivraison.setCity(addressClientDto.getCity());
       //  addressLivraison.setState(addressClientDto.getState());
-        addressLivraison.setCountry(addressClientDto.getCountry());
+        addressLivraison.setCountry(addressLivraison.getCountry());
+        addressLivraison.setActif(addressLivraison.isActif());
         addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
         //    addressLivraison.setCommande(CommandeDto.fromDtoToEntity(addressClientDto.getCommandeDto()));
 

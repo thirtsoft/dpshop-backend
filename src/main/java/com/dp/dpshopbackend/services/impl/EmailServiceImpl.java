@@ -4,6 +4,7 @@ import com.dp.dpshopbackend.dto.EmailDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.dto.NewsletterDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.Country;
 import com.dp.dpshopbackend.models.Email;
 import com.dp.dpshopbackend.models.Fournisseur;
 import com.dp.dpshopbackend.repository.EmailRepository;
@@ -63,6 +64,7 @@ public class EmailServiceImpl implements EmailService {
 
         emailDto.setCreateDate(new Date());
         emailDto.setCustomerName(emailDto.getCustomerName());
+        emailDto.setActif(true);
 
         System.out.println(emailDto);
 
@@ -180,5 +182,24 @@ public class EmailServiceImpl implements EmailService {
         }
 
         emailRepository.deleteById(id);
+    }
+
+    @Override
+    public List<EmailDto> findAllActiveEmails() {
+        return emailRepository.findAll().stream()
+                .map(EmailDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteEmail(Long emailId) {
+        if (emailId == null) {
+            log.error("Country Id is null");
+            return;
+        }
+        Optional<Email> optionalEmail = emailRepository.findById(emailId);
+        Email email = optionalEmail.get();
+        email.setActif(false);
+        emailRepository.save(email);
     }
 }

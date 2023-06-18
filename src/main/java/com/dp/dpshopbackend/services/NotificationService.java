@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.NewsletterDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
 
 import java.math.BigDecimal;
@@ -28,4 +29,9 @@ public interface NotificationService {
     List<NotificationDto> findTop4ByOrderByCreatedDateDescByProductId(String prodRef);
 
     void delete(Long id);
+
+    List<NotificationDto> findAllActiveNotifications();
+
+    void deleteNotification(Long notificationId);
+
 }

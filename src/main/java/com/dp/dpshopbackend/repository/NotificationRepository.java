@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
+import com.dp.dpshopbackend.models.Newsletter;
 import com.dp.dpshopbackend.models.Notification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -24,5 +25,8 @@ public interface NotificationRepository extends JpaRepository<Notification, Long
 
     @Query("select n from Notification n where n.article.reference =:num")
     List<Notification> findTop4ByOrderByCreatedDateDesc(@Param("num") String prodRef);
+
+    @Query("Select DISTINCT act from Notification act where act.actif=1 ORDER BY act.id desc")
+    List<Notification> findAll();
 
 }

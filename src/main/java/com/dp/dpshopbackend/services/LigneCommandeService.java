@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 
 import java.util.List;
@@ -21,4 +22,8 @@ public interface LigneCommandeService {
     List<LigneCommandeDto> findTop200LigneCommandeOrderByIdDesc();
 
     void delete(Long id);
+
+    List<LigneCommandeDto> findAllActiveLigneCommandes();
+
+    void deleteLigneCommande(Long ligneCommandeId);
 }

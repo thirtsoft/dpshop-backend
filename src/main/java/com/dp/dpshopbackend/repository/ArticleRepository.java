@@ -48,4 +48,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("select count(p) from Article p where p.scategory.id =:subcat ")
     BigDecimal countNumberOfArticleInSubCategory(@Param("subcat") Long scatId);
 
+    @Query("Select DISTINCT act from  Article act where act.actif=1 ORDER BY act.designation")
+    List<Article> findAll();
+
 }

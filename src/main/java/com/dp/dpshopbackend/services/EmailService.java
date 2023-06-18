@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.CountryDto;
 import com.dp.dpshopbackend.dto.EmailDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
 import com.dp.dpshopbackend.dto.NewsletterDto;
@@ -27,6 +28,10 @@ public interface EmailService {
     BigDecimal countNumberOfEmailInMonth();
 
     void delete(Long id);
+
+    List<EmailDto> findAllActiveEmails();
+
+    void deleteEmail(Long emailId);
 
 
 }

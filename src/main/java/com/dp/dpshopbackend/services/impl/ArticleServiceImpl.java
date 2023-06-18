@@ -35,7 +35,7 @@ public class ArticleServiceImpl implements ArticleService {
 
     @Override
     public ArticleDto save(ArticleDto articleDto) {
-
+        articleDto.setActif(true);
         return ArticleDto.fromEntityToDto(
                 articleRepository.save(
                         ArticleDto.fromDtoToEntity(articleDto)
@@ -186,6 +186,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findAllActiveArticles() {
+        return articleRepository.findAll().stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Page<ArticleDto> findArticleByPageable(Pageable pageable) {
         return articleRepository.findArticle(pageable)
                 .map(ArticleDto::fromEntityToDto);
@@ -215,6 +222,19 @@ public class ArticleServiceImpl implements ArticleService {
             return;
         }
         articleRepository.deleteById(id);
+
+    }
+
+    @Override
+    public void deleteArticle(Long id) {
+        if (id == null) {
+            log.error("Article Id is null");
+            return;
+        }
+        Optional<Article> article = articleRepository.findById(id);
+        Article articleResult = article.get();
+        articleResult.setActif(false);
+        articleRepository.save(articleResult);
 
     }
 }

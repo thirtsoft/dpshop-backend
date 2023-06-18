@@ -53,4 +53,15 @@ public class AddressLivraisonController implements AddressLivraisonApi {
     public void delete(Long id) {
         addressLivraisonService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<AddressLivraisonDto>> getAllActiveAddressLivraisons() {
+        List<AddressLivraisonDto> addressLivraisonDtos = addressLivraisonService.findAllActiveAddressLivraisons();
+        return new ResponseEntity<>(addressLivraisonDtos, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteAddressLivraison(Long idAddressLivraison) {
+        addressLivraisonService.deleteAddressLivraison(idAddressLivraison);
+    }
 }

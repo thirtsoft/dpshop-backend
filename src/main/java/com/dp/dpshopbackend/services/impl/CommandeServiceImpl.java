@@ -1,12 +1,8 @@
 package com.dp.dpshopbackend.services.impl;
 
-import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
-import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
-import com.dp.dpshopbackend.models.Article;
 import com.dp.dpshopbackend.models.Commande;
-import com.dp.dpshopbackend.models.LigneCommande;
 import com.dp.dpshopbackend.repository.*;
 import com.dp.dpshopbackend.services.*;
 import lombok.extern.slf4j.Slf4j;
@@ -121,7 +117,7 @@ public class CommandeServiceImpl implements CommandeService {
         savedCmdClt.setTotalCommande(total);
         savedCmdClt.setStatus(status);
         savedCmdClt.setDateCommande(new Date());
-
+        savedCmdClt.setActif(true);
         return CommandeDto.fromEntityToDto(savedCmdClt);
 
 
@@ -186,7 +182,7 @@ public class CommandeServiceImpl implements CommandeService {
         savedCmdClt.setTotalCommande(total);
         savedCmdClt.setStatus(status);
         savedCmdClt.setDateCommande(new Date());
-
+        savedCmdClt.setActif(true);
         return CommandeDto.fromEntityToDto(savedCmdClt);
     }
 
@@ -378,5 +374,30 @@ public class CommandeServiceImpl implements CommandeService {
         }
         commandeRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<CommandeDto> findAllActiveCommandes() {
+        return commandeRepository.findAll().stream()
+                .map(CommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteCommande(Long commandeId) {
+        if (commandeId == null) {
+            log.error("Commande Id is null");
+            return;
+        }
+        Optional<Commande> commandeOptional = commandeRepository.findById(commandeId);
+        Commande commande = commandeOptional.get();
+        commande.setActif(false);
+        commandeRepository.save(commande);
+        if (commande.getLcomms() != null) {
+            commande.getLcomms().forEach(ligCmdClt -> {
+                ligCmdClt.setActif(false);
+                ligneCommandeRepository.save(ligCmdClt);
+            });
+        }
     }
 }

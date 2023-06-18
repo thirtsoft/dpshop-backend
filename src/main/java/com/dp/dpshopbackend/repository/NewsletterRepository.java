@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.repository;
 
+import com.dp.dpshopbackend.models.LigneCommande;
 import com.dp.dpshopbackend.models.Newsletter;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,5 +16,8 @@ public interface NewsletterRepository extends JpaRepository<Newsletter, Long> {
     BigDecimal countNumberOfNewsletters();
 
     List<Newsletter> findByOrderByIdDesc();
+
+    @Query("Select DISTINCT act from Newsletter act where act.actif=1 ORDER BY act.id desc")
+    List<Newsletter> findAll();
 
 }

@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.dto.NewsletterDto;
 
 import java.math.BigDecimal;
@@ -20,4 +21,9 @@ public interface NewsletterService {
     BigDecimal countNumberOfNewsletters();
 
     void delete(Long id);
+
+    List<NewsletterDto> findAllActiveNewsletters();
+
+    void deleteNewsletter(Long newsletterId);
+
 }

@@ -177,4 +177,15 @@ public class CommandeController implements CommandeApi {
     public void delete(Long id) {
         commandeService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<CommandeDto>> getAllActiveCommandes() {
+        List<CommandeDto> commandeDtoList = commandeService.findAllActiveCommandes();
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteCommande(Long idCommande) {
+        commandeService.deleteCommande(idCommande);
+    }
 }

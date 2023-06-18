@@ -2,6 +2,7 @@ package com.dp.dpshopbackend.services.impl;
 
 import com.dp.dpshopbackend.dto.CategoryDto;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
+import com.dp.dpshopbackend.models.AddressLivraison;
 import com.dp.dpshopbackend.models.Category;
 import com.dp.dpshopbackend.repository.CategoryRepository;
 import com.dp.dpshopbackend.services.CategoryService;
@@ -20,7 +21,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class CategoryServiceImpl implements CategoryService {
 
-    @Autowired
     private final CategoryRepository categoryRepository;
 
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
@@ -29,7 +29,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public CategoryDto save(CategoryDto categoryDto) {
-
+        categoryDto.setActif(true);
         return CategoryDto.fromEntityToDto(
                 categoryRepository.save(
                         CategoryDto.fromDtoToEntity(categoryDto)
@@ -113,5 +113,24 @@ public class CategoryServiceImpl implements CategoryService {
         }
         categoryRepository.deleteById(id);
 
+    }
+
+    @Override
+    public List<CategoryDto> findAllActiveCategories() {
+        return categoryRepository.findAll().stream()
+                .map(CategoryDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteCategory(Long categoryId) {
+        if (categoryId == null) {
+            log.error("Categorie Id is null");
+            return;
+        }
+        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
+        Category category = optionalCategory.get();
+        category.setActif(false);
+        categoryRepository.save(category);
     }
 }

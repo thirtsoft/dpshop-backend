@@ -18,4 +18,8 @@ public interface CountryService {
     List<CountryDto> findByOrderByIdDesc();
 
     void delete(Long id);
+
+    List<CountryDto> findAllActiveCountries();
+
+    void deleteCountry(Long countryId);
 }

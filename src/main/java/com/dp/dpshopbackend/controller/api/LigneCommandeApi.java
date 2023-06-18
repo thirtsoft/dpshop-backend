@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -66,4 +67,21 @@ public interface LigneCommandeApi {
             @ApiResponse(code = 200, message = "La LigneCommande a été supprimé")
     })
     void delete(@PathVariable("idLignecommande") Long id);
+
+    @GetMapping(value = APP_ROOT + "/lignecommandes/search-all-active-lignecommandes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des lignecommandes actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des lignecommandes actives",
+            responseContainer = "List<LigneCommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des lignecommandes par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<LigneCommandeDto>> getAllActiveLigneCommandes();
+
+    @DeleteMapping(value = APP_ROOT + "/lignecommandes/delete-lignecommande/{idLignecommande}")
+    @ApiOperation(value = "Supprimer une lignecommande par son ID",
+            notes = "Cette méthode permet de supprimer une lignecommande par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La lignecommande a été supprimé")
+    })
+    void deleteLigneCommande(@PathVariable("idLignecommande") Long idLignecommande);
 }

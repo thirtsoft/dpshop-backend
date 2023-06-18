@@ -35,10 +35,10 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select sum(c.totalCommande) from Commande c where year(c.dateCommande) = year(current_date)")
     BigDecimal sumTotalOfCommandesByYear();
 
-    @Query("select c from Commande c where c.status = 'ENCOURS' order by id Desc ")
+    @Query("select c from Commande c where c.actif=1 and c.status = 'ENCOURS' order by c.id Desc ")
     List<Commande> findListOrderByStatusPending();
 
-    @Query("select c from Commande c where c.status = 'PAYEE' order by id Desc ")
+    @Query("select c from Commande c where c.actif=1 and c.status = 'PAYEE' order by c.id Desc ")
     List<Commande> findListOrderByStatusPayed();
 
     List<Commande> findByOrderByIdDesc();
@@ -55,16 +55,19 @@ public interface CommandeRepository extends JpaRepository<Commande, Long> {
     @Query("select EXTRACT(year from(v.dateCommande)), sum(v.totalCommande) from Commande v group by EXTRACT(year from(v.dateCommande))")
     List<?> sumTotalOfCommandeByYears();
 
-    @Query("select p from Commande p where p.utilisateur.id =:user order by id Desc")
+    @Query("select p from Commande p where p.utilisateur.id =:user order by p.id Desc")
     List<Commande> ListCommandeByCustomerId(@Param("user") Long userId);
 
-    @Query("select p from Commande p where p.shippingAddress.id =:addLivraison order by id Desc")
+    @Query("select p from Commande p where p.shippingAddress.id =:addLivraison order by p.id Desc")
     List<Commande> ListCommandeByAddressLivraisonId(@Param("addLivraison") Long addLivraison);
 
-    @Query("select p from Commande p where p.billingAddress.id =:addAchat order by id Desc")
+    @Query("select p from Commande p where p.billingAddress.id =:addAchat order by p.id Desc")
     List<Commande> ListCommandeByAddressAchatId(@Param("addAchat") Long addAchat);
 
     @Query("select com from Commande com where com.utilisateur.id =:userId")
     Page<Commande> findCommandeByUtilisateurPageables(@Param("userId") Long userId, Pageable pageable);
+
+    @Query("Select DISTINCT act from Commande act where act.actif=1 ORDER BY act.id desc")
+    List<Commande> findAll();
 
 }

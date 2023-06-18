@@ -20,6 +20,22 @@ public class ScategoryDto {
 
     private CategoryDto categoryDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static ScategoryDto fromEntityToDto(Scategory scategory) {
         if (scategory == null) {
             return null;
@@ -30,6 +46,7 @@ public class ScategoryDto {
                 .code(scategory.getCode())
                 .libelle(scategory.getLibelle())
                 .categoryDto(CategoryDto.fromEntityToDto(scategory.getCategory()))
+                .actif(scategory.getActif())
                 .build();
     }
 
@@ -43,7 +60,7 @@ public class ScategoryDto {
         scategory.setCode(scategoryDto.getCode());
         scategory.setLibelle(scategoryDto.getLibelle());
         scategory.setCategory(CategoryDto.fromDtoToEntity(scategoryDto.getCategoryDto()));
-
+        scategory.setActif(scategoryDto.isActif());
         return scategory;
     }
 }

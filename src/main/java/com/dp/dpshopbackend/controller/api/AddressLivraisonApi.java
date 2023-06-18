@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller.api;
 
 import com.dp.dpshopbackend.dto.AddressLivraisonDto;
+import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.ClientDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -68,4 +69,21 @@ public interface AddressLivraisonApi {
             @ApiResponse(code = 200, message = "L'AddressLivraison a été supprimé")
     })
     void delete(@PathVariable("idAddressLivraison") Long id);
+
+    @GetMapping(value = APP_ROOT + "/addresslivraisons/search-all-active-addresslivraisons", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des AddressLivraisons actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des AddressLivraisons actives",
+            responseContainer = "List<AddressLivraisonDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des AddressLivraisons par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<AddressLivraisonDto>> getAllActiveAddressLivraisons();
+
+    @DeleteMapping(value = APP_ROOT + "/addresslivraisons/delete-addresslivraisons/{idAddressLivraison}")
+    @ApiOperation(value = "Supprimer une Addresse de livraison par son ID",
+            notes = "Cette méthode permet de supprimer une Addresse de livraison  par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "L'Article a été supprimé")
+    })
+    void deleteAddressLivraison(@PathVariable("idAddressLivraison") Long idAddressLivraison);
 }

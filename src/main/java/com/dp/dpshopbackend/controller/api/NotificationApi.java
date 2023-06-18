@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.NewsletterDto;
 import com.dp.dpshopbackend.dto.NotificationDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -123,4 +124,21 @@ public interface NotificationApi {
             @ApiResponse(code = 200, message = "La Notification a été supprimé")
     })
     void delete(@PathVariable("idNotification") Long id);
+
+    @GetMapping(value = APP_ROOT + "/notifications/search-all-active-notifications", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des notifications actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des notifications actives",
+            responseContainer = "List<NewsletterDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des notifications par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<NotificationDto>> getAllActiveNotifications();
+
+    @DeleteMapping(value = APP_ROOT + "/newsletters/delete-notification/{idNotification}")
+    @ApiOperation(value = "Supprimer une notification par son ID",
+            notes = "Cette méthode permet de supprimer une notification par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La notification a été supprimé")
+    })
+    void deleteNotification(@PathVariable("idNotification") Long idNotification);
 }

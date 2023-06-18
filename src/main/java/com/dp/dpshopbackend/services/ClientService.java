@@ -21,4 +21,8 @@ public interface ClientService {
     BigDecimal countNumberOfClient();
 
     void delete(Long id);
+
+        List<ClientDto> findAllActiveClients();
+
+        void deleteClient(Long clientId);
 }

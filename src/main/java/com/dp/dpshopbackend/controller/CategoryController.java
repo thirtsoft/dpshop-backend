@@ -58,4 +58,15 @@ public class CategoryController implements CategoryApi {
     public void delete(Long id) {
         categoryService.delete(id);
     }
+
+    @Override
+    public ResponseEntity<List<CategoryDto>> getAllActiveCategories() {
+        List<CategoryDto> categoryDtoList = categoryService.findAllActiveCategories();
+        return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteCategory(Long idCategory) {
+        categoryService.deleteCategory(idCategory);
+    }
 }

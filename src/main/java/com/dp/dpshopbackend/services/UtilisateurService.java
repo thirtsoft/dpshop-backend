@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.StateDto;
 import com.dp.dpshopbackend.dto.UtilisateurDto;
 import com.dp.dpshopbackend.enumeration.RoleName;
 
@@ -32,4 +33,8 @@ public interface UtilisateurService {
     List<UtilisateurDto> findAll();
 
     void delete(Long id);
+
+    List<UtilisateurDto> findAllActiveUtilisateurs();
+
+    void deleteUtilisateur(Long utilisateurId);
 }

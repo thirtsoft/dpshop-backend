@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.ScategoryDto;
 import com.dp.dpshopbackend.dto.StateDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -85,4 +86,21 @@ public interface StateApi {
             @ApiResponse(code = 200, message = "La State a été supprimé")
     })
     void delete(@PathVariable("idState") Long id);
+
+    @GetMapping(value = APP_ROOT + "/states/search-all-active-states", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des states actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des states actives",
+            responseContainer = "List<StateDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des states par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<StateDto>> getAllActiveStates();
+
+    @DeleteMapping(value = APP_ROOT + "/newsletters/delete-state/{idState}")
+    @ApiOperation(value = "Supprimer une state par son ID",
+            notes = "Cette méthode permet de supprimer une state par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La state a été supprimé")
+    })
+    void deleteState(@PathVariable("idState") Long idState);
 }

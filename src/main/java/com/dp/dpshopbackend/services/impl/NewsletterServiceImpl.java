@@ -28,7 +28,8 @@ public class NewsletterServiceImpl implements NewsletterService {
 
     @Override
     public NewsletterDto save(NewsletterDto newsletterDto) {
-
+        newsletterDto.setDateInscription(new Date());
+        newsletterDto.setActif(true);
         return NewsletterDto.fromEntityToDto(
                 newsletterRepository.save(
                         NewsletterDto.fromDtoToEntity(newsletterDto)
@@ -100,7 +101,25 @@ public class NewsletterServiceImpl implements NewsletterService {
             log.error("Newsletter Id is null");
             return;
         }
-
         newsletterRepository.deleteById(id);
+    }
+
+    @Override
+    public List<NewsletterDto> findAllActiveNewsletters() {
+        return newsletterRepository.findAll().stream()
+                .map(NewsletterDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteNewsletter(Long newsletterId) {
+        if (newsletterId == null) {
+            log.error("Newsletter Id is null");
+            return;
+        }
+        Optional<Newsletter> optionalNewsletter = newsletterRepository.findById(newsletterId);
+        Newsletter newsletter = optionalNewsletter.get();
+        newsletter.setActif(false);
+        newsletterRepository.save(newsletter);
     }
 }

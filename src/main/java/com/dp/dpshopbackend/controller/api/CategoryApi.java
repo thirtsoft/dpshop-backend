@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.AddressLivraisonDto;
 import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.dto.CategoryDto;
 import io.swagger.annotations.ApiOperation;
@@ -78,4 +79,21 @@ public interface CategoryApi {
             @ApiResponse(code = 200, message = "La Category a été supprimé")
     })
     void delete(@PathVariable("idCategory") Long id);
+
+    @GetMapping(value = APP_ROOT + "/categories/search-all-active-categories", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des categories actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des categories actives",
+            responseContainer = "List<CategoryDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des AddressLivraisons par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CategoryDto>> getAllActiveCategories();
+
+    @DeleteMapping(value = APP_ROOT + "/categories/delete-categories/{idCategory}")
+    @ApiOperation(value = "Supprimer une Category par son ID",
+            notes = "Cette méthode permet de supprimer une Category par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La Categorie a été supprimé")
+    })
+    void deleteCategory(@PathVariable("idCategory") Long idCategory);
 }

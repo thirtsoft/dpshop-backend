@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.ClientDto;
 import com.dp.dpshopbackend.dto.CommandeDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -237,4 +238,21 @@ public interface CommandeApi {
             @ApiResponse(code = 200, message = "La CommandeDto a été supprimé")
     })
     void delete(@PathVariable("idCommande") Long id);
+
+    @GetMapping(value = APP_ROOT + "/commandes/search-all-active-commandes", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des commandes actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des commandes actives",
+            responseContainer = "List<CommandeDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des commandes par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<CommandeDto>> getAllActiveCommandes();
+
+    @DeleteMapping(value = APP_ROOT + "/commandes/delete-commande/{idCommande}")
+    @ApiOperation(value = "Supprimer une commandes par son ID",
+            notes = "Cette méthode permet de supprimer une commandes par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La commandes a été supprimé")
+    })
+    void deleteCommande(@PathVariable("idCommande") Long idCommande);
 }

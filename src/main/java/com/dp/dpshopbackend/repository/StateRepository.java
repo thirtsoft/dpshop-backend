@@ -17,4 +17,7 @@ public interface StateRepository extends JpaRepository<State, Long> {
 
     List<State> findByOrderByIdDesc();
 
+    @Query("Select DISTINCT act from State act where act.actif=1 ORDER BY act.name")
+    List<State> findAll();
+
 }

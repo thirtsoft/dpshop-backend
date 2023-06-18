@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.services;
 
+import com.dp.dpshopbackend.dto.EmailDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
 
 import java.math.BigDecimal;
@@ -20,4 +21,9 @@ public interface FournisseurService {
     BigDecimal countNumberOfFournisseur();
 
     void delete(Long id);
+
+    List<FournisseurDto> findAllActiveFournisseurs();
+
+    void deleteFournisseur(Long fournisseurId);
+
 }

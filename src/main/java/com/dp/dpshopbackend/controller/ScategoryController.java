@@ -59,4 +59,15 @@ public class ScategoryController implements ScategoryApi {
         scategoryService.delete(id);
     }
 
+    @Override
+    public ResponseEntity<List<ScategoryDto>> getAllActiveSubCategories() {
+        List<ScategoryDto> scategoryDtoList = scategoryService.findAllActiveSubcategories();
+        return new ResponseEntity<>(scategoryDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteSubCategory(Long idScategory) {
+        scategoryService.deleteSubcategory(idScategory);
+    }
+
 }

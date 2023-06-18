@@ -1,11 +1,17 @@
 package com.dp.dpshopbackend.security;
 
+import com.dp.dpshopbackend.dto.*;
 import com.dp.dpshopbackend.security.jwt.JwtAuthEntryPoint;
 import com.dp.dpshopbackend.security.jwt.JwtAuthTokenFilter;
 import com.dp.dpshopbackend.security.service.UserDetailsServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,8 +22,15 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
+
+import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
 @Configuration
 @EnableWebSecurity
@@ -91,6 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/findById/{idArticle}").permitAll()
                 .antMatchers("/**/articles/all").permitAll()
                 .antMatchers("/**/articles/searchAllArticleOrderByIdDesc").permitAll()
+                .antMatchers("/**/articles/search-all-active-articles").permitAll()
                 .antMatchers("/**/articles/searchArticleByselectedIsTrue").permitAll()
                 .antMatchers("/**/articles/searchTop12ArticleOrderByCreatedDateDesc").permitAll()
                 .antMatchers("/**/articles/searchArticleByKeyword").permitAll()
@@ -105,6 +119,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/uploadArticlePhoto/{id}").permitAll()
                 .antMatchers("/**/articles/uploadArticlePhotoInFolder/{id}").permitAll()
                 .antMatchers("/**/articles/delete/{idArticle}").permitAll()
+                .antMatchers("/**/articles/delete-article/{idArticle}").permitAll()
 
                 .antMatchers("/**/blogs/create").permitAll()
                 .antMatchers("/**/blogs/createBlogWithFile").permitAll()
@@ -126,7 +141,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/categories/findById/{idCategory}").permitAll()
                 .antMatchers("/**/categories/all").permitAll()
                 .antMatchers("/**/categories/searchAllCategorieOrderByIdDesc").permitAll()
+                .antMatchers("/**/categories/search-all-active-categories").permitAll()
                 .antMatchers("/**/categories/delete/{idCategory}").permitAll()
+                .antMatchers("/**/categories/delete-categories/{idCategory}").permitAll()
 
                 .antMatchers("/**/checkout/placeToOrder").permitAll()
                 .antMatchers("/**/checkout/placeToOrderWithUser").permitAll()
@@ -135,8 +152,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/clients/findById/{idClient}").permitAll()
                 .antMatchers("/**/clients/all").permitAll()
                 .antMatchers("/**/clients/searchAllClientsOrderByIdDesc").permitAll()
+                .antMatchers("/**/clients/search-all-active-clients").permitAll()
                 .antMatchers("/**/clients/countNumberOfClient").permitAll()
                 .antMatchers("/**/clients/delete/{idClient}").permitAll()
+                .antMatchers("/**/clients/delete-client/{idClient}").permitAll()
 
                 .antMatchers("/**/commandes/create").permitAll()
                 .antMatchers("/**/commandes/saveWithAddresses").permitAll()
@@ -152,6 +171,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/commandes/sumTotalOfCommandeByYear").permitAll()
                 .antMatchers("/**/commandes/all").permitAll()
                 .antMatchers("/**/commandes/searchAllComandesOrderByIdDesc").permitAll()
+                .antMatchers("/**/commandes/search-all-active-commandes").permitAll()
                 .antMatchers("/**/commandes/findListOrderByStatuePending").permitAll()
                 .antMatchers("/**/commandes/findListOrderByStatuePayed").permitAll()
 
@@ -164,13 +184,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByMonthByList").permitAll()
                 .antMatchers("/**/commandes/sumTotaleOfCommandeByYearList").permitAll()
+                .antMatchers("/**/commandes/delete-commande/{idCommande}").permitAll()
 
                 .antMatchers("/**/countries/create").permitAll()
                 .antMatchers("/**/countries/update/{idCountry}").permitAll()
                 .antMatchers("/**/countries/all").permitAll()
                 .antMatchers("/**/countries/findById/{idCountry}").permitAll()
                 .antMatchers("/**/countries/searchAllCountryOrderByIdDesc").permitAll()
+                .antMatchers("/**/countries/search-all-active-countries").permitAll()
                 .antMatchers("/**/countries/delete/{idCountry}").permitAll()
+                .antMatchers("/**/countries/delete-country/{idCountry}").permitAll()
 
                 .antMatchers("/**/emails/sendEmail").permitAll()
                 .antMatchers("/**/emails/sendToFournisseur").permitAll()
@@ -180,35 +203,46 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/emails/findById/{idEmail}").permitAll()
                 .antMatchers("/**/emails/all").permitAll()
                 .antMatchers("/**/emails/searchAllEmailsOrderByIdDesc").permitAll()
+                .antMatchers("/**/emails/search-all-active-emails").permitAll()
                 .antMatchers("/**/emails/countNumberOfEmail").permitAll()
                 .antMatchers("/**/emails/delete/{idEmail}").permitAll()
+                .antMatchers("/**/emails/delete-email/{idEmail}").permitAll()
 
                 .antMatchers("/**/fournisseurs/create").permitAll()
                 .antMatchers("/**/fournisseurs/update/{idFournisseur}").permitAll()
                 .antMatchers("/**/fournisseurs/findById/{idFournisseur}").permitAll()
                 .antMatchers("/**/fournisseurs/all").permitAll()
                 .antMatchers("/**/fournisseurs/searchAllFournisseursOrderByIdDesc").permitAll()
+                .antMatchers("/**/fournisseurs/search-all-active-fournisseurs").permitAll()
                 .antMatchers("/**/fournisseurs/countNumberOfFournisseurs").permitAll()
                 .antMatchers("/**/fournisseurs/delete/{idFournisseur}").permitAll()
+                .antMatchers("/**/fournisseurs/delete-fournisseur/{idFournisseur}").permitAll()
 
                 .antMatchers("/**/historiqueLogins/searchAllHistoriqueLoginsOrderByIdDesc").permitAll()
+                .antMatchers("/**/historiqueLogins/search-all-active-historiqueLogins").permitAll()
                 .antMatchers("/**/historiqueLogins/countNumberOfHistoriqueLogin").permitAll()
                 .antMatchers("/**/historiqueLogins/delete/{idHisotiqueLogin}").permitAll()
+                .antMatchers("/**/historiqueLogins/delete-historiqueLogin/{idHisotiqueLogin}").permitAll()
 
                 .antMatchers("/**/lignecommandes/all").permitAll()
                 .antMatchers("/**/lignecommandes/searchAllLigneCommandeOrderByIdDesc").permitAll()
                 .antMatchers("/**/lignecommandes/findListArticleGroupByIdDesc").permitAll()
                 .antMatchers("/**/lignecommandes/searchAllLigneCommandesByCommandeId/{comId}").permitAll()
                 .antMatchers("/**/lignecommandes/searchTopLigneCommandesOrderByIdDesc").permitAll()
+                .antMatchers("/**/lignecommandes/search-all-active-lignecommandes").permitAll()
+                .antMatchers("/**/lignecommandes/delete-lignecommande/{idLignecommande}").permitAll()
 
                 .antMatchers("/**/newsletters/create").permitAll()
                 .antMatchers("/**/newsletters/findById/{idNewsletter}").permitAll()
                 .antMatchers("/**/newsletters/countNumberOfNewsletters").permitAll()
                 .antMatchers("/**/newsletters/searchAllNewslettersOrderByIdDesc").permitAll()
+                .antMatchers("/**/newsletters/search-all-active-newsletters").permitAll()
                 .antMatchers("/**/newsletters/delete/{idNewsletter}").permitAll()
+                .antMatchers("/**/newsletters/delete-newsletters/{idNewsletter}").permitAll()
 
                 .antMatchers("/**/notifications/all").permitAll()
                 .antMatchers("/**/notifications/searchAllNotificationsOrderByIdDesc").permitAll()
+                .antMatchers("/**/notifications/search-all-active-notifications").permitAll()
                 .antMatchers("/**/notifications/findById/{idNotification}").permitAll()
                 .antMatchers("/**/notifications/createNotificationToArticle").permitAll()
                 .antMatchers("/**/notifications/createRatingToArticle/**").permitAll()
@@ -217,24 +251,30 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/notifications/countNumberOfNotificationByProductId/{idProd}").permitAll()
                 .antMatchers("/**/notifications/countNumberOfNotification").permitAll()
                 .antMatchers("/**/notifications/delete/{idNotification}").permitAll()
+                .antMatchers("/**/notifications/delete-notification/{idNotification}").permitAll()
 
                 .antMatchers("/**/scategories/create").permitAll()
                 .antMatchers("/**/scategories/update/{idScategory}").permitAll()
                 .antMatchers("/**/scategories/findById/{idScategory}").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/scategories/searchAllSubCategoryOrderByIdDesc").permitAll()
+                .antMatchers("/**/scategories/search-all-active-scategories").permitAll()
                 .antMatchers("/**/scategories/delete/{idScategory}").permitAll()
+                .antMatchers("/**/scategories/delete-scategorie/{idScategory}").permitAll()
 
                 .antMatchers("/**/states/create").permitAll()
                 .antMatchers("/**/states/update/{idState}").permitAll()
                 .antMatchers("/**/states/findById/{idState}").permitAll()
                 .antMatchers("/**/states/all").permitAll()
                 .antMatchers("/**/states/searchAllStatesOrderByIdDesc").permitAll()
+                .antMatchers("/**/states/search-all-active-states").permitAll()
                 .antMatchers("/**/states/searchStateByCountryCode").permitAll()
                 .antMatchers("/**/states/delete/{idState}").permitAll()
+                .antMatchers("/**/states/delete-state/{idState}").permitAll()
 
                 .antMatchers("/**/utilisateurs/all").permitAll()
                 .antMatchers("/**/utilisateurs/searchAllUtilisateurOrderByIdDesc").permitAll()
+                .antMatchers("/**/utilisateurs/search-all-active-utilisateurs").permitAll()
                 .antMatchers("/**/utilisateurs/searchUtilisateurByUsername").permitAll()
                 .antMatchers("/**/utilisateurs/findById/{idUtilisateur}").permitAll()
                 .antMatchers("/**/utilisateurs/update/{idUser}").permitAll()
@@ -243,10 +283,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/utilisateurs/avatar/{id}").permitAll()
                 .antMatchers("/**/utilisateurs/uploadUserPhoto/{id}").permitAll()
                 .antMatchers("/**/utilisateurs/updateCustomerProfileByUsername").permitAll()
+                .antMatchers("/**/utilisateurs/delete-utilisateur/{idUtilisateur}").permitAll()
 
                 .antMatchers("/**/addresslivraisons/all").permitAll()
                 .antMatchers("/**/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc").permitAll()
                 .antMatchers("/**/addresseclients/searchAllAddressClientsOrderByIdDesc").permitAll()
+                .antMatchers("/**/addresseclients/search-all-active-addresslivraisons").permitAll()
+                .antMatchers("/**/addresseclients/delete-addresslivraisons/{idAddressLivraison}").permitAll()
 
                 .anyRequest().authenticated()
                 .and()

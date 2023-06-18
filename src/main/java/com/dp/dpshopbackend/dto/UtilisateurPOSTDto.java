@@ -30,6 +30,22 @@ public class UtilisateurPOSTDto {
 
     private Set<RoleDto> roles = new HashSet<>();
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public UtilisateurPOSTDto(String username, String email, String password) {
         this.username = username;
         this.email = email;

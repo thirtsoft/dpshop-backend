@@ -29,7 +29,7 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
 
     @Override
     public LigneCommandeDto save(LigneCommandeDto ligneCommandeDto) {
-
+        ligneCommandeDto.setActif(true);
         return LigneCommandeDto.fromEntityToDto(
                 ligneCommandeRepository.save(
                         LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
@@ -94,5 +94,24 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
             return;
         }
         ligneCommandeRepository.deleteById(id);
+    }
+
+    @Override
+    public List<LigneCommandeDto> findAllActiveLigneCommandes() {
+        return ligneCommandeRepository.findAll().stream()
+                .map(LigneCommandeDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteLigneCommande(Long ligneCommandeId) {
+        if (ligneCommandeId == null) {
+            log.error("ligneCommande Id is null");
+            return;
+        }
+        Optional<LigneCommande> optionalLigneCommande = ligneCommandeRepository.findById(ligneCommandeId);
+        LigneCommande ligneCommande = optionalLigneCommande.get();
+        ligneCommande.setActif(false);
+        ligneCommandeRepository.save(ligneCommande);
     }
 }

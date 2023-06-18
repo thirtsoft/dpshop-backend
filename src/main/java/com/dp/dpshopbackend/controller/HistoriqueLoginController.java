@@ -59,4 +59,15 @@ public class HistoriqueLoginController implements HistoriqueLoginApi {
     public void delete(Long id) {
         historiqueLoginService.deleteHistoriqueLogin(id);
     }
+
+    @Override
+    public ResponseEntity<List<HistoriqueLoginDto>> getAllActiveHistoriqueLogins() {
+        List<HistoriqueLoginDto> historiqueLoginDtos = historiqueLoginService.findAllActiveHistoriqueLogins();
+        return new ResponseEntity<>(historiqueLoginDtos, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteHisotiqueLogin(Long idHisotiqueLogin) {
+        historiqueLoginService.deleteHistoriqueLogin(idHisotiqueLogin);
+    }
 }

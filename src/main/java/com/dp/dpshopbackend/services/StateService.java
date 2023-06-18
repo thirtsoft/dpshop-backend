@@ -21,4 +21,8 @@ public interface StateService {
 
     void delete(Long id);
 
+    List<StateDto> findAllActiveStates();
+
+    void deleteState(Long stateId);
+
 }

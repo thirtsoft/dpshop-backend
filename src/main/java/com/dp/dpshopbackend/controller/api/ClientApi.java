@@ -77,4 +77,21 @@ public interface ClientApi {
             @ApiResponse(code = 200, message = "Le Client a été supprimé")
     })
     void delete(@PathVariable("idClient") Long id);
+
+    @GetMapping(value = APP_ROOT + "/clients/search-all-active-clients", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des clients actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des clients actives",
+            responseContainer = "List<ClientDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des clients par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ClientDto>> getAllActiveClients();
+
+    @DeleteMapping(value = APP_ROOT + "/clients/delete-client/{idClient}")
+    @ApiOperation(value = "Supprimer une Client par son ID",
+            notes = "Cette méthode permet de supprimer une Client par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Le Client a été supprimé")
+    })
+    void deleteClient(@PathVariable("idClient") Long idClient);
 }

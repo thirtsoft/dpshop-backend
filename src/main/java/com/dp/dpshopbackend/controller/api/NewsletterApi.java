@@ -1,5 +1,6 @@
 package com.dp.dpshopbackend.controller.api;
 
+import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
 import com.dp.dpshopbackend.dto.NewsletterDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -76,4 +77,21 @@ public interface NewsletterApi {
             @ApiResponse(code = 200, message = "La Newsletter a été supprimé")
     })
     void delete(@PathVariable("idNewsletter") Long id);
+
+    @GetMapping(value = APP_ROOT + "/newsletters/search-all-active-newsletters", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des newsletters actives",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des newsletters actives",
+            responseContainer = "List<NewsletterDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des newsletters par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<NewsletterDto>> getAllActiveNewsletters();
+
+    @DeleteMapping(value = APP_ROOT + "/newsletters/delete-newsletters/{idNewsletter}")
+    @ApiOperation(value = "Supprimer une newsletter par son ID",
+            notes = "Cette méthode permet de supprimer une newsletter par son ID")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La newsletter a été supprimé")
+    })
+    void deleteNewsletter(@PathVariable("idNewsletter") Long idNewsletter);
 }

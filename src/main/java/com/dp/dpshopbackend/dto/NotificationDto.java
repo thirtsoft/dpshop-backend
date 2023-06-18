@@ -26,6 +26,22 @@ public class NotificationDto {
 
     private UtilisateurDto utilisateurDto;
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public NotificationDto(Long id, float nbreEtoile, String observation, ArticleDto articleDto) {
         this.id = id;
         this.nbreEtoile = nbreEtoile;
@@ -46,6 +62,7 @@ public class NotificationDto {
                 .createdDate(notification.getCreatedDate())
                 .articleDto(ArticleDto.fromEntityToDto(notification.getArticle()))
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(notification.getUtilisateur()))
+                .actif(notification.getActif())
                 .build();
     }
 
@@ -61,7 +78,7 @@ public class NotificationDto {
         notification.setCreatedDate(notificationDto.getCreatedDate());
         notification.setArticle(ArticleDto.fromDtoToEntity(notificationDto.getArticleDto()));
         notification.setUtilisateur(UtilisateurDto.fromDtoToEntity(notificationDto.getUtilisateurDto()));
-
+        notification.setActif(notificationDto.isActif());
         return notification;
     }
 
