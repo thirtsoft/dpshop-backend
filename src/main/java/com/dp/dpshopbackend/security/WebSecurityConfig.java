@@ -285,11 +285,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/utilisateurs/updateCustomerProfileByUsername").permitAll()
                 .antMatchers("/**/utilisateurs/delete-utilisateur/{idUtilisateur}").permitAll()
 
+
                 .antMatchers("/**/addresslivraisons/all").permitAll()
                 .antMatchers("/**/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc").permitAll()
-                .antMatchers("/**/addresseclients/searchAllAddressClientsOrderByIdDesc").permitAll()
-                .antMatchers("/**/addresseclients/search-all-active-addresslivraisons").permitAll()
-                .antMatchers("/**/addresseclients/delete-addresslivraisons/{idAddressLivraison}").permitAll()
+                .antMatchers("/**/addresslivraisons/search-all-active-addresslivraisons").permitAll()
+                .antMatchers("/**/addresslivraisons/delete-addresslivraisons/{idAddressLivraison}").permitAll()
+
+
 
                 .anyRequest().authenticated()
                 .and()

@@ -24,12 +24,12 @@ public class JwtsResponse {
         this.roles = roles;
     }
 
-    public String getToken() {
+    public String getAccessToken() {
         return token;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.token = accessToken;
     }
 
     public String getType() {
