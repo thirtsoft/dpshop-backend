@@ -104,7 +104,13 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-        ligneCommandeList.forEach(item -> commande.add(item));
+    //    ligneCommandeList.forEach(item -> commande.add(item));
+        if (ligneCommandeList != null) {
+            ligneCommandeList.forEach(ligCmdClt -> {
+                ligCmdClt.setActif(true);
+                commande.add(ligCmdClt);
+            });
+        }
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
@@ -144,7 +150,13 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-        ligneCommandeList.forEach(item -> commande.add(item));
+     //   ligneCommandeList.forEach(item -> commande.add(item));
+        if (ligneCommandeList != null) {
+            ligneCommandeList.forEach(ligCmdClt -> {
+                ligCmdClt.setActif(true);
+                commande.add(ligCmdClt);
+            });
+        }
 
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
