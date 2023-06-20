@@ -20,7 +20,20 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("select p from Article p where p.actif=1 and p.scategory.id =:scat")
     List<Article> findArticleByScategory(@Param("scat") Long scatId);
 
+    //@Query("select art from Article art where art.actif=1 ORDER BY art.createDate DESC LIMIT 12")
+   // @Query(nativeQuery = true, value = "SELECT * FROM article* s WHERE s.actif=1 ORDER BY s.createDate DESC LIMIT 12")
+   // List<Article> findTop12ByOrderByCreateDateDesc();
+    List<Article> findFirst12AndActifIsTrueByOrderByCreateDateDesc();
+
+ //   @Query(value="select * from article where actif=1 ORDER BY createDate DESC limit 12 ", nativeQuery=true)
+ //   @Query(value = "SELECT * FROM article ORDER BY createDate DESC LIMIT 12", nativeQuery = true)
+ //   List<Article> ListDes12ArticleOrderByCreatedDate();
+
+    @Query(value = "select * from shopmania.article where actif=1 order by create_date desc limit 12", nativeQuery = true)
     List<Article> findTop12ByOrderByCreateDateDesc();
+
+
+   // List<Article>  findTopByActifIsTrue;
 
     List<Article> findByOrderByIdDesc();
 
