@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,6 +20,9 @@ public class CategoryDto {
 
     private String code;
 
+    @NotNull(message = "La désignation de la catégory ne doit pas etre vide")
+    @NotEmpty(message = "La désignation de la catégory ne doit pas etre vide")
+    @NotBlank(message = "La désignation de la catégory ne doit pas etre vide")
     private String designation;
 
     private int actif;

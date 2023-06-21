@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,12 +24,18 @@ public class UtilisateurDto {
 
     private String name;
 
+    @NotNull(message = "Le nom utilisateur ne doit pas etre vide")
+    @NotEmpty(message = "Le nom utilisateur ne doit pas etre vide")
+    @NotBlank(message = "Le nom utilisateur ne doit pas etre vide")
     private String username;
 
     private String mobile;
 
     private String email;
 
+    @NotNull(message = "Le mot de passe ne doit pas etre vide")
+    @NotEmpty(message = "Le mot de passe ne doit pas etre vide")
+    @NotBlank(message = "Le mot de passe ne doit pas etre vide")
     private String password;
 
     private String photo = "avatar.jpg";

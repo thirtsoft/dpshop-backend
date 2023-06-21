@@ -8,6 +8,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,12 +22,21 @@ public class ClientDto {
 
     private Long id;
 
+    @NotNull(message = "Le prénom ne doit pas etre vide")
+    @NotEmpty(message = "Le prénom ne doit pas etre vide")
+    @NotBlank(message = "Le prénom ne doit pas etre vide")
     private String firstName;
 
+    @NotNull(message = "Le nom ne doit pas etre vide")
+    @NotEmpty(message = "Le nom ne doit pas etre vide")
+    @NotBlank(message = "Le nom ne doit pas etre vide")
     private String lastName;
 
     private String email;
 
+    @NotNull(message = "Le numéro de téléphone ne doit pas etre vide")
+    @NotEmpty(message = "Le numéro de téléphone ne doit pas etre vide")
+    @NotBlank(message = "Le numéro de téléphone ne doit pas etre vide")
     private String mobile;
 
     private int actif;

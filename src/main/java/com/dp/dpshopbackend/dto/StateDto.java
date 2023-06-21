@@ -7,6 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -15,8 +19,14 @@ public class StateDto {
 
     private Long id;
 
+    @NotNull(message = "Le nom ne doit pas etre vide")
+    @NotEmpty(message = "Le nom ne doit pas etre vide")
+    @NotBlank(message = "Le nom ne doit pas etre vide")
     private String name;
 
+    @NotNull(message = "La region ne doit pas etre vide")
+    @NotEmpty(message = "La region ne doit pas etre vide")
+    @NotBlank(message = "La region ne doit pas etre vide")
     private CountryDto countryDto;
 
     private int actif;

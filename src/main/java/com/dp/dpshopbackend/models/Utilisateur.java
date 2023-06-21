@@ -42,12 +42,6 @@ public class Utilisateur implements UserDetails, Serializable {
     @Column(name = "lastName", length = 70)
     private String lastName;
 
-    @Column(name = "emailLivraison", length = 50)
-    private String emailLivraison;
-
-    @Column(name = "mobileLivraison", length = 30)
-    private String mobileLivraison;
-
     @Column(name = "activated")
     private boolean activated = false;
 
@@ -249,22 +243,6 @@ public class Utilisateur implements UserDetails, Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmailLivraison() {
-        return emailLivraison;
-    }
-
-    public void setEmailLivraison(String emailLivraison) {
-        this.emailLivraison = emailLivraison;
-    }
-
-    public String getMobileLivraison() {
-        return mobileLivraison;
-    }
-
-    public void setMobileLivraison(String mobileLivraison) {
-        this.mobileLivraison = mobileLivraison;
     }
 
     /*public void add(Commande commande) {

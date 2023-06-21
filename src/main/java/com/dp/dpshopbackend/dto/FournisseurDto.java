@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,14 +20,23 @@ public class FournisseurDto {
 
     private String reference;
 
+    @NotNull(message = "Le prénom ne doit pas etre vide")
+    @NotEmpty(message = "Le prénom ne doit pas etre vide")
+    @NotBlank(message = "Le prénom ne doit pas etre vide")
     private String firstName;
 
+    @NotNull(message = "Le nom ne doit pas etre vide")
+    @NotEmpty(message = "Le nom ne doit pas etre vide")
+    @NotBlank(message = "Le nom ne doit pas etre vide")
     private String lastName;
 
     private String address;
 
     private String email;
 
+    @NotNull(message = "Le numéro de téléphone ne doit pas etre vide")
+    @NotEmpty(message = "Le numéro de téléphone ne doit pas etre vide")
+    @NotBlank(message = "Le numéro de téléphone ne doit pas etre vide")
     private String telephoneFournisseur;
 
     private String city;

@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -16,12 +19,21 @@ public class NotificationDto {
 
     private Long id;
 
+    @NotNull(message = "Le nombre d'étoile ne doit pas etre vide")
+    @NotEmpty(message = "Le nombre d'étoile ne doit pas etre vide")
+    @NotBlank(message = "Le nombre d'étoile ne doit pas etre vide")
     private float nbreEtoile;
 
+    @NotNull(message = "Le message ne doit pas etre vide")
+    @NotEmpty(message = "Le message ne doit pas etre vide")
+    @NotBlank(message = "Le message ne doit pas etre vide")
     private String observation;
 
     private Date createdDate;
 
+    @NotNull(message = "L'article ne doit pas etre vide")
+    @NotEmpty(message = "L'article ne doit pas etre vide")
+    @NotBlank(message = "L'article ne doit pas etre vide")
     private ArticleDto articleDto;
 
     private UtilisateurDto utilisateurDto;

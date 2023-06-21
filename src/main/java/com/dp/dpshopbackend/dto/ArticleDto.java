@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -14,14 +18,23 @@ public class ArticleDto {
 
     private Long id;
 
+    @NotNull(message = "La référence ne doit pas etre vide")
+    @NotEmpty(message = "La référence ne doit pas etre vide")
+    @NotBlank(message = "La référence ne doit pas etre vide")
     private String reference;
 
+    @NotNull(message = "La désignation de l'article ne doit pas etre vide")
+    @NotEmpty(message = "La désignation de l'article ne doit pas etre vide")
+    @NotBlank(message = "La désignation de l'article ne doit pas etre vide")
     private String designation;
 
     private int quantity;
 
     private int quantite;
 
+    @NotNull(message = "Le prix de l'article ne doit pas etre vide")
+    @NotEmpty(message = "Le prix de l'article ne doit pas etre vide")
+    @NotBlank(message = "Le prix de l'article ne doit pas etre vide")
     private double price;
 
     private double currentPrice;
@@ -34,8 +47,14 @@ public class ArticleDto {
 
     private String manufactured;
 
+    @NotNull(message = "La photo de l'article ne doit pas etre vide")
+    @NotEmpty(message = "La photo de l'article ne doit pas etre vide")
+    @NotBlank(message = "La photo de l'article ne doit pas etre vide")
     private String photo;
 
+    @NotNull(message = "La sous-catégorie de l'article ne doit pas etre vide")
+    @NotEmpty(message = "La sous-catégorie de l'article ne doit pas etre vide")
+    @NotBlank(message = "La sous-catégorie de l'article ne doit pas etre vide")
     private ScategoryDto scategoryDto;
 
     private int actif;

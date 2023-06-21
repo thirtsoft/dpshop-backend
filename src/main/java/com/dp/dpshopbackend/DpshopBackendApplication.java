@@ -32,16 +32,6 @@ public class DpshopBackendApplication implements CommandLineRunner {
     @Autowired
     private ArticleRepository articleRepository;
     @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private FournisseurRepository fournisseurRepository;
-    @Autowired
-    private CountryRepository countryRepository;
-    @Autowired
-    private StateRepository stateRepository;
-    @Autowired
-    private AddressLivraisonRepository addressLivraisonRepository;
-    @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -130,7 +120,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         State state8 = stateRepository.save(new State(8L, "Chine", count6));
         State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
         State state10 = stateRepository.save(new State(10L, "Accra", count9));
-
+/*
 
         Role useRole = new Role(RoleName.ROLE_USER);
         Role assistantRole = new Role(RoleName.ROLE_ASSISTANT);
@@ -150,7 +140,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         manager.setId(2L);
         manager.setUsername("Manager");
         manager.setName("Manager");
-        manager.setPassword("manager1234");
+        manager.setPassword(bCryptPasswordEncoder.encode("manager1234"));
         Utilisateur admin = new Utilisateur();
         admin.setId(3L);
         admin.setUsername("Admin");
@@ -161,9 +151,10 @@ public class DpshopBackendApplication implements CommandLineRunner {
         utilisateurRepository.save(admin);
 
         utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
+        utilisateurService.addRoleToUser("Manager", RoleName.ROLE_MANAGER);
         utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
 
-        */
+*/
 
     }
 }

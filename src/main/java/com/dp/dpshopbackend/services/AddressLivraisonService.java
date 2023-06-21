@@ -1,8 +1,6 @@
 package com.dp.dpshopbackend.services;
 
-import com.dp.dpshopbackend.dto.AddressClientDto;
 import com.dp.dpshopbackend.dto.AddressLivraisonDto;
-import com.dp.dpshopbackend.dto.ArticleDto;
 
 import java.util.List;
 

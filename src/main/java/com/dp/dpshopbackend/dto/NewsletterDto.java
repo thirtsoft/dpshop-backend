@@ -4,6 +4,9 @@ import com.dp.dpshopbackend.models.Newsletter;
 import lombok.Builder;
 import lombok.Data;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
@@ -14,6 +17,9 @@ public class NewsletterDto {
 
     private String code;
 
+    @NotNull(message = "L'email ne doit pas etre vide")
+    @NotEmpty(message = "L'email ne doit pas etre vide")
+    @NotBlank(message = "L'email ne doit pas etre vide")
     private String customerEmail;
 
     private String subject;
