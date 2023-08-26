@@ -111,6 +111,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/articlesByScategories/{scatId}").permitAll()
                 .antMatchers("/**/articles/searchArticleByScategoryByPageables").permitAll()
                 .antMatchers("/**/articles/searchArticleBySamePriceByPageables").permitAll()
+                .antMatchers("/**/articles/searchArticleByPageables").permitAll()
                 .antMatchers("/**/articles/searchArticleByPrice/{price}").permitAll()
                 .antMatchers("/**/articles/searchbyReference/{reference}").permitAll()
                 .antMatchers("/**/articles/countNumberOfArticleInSubCat/{subCatId}").permitAll()

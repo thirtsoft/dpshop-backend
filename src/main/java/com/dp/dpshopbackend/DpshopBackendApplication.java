@@ -1,7 +1,5 @@
 package com.dp.dpshopbackend;
 
-import com.dp.dpshopbackend.enumeration.RoleName;
-import com.dp.dpshopbackend.models.*;
 import com.dp.dpshopbackend.repository.*;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import org.slf4j.Logger;
@@ -16,9 +14,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class DpshopBackendApplication implements CommandLineRunner {
@@ -47,7 +42,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
     }
 
     private static void createDirectoryIfItDoesntExist() {
-        Path path = Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/");
+        Path path = Paths.get(System.getProperty("user.home") + "/shopmania/photos/");
 
         if (Files.notExists(path)) {
             try {

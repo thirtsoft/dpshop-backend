@@ -72,6 +72,7 @@ public class CheckoutServiceImpl implements CheckoutService {
         commandeDto.setShippingAddressDto(purchaseDto.getShippingAddressDto());
 
         ClientDto clientDto = purchaseDto.getClientDto();
+        clientDto.setActif(true);
 
         ClientDto.fromEntityToDto(
                 clientRepository.save(
@@ -118,6 +119,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate customer with order
         Client client = purchase.getClient();
+        client.setActif(true);
         client.add(commande);
 
         // save customer to database
@@ -164,6 +166,7 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate customer with order
         Client client = purchase.getClient();
+        client.setActif(true);
         client.add(commande);
 
         // save customer to database
