@@ -29,7 +29,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private final UserDetailsServiceImpl userDetailsService;
 
     private final JwtAuthEntryPoint unauthorizedHandler;
-
     public WebSecurityConfig(UserDetailsServiceImpl userDetailsService, JwtAuthEntryPoint unauthorizedHandler) {
         this.userDetailsService = userDetailsService;
         this.unauthorizedHandler = unauthorizedHandler;
@@ -63,10 +62,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")
+                     //   .allowedOrigins("http://localhost:4200")
                         // .allowedOrigins("http://localhost:8080/shopmania")
                         //   .allowedOrigins("https://soulbusiness.herokuapp.com")
-                        //      .allowedMethods("*")
+                              .allowedMethods("*")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)
                         .allowedHeaders("*")

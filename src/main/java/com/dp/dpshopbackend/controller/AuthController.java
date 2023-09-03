@@ -33,7 +33,7 @@ import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+//@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @Slf4j
 public class AuthController implements AuthApi {
