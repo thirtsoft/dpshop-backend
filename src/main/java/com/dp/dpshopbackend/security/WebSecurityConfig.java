@@ -61,16 +61,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**")
+                registry.addMapping("/*")
                      //   .allowedOrigins("http://localhost:4200")
                         // .allowedOrigins("http://localhost:8080/shopmania")
                         //   .allowedOrigins("https://soulbusiness.herokuapp.com")
-                              .allowedMethods("*")
+                        .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)
                         .allowedHeaders("*")
                         .exposedHeaders("Authorization")
-                        .allowCredentials(true);
+                        .allowCredentials(false);
 
 
             }
