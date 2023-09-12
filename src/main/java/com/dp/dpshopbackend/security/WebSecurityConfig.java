@@ -62,7 +62,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/*")
-                     //   .allowedOrigins("http://localhost:4200")
+                        .allowedOrigins("http://localhost:4200")
                         // .allowedOrigins("http://localhost:8080/shopmania")
                         //   .allowedOrigins("https://soulbusiness.herokuapp.com")
                         .allowedOrigins("*")
