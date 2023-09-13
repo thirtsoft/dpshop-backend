@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = {"https://soulbusinesse.com"})
 @RestController
 public class ClientController implements ClientApi {
 

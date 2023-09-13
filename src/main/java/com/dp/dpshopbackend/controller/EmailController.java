@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-//@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = {"https://soulbusinesse.com"})
 @RestController
 public class EmailController implements EmailApi {
 
