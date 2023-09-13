@@ -4,7 +4,7 @@ name: "Java CI with Multi-arch Docker Image"
 # Event triggering conditions and branching
 on:
   push:
-    branches: [ production-release-v1 ]
+    branches: [ prodServer01 ]
 # a job
 jobs:
   docker:
