@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 
-@CrossOrigin(origins = {"https://soulbusinesse.com"})
+@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 public class CheckoutController implements CheckoutApi {
 

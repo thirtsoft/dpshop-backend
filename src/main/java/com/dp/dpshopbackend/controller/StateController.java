@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = {"https://soulbusinesse.com"})
+@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 public class StateController implements StateApi {
 

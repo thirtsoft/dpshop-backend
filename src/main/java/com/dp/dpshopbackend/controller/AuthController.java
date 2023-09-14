@@ -33,7 +33,7 @@ import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = {"https://soulbusinesse.com"})
+@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 @Slf4j
 public class AuthController implements AuthApi {

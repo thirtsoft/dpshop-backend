@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-@CrossOrigin(origins = {"https://soulbusinesse.com"})
+@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 public class HistoriqueLoginController implements HistoriqueLoginApi {
 

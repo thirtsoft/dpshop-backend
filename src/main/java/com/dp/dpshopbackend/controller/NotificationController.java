@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = {"https://soulbusinesse.com"})
+@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 public class NotificationController implements NotificationApi {
 
