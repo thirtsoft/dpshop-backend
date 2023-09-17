@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 public class NewsletterController implements NewsletterApi {
 

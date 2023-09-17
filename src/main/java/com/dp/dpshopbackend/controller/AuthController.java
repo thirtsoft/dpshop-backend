@@ -7,13 +7,13 @@ import com.dp.dpshopbackend.enumeration.RoleName;
 import com.dp.dpshopbackend.exceptions.ResourceNotFoundException;
 import com.dp.dpshopbackend.message.request.LoginForm;
 import com.dp.dpshopbackend.message.request.SignUpForm;
-import com.dp.dpshopbackend.message.response.JwtsResponse;
+import com.dp.dpshopbackend.message.response.JwtResponse;
 import com.dp.dpshopbackend.models.Role;
 import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.ConfirmTokenRepository;
 import com.dp.dpshopbackend.repository.RoleRepository;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
-import com.dp.dpshopbackend.security.jwt.JwtsProvider;
+import com.dp.dpshopbackend.security.jwt.JwtProvider;
 import com.dp.dpshopbackend.security.service.UserPrinciple;
 import com.dp.dpshopbackend.services.EmailService;
 import com.dp.dpshopbackend.services.HistoriqueLoginService;
@@ -27,13 +27,14 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 @Slf4j
 public class AuthController implements AuthApi {
@@ -52,7 +53,7 @@ public class AuthController implements AuthApi {
     PasswordEncoder encoder;
 
     @Autowired
-    JwtsProvider jwtsProvider;
+    JwtProvider jwtProvider;
 
     @Autowired
     private ConfirmTokenRepository confirmTokenRepository;
@@ -63,43 +64,19 @@ public class AuthController implements AuthApi {
     @Autowired
     private HistoriqueLoginService historiqueLoginService;
 
-
-    /*
-        @Override
-        public ResponseEntity<UtilisateurPOSTDto> signIn(UtilisateurPOSTDto utilisateurPOSTDto) {
-            LoginForm loginForm = new LoginForm();
-            loginForm.setUsername(utilisateurPOSTDto.getUsername());
-            loginForm.setPassword(loginForm.getPassword());
-
-            UtilisateurPOSTDto utilisateurPOSTDtomResult = utilisateurPostService.authenticateUser(loginForm);
-
-            if (utilisateurPOSTDtomResult != null) {
-                log.info("User connected succefully");
-                System.out.println("User connected good!");
-
-            } else {
-                log.info("User not connected succefully");
-                System.out.println("User not connected good!");
-            }
-
-            return ResponseEntity.ok(utilisateurPOSTDtomResult);
-
-        }
-    */
     @Override
-    public ResponseEntity<?> authenticateUser(LoginForm loginForm) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginForm) {
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginForm.getUsername(), loginForm.getPassword()));
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        String jwt = jwtsProvider.generatedJwtToken(authentication);
-
-        UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-        List<String> roles = userPrinciple.getAuthorities().stream()
+        String jwt = jwtProvider.generateJwtToken(authentication);
+        UserPrinciple userDetails = (UserPrinciple) authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities()
+                .stream()
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
-        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(userPrinciple.getId());
+        Optional<Utilisateur> optionalUtilisateur = utilisateurRepository.findById(userDetails.getId());
         Utilisateur utilisateur = optionalUtilisateur.get();
         UtilisateurDto utilisateurDto = UtilisateurDto.fromEntityToDto(utilisateur);
         HistoriqueLoginDto historiqueLoginDto = new HistoriqueLoginDto();
@@ -109,35 +86,12 @@ public class AuthController implements AuthApi {
         historiqueLoginDto.setCreatedDate(new Date());
         historiqueLoginService.saveHistoriqueLogin(historiqueLoginDto);
 
-        return ResponseEntity.ok(new JwtsResponse(jwt,
-                userPrinciple.getId(),
-                userPrinciple.getUsername(),
-                userPrinciple.getEmail(),
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getEmail(),
                 roles));
     }
-
-    /*
-        @Override
-        public ResponseEntity<UtilisateurPOSTDto> signUp(UtilisateurPOSTDto utilisateurPOSTDto) {
-            SignUpForm signUpRequest = new SignUpForm();
-            signUpRequest.setUsername(utilisateurPOSTDto.getUsername());
-            signUpRequest.setEmail(utilisateurPOSTDto.getEmail());
-            signUpRequest.setPassword(utilisateurPOSTDto.getPassword());
-
-            UtilisateurPOSTDto utilisateurPOSTDtomResult = utilisateurPostService.registerUser(signUpRequest);
-
-            if (utilisateurPOSTDtomResult != null) {
-                log.info("User created succefully");
-                System.out.println("User created good!");
-
-            } else {
-                log.info("User not created succefully");
-                System.out.println("User not created good!");
-            }
-
-            return ResponseEntity.ok(utilisateurPOSTDtomResult);
-        }
-    */
 
     @Override
     public ResponseEntity<?> signUp(SignUpForm signUpForm) {
@@ -147,10 +101,6 @@ public class AuthController implements AuthApi {
         if (utilisateurRepository.existsByEmail(signUpForm.getEmail())) {
             throw new ResourceNotFoundException("Error: Email is already in use!");
         }
-      /*  UtilisateurPOSTDto utilisateurPOSTResult = new UtilisateurPOSTDto(
-                signUpForm.getUsername(),
-                signUpForm.getEmail(),
-                encoder.encode(signUpForm.getPassword()));*/
 
         // Create new user's account
         Utilisateur utilisateur = new Utilisateur(
@@ -163,42 +113,6 @@ public class AuthController implements AuthApi {
 
         String[] strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
-        /*
-        String[] strRoles = signUpForm.getRoles();
-        Set<RoleDto> roles = new HashSet<>();
-        if (strRoles == null) {
-            RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-            roles.add(userRole);
-        }
-
-        for (String role : strRoles) {
-            switch (role.toLowerCase()) {
-                case "admin":
-                    RoleDto adminRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_ADMIN)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                    roles.add(adminRole);
-                    break;
-
-                case "manager":
-                    RoleDto manager = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_MANAGER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                    roles.add(manager);
-                    break;
-
-                case "user":
-                    RoleDto userRole = (RoleDto.formEntityToDto(roleRepository.findByName(RoleName.ROLE_USER)
-                            .orElseThrow(() -> new RuntimeException("Error: Role is not found."))));
-                    roles.add(userRole);
-                    break;
-
-                default:
-                    return ResponseEntity.badRequest().body("Specified role not found");
-
-            }
-        }
-        */
-
         if (strRoles == null) {
             Role userRole = (roleRepository.findByName(RoleName.ROLE_USER)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found.")));
@@ -276,37 +190,9 @@ public class AuthController implements AuthApi {
 
             }
         }
-/*
-        if (strRoles == null) {
-            Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-            roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(adminRole);
-                        break;
-                    case "manager":
-                        Role modRole = roleRepository.findByName(RoleName.ROLE_MANAGER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(modRole);
-                        break;
-                    default:
-
-                        Role userRole = roleRepository.findByName(RoleName.ROLE_USER)
-                                .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-                        roles.add(userRole);
-
-                }
-            });
-        }*/
 
         utilisateur.setRoles(roles);
         return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
-
     }
 
     @Override

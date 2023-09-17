@@ -19,23 +19,16 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Utilisateur utilisateur = userRepository.findByUsername(username).orElseThrow(
+      /*  Utilisateur user = userRepository.findByUsername(username).orElseThrow(
                 () -> new UsernameNotFoundException("User Not Found with -> username or email : " + username));
 
-        return UserPrinciple.build(utilisateur);
-//               return UserPrinciple.build(UtilisateurPOSTDto.fromEntityToDto(utilisateur));
+        return UserPrinciple.build(user);*/
+
+        Utilisateur user = userRepository.findByUsername(username).get();
+        if (user != null && user.isActif()) {
+            return UserPrinciple.build(user);
+        }else {
+            throw new UsernameNotFoundException("User Not Found with -> username or email : " + username);
+        }
     }
-
-/*
-    @Override
-    @Transactional
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-
-        Utilisateur utilisateur = userRepository.findByEmail(email).orElseThrow(
-                () -> new UsernameNotFoundException("User Not Found with -> username or email : " + email));
-
-        return UserPrinciple.build(utilisateur);
-    }
-    */
-
 }

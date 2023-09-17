@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "https://soulbusinesse.com")
 @RestController
 public class CommandeController implements CommandeApi {
 

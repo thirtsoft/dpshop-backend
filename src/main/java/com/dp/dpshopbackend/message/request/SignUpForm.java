@@ -4,8 +4,6 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-
-/*@Data*/
 public class SignUpForm {
 
     @Size(min = 3, max = 50)
@@ -17,10 +15,6 @@ public class SignUpForm {
     @Size(max = 20)
     @Email
     private String email;
-
-    //  private Set role;
-
- //  private Set<String> role;
 
     private String[] roles;
 
