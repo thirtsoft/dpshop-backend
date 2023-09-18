@@ -155,7 +155,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                      //   .allowedOrigins("http://localhost:4200")
-                        .allowedOrigins("http://soulbusinesse.com")
+                        .allowedOrigins("https://soulbusinesse.com")
                         //   .allowedMethods("*")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)
