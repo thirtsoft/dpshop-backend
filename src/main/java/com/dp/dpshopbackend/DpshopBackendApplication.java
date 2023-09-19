@@ -1,5 +1,8 @@
 package com.dp.dpshopbackend;
 
+import com.dp.dpshopbackend.enumeration.RoleName;
+import com.dp.dpshopbackend.models.Role;
+import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.*;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import org.slf4j.Logger;
@@ -21,12 +24,6 @@ public class DpshopBackendApplication implements CommandLineRunner {
     private static final Logger LOG = LoggerFactory.getLogger(DpshopBackendApplication.class);
 
     @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private ScategoryRepository scategoryRepository;
-    @Autowired
-    private ArticleRepository articleRepository;
-    @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private UtilisateurRepository utilisateurRepository;
@@ -42,7 +39,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
     }
 
     private static void createDirectoryIfItDoesntExist() {
-        Path path = Paths.get(System.getProperty("user.home") + "/shopmania/photos/");
+        Path path = Paths.get(System.getProperty("user.home") + "/shopmania_photos/photos/");
 
         if (Files.notExists(path)) {
             try {
@@ -115,7 +112,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         State state8 = stateRepository.save(new State(8L, "Chine", count6));
         State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
         State state10 = stateRepository.save(new State(10L, "Accra", count9));
-/*
+*/
 
         Role useRole = new Role(RoleName.ROLE_USER);
         Role assistantRole = new Role(RoleName.ROLE_ASSISTANT);
@@ -126,30 +123,23 @@ public class DpshopBackendApplication implements CommandLineRunner {
         roleRepository.save(managerRole);
         roleRepository.save(adminRole);
 
-        Utilisateur user = new Utilisateur();
-        user.setId(1L);
-        user.setUsername("User");
-        user.setName("User");
-        user.setPassword(bCryptPasswordEncoder.encode("user1234"));
-        Utilisateur manager = new Utilisateur();
-        manager.setId(2L);
-        manager.setUsername("Manager");
-        manager.setName("Manager");
-        manager.setPassword(bCryptPasswordEncoder.encode("manager1234"));
         Utilisateur admin = new Utilisateur();
-        admin.setId(3L);
+        admin.setId(1L);
         admin.setUsername("Admin");
         admin.setName("Admin");
         admin.setPassword(bCryptPasswordEncoder.encode("admin1234"));
-        utilisateurRepository.save(user);
-        utilisateurRepository.save(manager);
         utilisateurRepository.save(admin);
 
-        utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
-        utilisateurService.addRoleToUser("Manager", RoleName.ROLE_MANAGER);
-        utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
+        Utilisateur manager = new Utilisateur();
+        manager.setId(2L);
+        manager.setUsername("Bigsoul");
+        manager.setName("Bigsoul");
+        manager.setPassword(bCryptPasswordEncoder.encode("bigsoul@2023"));
+        utilisateurRepository.save(manager);
 
-*/
+        utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
+        utilisateurService.addRoleToUser("Bigsoul", RoleName.ROLE_MANAGER);
+
 
     }
 }

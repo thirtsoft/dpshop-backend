@@ -49,28 +49,20 @@ public class ArticleController implements ArticleApi {
             articleDto.setPhoto(photoArticle.getOriginalFilename());
             photoArticle.transferTo(new File(articlePhotosDir + photoArticle.getOriginalFilename()));
         }
-
         return ResponseEntity.ok(articleService.save(articleDto));
-
     }
 
     @Override
     public ResponseEntity<ArticleDto> saveArticleWithFileInFolder(String article, MultipartFile photoArticle) throws IOException {
         ArticleDto articleDto = new ObjectMapper().readValue(article, ArticleDto.class);
         if (photoArticle != null && !photoArticle.isEmpty()) {
-
             String filename = photoArticle.getOriginalFilename();
             String newFileName = FilenameUtils.getBaseName(filename) + "." + FilenameUtils.getExtension(filename);
-            File serverFile = new File(context.getRealPath("/PhotoProducts/" + File.separator + newFileName));
-            System.out.println("Image");
+            File serverFile = new File(context.getRealPath("/shopmania_photos/photos/" + File.separator + newFileName));
             FileUtils.writeByteArrayToFile(serverFile, photoArticle.getBytes());
-
             articleDto.setPhoto(filename);
         }
-
         return ResponseEntity.ok(articleService.save(articleDto));
-
-
     }
 
 
@@ -143,7 +135,6 @@ public class ArticleController implements ArticleApi {
         return articleService.findArticleByPageable(pageable);
     }
 
-
     @Override
     public Page<ArticleDto> getListArticleByScategoryByPageable(Long scatId, int page, int size) {
         final Pageable pageable = PageRequest.of(page, size);
@@ -161,7 +152,6 @@ public class ArticleController implements ArticleApi {
         return articleService.countNumberOfArticleInSubCategory(subCatId);
     }
 
-
     @Override
     public void delete(Long id) {
         articleService.delete(id);
@@ -169,17 +159,8 @@ public class ArticleController implements ArticleApi {
 
     @Override
     public byte[] getPhotoArticle(Long id) throws Exception {
-
         ArticleDto articleDto = articleService.findById(id);
-
-        System.out.println("Article DTO -- " + articleDto);
-        System.out.println("Article DTO Designation -- " + articleDto.getDesignation());
-        System.out.println("Article DTO Price -- " + articleDto.getPrice());
-        System.out.println("Article DTO Photo -- " + articleDto.getPhoto());
-
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()));
-
-
+        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/shopmania_photos/photos/" + articleDto.getPhoto()));
     }
 
     @Override
@@ -190,11 +171,9 @@ public class ArticleController implements ArticleApi {
 
     @Override
     public void uploadPhotoArticle(MultipartFile file, Long id) throws IOException {
-        //    ArticleDto articleDto = articleService.findById(Long.valueOf(id));
         ArticleDto articleDto = articleService.findById(id);
         articleDto.setPhoto(file.getOriginalFilename());
-        Files.write(Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/" + articleDto.getPhoto()), file.getBytes());
-
+        Files.write(Paths.get(System.getProperty("user.home") + "/shopmania_photos/photos/" + articleDto.getPhoto()), file.getBytes());
         articleService.save(articleDto);
     }
 
