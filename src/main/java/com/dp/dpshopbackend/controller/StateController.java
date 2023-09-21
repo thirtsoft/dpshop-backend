@@ -39,11 +39,6 @@ public class StateController implements StateApi {
     }
 
     @Override
-    public ResponseEntity<StateDto> findByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
     public List<StateDto> findAll() {
         return stateService.findAll();
     }

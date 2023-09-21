@@ -88,6 +88,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/blogs/searchAllBlogOrderByIdDesc").permitAll()
                 .antMatchers("/**/blogs/photoBlog/{idBlog}").permitAll()
 
+                .antMatchers("/**/categories/*").permitAll()
+                .antMatchers("/**/categories/**").permitAll()
                 .antMatchers("/**/categories/all").permitAll()
                 .antMatchers("/**/categories/searchAllCategorieOrderByIdDesc").permitAll()
                 .antMatchers("/**/categories/search-all-active-categories").permitAll()
@@ -96,11 +98,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/checkout/placeToOrderWithUser").permitAll()
                 .antMatchers("/**/checkout/purchase").permitAll()
 
+                .antMatchers("/**/clients/*").permitAll()
+                .antMatchers("/**/clients/**").permitAll()
                 .antMatchers("/**/clients/findById/{idClient}").permitAll()
                 .antMatchers("/**/clients/all").permitAll()
                 .antMatchers("/**/clients/searchAllClientsOrderByIdDesc").permitAll()
                 .antMatchers("/**/clients/search-all-active-clients").permitAll()
 
+                .antMatchers("/**/countries/*").permitAll()
+                .antMatchers("/**/countries/**").permitAll()
                 .antMatchers("/**/countries/all").permitAll()
                 .antMatchers("/**/countries/searchAllCountryOrderByIdDesc").permitAll()
                 .antMatchers("/**/countries/search-all-active-countries").permitAll()
@@ -112,32 +118,51 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/emails/sendMailToAllCustomers").permitAll()
                 .antMatchers("/**/emails/sendMailToManager").permitAll()
 
+                .antMatchers("/**/newsletters/*").permitAll()
+                .antMatchers("/**/newsletters/**").permitAll()
                 .antMatchers("/**/newsletters/create").permitAll()
                 .antMatchers("/**/newsletters/searchAllNewslettersOrderByIdDesc").permitAll()
                 .antMatchers("/**/newsletters/search-all-active-newsletters").permitAll()
 
+                .antMatchers("/**/notifications/*").permitAll()
+                .antMatchers("/**/notifications/**").permitAll()
                 .antMatchers("/**/notifications/all").permitAll()
                 .antMatchers("/**/notifications/searchAllNotificationsOrderByIdDesc").permitAll()
                 .antMatchers("/**/notifications/search-all-active-notifications").permitAll()
                 .antMatchers("/**/notifications/searchTop4RatingOrderByCreatedDateDescByProductId/{idProd}").permitAll()
 
+                .antMatchers("/**/scategories/*").permitAll()
+                .antMatchers("/**/scategories/**").permitAll()
                 .antMatchers("/**/scategories/all").permitAll()
                 .antMatchers("/**/scategories/searchAllSubCategoryOrderByIdDesc").permitAll()
                 .antMatchers("/**/scategories/search-all-active-scategories").permitAll()
 
+                .antMatchers("/**/states/*").permitAll()
+                .antMatchers("/**/states/**").permitAll()
                 .antMatchers("/**/states/all").permitAll()
                 .antMatchers("/**/states/searchAllStatesOrderByIdDesc").permitAll()
                 .antMatchers("/**/states/search-all-active-states").permitAll()
+                .antMatchers("/**/states/searchStateByCountryCode").permitAll()
+
+                .antMatchers("/**/commandes/*").permitAll()
+                .antMatchers("/**/commandes/**").permitAll()
+
+                .antMatchers("/**/lignecommandes/*").permitAll()
+                .antMatchers("/**/lignecommandes/**").permitAll()
 
                 .antMatchers("/**/utilisateurs/all").permitAll()
                 .antMatchers("/**/utilisateurs/searchAllUtilisateurOrderByIdDesc").permitAll()
                 .antMatchers("/**/utilisateurs/search-all-active-utilisateurs").permitAll()
                 .antMatchers("/**/utilisateurs/updateCustomerProfileByUsername").permitAll()
 
-
+                .antMatchers("/**/addresslivraisons/*").permitAll()
+                .antMatchers("/**/addresslivraisons/**").permitAll()
                 .antMatchers("/**/addresslivraisons/all").permitAll()
                 .antMatchers("/**/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc").permitAll()
                 .antMatchers("/**/addresslivraisons/search-all-active-addresslivraisons").permitAll()
+
+                .antMatchers("/**/fournisseurs/*").permitAll()
+                .antMatchers("/**/fournisseurs/**").permitAll()
 
                 .antMatchers("/**/utilisateurs/avatar/{id}").permitAll()
                 .anyRequest().authenticated()

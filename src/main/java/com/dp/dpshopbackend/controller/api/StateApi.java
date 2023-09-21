@@ -44,16 +44,6 @@ public interface StateApi {
     })
     ResponseEntity<StateDto> findById(@PathVariable("idState") Long id);
 
-    @GetMapping(value = APP_ROOT + "/states/searchbyDesignation/{designation}", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Rechercher une State par Designation",
-            notes = "Cette méthode permet de chercher une State par son Libelle", response = StateDto.class
-    )
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La State a été trouver"),
-            @ApiResponse(code = 404, message = "Aucun State n'existe avec cette ID pas dans la BD")
-    })
-    ResponseEntity<StateDto> findByDesignation(@PathVariable("designation") String designation);
-
     @GetMapping(value = APP_ROOT + "/states/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des states",
             notes = "Cette méthode permet de chercher et renvoyer la liste des states", responseContainer = "List<StateDto>")
