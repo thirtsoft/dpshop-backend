@@ -110,6 +110,7 @@ public class FournisseurDto {
 
         Fournisseur fournisseur = new Fournisseur();
         fournisseur.setId(fournisseurDto.getId());
+        fournisseur.setReference(fournisseurDto.getReference());
         fournisseur.setFirstName(fournisseurDto.getFirstName());
         fournisseur.setLastName(fournisseurDto.getLastName());
         fournisseur.setAddress(fournisseurDto.getAddress());

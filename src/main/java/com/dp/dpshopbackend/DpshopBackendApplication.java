@@ -113,7 +113,8 @@ public class DpshopBackendApplication implements CommandLineRunner {
         State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
         State state10 = stateRepository.save(new State(10L, "Accra", count9));
 */
-/*
+        /*
+
         Role useRole = new Role(RoleName.ROLE_USER);
         Role assistantRole = new Role(RoleName.ROLE_ASSISTANT);
         Role managerRole = new Role(RoleName.ROLE_MANAGER);
