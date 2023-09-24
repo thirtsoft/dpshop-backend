@@ -47,25 +47,17 @@ public class CheckoutController implements CheckoutApi {
     public ResponseEntity<PurchaseResponse> purchaseWithUser(Purchase purchase, Long id) {
         UtilisateurDto utilisateurDto = Optional.of(utilisateurService.findById(id)).get();
         Utilisateur utilisateur = UtilisateurDto.fromDtoToEntity(utilisateurDto);
-
         purchase.setUtilisateur(utilisateur);
-
         PurchaseResponse response = this.checkoutService.placeToOrderWithUser(purchase);
-
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @Override
     public ResponseEntity<PurchaseResponse> purchaseWithLoginUser(Purchase purchase, Long id) {
-
         UtilisateurDto utilisateurDto = Optional.of(utilisateurService.findById(id)).get();
-
         Utilisateur utilisateur = UtilisateurDto.fromDtoToEntity(utilisateurDto);
-
         purchase.setUtilisateur(utilisateur);
-
         PurchaseResponse response = this.checkoutService.placeToOrderWithUser(purchase);
-
         return new ResponseEntity<>(response, HttpStatus.CREATED);
     }
 }

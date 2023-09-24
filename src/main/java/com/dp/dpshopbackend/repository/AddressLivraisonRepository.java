@@ -12,6 +12,6 @@ public interface AddressLivraisonRepository extends JpaRepository<AddressLivrais
 
     List<AddressLivraison> findByOrderByIdDesc();
 
-    @Query("Select DISTINCT act from  AddressLivraison act where act.actif=1 ORDER BY act.id desc")
+    @Query("Select DISTINCT act from  AddressLivraison act where act.actif=1 ORDER BY act.id asc")
     List<AddressLivraison> findAll();
 }

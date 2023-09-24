@@ -3,10 +3,7 @@ package com.dp.dpshopbackend.services.impl;
 import com.dp.dpshopbackend.dto.*;
 import com.dp.dpshopbackend.dto.checkout.Purchase;
 import com.dp.dpshopbackend.enumeration.StatusCommande;
-import com.dp.dpshopbackend.models.Client;
-import com.dp.dpshopbackend.models.Commande;
-import com.dp.dpshopbackend.models.LigneCommande;
-import com.dp.dpshopbackend.models.Utilisateur;
+import com.dp.dpshopbackend.models.*;
 import com.dp.dpshopbackend.repository.ClientRepository;
 import com.dp.dpshopbackend.repository.UtilisateurRepository;
 import com.dp.dpshopbackend.security.service.UserPrinciple;
@@ -131,13 +128,10 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     @Override
     public PurchaseResponse placeToOrderWithUser(Purchase purchase) {
-
         System.out.println(purchase);
         // retrieve the order from dto
         Commande commande = purchase.getCommande();
-
         Utilisateur utilisateur = purchase.getUtilisateur();
-
         // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
         Long numCommande = generateNumeroCommande();
@@ -146,10 +140,8 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setStatus(status);
         commande.setDateCommande(new Date());
         commande.setActif(true);
-
         // attach loggin user to order
         commande.setUtilisateur(utilisateur);
-
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
      //   ligneCommandeList.forEach(item -> commande.add(item));
@@ -159,19 +151,34 @@ public class CheckoutServiceImpl implements CheckoutService {
                 commande.add(ligCmdClt);
             });
         }
-
         // populate order with shippingAddress and billingAddress
-        commande.setBillingAddress(purchase.getBillingAddress());
-        commande.setShippingAddress(purchase.getShippingAddress());
+        AddressLivraison addressLivraison = purchase.getShippingAddress();
+        AddressLivraison addressLivraison02 = purchase.getBillingAddress();
+      //  addressLivraison.setActif(true);
+     //   addressLivraison02.setActif(true);
+      //  commande.setBillingAddress(addressLivraison);
+      //  commande.setBillingAddress(purchase.getBillingAddress());
 
+        if (addressLivraison != addressLivraison02) {
+            commande.setShippingAddress(addressLivraison);
+            addressLivraison.setActif(true);
+            commande.setBillingAddress(addressLivraison02);
+            addressLivraison02.setActif(true);
+        }else {
+            commande.setShippingAddress(addressLivraison);
+            addressLivraison.setActif(true);
+            commande.setBillingAddress(null);
+        }
+
+
+     //   commande.setShippingAddress(addressLivraison02);
+     //   commande.setShippingAddress(purchase.getShippingAddress());
         // populate customer with order
         Client client = purchase.getClient();
         client.setActif(true);
         client.add(commande);
-
         // save customer to database
         clientRepository.save(client);
-
         // return response
         return new PurchaseResponse(orderTrackingNumber);
     }
