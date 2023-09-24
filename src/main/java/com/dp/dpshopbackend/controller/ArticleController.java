@@ -28,7 +28,12 @@ import java.util.List;
 public class ArticleController implements ArticleApi {
 
     private final ArticleService articleService;
-    private final String articlePhotosDir = "C://Users//Folio9470m//shopmania//productphotos//";
+
+  //  private final String articlePhotosDir = "C://Users//Folio9470m//shopmania//productphotos//";
+
+    private static final String articlePhotosDir = System.getProperty("user.home") + "/shopmania_photos/photos/";
+
+
     @Autowired
     ServletContext context;
 
@@ -64,7 +69,6 @@ public class ArticleController implements ArticleApi {
         }
         return ResponseEntity.ok(articleService.save(articleDto));
     }
-
 
     @Override
     public ResponseEntity<ArticleDto> update(Long id, ArticleDto articleDto) {
@@ -160,7 +164,7 @@ public class ArticleController implements ArticleApi {
     @Override
     public byte[] getPhotoArticle(Long id) throws Exception {
         ArticleDto articleDto = articleService.findById(id);
-        return Files.readAllBytes(Paths.get(System.getProperty("user.home") + "/shopmania_photos/photos/" + articleDto.getPhoto()));
+        return Files.readAllBytes(Paths.get(articlePhotosDir + articleDto.getPhoto()));
     }
 
     @Override
@@ -173,7 +177,7 @@ public class ArticleController implements ArticleApi {
     public void uploadPhotoArticle(MultipartFile file, Long id) throws IOException {
         ArticleDto articleDto = articleService.findById(id);
         articleDto.setPhoto(file.getOriginalFilename());
-        Files.write(Paths.get(System.getProperty("user.home") + "/shopmania_photos/photos/" + articleDto.getPhoto()), file.getBytes());
+        Files.write(Paths.get(articlePhotosDir + articleDto.getPhoto()), file.getBytes());
         articleService.save(articleDto);
     }
 
@@ -183,19 +187,14 @@ public class ArticleController implements ArticleApi {
         String filename = file.getOriginalFilename();
         String newFileName = FilenameUtils.getBaseName(filename) + "." + FilenameUtils.getExtension(filename);
         File serverFile = new File(context.getRealPath("/PhotoProducts/" + File.separator + newFileName));
-
         try {
             System.out.println("Image");
             FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
-
             articleDto.setPhoto(filename);
-
             articleService.save(articleDto);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
