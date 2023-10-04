@@ -22,35 +22,8 @@ public class AddressLivraisonController implements AddressLivraisonApi {
     }
 
     @Override
-    public ResponseEntity<AddressLivraisonDto> save(AddressLivraisonDto addressLivraisonDto) {
-        return ResponseEntity.ok(addressLivraisonService.save(addressLivraisonDto));
-    }
-
-    @Override
-    public ResponseEntity<AddressLivraisonDto> update(Long id, AddressLivraisonDto addressLivraisonDto) {
-        addressLivraisonDto.setId(id);
-        return ResponseEntity.ok(addressLivraisonService.save(addressLivraisonDto));
-    }
-
-    @Override
     public ResponseEntity<AddressLivraisonDto> findById(Long id) {
         return ResponseEntity.ok(addressLivraisonService.findById(id));
-    }
-
-    @Override
-    public List<AddressLivraisonDto> findAll() {
-        return addressLivraisonService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<AddressLivraisonDto>> getAllAddressLivraisonsOrderByIdDesc() {
-        List<AddressLivraisonDto> addressLivraisonDtos = addressLivraisonService.findByOrderByIdDesc();
-        return new ResponseEntity<>(addressLivraisonDtos, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long id) {
-        addressLivraisonService.delete(id);
     }
 
     @Override

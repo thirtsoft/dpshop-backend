@@ -16,29 +16,30 @@ import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
+@RequestMapping(value = APP_ROOT + "/articles")
 public interface ArticleApi {
 
-    @PostMapping(value = APP_ROOT + "/articles/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Enregistrer un Artilce",
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Enregistrer un Article",
             notes = "Cette méthode permet d'ajouter un article", response = ArticleDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "L'Artilce a été crée"),
-            @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
+            @ApiResponse(code = 201, message = "L'Article a été crée"),
+            @ApiResponse(code = 400, message = "Aucun Article  crée / modifié")
 
     })
     ResponseEntity<ArticleDto> save(@RequestBody ArticleDto articleDto);
 
-    @PostMapping(value = APP_ROOT + "/articles/createWithFile")
-    @ApiOperation(value = "Enregistrer un Artilce avec une photo",
+    @PostMapping(value = "/create-with-file")
+    @ApiOperation(value = "Enregistrer un Article avec une photo",
             notes = "Cette méthode permet d'ajouter un article une photo", response = ArticleDto.class)
     @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "L'Artilce a été crée"),
+            @ApiResponse(code = 201, message = "L'Article a été crée"),
             @ApiResponse(code = 400, message = "Aucun Artilce  crée / modifié")
     })
     ResponseEntity<ArticleDto> saveArticleWithFile(@RequestParam(name = "article") String articleDto,
                                                    @RequestParam(name = "photoArticle") MultipartFile photoArticle) throws IOException;
 
-    @PostMapping(value = APP_ROOT + "/articles/createWithFileInFolder")
+    @PostMapping(value = "/create-with-file-in-folder")
     @ApiOperation(value = "Enregistrer un Artilce avec une photo dans le dossier webapps",
             notes = "Cette méthode permet d'ajouter un article une photo dans le dossier interne webapps", response = ArticleDto.class)
     @ApiResponses(value = {
@@ -49,8 +50,7 @@ public interface ArticleApi {
     ResponseEntity<ArticleDto> saveArticleWithFileInFolder(@RequestParam(name = "article") String articleDto,
                                                            @RequestParam(name = "photoArticle") MultipartFile photoArticle) throws IOException;
 
-
-    @PutMapping(value = APP_ROOT + "/articles/update/{idArticle}",
+    @PutMapping(value = "/update/{idArticle}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier un article par son ID",
             notes = "Cette méthode permet de modifier un article par son ID", response = ArticleDto.class)
@@ -60,7 +60,7 @@ public interface ArticleApi {
     })
     ResponseEntity<ArticleDto> update(@PathVariable("idArticle") Long id, @RequestBody ArticleDto articleDto);
 
-    @GetMapping(value = APP_ROOT + "/articles/findById/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findById/{idArticle}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Artilce par ID",
             notes = "Cette méthode permet de chercher un Artilce par son ID", response = ArticleDto.class
     )
@@ -71,25 +71,17 @@ public interface ArticleApi {
     })
     ResponseEntity<ArticleDto> findById(@PathVariable("idArticle") Long id);
 
-    @GetMapping(value = APP_ROOT + "/articles/searchbyReference/{reference}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-by-reference/{reference}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Artilce par Reference",
             notes = "Cette méthode permet de chercher une Scategory par son Reference", response = ArticleDto.class
     )
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'Artilce a été trouver"),
-            @ApiResponse(code = 404, message = "Aucun Artilce n'existe avec cette ID pas dans la BD")
+            @ApiResponse(code = 200, message = "L'Article a été trouver"),
+            @ApiResponse(code = 404, message = "Aucun Article n'existe avec cette ID pas dans la BD")
     })
     ResponseEntity<ArticleDto> findByReference(@PathVariable("reference") String reference);
 
-    @GetMapping(value = APP_ROOT + "/articles/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Articles",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles", responseContainer = "List<ArticleDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Articles / une liste vide")
-    })
-    List<ArticleDto> findAll();
-
-    @GetMapping(value = APP_ROOT + "/articles/articlesByScategories/{scatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/articles-by-subcategories/{scatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par Scategory",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par Scategory", responseContainer = "List<ArticleDto>")
     @ApiResponses(value = {
@@ -97,7 +89,7 @@ public interface ArticleApi {
     })
     List<ArticleDto> findListArticleByScategories(@PathVariable("scatId") Long idScategory);
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleByKeyword", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-article-by-keyword", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par mot Clé",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par mot Clé", responseContainer = "List<ArticleDto>")
     @ApiResponses(value = {
@@ -106,7 +98,7 @@ public interface ArticleApi {
     List<ArticleDto> getListArticleByKeyword(@RequestParam(name = "keyword") String keyword);
 
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleByPrice/{price}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-article-by-price/{price}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par price",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par price", responseContainer = "List<ArticleDto>")
     @ApiResponses(value = {
@@ -114,7 +106,7 @@ public interface ArticleApi {
     })
     List<ArticleDto> getListArticleByPrice(@PathVariable("price") double price);
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleByPriceMinMax/{min}/{max}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-article-by-price-min-max/{min}/{max}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par price",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par price", responseContainer = "List<ArticleDto>")
     @ApiResponses(value = {
@@ -122,7 +114,7 @@ public interface ArticleApi {
     })
     List<ArticleDto> getListArticleByPriceMinMax(@PathVariable("min") String min, @PathVariable("max") String max);
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleByselectedIsTrue", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-articles-by-selected-is-true", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles selectionner",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles selectionner", responseContainer = "List<ArticleDto>")
     @ApiResponses(value = {
@@ -130,8 +122,7 @@ public interface ArticleApi {
     })
     List<ArticleDto> getListArticleBySelected();
 
-
-    @GetMapping(value = APP_ROOT + "/articles/searchTop12ArticleOrderByCreatedDateDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-top12-article-order-by-createdDate-desc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des 12 derniers Articles enregistrées",
             notes = "Cette méthode permet de chercher et renvoyer la liste des 12 derniers Articles enregistrés", responseContainer = "List<ArticleDto>")
     @ApiResponses(value = {
@@ -139,16 +130,7 @@ public interface ArticleApi {
     })
     List<ArticleDto> getTop12ByOrderByCreateDateDesc();
 
-    @GetMapping(value = APP_ROOT + "/articles/searchAllArticleOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
-            responseContainer = "List<ArticleDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
-    })
-    ResponseEntity<List<ArticleDto>> getAllArticlesOrderByIdDesc();
-
-    @GetMapping(value = APP_ROOT + "/articles/search-all-active-articles", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-all-active-articles", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles actives ordonnées par la designation",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles actives ordonnées par la designation",
             responseContainer = "List<ArticleDto>")
@@ -157,7 +139,7 @@ public interface ArticleApi {
     })
     ResponseEntity<List<ArticleDto>> getAllActiveArticlesOrderByDesignation();
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-article-by-pageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par pages",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par pages", responseContainer = "Page<ArticleDto>")
     @ApiResponses(value = {
@@ -165,7 +147,7 @@ public interface ArticleApi {
     })
     Page<ArticleDto> getListArticleByPageable(@RequestParam(name = "page") int page, @RequestParam(name = "size") int size);
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleByScategoryByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-article-by-subcategory-by-pageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par Scategory",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par Scategory par pages", responseContainer = "Page<ArticleDto>")
     @ApiResponses(value = {
@@ -174,7 +156,7 @@ public interface ArticleApi {
     Page<ArticleDto> getListArticleByScategoryByPageable(@RequestParam("id") Long scatId, @RequestParam(name = "page") int page,
                                                          @RequestParam(name = "size") int size);
 
-    @GetMapping(value = APP_ROOT + "/articles/searchArticleBySamePriceByPageables", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-article-by-same-price-by-pageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par price",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Articles qui ont le meme price par pages", responseContainer = "Page<ArticleDto>")
     @ApiResponses(value = {
@@ -183,7 +165,7 @@ public interface ArticleApi {
     Page<ArticleDto> getListArticleBySamePriceyByPageable(@RequestParam("price") double price, @RequestParam(name = "page") int page,
                                                           @RequestParam(name = "size") int size);
 
-    @GetMapping(value = APP_ROOT + "/articles/countNumberOfArticleInSubCat/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/count-number-of-article-in-subcategory/{subCatId}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre d'article pour une sous categorie",
             notes = "Cette méthode permet de chercher et renvoyer le nombre d'article dans une sous categorie")
     @ApiResponses(value = {
@@ -191,15 +173,7 @@ public interface ArticleApi {
     })
     BigDecimal countNumberOfArticleInSubCategory(@PathVariable("subCatId") Long subCatId);
 
-    @DeleteMapping(value = APP_ROOT + "/articles/delete/{idArticle}")
-    @ApiOperation(value = "Supprimer un Article par son ID",
-            notes = "Cette méthode permet de supprimer une Article par son ID", response = ArticleDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'Article a été supprimé")
-    })
-    void delete(@PathVariable("idArticle") Long id);
-
-    @GetMapping(value = APP_ROOT + "/articles/photoArticle/{idArticle}")
+    @GetMapping(value = "/photo-article/{idArticle}")
     @ApiOperation(value = "Recupérer une photo par ID",
             notes = "Cette méthode permet de récupérer la photo d'un article par son ID")
     @ApiResponses(value = {
@@ -207,7 +181,7 @@ public interface ArticleApi {
     })
     byte[] getPhotoArticle(@PathVariable("idArticle") Long id) throws Exception;
 
-    @GetMapping(value = APP_ROOT + "/articles/photoArticleInContext/{idArticle}")
+    @GetMapping(value = "/photo-article-in-context/{idArticle}")
     @ApiOperation(value = "Recupérer une photo par ID",
             notes = "Cette méthode permet de récupérer la photo d'un article par son ID")
     @ApiResponses(value = {
@@ -215,7 +189,7 @@ public interface ArticleApi {
     })
     byte[] getPhotoArticleInContext(@PathVariable("idArticle") Long id) throws Exception;
 
-    @PostMapping(path = APP_ROOT + "/articles/uploadArticlePhoto/{id}")
+    @PostMapping(path = "/upload-photo-article/{id}")
     @ApiOperation(value = "Enregistrer une photo dans un dossier",
             notes = "Cette méthode permet d'enregistrer la photo d'un article dans un dossier externe utilisateur")
     @ApiResponses(value = {
@@ -224,7 +198,7 @@ public interface ArticleApi {
     })
     void uploadPhotoArticle(MultipartFile file, @PathVariable("id") Long id) throws IOException;
 
-    @PostMapping(path = APP_ROOT + "/articles/uploadArticlePhotoInFolder/{id}")
+    @PostMapping(path = "/upload-photo-article-in-folder/{id}")
     @ApiOperation(value = "Enregistrer une photo dans le dossier webapps",
             notes = "Cette méthode permet d'enregistrer la photo d'un article dans le dossier webapps")
     @ApiResponses(value = {
@@ -233,7 +207,7 @@ public interface ArticleApi {
     })
     void uploadPhotoArticleInFolder(MultipartFile file, @PathVariable("id") Long id) throws IOException;
 
-    @DeleteMapping(value = APP_ROOT + "/articles/delete-article/{idArticle}")
+    @DeleteMapping(value = "/delete-article/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",
             notes = "Cette méthode permet de supprimer une Article par son ID", response = ArticleDto.class)
     @ApiResponses(value = {

@@ -21,7 +21,6 @@ public class StateController implements StateApi {
         this.stateService = stateService;
     }
 
-
     @Override
     public ResponseEntity<StateDto> save(StateDto stateDto) {
         return ResponseEntity.ok(stateService.save(stateDto));
@@ -39,24 +38,8 @@ public class StateController implements StateApi {
     }
 
     @Override
-    public List<StateDto> findAll() {
-        return stateService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<StateDto>> getAllStatesOrderByIdDesc() {
-        List<StateDto> stateDtoList = stateService.findByOrderByIdDesc();
-        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public List<StateDto> getAllStateByCountryCode(String code) {
         return stateService.findAllStateByCountryCode(code);
-    }
-
-    @Override
-    public void delete(Long id) {
-        stateService.delete(id);
     }
 
     @Override

@@ -68,31 +68,21 @@ public class ClientControllerTest {
     }
 
     @Test
-    public void PostMappingOfClient() throws Exception {
-        when(clientService.save(any())).thenReturn(clientDto);
-        mockMvc.perform(post("/shop-mania/v1/clients/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(clientDto)))
-                .andExpect(status().isOk());
-        verify(clientService, times(1)).save(any());
-    }
-
-    @Test
     public void GetMappingOfAllClients() throws Exception {
-        when(clientService.findAll()).thenReturn(clientDtoList);
-        mockMvc.perform(get("/shop-mania/v1/clients/all").
+        when(clientService.findAllActiveClients()).thenReturn(clientDtoList);
+        mockMvc.perform(get("/shop-mania/v1/clients/search-all-active-clients").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(clientDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(clientService).findAll();
-        verify(clientService, times(1)).findAll();
+        verify(clientService).findAllActiveClients();
+        verify(clientService, times(1)).findAllActiveClients();
     }
 
     @Test
     public void GetMappingOfClientShouldReturnRespectiveClient() throws Exception {
         Long clientID = (long) 1;
         when(clientService.findById(clientDto.getId())).thenReturn(clientDto);
-        mockMvc.perform(get("/shop-mania/v1/clients/" + clientID).
+        mockMvc.perform(get("/shop-mania/v1/clients/findById/" + clientID).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(clientDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).

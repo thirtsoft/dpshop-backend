@@ -39,24 +39,8 @@ public class FournisseurController implements FournisseurApi {
     }
 
     @Override
-    public List<FournisseurDto> findAll() {
-        return fournisseurService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc() {
-        List<FournisseurDto> fournisseurDtoList = fournisseurService.findByOrderByIdDesc();
-        return new ResponseEntity<>(fournisseurDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public BigDecimal countNumberOfFournisseurs() {
         return fournisseurService.countNumberOfFournisseur();
-    }
-
-    @Override
-    public void delete(Long id) {
-        fournisseurService.delete(id);
     }
 
     @Override

@@ -17,6 +17,7 @@ import com.dp.dpshopbackend.security.jwt.JwtProvider;
 import com.dp.dpshopbackend.security.service.UserPrinciple;
 import com.dp.dpshopbackend.services.EmailService;
 import com.dp.dpshopbackend.services.HistoriqueLoginService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -37,32 +38,24 @@ import java.util.stream.Collectors;
 
 @RestController
 @Slf4j
+@AllArgsConstructor
 public class AuthController implements AuthApi {
 
+    private final AuthenticationManager authenticationManager;
 
-    @Autowired
-    AuthenticationManager authenticationManager;
+    private final UtilisateurRepository utilisateurRepository;
 
-    @Autowired
-    UtilisateurRepository utilisateurRepository;
+    private final RoleRepository roleRepository;
 
-    @Autowired
-    RoleRepository roleRepository;
+    private final PasswordEncoder encoder;
 
-    @Autowired
-    PasswordEncoder encoder;
+    private final JwtProvider jwtProvider;
 
-    @Autowired
-    JwtProvider jwtProvider;
+    private final ConfirmTokenRepository confirmTokenRepository;
 
-    @Autowired
-    private ConfirmTokenRepository confirmTokenRepository;
+    private final EmailService emailService;
 
-    @Autowired
-    private EmailService emailService;
-
-    @Autowired
-    private HistoriqueLoginService historiqueLoginService;
+    private final HistoriqueLoginService historiqueLoginService;
 
     @Override
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginForm loginForm) {
@@ -83,6 +76,7 @@ public class AuthController implements AuthApi {
         historiqueLoginDto.setUtilisateurDto(utilisateurDto);
         historiqueLoginDto.setAction("Connection");
         historiqueLoginDto.setStatus("Valider");
+        historiqueLoginDto.setActif(true);
         historiqueLoginDto.setCreatedDate(new Date());
         historiqueLoginService.saveHistoriqueLogin(historiqueLoginDto);
 
@@ -101,7 +95,6 @@ public class AuthController implements AuthApi {
         if (utilisateurRepository.existsByEmail(signUpForm.getEmail())) {
             throw new ResourceNotFoundException("Error: Email is already in use!");
         }
-
         // Create new user's account
         Utilisateur utilisateur = new Utilisateur(
                 signUpForm.getName(),
@@ -110,7 +103,6 @@ public class AuthController implements AuthApi {
                 encoder.encode(signUpForm.getPassword()
                 )
         );
-
         String[] strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {
@@ -145,6 +137,8 @@ public class AuthController implements AuthApi {
         }
 
         utilisateur.setRoles(roles);
+        utilisateur.setActivated(true);
+        utilisateur.setActif(true);
         return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
     }
 
@@ -156,21 +150,17 @@ public class AuthController implements AuthApi {
         if (utilisateurRepository.existsByEmail(signUpForm.getEmail())) {
             throw new ResourceNotFoundException("Error: Email is already in use!");
         }
-        // Create new user's account
         Utilisateur utilisateur = new Utilisateur(
                 signUpForm.getUsername(),
                 signUpForm.getEmail(),
                 encoder.encode(signUpForm.getPassword()
                 )
         );
-        //      Set<String> strRoles = signUpForm.getRole();
         String[] strRoles = signUpForm.getRoles();
         Set<Role> roles = new HashSet<>();
-
         if (strRoles == null) {
             roles.add(roleRepository.findByName(RoleName.ROLE_USER).get());
         }
-
         for (String role : strRoles) {
             switch (role.toLowerCase()) {
                 case "admin":
@@ -187,11 +177,12 @@ public class AuthController implements AuthApi {
 
                 default:
                     return ResponseEntity.badRequest().body("Specified role not found");
-
             }
         }
 
         utilisateur.setRoles(roles);
+        utilisateur.setActivated(true);
+        utilisateur.setActif(true);
         return ResponseEntity.ok(utilisateurRepository.save(utilisateur));
     }
 
@@ -210,5 +201,4 @@ public class AuthController implements AuthApi {
         System.out.println("CurrentUser " + currentUserName);
         return currentUserName;
     }
-
 }

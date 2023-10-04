@@ -14,28 +14,10 @@ import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
+@RequestMapping(value = APP_ROOT + "/addresslivraisons")
 public interface AddressLivraisonApi {
 
-    @PostMapping(value = APP_ROOT + "/addresslivraisons/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Enregistrer une AddressLivraison",
-            notes = "Cette méthode permet d'ajouter une AddressLivraison", response = AddressLivraisonDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 201, message = "L'AddressLivraison a été crée"),
-            @ApiResponse(code = 400, message = "Aucune AddressLivraison  crée / modifié")
-    })
-    ResponseEntity<AddressLivraisonDto> save(@RequestBody AddressLivraisonDto addressLivraisonDto);
-
-    @PutMapping(value = APP_ROOT + "/addresslivraisons/update/{idAddress}",
-            consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Modifier une AddressLivraison par son ID",
-            notes = "Cette méthode permet de modifier un AddressLivraison par son ID", response = AddressLivraisonDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'AddressLivraison a été modifiée"),
-            @ApiResponse(code = 400, message = "L'AddressLivraison a n'est pas modifiée")
-    })
-    ResponseEntity<AddressLivraisonDto> update(@PathVariable("idAddress") Long id, @RequestBody AddressLivraisonDto addressLivraisonDto);
-
-    @GetMapping(value = APP_ROOT + "/addresslivraisons/{idAddressLivraison}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/{idAddressLivraison}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une AddressLivraison par ID",
             notes = "Cette méthode permet de chercher une AddressLivraison par son ID", response = AddressLivraisonDto.class
     )
@@ -45,32 +27,7 @@ public interface AddressLivraisonApi {
     })
     ResponseEntity<AddressLivraisonDto> findById(@PathVariable("idAddressLivraison") Long id);
 
-    @GetMapping(value = APP_ROOT + "/addresslivraisons/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des AddressLivraisons",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des AddressLivraisons", responseContainer = "List<AddressLivraisonDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des AddressLivraisons / une liste vide")
-    })
-    List<AddressLivraisonDto> findAll();
-
-    @GetMapping(value = APP_ROOT + "/addresslivraisons/searchAllAddressLivraisonsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des AddressLivraisons par ordre descroissante",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des AddressLivraisons par ordre descroissante",
-            responseContainer = "List<AddressLivraisonDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des AddressLivraisons par ordre descroissante / une liste vide")
-    })
-    ResponseEntity<List<AddressLivraisonDto>> getAllAddressLivraisonsOrderByIdDesc();
-
-    @DeleteMapping(value = APP_ROOT + "/addresslivraisons/delete/{idAddressLivraison}")
-    @ApiOperation(value = "Supprimer une AddressLivraison par son ID",
-            notes = "Cette méthode permet de supprimer une AddressLivraison par son ID", response = ClientDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "L'AddressLivraison a été supprimé")
-    })
-    void delete(@PathVariable("idAddressLivraison") Long id);
-
-    @GetMapping(value = APP_ROOT + "/addresslivraisons/search-all-active-addresslivraisons", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-all-active-addresslivraisons", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des AddressLivraisons actives",
             notes = "Cette méthode permet de chercher et renvoyer la liste des AddressLivraisons actives",
             responseContainer = "List<AddressLivraisonDto>")
@@ -79,7 +36,7 @@ public interface AddressLivraisonApi {
     })
     ResponseEntity<List<AddressLivraisonDto>> getAllActiveAddressLivraisons();
 
-    @DeleteMapping(value = APP_ROOT + "/addresslivraisons/delete-addresslivraisons/{idAddressLivraison}")
+    @DeleteMapping(value = "/delete-addresslivraisons/{idAddressLivraison}")
     @ApiOperation(value = "Supprimer une Addresse de livraison par son ID",
             notes = "Cette méthode permet de supprimer une Addresse de livraison  par son ID")
     @ApiResponses(value = {

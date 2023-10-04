@@ -14,9 +14,10 @@ import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
+@RequestMapping(value = APP_ROOT + "/emails")
 public interface EmailApi {
 
-    @PostMapping(value = APP_ROOT + "/emails/sendEmail")
+    @PostMapping(value = "/sendEmail")
     @ApiOperation(value = "Envoyer un email",
             notes = "Cette méthode permet d'envoyer un email",
             response = EmailDto.class)
@@ -26,8 +27,7 @@ public interface EmailApi {
     })
     ResponseEntity<EmailDto> sendEmail(@RequestBody EmailDto emailDto) throws MailException;
 
-
-    @PostMapping(value = APP_ROOT + "/emails/sendToFournisseur")
+    @PostMapping(value = "/sendToFournisseur")
     @ApiOperation(value = "Envoyer un email à un Fournisseurs",
             notes = "Cette méthode permet d'envoyer un email à un Fournisseurs",
             response = FournisseurDto.class)
@@ -37,7 +37,7 @@ public interface EmailApi {
     })
     ResponseEntity<FournisseurDto> sendMailToFournisseur(@RequestBody FournisseurDto fournisseurDto) throws MailException;
 
-    @PostMapping(value = APP_ROOT + "/emails/sendToNewsletter")
+    @PostMapping(value = "/sendToNewsletter")
     @ApiOperation(value = "Envoyer un email à un client",
             notes = "Cette méthode permet d'envoyer un email à un client",
             response = EmailDto.class)
@@ -47,7 +47,7 @@ public interface EmailApi {
     })
     ResponseEntity<NewsletterDto> sendMailToCustomer(@RequestBody NewsletterDto newsletterDto) throws MailException;
 
-    @PostMapping(value = APP_ROOT + "/emails/sendMailToAllCustomers")
+    @PostMapping(value = "/sendMailToAllCustomers")
     @ApiOperation(value = "Envoyer un email à plusieurs Clients",
             notes = "Cette méthode permet d'envoyer un email à plusieurs Clients",
             response = EmailDto.class)
@@ -57,8 +57,7 @@ public interface EmailApi {
     })
     ResponseEntity<NewsletterDto> sendMailToAllCustomers(@RequestBody NewsletterDto newsletterDto) throws MailException;
 
-
-    @PostMapping(value = APP_ROOT + "/emails/sendMailToManager")
+    @PostMapping(value = "/sendMailToManager")
     @ApiOperation(value = "Envoyer un email au Manager du site",
             notes = "Cette méthode permet d'envoyer un email au Manager du site",
             response = EmailDto.class)
@@ -68,7 +67,7 @@ public interface EmailApi {
     })
     ResponseEntity<EmailDto> sendEmailToManager(@RequestBody EmailDto emailDto) throws MailException;
 
-    @GetMapping(value = APP_ROOT + "/emails/findById/{idEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findById/{idEmail}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Email par ID",
             notes = "Cette méthode permet de chercher un Email par son ID", response = ClientDto.class
     )
@@ -78,7 +77,7 @@ public interface EmailApi {
     })
     ResponseEntity<EmailDto> getEmailById(@PathVariable("idEmail") Long id);
 
-    @GetMapping(value = APP_ROOT + "/emails/all", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/all", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Email",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Email", responseContainer = "List<EmailDto>")
     @ApiResponses(value = {
@@ -86,7 +85,7 @@ public interface EmailApi {
     })
     ResponseEntity<List<EmailDto>> getAll();
 
-    @GetMapping(value = APP_ROOT + "/emails/searchAllEmailsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/searchAllEmailsOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Emails par ordre descroissante",
             notes = "Cette méthode permet de chercher et renvoyer la liste des Emails par ordre descroissante",
             responseContainer = "List<EmailDto>")
@@ -95,7 +94,7 @@ public interface EmailApi {
     })
     ResponseEntity<List<EmailDto>> getAllNewsletterOrderByIdDesc();
 
-    @GetMapping(value = APP_ROOT + "/emails/countNumberOfEmail", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/countNumberOfEmail", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Email dans le moi",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Email")
     @ApiResponses(value = {
@@ -103,7 +102,7 @@ public interface EmailApi {
     })
     BigDecimal countNumberOfEmail();
 
-    @DeleteMapping(value = APP_ROOT + "/emails/delete/{idEmail}")
+    @DeleteMapping(value = "/delete/{idEmail}")
     @ApiOperation(value = "Supprimer un Email par son ID",
             notes = "Cette méthode permet de supprimer une Email par son ID", response = EmailDto.class)
     @ApiResponses(value = {

@@ -21,45 +21,6 @@ public class HistoriqueLoginController implements HistoriqueLoginApi {
     }
 
     @Override
-    public ResponseEntity<HistoriqueLoginDto> save(HistoriqueLoginDto historiqueLoginDto) {
-        HistoriqueLoginDto historiqueLoginDtoResult = historiqueLoginService.saveHistoriqueLogin(historiqueLoginDto);
-        return new ResponseEntity<>(historiqueLoginDtoResult, HttpStatus.CREATED);
-    }
-
-    @Override
-    public ResponseEntity<HistoriqueLoginDto> update(Long id, HistoriqueLoginDto historiqueLoginDto) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<HistoriqueLoginDto> findById(Long id) {
-        HistoriqueLoginDto historiqueLoginDto = historiqueLoginService.findHistoriqueLoginById(id);
-        return new ResponseEntity<>(historiqueLoginDto, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<HistoriqueLoginDto>> findAll() {
-        List<HistoriqueLoginDto> historiqueLoginDtos = historiqueLoginService.findAllHistoriqueLogins();
-        return new ResponseEntity<>(historiqueLoginDtos, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<HistoriqueLoginDto>> getAllHistoriqueLoginDtoOrderByIdDesc() {
-        List<HistoriqueLoginDto> historiqueLoginDtos = historiqueLoginService.findAllHistoriqueLoginsOrderDesc();
-        return new ResponseEntity<>(historiqueLoginDtos, HttpStatus.OK);
-    }
-
-    @Override
-    public BigDecimal countNumberOfHistoriqueLogins() {
-        return historiqueLoginService.countNumberOfHistoriqueLogins();
-    }
-
-    @Override
-    public void delete(Long id) {
-        historiqueLoginService.deleteHistoriqueLogin(id);
-    }
-
-    @Override
     public ResponseEntity<List<HistoriqueLoginDto>> getAllActiveHistoriqueLogins() {
         List<HistoriqueLoginDto> historiqueLoginDtos = historiqueLoginService.findAllActiveHistoriqueLogins();
         return new ResponseEntity<>(historiqueLoginDtos, HttpStatus.OK);

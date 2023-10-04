@@ -89,31 +89,21 @@ public class LigneCommandeControllerTest {
     }
 
     @Test
-    public void PostMappingOfLigneCommande() throws Exception {
-        when(ligneCommandeService.save(any())).thenReturn(ligneCommandeDto);
-        mockMvc.perform(post("/shop-mania/v1/lignecommandes/create")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(asJsonString(ligneCommandeDto)))
-                .andExpect(status().isOk());
-        verify(ligneCommandeService, times(1)).save(any());
-    }
-
-    @Test
     public void GetMappingOfAllArticles() throws Exception {
-        when(ligneCommandeService.findAll()).thenReturn(ligneCommandeDtoList);
-        mockMvc.perform(get("/shop-mania/v1/lignecommandes/all").
+        when(ligneCommandeService.findAllActiveLigneCommandes()).thenReturn(ligneCommandeDtoList);
+        mockMvc.perform(get("/shop-mania/v1/lignecommandes/search-all-active-lignecommandes").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(ligneCommandeDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(ligneCommandeService).findAll();
-        verify(ligneCommandeService, times(1)).findAll();
+        verify(ligneCommandeService).findAllActiveLigneCommandes();
+        verify(ligneCommandeService, times(1)).findAllActiveLigneCommandes();
     }
 
     @Test
     public void GetMappingOfArticleShouldReturnRespectiveArticle() throws Exception {
         Long artID = (long) 1;
         when(ligneCommandeService.findById(ligneCommandeDto.getId())).thenReturn(ligneCommandeDto);
-        mockMvc.perform(get("/shop-mania/v1/lignecommandes/" + artID).
+        mockMvc.perform(get("/shop-mania/v1/lignecommandes/findById/" + artID).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(ligneCommandeDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).

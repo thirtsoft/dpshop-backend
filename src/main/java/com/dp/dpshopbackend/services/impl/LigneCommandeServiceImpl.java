@@ -19,22 +19,10 @@ import java.util.stream.Collectors;
 @Slf4j
 public class LigneCommandeServiceImpl implements LigneCommandeService {
 
-
-    @Autowired
     private final LigneCommandeRepository ligneCommandeRepository;
 
     public LigneCommandeServiceImpl(LigneCommandeRepository ligneCommandeRepository) {
         this.ligneCommandeRepository = ligneCommandeRepository;
-    }
-
-    @Override
-    public LigneCommandeDto save(LigneCommandeDto ligneCommandeDto) {
-        ligneCommandeDto.setActif(true);
-        return LigneCommandeDto.fromEntityToDto(
-                ligneCommandeRepository.save(
-                        LigneCommandeDto.fromDtoToEntity(ligneCommandeDto)
-                )
-        );
     }
 
     @Override
@@ -43,27 +31,11 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
             log.error("LigneCommande Id is null");
             return null;
         }
-
         Optional<LigneCommande> ligneCommande = ligneCommandeRepository.findById(id);
-
         return Optional.of(LigneCommandeDto.fromEntityToDto(ligneCommande.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun LigneCommande avec l'Id = " + id + "n'a été trouvé")
         );
-    }
-
-    @Override
-    public List<LigneCommandeDto> findAll() {
-        return ligneCommandeRepository.findAll().stream()
-                .map(LigneCommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<LigneCommandeDto> findByOrderByIdDesc() {
-        return ligneCommandeRepository.findByOrderByIdDesc().stream()
-                .map(LigneCommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -88,30 +60,9 @@ public class LigneCommandeServiceImpl implements LigneCommandeService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("LigneCommande Id is null");
-            return;
-        }
-        ligneCommandeRepository.deleteById(id);
-    }
-
-    @Override
     public List<LigneCommandeDto> findAllActiveLigneCommandes() {
         return ligneCommandeRepository.findAll().stream()
                 .map(LigneCommandeDto::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void deleteLigneCommande(Long ligneCommandeId) {
-        if (ligneCommandeId == null) {
-            log.error("ligneCommande Id is null");
-            return;
-        }
-        Optional<LigneCommande> optionalLigneCommande = ligneCommandeRepository.findById(ligneCommandeId);
-        LigneCommande ligneCommande = optionalLigneCommande.get();
-        ligneCommande.setActif(false);
-        ligneCommandeRepository.save(ligneCommande);
     }
 }

@@ -43,63 +43,6 @@ public class HistoriqueLoginServiceImpl implements HistoriqueLoginService {
     }
 
     @Override
-    public HistoriqueLoginDto saveHistoriqueLoginWithConnectedUser(HistoriqueLoginDto historiqueLoginDto, Long userId) {
-
-        UtilisateurDto utilisateurDto = utilisateurService.findById(userId);
-        historiqueLoginDto.setUtilisateurDto(utilisateurDto);
-        historiqueLoginDto.setCreatedDate(new Date());
-        historiqueLoginDto.setActif(true);
-        return HistoriqueLoginDto.fromEntityToDto(
-                historiqueLoginRepository.save(
-                        HistoriqueLoginDto.fromDtoToEntity(historiqueLoginDto)
-                )
-        );
-    }
-
-    @Override
-    public HistoriqueLoginDto findHistoriqueLoginById(Long id) {
-        if (id == null) {
-            log.error("Fournisseur Id is null");
-            return null;
-        }
-
-        Optional<HistoriqueLogin> historiqueLogin = historiqueLoginRepository.findById(id);
-
-        return Optional.of(HistoriqueLoginDto.fromEntityToDto(historiqueLogin.get())).orElseThrow(() ->
-                new ResourceNotFoundException(
-                        "Aucnun Fournisseur avec l'Id = " + id + "n'a été trouvé")
-        );
-    }
-
-    @Override
-    public List<HistoriqueLoginDto> findAllHistoriqueLogins() {
-        return historiqueLoginRepository.findAll().stream()
-                .map(HistoriqueLoginDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<HistoriqueLoginDto> findAllHistoriqueLoginsOrderDesc() {
-        return historiqueLoginRepository.findByOrderByIdDesc().stream()
-                .map(HistoriqueLoginDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public BigDecimal countNumberOfHistoriqueLogins() {
-        return historiqueLoginRepository.countNumberOfHistoriqueLogins();
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("HistoriqueLogin Id is null");
-            return;
-        }
-        historiqueLoginRepository.deleteById(id);
-    }
-
-    @Override
     public List<HistoriqueLoginDto> findAllActiveHistoriqueLogins() {
         return historiqueLoginRepository.findAll().stream()
                 .map(HistoriqueLoginDto::fromEntityToDto)

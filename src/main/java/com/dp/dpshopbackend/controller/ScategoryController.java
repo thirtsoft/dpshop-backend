@@ -38,27 +38,6 @@ public class ScategoryController implements ScategoryApi {
     }
 
     @Override
-    public ResponseEntity<ScategoryDto> findByLibelle(String libelle) {
-        return ResponseEntity.ok(scategoryService.findByLibelle(libelle));
-    }
-
-    @Override
-    public List<ScategoryDto> findAll() {
-        return scategoryService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<ScategoryDto>> getAllSubCategoryOrderByIdDesc() {
-        List<ScategoryDto> scategoryDtoList = scategoryService.findByOrderByIdDesc();
-        return new ResponseEntity<>(scategoryDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long id) {
-        scategoryService.delete(id);
-    }
-
-    @Override
     public ResponseEntity<List<ScategoryDto>> getAllActiveSubCategories() {
         List<ScategoryDto> scategoryDtoList = scategoryService.findAllActiveSubcategories();
         return new ResponseEntity<>(scategoryDtoList, HttpStatus.OK);

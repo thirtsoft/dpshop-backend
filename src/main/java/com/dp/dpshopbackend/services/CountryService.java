@@ -13,12 +13,6 @@ public interface CountryService {
 
     CountryDto findById(Long id);
 
-    List<CountryDto> findAll();
-
-    List<CountryDto> findByOrderByIdDesc();
-
-    void delete(Long id);
-
     List<CountryDto> findAllActiveCountries();
 
     void deleteCountry(Long countryId);

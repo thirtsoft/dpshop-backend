@@ -61,171 +61,10 @@ public class CommandeServiceImpl implements CommandeService {
     }
 
     @Override
-    public CommandeDto save(CommandeDto commandeDto) {
-        System.out.println("Initial Numero Commande " + commandeDto.getNumeroCommande());
-        logger.info("CommandeDto {}", commandeDto);
-
-      /*  ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
-        if (clientOptional == null) {
-            throw new IllegalArgumentException("Vous devez selectionner un client");
-        }
-*/
-       /* if (commandeDto.getLcomms() != null) {
-            commandeDto.getLcomms().forEach(ligCmdClt -> {
-                if (ligCmdClt.getArticleDto() != null) {
-                    ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
-
-                    if (articleDto == null) {
-                        log.warn("L'article avec l'ID " + ligCmdClt.getArticleDto().getId() + " n'existe pas");
-                    }
-
-                } else {
-                    log.warn("Impossible d'enregister une commande avec un aticle NULL");
-
-                }
-
-            });
-        }*/
-
-      /*  PurchaseDto purchaseDto = new PurchaseDto();
-        commandeDto.setBillingAddressDto(purchaseDto.getBillingAddressDto());
-        commandeDto.setShippingAddressDto(purchaseDto.getShippingAddressDto());*/
-
-        Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
-
-     /*   if (commandeDto.getLcomms() != null) {
-            commandeDto.getLcomms().forEach(ligCmdClt -> {
-                        LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligCmdClt);
-                        ligneCommande.setCommande(savedCmdClt);
-
-                        ligneCommandeRepository.save(ligneCommande);
-
-                        Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
-
-                        articleDto.get().setQuantity(articleDto.get().getQuantity() - ligneCommande.getQuantity());
-
-                        ligneCommande.setNumero(savedCmdClt.getNumeroCommande());
-                        ligneCommande.setPrice(articleDto.get().getPrice());
-
-                        total += (ligneCommande.getQuantity() * ligneCommande.getPrice());
-                    }
-
-            );
-
-        }*/
-
-        savedCmdClt.setTotalCommande(total);
-        savedCmdClt.setStatus(status);
-        savedCmdClt.setDateCommande(new Date());
-        savedCmdClt.setActif(true);
-        return CommandeDto.fromEntityToDto(savedCmdClt);
-
-
-    }
-
-    @Override
-    public CommandeDto saveWithAddresses(CommandeDto commandeDto) {
-        System.out.println("Initial Numero Commande " + commandeDto.getNumeroCommande());
-        logger.info("CommandeDto {}", commandeDto);
-
-       /* ClientDto clientOptional = clientService.findById(commandeDto.getClientDto().getId());
-
-        if (clientOptional == null) {
-            //     log.warn("Client with ID {} was not found in the DB", commandeDto.getUtilisateurPOSTDto().getId());
-            throw new IllegalArgumentException("Vous devez selectionner un client");
-        }*/
-
-       /* if (commandeDto.getLcomms() != null) {
-            commandeDto.getLcomms().forEach(ligCmdClt -> {
-                if (ligCmdClt.getArticleDto() != null) {
-                    ArticleDto articleDto = articleService.findById(ligCmdClt.getArticleDto().getId());
-                    //    Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
-                    if (articleDto == null) {
-                        log.warn("L'article avec l'ID " + ligCmdClt.getArticleDto().getId() + " n'existe pas");
-                    }
-
-                } else {
-                    log.warn("Impossible d'enregister une commande avec un aticle NULL");
-
-                }
-
-            });
-        }*/
-
-      /*  PurchaseDto purchaseDto = new PurchaseDto();
-        commandeDto.setBillingAddressDto(purchaseDto.getBillingAddressDto());
-        commandeDto.setShippingAddressDto(purchaseDto.getShippingAddressDto());*/
-
-        Commande savedCmdClt = commandeRepository.save(CommandeDto.fromDtoToEntity(commandeDto));
-
-       /* if (commandeDto.getLcomms() != null) {
-            commandeDto.getLcomms().forEach(ligCmdClt -> {
-                        LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligCmdClt);
-                        ligneCommande.setCommande(savedCmdClt);
-                        //        ligneCommandeService.save(LigneCommandeDto.fromEntityToDto(ligneCommande));
-                        ligneCommandeRepository.save(ligneCommande);
-
-                        Optional<Article> articleDto = articleRepository.findById(ligCmdClt.getArticleDto().getId());
-
-                        articleDto.get().setQuantity(articleDto.get().getQuantity() - ligneCommande.getQuantity());
-
-                        ligneCommande.setNumero(savedCmdClt.getNumeroCommande());
-                        ligneCommande.setPrice(articleDto.get().getPrice());
-
-                        total += (ligneCommande.getQuantity() * ligneCommande.getPrice());
-                    }
-
-            );
-
-        }*/
-
-        savedCmdClt.setTotalCommande(total);
-        savedCmdClt.setStatus(status);
-        savedCmdClt.setDateCommande(new Date());
-        savedCmdClt.setActif(true);
-        return CommandeDto.fromEntityToDto(savedCmdClt);
-    }
-
-    @Override
-    public CommandeDto saveWithUtilisateur(Long userId, CommandeDto commandeDto) {
-        return null;
-    }
-
-    @Override
-    public CommandeDto update(Long comId, CommandeDto commandeDto) {
-        if (!commandeRepository.existsById(comId)) {
-            throw new ResourceNotFoundException("Commande not found");
-        }
-
-        Optional<Commande> commandeOptional = commandeRepository.findById(comId);
-
-        if (!commandeOptional.isPresent()) {
-            throw new ResourceNotFoundException("Commande not found");
-        }
-
-        CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
-        commandeDtoResult.setNumeroCommande(commandeDto.getNumeroCommande());
-        commandeDtoResult.setTotal(commandeDto.getTotal());
-        commandeDtoResult.setLocalDateTime(commandeDto.getLocalDateTime());
-        commandeDtoResult.setLcomms(commandeDto.getLcomms());
-        commandeDtoResult.setStatus(commandeDto.getStatus());
-
-        return CommandeDto.fromEntityToDto(
-                commandeRepository.save(
-                        CommandeDto.fromDtoToEntity(commandeDtoResult)
-                )
-        );
-    }
-
-    @Override
     public CommandeDto updateStatusOfCommande(String status, String id) {
-
         Optional<Commande> commandeOptional = commandeRepository.findById(Long.valueOf(id));
-
         CommandeDto commandeDtoResult = CommandeDto.fromEntityToDto(commandeOptional.get());
-
         commandeDtoResult.setStatus(status);
-
         return CommandeDto.fromEntityToDto(
                 commandeRepository.save(
                         CommandeDto.fromDtoToEntity(commandeDtoResult)
@@ -239,27 +78,11 @@ public class CommandeServiceImpl implements CommandeService {
             log.error("Commande Id is null");
             return null;
         }
-
         Optional<Commande> commande = commandeRepository.findById(id);
-
         return Optional.of(CommandeDto.fromEntityToDto(commande.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Commande avec l'Id = " + id + "n'a été trouvé")
         );
-    }
-
-    @Override
-    public List<CommandeDto> findAll() {
-        return commandeRepository.findAll().stream()
-                .map(CommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CommandeDto> findByOrderByIdDesc() {
-        return commandeRepository.findByOrderByIdDesc().stream()
-                .map(CommandeDto::fromEntityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -364,16 +187,6 @@ public class CommandeServiceImpl implements CommandeService {
     public Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable) {
         return commandeRepository.findCommandeByUtilisateurPageables(userId, pageable)
                 .map(CommandeDto::fromEntityToDto);
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Commande Id is null");
-            return;
-        }
-        commandeRepository.deleteById(id);
-
     }
 
     @Override

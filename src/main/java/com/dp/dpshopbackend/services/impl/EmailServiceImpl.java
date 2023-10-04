@@ -125,7 +125,7 @@ public class EmailServiceImpl implements EmailService {
         sb.append("\n Subject : " + newsletterDto.getSubject());
         sb.append("\n Message : " + newsletterDto.getMessage());
 
-        List<NewsletterDto> newsletterDtos = newsletterService.findAll();
+        List<NewsletterDto> newsletterDtos = newsletterService.findAllActiveNewsletters();
 
         SimpleMailMessage mail = new SimpleMailMessage();
 

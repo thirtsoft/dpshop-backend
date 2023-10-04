@@ -28,27 +28,6 @@ public class ClientServiceTest {
     @Mock
     private ClientRepository clientRepository;
 
-    @Test
-    public void CreateClientTest() {
-        ClientDto clientDto = ClientDto.builder()
-                .id(1L)
-                .firstName("CLT")
-                .lastName("CLT")
-                .email("CLT")
-                .mobile("CLT")
-                .build();
-        Client client = ClientDto.fromDtoToEntity(clientDto);
-        when(clientRepository.save(client)).thenReturn(client);
-
-        ClientDto clientDtoSavedResult = clientService.save(clientDto);
-
-        verify(clientRepository).save(client);
-        assertThat(clientDto).isNotNull();
-        assertThat(clientDtoSavedResult).isEqualTo(clientDto);
-        assertThat(clientDtoSavedResult.getId()).isEqualTo(client.getId());
-        assertThat(clientDtoSavedResult.getMobile()).isEqualTo(client.getMobile());
-        assertThat(clientDtoSavedResult.getFirstName()).isEqualTo(client.getFirstName());
-    }
 
     @Test
     public void findAllTest() {
@@ -63,7 +42,7 @@ public class ClientServiceTest {
 
         when(clientRepository.findAll()).thenReturn(singletonList(client));
 
-        List<ClientDto> clientDtoList = clientService.findAll();
+        List<ClientDto> clientDtoList = clientService.findAllActiveClients();
 
         assertThat(clientDtoList).isNotNull();
         assertThat(clientDtoList.size()).isEqualTo(1);

@@ -32,39 +32,6 @@ public class CommandeServiceTest {
     private CommandeRepository commandeRepository;
 
     @Test
-    public void CreateCommanderTest() {
-        ClientDto clientDto = ClientDto.builder()
-                .id(1L)
-                .firstName("CLT")
-                .lastName("CLT")
-                .build();
-        UtilisateurPOSTDto utilisateurPOSTDto = UtilisateurPOSTDto.builder()
-                .id(1L)
-                .email("user@gmail.com")
-                .username("user")
-                .password("passer1234")
-                .build();
-        CommandeDto commandeDto = CommandeDto.builder()
-                .id(1L)
-                .numeroCommande(120L)
-                .status("PAYEE")
-                //          .clientDto(clientDto)
-                //        .utilisateurPOSTDto(utilisateurPOSTDto)
-                .build();
-        Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
-        when(commandeRepository.save(commander)).thenReturn(commander);
-
-        CommandeDto commandeDtoSavedResult = commandeService.save(commandeDto);
-
-        verify(commandeRepository).save(commander);
-        assertThat(commandeDto).isNotNull();
-        //    assertThat(commandeDtoSavedResult).isEqualTo(commandeDto);
-        assertThat(commandeDtoSavedResult.getId()).isEqualTo(commander.getId());
-        assertThat(commandeDtoSavedResult.getNumeroCommande()).isEqualTo(commander.getNumeroCommande());
-        assertThat(commandeDtoSavedResult.getNumeroCommande()).isEqualTo(commander.getNumeroCommande());
-    }
-
-    @Test
     public void findAllTest() {
         ClientDto clientDto = ClientDto.builder()
                 .id(1L)
@@ -87,7 +54,7 @@ public class CommandeServiceTest {
         Commande commander = CommandeDto.fromDtoToEntity(commandeDto);
         when(commandeRepository.findAll()).thenReturn(singletonList(commander));
 
-        List<CommandeDto> commandeDtoList = commandeService.findAll();
+        List<CommandeDto> commandeDtoList = commandeService.findAllActiveCommandes();
 
         assertThat(commandeDtoList).isNotNull();
         assertThat(commandeDtoList.size()).isEqualTo(1);

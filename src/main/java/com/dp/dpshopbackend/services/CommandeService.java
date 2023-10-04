@@ -9,21 +9,9 @@ import java.util.List;
 
 public interface CommandeService {
 
-    CommandeDto save(CommandeDto commandeDto);
-
-    CommandeDto saveWithAddresses(CommandeDto commandeDto);
-
-    CommandeDto saveWithUtilisateur(Long userId, CommandeDto commandeDto);
-
-    CommandeDto update(Long comId, CommandeDto commandeDto);
-
     CommandeDto updateStatusOfCommande(String status, String id);
 
     CommandeDto findById(Long id);
-
-    List<CommandeDto> findAll();
-
-    List<CommandeDto> findByOrderByIdDesc();
 
     List<CommandeDto> findListOrderByStatusPending();
 
@@ -58,8 +46,6 @@ public interface CommandeService {
     List<CommandeDto> findCommandesByAddressAchatId(Long addAchat);
 
     Page<CommandeDto> findCommandeByUtilisateurPageables(Long userId, Pageable pageable);
-
-    void delete(Long id);
 
     List<CommandeDto> findAllActiveCommandes();
 

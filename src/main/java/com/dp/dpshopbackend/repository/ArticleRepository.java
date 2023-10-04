@@ -20,17 +20,15 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("select p from Article p where p.actif=1 and p.scategory.id =:scat")
     List<Article> findArticleByScategory(@Param("scat") Long scatId);
 
-   // List<Article> findTop12ByOrderByCreateDateDesc();
-
-    @Query(value = "select * from shopmania.article where actif=1 order by create_date desc limit 12", nativeQuery = true)
+    @Query("select art from Article art where art.actif=1 order by art.createDate desc")
     List<Article> findTop12ByOrderByCreateDateDesc();
 
     List<Article> findByOrderByIdDesc();
 
-    @Query("select art from Article art where art.price like :price GROUP BY (art.price, art.id) ")
+    @Query("select art from Article art where art.actif=1 and art.price like :price GROUP BY (art.price, art.id) ")
     List<Article> findArticleGroupByPrice(@Param("price") double price);
 
-    @Query("select p from Article p where p.price between :min and :max")
+    @Query("select p from Article p where p.actif=1 and p.price between :min and :max")
     List<Article> findListArticleByPriceMinMax(@Param("min") double min, @Param("max") double max);
 
     @Query("select art from Article art where art.actif=1 and art.selected = true")
@@ -39,16 +37,16 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query("select art from Article art where art.actif=1 and art.designation like :x")
     List<Article> findArticleByKeyword(@Param("x") String mc);
 
-    @Query("select p from Article p")
+    @Query("select p from Article p where p.actif=1")
     Page<Article> findArticle(Pageable pageable);
 
     @Query("select p from Article p where p.actif=1 and p.scategory.id =:scat")
     Page<Article> findArticleByScategoryPageables(@Param("scat") Long scatId, Pageable pageable);
 
-    @Query("select art from Article art where art.price like :price GROUP BY (art.price, art.id) ")
+    @Query("select art from Article art where art.actif=1 and art.price like :price GROUP BY (art.price, art.id) ")
     Page<Article> findArticlePageableGroupByPrice(@Param("price") double price, Pageable pageable);
 
-    @Query("select count(p) from Article p where p.scategory.id =:subcat ")
+    @Query("select count(p) from Article p where p.actif=1 and p.scategory.id =:subcat ")
     BigDecimal countNumberOfArticleInSubCategory(@Param("subcat") Long scatId);
 
     @Query("Select DISTINCT act from  Article act where act.actif=1 ORDER BY act.designation")

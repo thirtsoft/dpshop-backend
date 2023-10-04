@@ -32,38 +32,6 @@ public class LigneCommandeServiceTest {
     private LigneCommandeRepository ligneCommandeRepository;
 
     @Test
-    public void CreateLigneCommandeTest() {
-        CommandeDto commandeDto = CommandeDto.builder()
-                .id(1L)
-                .numeroCommande(120L)
-                .status("PAYEE")
-                .build();
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art1")
-                .designation("Art1")
-                .build();
-        LigneCommandeDto ligneCommandeDto = LigneCommandeDto.builder()
-                .id(1L)
-                .quantity(2)
-                .price(12000)
-                .articleDto(articleDto)
-                .commandeDto(commandeDto)
-                .build();
-        LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligneCommandeDto);
-        when(ligneCommandeRepository.save(ligneCommande)).thenReturn(ligneCommande);
-
-        LigneCommandeDto ligneCommandeDtoSavedResult = ligneCommandeService.save(ligneCommandeDto);
-
-        verify(ligneCommandeRepository).save(ligneCommande);
-        assertThat(ligneCommandeDto).isNotNull();
-//        assertThat(ligneCommandeDtoSavedResult).isEqualTo(ligneCommandeDto);
-        assertThat(ligneCommandeDtoSavedResult.getId()).isEqualTo(ligneCommande.getId());
-        assertThat(ligneCommandeDtoSavedResult.getPrice()).isEqualTo(ligneCommande.getPrice());
-        assertThat(ligneCommandeDtoSavedResult.getQuantity()).isEqualTo(ligneCommande.getQuantity());
-    }
-
-    @Test
     public void findAllTest() {
         CommandeDto commandeDto = CommandeDto.builder()
                 .id(1L)
@@ -85,7 +53,7 @@ public class LigneCommandeServiceTest {
         LigneCommande ligneCommande = LigneCommandeDto.fromDtoToEntity(ligneCommandeDto);
         when(ligneCommandeRepository.findAll()).thenReturn(singletonList(ligneCommande));
 
-        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAll();
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllActiveLigneCommandes();
 
         assertThat(ligneCommandeDtoList).isNotNull();
         assertThat(ligneCommandeDtoList.size()).isEqualTo(1);

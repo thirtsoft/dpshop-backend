@@ -30,98 +30,21 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public ClientDto save(ClientDto clientDto) {
-        clientDto.setActif(true);
-        return ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDto)
-                )
-        );
-    }
-
-    @Override
-    public ClientDto update(Long idClient, ClientDto clientDto) {
-        if (!clientRepository.existsById(idClient)) {
-            throw new ResourceNotFoundException("Client not found");
-        }
-
-        Optional<Client> clientOptional = clientRepository.findById(idClient);
-
-        if (!clientOptional.isPresent()) {
-            throw new ResourceNotFoundException("Client not found");
-        }
-
-        ClientDto clientDtoResult = ClientDto.fromEntityToDto(clientOptional.get());
-
-        clientDtoResult.setFirstName(clientDto.getFirstName());
-        clientDtoResult.setLastName(clientDto.getLastName());
-        clientDtoResult.setMobile(clientDto.getMobile());
-        clientDtoResult.setEmail(clientDto.getEmail());
-
-        return ClientDto.fromEntityToDto(
-                clientRepository.save(
-                        ClientDto.fromDtoToEntity(clientDtoResult)
-                )
-        );
-    }
-
-    @Override
     public ClientDto findById(Long id) {
         if (id == null) {
             log.error("Client Id is null");
             return null;
         }
-
         Optional<Client> client = clientRepository.findById(id);
-
         return Optional.of(ClientDto.fromEntityToDto(client.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Client avec l'Id = " + id + "n'a été trouvé")
         );
     }
 
-   /* @Override
-    public ClientDto findByReference(String reference) {
-        if (!StringUtils.hasLength(reference)) {
-            log.error("Client REFERENCE is null");
-        }
-
-        Optional<Client> clientOptional = clientRepository.findClientByReference(reference);
-
-        return Optional.of(ClientDto.fromEntityToDto(clientOptional.get())).orElseThrow(() ->
-                new ResourceNotFoundException(
-                        "Aucnun Client avec l'Id = " + reference + "n'a été trouvé")
-        );
-    }*/
-
-    @Override
-    public List<ClientDto> findAll() {
-        return clientRepository.findAll().stream()
-                .map(ClientDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<ClientDto> findByOrderByIdDesc() {
-        return clientRepository.findByOrderByIdDesc().stream()
-                .map(ClientDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
     @Override
     public BigDecimal countNumberOfClient() {
         return clientRepository.countNumberOfClient();
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Client Id is null");
-            return;
-        }
-
-        clientRepository.deleteById(id);
-
     }
 
     @Override

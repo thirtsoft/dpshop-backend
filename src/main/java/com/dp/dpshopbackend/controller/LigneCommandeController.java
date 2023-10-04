@@ -23,31 +23,13 @@ public class LigneCommandeController implements LigneCommandeApi {
     }
 
     @Override
-    public ResponseEntity<LigneCommandeDto> save(LigneCommandeDto ligneCommandeDto) {
-        return ResponseEntity.ok(ligneCommandeService.save(ligneCommandeDto));
-    }
-
-    @Override
     public ResponseEntity<LigneCommandeDto> findById(Long id) {
         return ResponseEntity.ok(ligneCommandeService.findById(id));
     }
 
     @Override
-    public List<LigneCommandeDto> findAll() {
-        return ligneCommandeService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandeOrderByIdDesc() {
-        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findByOrderByIdDesc();
-        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public List<LigneCommandeDto> getArticlesGroupByProductIdOrderByCreatedDateDesc() {
-        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findArticlesGroupByProductIdOrderByCreatedDateDesc();
-
-        return ligneCommandeDtoList;
+        return ligneCommandeService.findArticlesGroupByProductIdOrderByCreatedDateDesc();
     }
 
     @Override
@@ -63,18 +45,9 @@ public class LigneCommandeController implements LigneCommandeApi {
     }
 
     @Override
-    public void delete(Long id) {
-        ligneCommandeService.delete(id);
-    }
-
-    @Override
     public ResponseEntity<List<LigneCommandeDto>> getAllActiveLigneCommandes() {
         List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllActiveLigneCommandes();
         return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
 
-    @Override
-    public void deleteLigneCommande(Long idLignecommande) {
-        ligneCommandeService.deleteLigneCommande(idLignecommande);
-    }
 }

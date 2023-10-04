@@ -40,18 +40,13 @@ public class StateServiceImpl implements StateService {
         if (!stateRepository.existsById(id)) {
             throw new ResourceNotFoundException("State not found");
         }
-
         Optional<State> stateOptional = stateRepository.findById(id);
-
         if (!stateOptional.isPresent()) {
             throw new ResourceNotFoundException("State not found");
         }
-
         StateDto stateDtoResult = StateDto.fromEntityToDto(stateOptional.get());
-
         stateDtoResult.setName(stateDto.getName());
         stateDtoResult.setCountryDto(stateDto.getCountryDto());
-
         return StateDto.fromEntityToDto(
                 stateRepository.save(
                         StateDto.fromDtoToEntity(stateDtoResult)
@@ -65,27 +60,11 @@ public class StateServiceImpl implements StateService {
             log.error("Country Id is null");
             return null;
         }
-
         Optional<State> stateOptional = stateRepository.findById(id);
-
         return Optional.of(StateDto.fromEntityToDto(stateOptional.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun State avec l'Id = " + id + "n'a été trouvé")
         );
-    }
-
-    @Override
-    public List<StateDto> findAll() {
-        return stateRepository.findAll().stream()
-                .map(StateDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<StateDto> findByOrderByIdDesc() {
-        return stateRepository.findByOrderByIdDesc().stream()
-                .map(StateDto::fromEntityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -96,14 +75,6 @@ public class StateServiceImpl implements StateService {
         return stateRepository.findByCountryCode(code).stream()
                 .map(StateDto::fromEntityToDto)
                 .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Country Id is null");
-        }
-        stateRepository.deleteById(id);
     }
 
     @Override

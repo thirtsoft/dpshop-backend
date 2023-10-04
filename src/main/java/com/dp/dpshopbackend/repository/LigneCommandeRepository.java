@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.repository;
 
-import com.dp.dpshopbackend.models.HistoriqueLogin;
 import com.dp.dpshopbackend.models.LigneCommande;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -12,14 +11,13 @@ import java.util.List;
 @Repository
 public interface LigneCommandeRepository extends JpaRepository<LigneCommande, Long> {
 
-    @Query("select (p.productName), count(p) from LigneCommande p group by (p.productId)")
+    @Query("select (p.productName), count(p) from LigneCommande p where p.actif=1 group by (p.productId)")
     List<LigneCommande> findArticlesGroupByProductId();
 
-    List<LigneCommande> findByOrderByIdDesc();
-
-    @Query("select p from LigneCommande p where p.commande.id =:num")
+    @Query("select p from LigneCommande p where p.actif=1 and p.commande.id =:num")
     List<LigneCommande> ListLigneCommandeByCommandeId(@Param("num") Long comId);
 
+    @Query("Select  act from LigneCommande act where act.actif=1")
     List<LigneCommande> findTop200ByOrderByIdDesc();
 
     @Query("Select DISTINCT act from LigneCommande act where act.actif=1 ORDER BY act.id desc")

@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.controller.api;
 
-import com.dp.dpshopbackend.dto.EmailDto;
 import com.dp.dpshopbackend.dto.FournisseurDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -14,9 +13,10 @@ import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
+@RequestMapping(value = APP_ROOT + "/fournisseurs")
 public interface FournisseurApi {
 
-    @PostMapping(value = APP_ROOT + "/fournisseurs/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un Fournisseur",
             notes = "Cette méthode permet d'ajouter un Fournisseur", response = FournisseurDto.class)
     @ApiResponses(value = {
@@ -25,7 +25,7 @@ public interface FournisseurApi {
     })
     ResponseEntity<FournisseurDto> save(@RequestBody FournisseurDto fournisseurDto);
 
-    @PutMapping(value = APP_ROOT + "/fournisseurs/update/{idFournisseur}",
+    @PutMapping(value = "/update/{idFournisseur}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier un Fournisseur par son ID",
             notes = "Cette méthode permet de modifier un Fournisseur par son ID", response = FournisseurDto.class)
@@ -35,7 +35,7 @@ public interface FournisseurApi {
     })
     ResponseEntity<FournisseurDto> update(@PathVariable("idFournisseur") Long id, @RequestBody FournisseurDto fournisseurDto);
 
-    @GetMapping(value = APP_ROOT + "/fournisseurs/findById/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findById/{idFournisseur}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Fournisseur par ID",
             notes = "Cette méthode permet de chercher une Fournisseur par son ID", response = FournisseurDto.class
     )
@@ -45,24 +45,7 @@ public interface FournisseurApi {
     })
     ResponseEntity<FournisseurDto> findById(@PathVariable("idFournisseur") Long id);
 
-    @GetMapping(value = APP_ROOT + "/fournisseurs/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Fournisseur",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Fournisseur", responseContainer = "List<FournisseurDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Fournisseur / une liste vide")
-    })
-    List<FournisseurDto> findAll();
-
-    @GetMapping(value = APP_ROOT + "/fournisseurs/searchAllFournisseursOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Articles par ordre descroissante",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par ordre descroissante",
-            responseContainer = "List<FournisseurDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
-    })
-    ResponseEntity<List<FournisseurDto>> getAllFournisseursOrderByIdDesc();
-
-    @GetMapping(value = APP_ROOT + "/fournisseurs/countNumberOfFournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/count-number-of-fournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi le nombre de Fournisseur",
             notes = "Cette méthode permet de chercher et renvoyer le nombre de Fournisseur")
     @ApiResponses(value = {
@@ -70,15 +53,7 @@ public interface FournisseurApi {
     })
     BigDecimal countNumberOfFournisseurs();
 
-    @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete/{idFournisseur}")
-    @ApiOperation(value = "Supprimer un Fournisseur par son ID",
-            notes = "Cette méthode permet de supprimer une Fournisseur par son ID", response = FournisseurDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La Fournisseur a été supprimé")
-    })
-    void delete(@PathVariable("idFournisseur") Long id);
-
-    @GetMapping(value = APP_ROOT + "/fournisseurs/search-all-active-fournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-all-active-fournisseurs", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des fournisseurs actives",
             notes = "Cette méthode permet de chercher et renvoyer la liste des fournisseurs actives",
             responseContainer = "List<FournisseurDto>")
@@ -87,7 +62,7 @@ public interface FournisseurApi {
     })
     ResponseEntity<List<FournisseurDto>> getAllActiveFournisseurs();
 
-    @DeleteMapping(value = APP_ROOT + "/fournisseurs/delete-fournisseur/{idFournisseur}")
+    @DeleteMapping(value = "/delete-fournisseur/{idFournisseur}")
     @ApiOperation(value = "Supprimer une fournisseur par son ID",
             notes = "Cette méthode permet de supprimer une email par son ID")
     @ApiResponses(value = {

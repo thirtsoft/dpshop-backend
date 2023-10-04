@@ -77,7 +77,7 @@ public class FournisseurServiceTest {
 
         when(fournisseurRepository.findAll()).thenReturn(singletonList(fournisseur));
 
-        List<FournisseurDto> fournisseurDtoList = fournisseurService.findAll();
+        List<FournisseurDto> fournisseurDtoList = fournisseurService.findAllActiveFournisseurs();
 
         assertThat(fournisseurDtoList).isNotNull();
         assertThat(fournisseurDtoList.size()).isEqualTo(1);

@@ -124,13 +124,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> findAll() {
-        return articleRepository.findAll().stream()
-                .map(ArticleDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<ArticleDto> findListArticleByScategories(Long scatId) {
         if (scatId == null) {
             log.error("Article Scategory is null");
@@ -179,13 +172,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public List<ArticleDto> findByOrderByIdDesc() {
-        return articleRepository.findByOrderByIdDesc().stream()
-                .map(ArticleDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
     public List<ArticleDto> findAllActiveArticles() {
         return articleRepository.findAll().stream()
                 .map(ArticleDto::fromEntityToDto)
@@ -216,16 +202,6 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (id == null) {
-            log.error("Article Id is null");
-            return;
-        }
-        articleRepository.deleteById(id);
-
-    }
-
-    @Override
     public void deleteArticle(Long id) {
         if (id == null) {
             log.error("Article Id is null");
@@ -235,6 +211,5 @@ public class ArticleServiceImpl implements ArticleService {
         Article articleResult = article.get();
         articleResult.setActif(false);
         articleRepository.save(articleResult);
-
     }
 }

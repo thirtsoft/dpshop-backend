@@ -23,42 +23,13 @@ public class ClientController implements ClientApi {
     }
 
     @Override
-    public ResponseEntity<ClientDto> save(ClientDto clientDto) {
-        return ResponseEntity.ok(clientService.save(clientDto));
-    }
-
-    @Override
-    public ResponseEntity<ClientDto> update(Long id, ClientDto clientDto) {
-        clientDto.setId(id);
-        return ResponseEntity.ok(clientService.save(clientDto));
-    }
-
-    @Override
     public ResponseEntity<ClientDto> findById(Long id) {
         return ResponseEntity.ok(clientService.findById(id));
-    }
-
-
-    @Override
-    public ResponseEntity<List<ClientDto>> findAll() {
-        List<ClientDto> clientDtoList = clientService.findAll();
-        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<ClientDto>> getAllClientsOrderByIdDesc() {
-        List<ClientDto> clientDtoList = clientService.findByOrderByIdDesc();
-        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
     }
 
     @Override
     public BigDecimal countNumberOfClient() {
         return clientService.countNumberOfClient();
-    }
-
-    @Override
-    public void delete(Long id) {
-        clientService.delete(id);
     }
 
     @Override

@@ -10,8 +10,6 @@ import java.util.List;
 @Repository
 public interface CountryRepository extends JpaRepository<Country, Long> {
 
-    List<Country> findByOrderByIdDesc();
-
     @Query("Select DISTINCT act from Country act where act.actif=1 ORDER BY act.name")
     List<Country> findAll();
 

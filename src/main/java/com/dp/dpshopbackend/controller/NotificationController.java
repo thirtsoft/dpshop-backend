@@ -50,42 +50,13 @@ public class NotificationController implements NotificationApi {
 
     @Override
     public ResponseEntity<NotificationDto> saveRating(NotificationDto notificationDto, String reference, Long id) {
-
         Article article = Optional.of(ArticleDto.fromDtoToEntity(articleService.findByReference(reference))).get();
-
         Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
-
         notificationDto.setArticleDto(ArticleDto.fromEntityToDto(article));
         notificationDto.setUtilisateurDto(UtilisateurDto.fromEntityToDto(utilisateur));
-
         notificationDto.setCreatedDate(new Date());
-
         NotificationDto notificationDtoResult = notificationService.save(notificationDto);
-
         return new ResponseEntity<>(notificationDtoResult, HttpStatus.CREATED);
-    }
-
-    @Override
-    public ResponseEntity<NotificationDto> update(Long id, NotificationDto notificationDto) {
-        notificationDto.setId(id);
-        return ResponseEntity.ok(notificationService.save(notificationDto));
-    }
-
-    @Override
-    public ResponseEntity<NotificationDto> findById(Long id) {
-        return ResponseEntity.ok(notificationService.findById(id));
-    }
-
-    @Override
-    public ResponseEntity<List<NotificationDto>> findAll() {
-        List<NotificationDto> notificationDtoList = notificationService.findAll();
-        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<NotificationDto>> getAllNotificationsOrderByIdDesc() {
-        List<NotificationDto> notificationDtoList = notificationService.findByOrderByIdDesc();
-        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -108,11 +79,6 @@ public class NotificationController implements NotificationApi {
     public ResponseEntity<List<NotificationDto>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
         List<NotificationDto> notificationDtoList = notificationService.findTop4ByOrderByCreatedDateDescByProductId(prodRef);
         return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long id) {
-        notificationService.delete(id);
     }
 
     @Override

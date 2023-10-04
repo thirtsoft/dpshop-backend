@@ -45,22 +45,17 @@ public class CheckoutServiceImpl implements CheckoutService {
 
     @Override
     public PurchaseResponse placeOrder(PurchaseDto purchaseDto) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         authentication.getName();
-
         UserPrinciple authUser = (UserPrinciple) authentication.getPrincipal();
         Long userId = authUser.getId();
 
         Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(userId))).get();
 
         CommandeDto commandeDto = purchaseDto.getCommandeDto();
-
         String orderTrackingNumber = generateOrderTrackingNumber();
         commandeDto.setOrderTrackingNumber(orderTrackingNumber);
         commandeDto.setActif(true);
-
 
       /*  List<LigneCommandeDto> ligneCommandeDtos = purchaseDto.getLigneCommandeListDtos();
         ligneCommandeDtos.forEach(item -> commandeDto.add(item));*/
@@ -70,30 +65,21 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         ClientDto clientDto = purchaseDto.getClientDto();
         clientDto.setActif(true);
-
         ClientDto.fromEntityToDto(
                 clientRepository.save(
                         ClientDto.fromDtoToEntity(clientDto)
                 )
         );
-
         return new PurchaseResponse(orderTrackingNumber);
     }
 
     @Override
     public PurchaseResponse placeToOrder(Purchase purchase) {
-
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-
         String login = authentication.getName();
-
         String currentPrincipalName = authentication.getName();
-
         System.out.println(purchase);
-        // retrieve the order from dto
         Commande commande = purchase.getCommande();
-
-        // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
         commande.setOrderTrackingNumber(orderTrackingNumber);
         commande.setStatus(status);
@@ -102,14 +88,12 @@ public class CheckoutServiceImpl implements CheckoutService {
 
         // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-    //    ligneCommandeList.forEach(item -> commande.add(item));
         if (ligneCommandeList != null) {
             ligneCommandeList.forEach(ligCmdClt -> {
                 ligCmdClt.setActif(true);
                 commande.add(ligCmdClt);
             });
         }
-
         // populate order with shippingAddress and billingAddress
         commande.setBillingAddress(purchase.getBillingAddress());
         commande.setShippingAddress(purchase.getShippingAddress());
@@ -118,21 +102,15 @@ public class CheckoutServiceImpl implements CheckoutService {
         Client client = purchase.getClient();
         client.setActif(true);
         client.add(commande);
-
-        // save customer to database
         clientRepository.save(client);
 
-        // return response
         return new PurchaseResponse(orderTrackingNumber);
     }
 
     @Override
     public PurchaseResponse placeToOrderWithUser(Purchase purchase) {
-        System.out.println(purchase);
-        // retrieve the order from dto
         Commande commande = purchase.getCommande();
         Utilisateur utilisateur = purchase.getUtilisateur();
-        // generate tracking number
         String orderTrackingNumber = generateOrderTrackingNumber();
         Long numCommande = generateNumeroCommande();
         commande.setOrderTrackingNumber(orderTrackingNumber);
@@ -140,25 +118,16 @@ public class CheckoutServiceImpl implements CheckoutService {
         commande.setStatus(status);
         commande.setDateCommande(new Date());
         commande.setActif(true);
-        // attach loggin user to order
         commande.setUtilisateur(utilisateur);
-        // populate order with orderItems
         List<LigneCommande> ligneCommandeList = purchase.getLcomms();
-     //   ligneCommandeList.forEach(item -> commande.add(item));
         if (ligneCommandeList != null) {
             ligneCommandeList.forEach(ligCmdClt -> {
                 ligCmdClt.setActif(true);
                 commande.add(ligCmdClt);
             });
         }
-        // populate order with shippingAddress and billingAddress
         AddressLivraison addressLivraison = purchase.getShippingAddress();
         AddressLivraison addressLivraison02 = purchase.getBillingAddress();
-      //  addressLivraison.setActif(true);
-     //   addressLivraison02.setActif(true);
-      //  commande.setBillingAddress(addressLivraison);
-      //  commande.setBillingAddress(purchase.getBillingAddress());
-
         if (addressLivraison != addressLivraison02) {
             commande.setShippingAddress(addressLivraison);
             addressLivraison.setActif(true);
@@ -169,22 +138,15 @@ public class CheckoutServiceImpl implements CheckoutService {
             addressLivraison.setActif(true);
             commande.setBillingAddress(null);
         }
-
-
-     //   commande.setShippingAddress(addressLivraison02);
-     //   commande.setShippingAddress(purchase.getShippingAddress());
-        // populate customer with order
         Client client = purchase.getClient();
         client.setActif(true);
         client.add(commande);
-        // save customer to database
         clientRepository.save(client);
-        // return response
+
         return new PurchaseResponse(orderTrackingNumber);
     }
 
     private String generateOrderTrackingNumber() {
-        // generate a random UUID (UUID version-4)
         return UUID.randomUUID().toString();
     }
 

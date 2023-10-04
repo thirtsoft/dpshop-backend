@@ -87,11 +87,6 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
-    public List<ArticleDto> findAll() {
-        return articleService.findAll();
-    }
-
-    @Override
     public List<ArticleDto> findListArticleByScategories(Long idScategory) {
         return articleService.findListArticleByScategories(idScategory);
     }
@@ -122,12 +117,6 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
-    public ResponseEntity<List<ArticleDto>> getAllArticlesOrderByIdDesc() {
-        List<ArticleDto> articleDtoList = articleService.findByOrderByIdDesc();
-        return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity<List<ArticleDto>> getAllActiveArticlesOrderByDesignation() {
         List<ArticleDto> articleDtoList = articleService.findAllActiveArticles();
         return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
@@ -154,11 +143,6 @@ public class ArticleController implements ArticleApi {
     @Override
     public BigDecimal countNumberOfArticleInSubCategory(Long subCatId) {
         return articleService.countNumberOfArticleInSubCategory(subCatId);
-    }
-
-    @Override
-    public void delete(Long id) {
-        articleService.delete(id);
     }
 
     @Override

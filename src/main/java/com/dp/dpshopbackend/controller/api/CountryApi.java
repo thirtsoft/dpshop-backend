@@ -1,7 +1,5 @@
 package com.dp.dpshopbackend.controller.api;
 
-import com.dp.dpshopbackend.dto.AddressLivraisonDto;
-import com.dp.dpshopbackend.dto.CommandeDto;
 import com.dp.dpshopbackend.dto.CountryDto;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiResponse;
@@ -14,9 +12,10 @@ import java.util.List;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
+@RequestMapping(value = APP_ROOT + "/countries")
 public interface CountryApi {
 
-    @PostMapping(value = APP_ROOT + "/countries/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/create", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Enregistrer un Country",
             notes = "Cette méthode permet d'ajouter une Country", response = CountryDto.class)
     @ApiResponses(value = {
@@ -25,7 +24,7 @@ public interface CountryApi {
     })
     ResponseEntity<CountryDto> save(@RequestBody CountryDto countryDto);
 
-    @PutMapping(value = APP_ROOT + "/countries/update/{idCountry}",
+    @PutMapping(value = "/update/{idCountry}",
             consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Modifier une Country par son ID",
             notes = "Cette méthode permet de modifier une Country par son ID", response = CountryDto.class)
@@ -35,7 +34,7 @@ public interface CountryApi {
     })
     ResponseEntity<CountryDto> update(@PathVariable("idCountry") Long id, @RequestBody CountryDto countryDto);
 
-    @GetMapping(value = APP_ROOT + "/countries/findById/{idCountry}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/findById/{idCountry}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher une Country par ID",
             notes = "Cette méthode permet de chercher une Country par son ID", response = CountryDto.class
     )
@@ -45,32 +44,7 @@ public interface CountryApi {
     })
     ResponseEntity<CountryDto> findById(@PathVariable("idCountry") Long id);
 
-    @GetMapping(value = APP_ROOT + "/countries/all", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des countries",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des countries", responseContainer = "List<CountryDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des countries / une liste vide")
-    })
-    List<CountryDto> findAll();
-
-    @GetMapping(value = APP_ROOT + "/countries/searchAllCountryOrderByIdDesc", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ApiOperation(value = "Renvoi la liste des Country par ordre descroissante",
-            notes = "Cette méthode permet de chercher et renvoyer la liste des Country par ordre descroissante",
-            responseContainer = "List<CountryDto>")
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La liste des Country par ordre descroissante / une liste vide")
-    })
-    ResponseEntity<List<CountryDto>> getAllCountryOrderByIdDesc();
-
-    @DeleteMapping(value = APP_ROOT + "/countries/delete/{idCountry}")
-    @ApiOperation(value = "Supprimer un Country par son ID",
-            notes = "Cette méthode permet de supprimer une Country par son ID", response = CountryDto.class)
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "La Country a été supprimé")
-    })
-    void delete(@PathVariable("idCountry") Long id);
-
-    @GetMapping(value = APP_ROOT + "/countries/search-all-active-countries", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/search-all-active-countries", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des countries actives",
             notes = "Cette méthode permet de chercher et renvoyer la liste des countries actives",
             responseContainer = "List<CountryDto>")
@@ -79,7 +53,7 @@ public interface CountryApi {
     })
     ResponseEntity<List<CountryDto>> getAllActiveCountries();
 
-    @DeleteMapping(value = APP_ROOT + "/countries/delete-country/{idCountry}")
+    @DeleteMapping(value = "/delete-country/{idCountry}")
     @ApiOperation(value = "Supprimer une countrie par son ID",
             notes = "Cette méthode permet de supprimer une countries par son ID")
     @ApiResponses(value = {

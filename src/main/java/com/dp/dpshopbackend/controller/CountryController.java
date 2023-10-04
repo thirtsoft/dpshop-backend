@@ -39,22 +39,6 @@ public class CountryController implements CountryApi {
     }
 
     @Override
-    public List<CountryDto> findAll() {
-        return countryService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<CountryDto>> getAllCountryOrderByIdDesc() {
-        List<CountryDto> countryDtoList = countryService.findByOrderByIdDesc();
-        return new ResponseEntity<>(countryDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public void delete(Long id) {
-        countryService.delete(id);
-    }
-
-    @Override
     public ResponseEntity<List<CountryDto>> getAllActiveCountries() {
         List<CountryDto> countryDtoList = countryService.findAllActiveCountries();
         return new ResponseEntity<>(countryDtoList, HttpStatus.OK);

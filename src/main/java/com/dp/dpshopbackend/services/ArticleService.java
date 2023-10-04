@@ -22,8 +22,6 @@ public interface ArticleService {
 
     ArticleDto findByReference(String reference);
 
-    List<ArticleDto> findAll();
-
     List<ArticleDto> findListArticleByScategories(Long scatId);
 
     List<ArticleDto> findListArticleByKeyword(String keyword);
@@ -36,8 +34,6 @@ public interface ArticleService {
 
     List<ArticleDto> findTop12ByOrderByCreateDateDesc();
 
-    List<ArticleDto> findByOrderByIdDesc();
-
     List<ArticleDto> findAllActiveArticles();
 
     Page<ArticleDto> findArticleByPageable(Pageable pageable);
@@ -47,8 +43,6 @@ public interface ArticleService {
     Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable);
 
     BigDecimal countNumberOfArticleInSubCategory(@Param("subcat") Long scatId);
-
-    void delete(Long id);
 
     void deleteArticle(Long id);
 }

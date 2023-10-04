@@ -96,20 +96,20 @@ public class FournisseurControllerTest {
 
     @Test
     public void GetMappingOfAllFournisseurs() throws Exception {
-        when(fournisseurService.findAll()).thenReturn(fournisseurDtoList);
-        mockMvc.perform(get("/shop-mania/v1/fournisseurs/all").
+        when(fournisseurService.findAllActiveFournisseurs()).thenReturn(fournisseurDtoList);
+        mockMvc.perform(get("/shop-mania/v1/fournisseurs/search-all-active-fournisseurs").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(fournisseurDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(fournisseurService).findAll();
-        verify(fournisseurService, times(1)).findAll();
+        verify(fournisseurService).findAllActiveFournisseurs();
+        verify(fournisseurService, times(1)).findAllActiveFournisseurs();
     }
 
     @Test
     public void GetMappingOfFournisseurShouldReturnRespectiveFournisseur() throws Exception {
         Long fourID = (long) 1;
         when(fournisseurService.findById(fournisseurDto.getId())).thenReturn(fournisseurDto);
-        mockMvc.perform(get("/shop-mania/v1/fournisseurs/" + fourID).
+        mockMvc.perform(get("/shop-mania/v1/fournisseurs/findById/" + fourID).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(fournisseurDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
