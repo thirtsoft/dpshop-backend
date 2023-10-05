@@ -131,12 +131,16 @@ public class CheckoutServiceImpl implements CheckoutService {
         if (addressLivraison != addressLivraison02) {
             commande.setShippingAddress(addressLivraison);
             addressLivraison.setActif(true);
+            addressLivraison.setIsBillingAddress(0);
             commande.setBillingAddress(addressLivraison02);
             addressLivraison02.setActif(true);
+            addressLivraison02.setIsBillingAddress(1);
         }else {
             commande.setShippingAddress(addressLivraison);
             addressLivraison.setActif(true);
+            addressLivraison.setIsBillingAddress(0);
             commande.setBillingAddress(null);
+
         }
         Client client = purchase.getClient();
         client.setActif(true);

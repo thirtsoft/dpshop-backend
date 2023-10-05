@@ -83,6 +83,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/search-top12-article-order-by-createdDate-desc").permitAll()
                 .antMatchers("/**/articles/search-article-by-keyword").permitAll()
                 .antMatchers("/**/articles/articles-by-subcategories/{scatId}").permitAll()
+                .antMatchers("/**/articles/search-all-by-actif-true-and-subcategory").permitAll()
                 .antMatchers("/**/articles/search-article-by-subcategory-by-pageable").permitAll()
                 .antMatchers("/**/articles/search-article-by-same-price-by-pageable").permitAll()
                 .antMatchers("/**/articles/search-article-by-pageable").permitAll()
@@ -216,8 +217,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                    //    .allowedOrigins("http://localhost:4200")
-                        .allowedOrigins("https://soulbusinesse.com")
+                        .allowedOrigins("http://localhost:4200")
+                    //    .allowedOrigins("https://soulbusinesse.com")
                         //   .allowedMethods("*")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)

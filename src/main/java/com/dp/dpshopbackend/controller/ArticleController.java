@@ -29,10 +29,7 @@ public class ArticleController implements ArticleApi {
 
     private final ArticleService articleService;
 
-  //  private final String articlePhotosDir = "C://Users//Folio9470m//shopmania//productphotos//";
-
     private static final String articlePhotosDir = System.getProperty("user.home") + "/shopmania_photos/photos/";
-
 
     @Autowired
     ServletContext context;

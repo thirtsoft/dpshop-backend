@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static com.dp.dpshopbackend.utils.Constants.APP_ROOT;
 
@@ -138,6 +139,16 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
     })
     ResponseEntity<List<ArticleDto>> getAllActiveArticlesOrderByDesignation();
+
+    /*
+    @GetMapping(value = "/search-all-by-actif-true-and-subcategory", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles actives ordonnées par la designation",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles actives ordonnées par la designation",
+            responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles  par ordre descroissante / une liste vide")
+    })
+    ResponseEntity<List<ArticleDto>> getAllArticlesByActifTrueAndSubcategoryId();*/
 
     @GetMapping(value = "/search-article-by-pageable", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par pages",

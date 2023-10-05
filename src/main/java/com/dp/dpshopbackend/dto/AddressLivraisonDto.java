@@ -25,13 +25,13 @@ public class AddressLivraisonDto {
 
     private String city;
 
- //   private String state;
-
     private String rue;
 
     private String country;
 
     private StateDto stateDto;
+
+    private int isBillingAddress;
 
     private int actif;
 
@@ -49,15 +49,10 @@ public class AddressLivraisonDto {
             return false;
     }
 
-    //  private CommandeDto commandeDto;
-
- //   private List<CommandeDto> commandeDtoList = new ArrayList<>();
-
     public static AddressLivraisonDto fromEntityToDto(AddressLivraison addressLivraison) {
         if (addressLivraison == null) {
             return null;
         }
-
         return AddressLivraisonDto.builder()
                 .id(addressLivraison.getId())
                 .reference(addressLivraison.getReference())
@@ -65,12 +60,10 @@ public class AddressLivraisonDto {
                 .zipcode(addressLivraison.getZipcode())
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
+                .isBillingAddress(addressLivraison.getIsBillingAddress())
                 .actif(addressLivraison.getActif())
-       //         .state(addressLivraison.getState())
                 .country(addressLivraison.getCountry())
                 .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
-                //            .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
-                //        .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
                 .build();
     }
 
@@ -78,21 +71,16 @@ public class AddressLivraisonDto {
         if (addressClientDto == null) {
             return null;
         }
-
         AddressLivraison addressLivraison = new AddressLivraison();
         addressLivraison.setId(addressClientDto.getId());
         addressLivraison.setReference(addressClientDto.getReference());
         addressLivraison.setPhone(addressClientDto.getPhone());
         addressLivraison.setZipcode(addressClientDto.getZipcode());
         addressLivraison.setCity(addressClientDto.getCity());
-      //  addressLivraison.setState(addressClientDto.getState());
+        addressLivraison.setIsBillingAddress(addressLivraison.getIsBillingAddress());
         addressLivraison.setCountry(addressLivraison.getCountry());
         addressLivraison.setActif(addressLivraison.isActif());
         addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
-        //    addressLivraison.setCommande(CommandeDto.fromDtoToEntity(addressClientDto.getCommandeDto()));
-
         return addressLivraison;
     }
-
-
 }

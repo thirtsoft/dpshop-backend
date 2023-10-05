@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -39,31 +38,13 @@ public class AddressLivraison implements Serializable {
 
     @ManyToOne
     @JoinColumn(name = "stateId")
-    // @JsonIgnore
     private State state;
-
-    /*
-    @OneToOne
-    @PrimaryKeyJoinColumn
-    @JsonIgnore
-    private Commande commande;*/
 
     @Column(name = "actif")
     private int actif;
 
-    public void setActif(boolean actif) {
-        if (actif == true)
-            this.actif = 1;
-        else
-            this.actif = 0;
-    }
-
-    public boolean isActif() {
-        if (actif == 1)
-            return true;
-        else
-            return false;
-    }
+    @Column(name = "isBillingAddress", columnDefinition = "int default 0")
+    private int isBillingAddress;
 
     public AddressLivraison(Long id, String reference, String zipcode,
                             String phone, String city, String rue, String country,
@@ -76,5 +57,19 @@ public class AddressLivraison implements Serializable {
         this.rue = rue;
         this.country = country;
         this.state = state;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
     }
 }
