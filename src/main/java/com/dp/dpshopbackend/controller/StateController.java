@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class StateController implements StateApi {
 
@@ -21,7 +20,6 @@ public class StateController implements StateApi {
     public StateController(StateService stateService) {
         this.stateService = stateService;
     }
-
 
     @Override
     public ResponseEntity<StateDto> save(StateDto stateDto) {
@@ -40,28 +38,18 @@ public class StateController implements StateApi {
     }
 
     @Override
-    public ResponseEntity<StateDto> findByDesignation(String designation) {
-        return null;
-    }
-
-    @Override
-    public List<StateDto> findAll() {
-        return stateService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<StateDto>> getAllStatesOrderByIdDesc() {
-        List<StateDto> stateDtoList = stateService.findByOrderByIdDesc();
-        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public List<StateDto> getAllStateByCountryCode(String code) {
         return stateService.findAllStateByCountryCode(code);
     }
 
     @Override
-    public void delete(Long id) {
-        stateService.delete(id);
+    public ResponseEntity<List<StateDto>> getAllActiveStates() {
+        List<StateDto> stateDtoList = stateService.findAllActiveStates();
+        return new ResponseEntity<>(stateDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteState(Long idState) {
+        stateService.deleteState(idState);
     }
 }

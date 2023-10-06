@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.controller;
 
 import com.dp.dpshopbackend.controller.api.LigneCommandeApi;
+import com.dp.dpshopbackend.dto.HistoriqueLoginDto;
 import com.dp.dpshopbackend.dto.LigneCommandeDto;
 import com.dp.dpshopbackend.services.LigneCommandeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class LigneCommandeController implements LigneCommandeApi {
 
@@ -23,31 +23,13 @@ public class LigneCommandeController implements LigneCommandeApi {
     }
 
     @Override
-    public ResponseEntity<LigneCommandeDto> save(LigneCommandeDto ligneCommandeDto) {
-        return ResponseEntity.ok(ligneCommandeService.save(ligneCommandeDto));
-    }
-
-    @Override
     public ResponseEntity<LigneCommandeDto> findById(Long id) {
         return ResponseEntity.ok(ligneCommandeService.findById(id));
     }
 
     @Override
-    public List<LigneCommandeDto> findAll() {
-        return ligneCommandeService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<LigneCommandeDto>> getAllLigneCommandeOrderByIdDesc() {
-        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findByOrderByIdDesc();
-        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public List<LigneCommandeDto> getArticlesGroupByProductIdOrderByCreatedDateDesc() {
-        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findArticlesGroupByProductIdOrderByCreatedDateDesc();
-
-        return ligneCommandeDtoList;
+        return ligneCommandeService.findArticlesGroupByProductIdOrderByCreatedDateDesc();
     }
 
     @Override
@@ -63,7 +45,9 @@ public class LigneCommandeController implements LigneCommandeApi {
     }
 
     @Override
-    public void delete(Long id) {
-        ligneCommandeService.delete(id);
+    public ResponseEntity<List<LigneCommandeDto>> getAllActiveLigneCommandes() {
+        List<LigneCommandeDto> ligneCommandeDtoList = ligneCommandeService.findAllActiveLigneCommandes();
+        return new ResponseEntity<>(ligneCommandeDtoList, HttpStatus.OK);
     }
+
 }

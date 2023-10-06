@@ -1,7 +1,8 @@
 package com.dp.dpshopbackend;
 
 import com.dp.dpshopbackend.enumeration.RoleName;
-import com.dp.dpshopbackend.models.*;
+import com.dp.dpshopbackend.models.Role;
+import com.dp.dpshopbackend.models.Utilisateur;
 import com.dp.dpshopbackend.repository.*;
 import com.dp.dpshopbackend.services.UtilisateurService;
 import org.slf4j.Logger;
@@ -16,31 +17,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 @SpringBootApplication
 public class DpshopBackendApplication implements CommandLineRunner {
 
     private static final Logger LOG = LoggerFactory.getLogger(DpshopBackendApplication.class);
 
-    @Autowired
-    private CategoryRepository categoryRepository;
-    @Autowired
-    private ScategoryRepository scategoryRepository;
-    @Autowired
-    private ArticleRepository articleRepository;
-    @Autowired
-    private ClientRepository clientRepository;
-    @Autowired
-    private FournisseurRepository fournisseurRepository;
-    @Autowired
-    private CountryRepository countryRepository;
-    @Autowired
-    private StateRepository stateRepository;
-    @Autowired
-    private AddressLivraisonRepository addressLivraisonRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
@@ -57,7 +39,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
     }
 
     private static void createDirectoryIfItDoesntExist() {
-        Path path = Paths.get(System.getProperty("user.home") + "/shopmania/productphotos/");
+        Path path = Paths.get(System.getProperty("user.home") + "/shopmania_photos/photos/");
 
         if (Files.notExists(path)) {
             try {
@@ -71,6 +53,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
+        /*
         Category c1 = categoryRepository.save(new Category(1L, "cat1", "cat1"));
         Category c2 = categoryRepository.save(new Category(2L, "cat2", "cat2"));
         Category c3 = categoryRepository.save(new Category(3L, "cat3", "cat3"));
@@ -107,11 +90,7 @@ public class DpshopBackendApplication implements CommandLineRunner {
         Fournisseur f3 = fournisseurRepository.save(new Fournisseur(3L, "f3", "f3", "f3", "f3", "m.diallo233@unig-zig.sn", "f3", "f3", "f3", p2));
         Fournisseur f4 = fournisseurRepository.save(new Fournisseur(4L, "f4", "f4", "f4", "f4", "thirtsoft@gmail.com", "f4", "f4", "f4", p1));
 
-      /*  Client cl1 = clientRepository.save(new Client("cl1", "cl1", "cl1", "779440310" ));
-        Client cl2 = clientRepository.save(new Client("cl2", "cl2", "cl2", "778102567" ));
-        Client cl3 = clientRepository.save(new Client("cl3", "cl3", "cl3", "774567321"));
-        Client cl4 = clientRepository.save(new Client("cl4", "cl4", "cl4", "776543298" ));
-*/
+
         Country count1 = countryRepository.save(new Country(1L, "SEN", "SENEGAL"));
         Country count2 = countryRepository.save(new Country(2L, "USA", "Etats-Unies"));
         Country count3 = countryRepository.save(new Country(3L, "GUIN", "Guinnée-Conakry"));
@@ -133,12 +112,8 @@ public class DpshopBackendApplication implements CommandLineRunner {
         State state8 = stateRepository.save(new State(8L, "Chine", count6));
         State state9 = stateRepository.save(new State(9L, "Dalaba", count3));
         State state10 = stateRepository.save(new State(10L, "Accra", count9));
-
-       /* AddressLivraison a1 = addressLivraisonRepository.save(new AddressLivraison(1L, "add1", "add1", "add1", "add1", "add1", "add1", state1));
-        AddressLivraison a2 = addressLivraisonRepository.save(new AddressLivraison(2L, "add2", "add2", "add2", "add2", "add2", "add2", state2));
-        AddressLivraison a3 = addressLivraisonRepository.save(new AddressLivraison(3L, "add3", "add3", "add3", "add3", "add3", "add3", state3));
-        AddressLivraison a4 = addressLivraisonRepository.save(new AddressLivraison(4L, "add4", "add4", "add4", "add4", "add4", "add4", state4));
 */
+        /*
 
         Role useRole = new Role(RoleName.ROLE_USER);
         Role assistantRole = new Role(RoleName.ROLE_ASSISTANT);
@@ -149,27 +124,23 @@ public class DpshopBackendApplication implements CommandLineRunner {
         roleRepository.save(managerRole);
         roleRepository.save(adminRole);
 
-        Utilisateur user = new Utilisateur();
-        user.setId(1L);
-        user.setUsername("User");
-        user.setName("User");
-        user.setPassword(bCryptPasswordEncoder.encode("user1234"));
-        Utilisateur manager = new Utilisateur();
-        manager.setId(2L);
-        manager.setUsername("Manager");
-        manager.setName("Manager");
-        manager.setPassword("manager1234");
         Utilisateur admin = new Utilisateur();
-        admin.setId(3L);
+        admin.setId(1L);
         admin.setUsername("Admin");
         admin.setName("Admin");
         admin.setPassword(bCryptPasswordEncoder.encode("admin1234"));
-        utilisateurRepository.save(user);
-        utilisateurRepository.save(manager);
         utilisateurRepository.save(admin);
 
-        utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
-        utilisateurService.addRoleToUser("User", RoleName.ROLE_USER);
+        Utilisateur manager = new Utilisateur();
+        manager.setId(2L);
+        manager.setUsername("Bigsoul");
+        manager.setName("Bigsoul");
+        manager.setPassword(bCryptPasswordEncoder.encode("bigsoul@2023"));
+        utilisateurRepository.save(manager);
 
+        utilisateurService.addRoleToUser("Admin", RoleName.ROLE_ADMIN);
+        utilisateurService.addRoleToUser("Bigsoul", RoleName.ROLE_MANAGER);
+
+*/
     }
 }

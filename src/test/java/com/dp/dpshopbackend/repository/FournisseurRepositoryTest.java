@@ -26,14 +26,8 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void testCreateFournisseur() {
-
-        Long scatId = (long) 1;
-        Article article = articleRepository.findById(scatId).orElse(null);
-
-        Fournisseur f1 = new Fournisseur((long) 1, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", article);
-
+        Fournisseur f1 = new Fournisseur((long) 1, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1");
         Fournisseur fournisseurResult = fournisseurRepository.save(f1);
-
         assertNotNull(fournisseurResult);
 
     }
@@ -41,10 +35,7 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void TestUpdateFournisseur() {
-        Long scatId = (long) 1;
-        Article article = articleRepository.findById(scatId).orElse(null);
-
-        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", article);
+        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1");
         fournisseurRepository.save(f1);
 
         String refFournisseur = "fournisseur";
@@ -65,10 +56,7 @@ public class FournisseurRepositoryTest {
 
     @Test
     public void testFindById() {
-        Long scatId = (long) 1;
-        Article article = articleRepository.findById(scatId).orElse(null);
-
-        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", article);
+        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1");
 
         Fournisseur fournisseurResult = fournisseurRepository.save(f1);
 
@@ -80,13 +68,10 @@ public class FournisseurRepositoryTest {
 
     @Test
     public void testFindAll() {
-        Long scatId = (long) 1;
-        Article article = articleRepository.findById(scatId).orElse(null);
-
-        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", article);
+        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1");
         fournisseurRepository.save(f1);
 
-        Fournisseur f2 = new Fournisseur(2L, "f2", "f2", "f2", "f2", "f2", "f2", "f2", "f2", article);
+        Fournisseur f2 = new Fournisseur(2L, "f2", "f2", "f2", "f2", "f2", "f2", "f2", "f2");
         fournisseurRepository.save(f2);
 
         List<Fournisseur> fournisseurList = fournisseurRepository.findAll();
@@ -98,10 +83,7 @@ public class FournisseurRepositoryTest {
     @Test
     @Rollback(false)
     public void testDelete() {
-        Long scatId = (long) 1;
-        Article article = articleRepository.findById(scatId).orElse(null);
-
-        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", article);
+        Fournisseur f1 = new Fournisseur(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1");
         Fournisseur fournisseurResult = fournisseurRepository.save(f1);
 
         boolean isExistBeforeDelete = fournisseurRepository.findById(fournisseurResult.getId()).isPresent();

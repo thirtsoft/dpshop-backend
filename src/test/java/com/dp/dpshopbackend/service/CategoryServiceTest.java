@@ -61,7 +61,7 @@ public class CategoryServiceTest {
         Category category = CategoryDto.fromDtoToEntity(categoryDto);
         when(categoryRepository.findAll()).thenReturn(singletonList(category));
 
-        List<CategoryDto> categories = categorieService.findAll();
+        List<CategoryDto> categories = categorieService.findAllActiveCategories();
 
         assertThat(categories).isNotNull();
         assertThat(categories.size()).isEqualTo(1);
@@ -87,26 +87,4 @@ public class CategoryServiceTest {
         assertThat(categoryDtoSavedResult.getId()).isEqualTo(categorie.get().getId());
 
     }
-
-    @Test
-    public void findByDesignationTest() {
-        CategoryDto categoryDto = CategoryDto.builder()
-                .id(1L)
-                .code("123")
-                .designation("designation")
-                .build();
-        Optional<Category> categorie = Optional.ofNullable(CategoryDto.fromDtoToEntity(categoryDto));
-        when(categoryRepository.findCategorieByDesignation(categorie.get().getDesignation())).thenReturn(categorie);
-
-        CategoryDto categoryDtoSavedResult = categorieService.findByDesignation(categoryDto.getDesignation());
-
-        Assert.assertNotNull(categoryDto);
-        verify(categoryRepository).findCategorieByDesignation(categorie.get().getDesignation());
-        assertThat(categoryDto).isNotNull();
-        assertThat(categoryDtoSavedResult).isEqualTo(categoryDto);
-        assertThat(categoryDtoSavedResult.getDesignation()).isEqualTo(categorie.get().getDesignation());
-
-    }
-
-
 }

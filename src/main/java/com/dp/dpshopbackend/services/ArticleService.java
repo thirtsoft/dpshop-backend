@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.services;
 
 import com.dp.dpshopbackend.dto.ArticleDto;
+import com.dp.dpshopbackend.models.Article;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.query.Param;
@@ -22,8 +23,6 @@ public interface ArticleService {
 
     ArticleDto findByReference(String reference);
 
-    List<ArticleDto> findAll();
-
     List<ArticleDto> findListArticleByScategories(Long scatId);
 
     List<ArticleDto> findListArticleByKeyword(String keyword);
@@ -36,7 +35,9 @@ public interface ArticleService {
 
     List<ArticleDto> findTop12ByOrderByCreateDateDesc();
 
-    List<ArticleDto> findByOrderByIdDesc();
+    List<ArticleDto> findAllActiveArticles();
+
+    List<ArticleDto> findListArticleByFournisseurs(Long fournisseurId);
 
     Page<ArticleDto> findArticleByPageable(Pageable pageable);
 
@@ -44,7 +45,9 @@ public interface ArticleService {
 
     Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable);
 
-    BigDecimal countNumberOfArticleInSubCategory(@Param("subcat") Long scatId);
+    Page<ArticleDto> findArticleByFournisseurPageables(Long fournisseurId, Pageable pageable);
 
-    void delete(Long id);
+    BigDecimal countNumberOfArticleInSubCategory(Long scatId);
+
+    void deleteArticle(Long id);
 }

@@ -100,25 +100,12 @@ public class NotificationControllerTest {
 
     @Test
     public void GetMappingOfAllNotifications() throws Exception {
-        when(notificationService.findAll()).thenReturn(notificationDtoList);
-        mockMvc.perform(get("/shop-mania/v1/notifications/all").
+        when(notificationService.findAllActiveNotifications()).thenReturn(notificationDtoList);
+        mockMvc.perform(get("/shop-mania/v1/notifications/search-all-active-notifications").
                         contentType(MediaType.APPLICATION_JSON).
                         content(asJsonString(notificationDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(notificationService).findAll();
-        verify(notificationService, times(1)).findAll();
+        verify(notificationService).findAllActiveNotifications();
+        verify(notificationService, times(1)).findAllActiveNotifications();
     }
-
-    @Test
-    public void GetMappingOfNotificationShouldReturnRespectiveNotification() throws Exception {
-        Long artID = (long) 1;
-        when(notificationService.findById(notificationDto.getId())).thenReturn(notificationDto);
-        mockMvc.perform(get("/shop-mania/v1/notifications/" + artID).
-                        contentType(MediaType.APPLICATION_JSON).
-                        content(asJsonString(notificationDto))).
-                andExpect(MockMvcResultMatchers.status().isOk()).
-                andDo(MockMvcResultHandlers.print());
-    }
-
-
 }

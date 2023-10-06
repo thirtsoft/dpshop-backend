@@ -1,11 +1,13 @@
 package com.dp.dpshopbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 @Entity
 @Table(name = "ligneCommande")
 public class LigneCommande implements Serializable {
@@ -46,6 +48,23 @@ public class LigneCommande implements Serializable {
     @ManyToOne
     @JoinColumn(name = "prodId", referencedColumnName = "id")
     private Article article;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public LigneCommande() {
     }

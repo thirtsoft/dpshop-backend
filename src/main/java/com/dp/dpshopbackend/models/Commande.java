@@ -18,7 +18,6 @@ import java.util.List;
 @Data
 public class Commande implements Serializable {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,10 +39,6 @@ public class Commande implements Serializable {
 
     @Column(name = "created_date")
     private Date createdDate;
-
-   /* @Enumerated(EnumType.STRING)
-    @Column(length = 100)
-    private StatusCommande statusCommande;*/
 
     @Column(name = "status")
     private String status;
@@ -70,25 +65,28 @@ public class Commande implements Serializable {
     @JoinColumn(name = "billing_address_id", referencedColumnName = "id")
     private AddressLivraison billingAddress;
 
-  /*  @ManyToOne
-    @JoinColumn(name = "userId")
-    private Utilisateur utilisateur;*/
-
-    /*
-    @OneToMany(mappedBy = "commande", fetch = FetchType.LAZY)
-    private List<LigneCommande> lcomms = new ArrayList<>();*/
-
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "commande", fetch = FetchType.LAZY)
     private List<LigneCommande> lcomms = new ArrayList<>();
 
-   /* @ManyToOne
-    @JoinColumn(name = "billingAddress")
-    private AddressLivraison addressLivraison;
-*/
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public Commande() {
     }
-
 
     public Commande(PlaceOrderDto placeOrderDto, String sessionId) {
         this.createdDate = new Date();

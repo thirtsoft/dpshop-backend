@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,6 +9,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
 
+@Data
 @Entity
 @Table(name = "utilisateur", uniqueConstraints = {
         @UniqueConstraint(columnNames = "username"),
@@ -40,12 +42,6 @@ public class Utilisateur implements UserDetails, Serializable {
     @Column(name = "lastName", length = 70)
     private String lastName;
 
-    @Column(name = "emailLivraison", length = 50)
-    private String emailLivraison;
-
-    @Column(name = "mobileLivraison", length = 30)
-    private String mobileLivraison;
-
     @Column(name = "activated")
     private boolean activated = false;
 
@@ -68,6 +64,23 @@ public class Utilisateur implements UserDetails, Serializable {
     @OneToMany(mappedBy = "utilisateur", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Commande> commandeList = new ArrayList<>();
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
 
     public Utilisateur() {
@@ -230,22 +243,6 @@ public class Utilisateur implements UserDetails, Serializable {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getEmailLivraison() {
-        return emailLivraison;
-    }
-
-    public void setEmailLivraison(String emailLivraison) {
-        this.emailLivraison = emailLivraison;
-    }
-
-    public String getMobileLivraison() {
-        return mobileLivraison;
-    }
-
-    public void setMobileLivraison(String mobileLivraison) {
-        this.mobileLivraison = mobileLivraison;
     }
 
     /*public void add(Commande commande) {

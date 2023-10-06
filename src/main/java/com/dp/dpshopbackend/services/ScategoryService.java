@@ -1,6 +1,5 @@
 package com.dp.dpshopbackend.services;
 
-import com.dp.dpshopbackend.dto.NotificationDto;
 import com.dp.dpshopbackend.dto.ScategoryDto;
 
 import java.util.List;
@@ -13,11 +12,7 @@ public interface ScategoryService {
 
     ScategoryDto findById(Long id);
 
-    ScategoryDto findByLibelle(String libelle);
+    List<ScategoryDto> findAllActiveSubcategories();
 
-    List<ScategoryDto> findAll();
-
-    List<ScategoryDto> findByOrderByIdDesc();
-
-    void delete(Long id);
+    void deleteSubcategory(Long subcategoryId);
 }

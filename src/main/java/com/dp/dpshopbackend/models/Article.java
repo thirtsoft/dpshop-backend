@@ -69,9 +69,30 @@ public class Article implements Serializable {
     @JoinColumn(name = "scatId")
     private Scategory scategory;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fournisseur_uid")
+    private Fournisseur fournisseur;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
     private List<Notification> notificationList;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public Article(Long id, String reference, String designation, int quantity,
                    double price, double currentPrice, boolean promo, boolean selected,

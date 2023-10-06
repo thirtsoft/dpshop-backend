@@ -85,7 +85,7 @@ public class UtilisateurControllerTest {
     @Test
     public void GetMappingOfAllUtilisateurs() throws Exception {
         when(utilisateurService.findAll()).thenReturn(utilisateurDtoList);
-        mockMvc.perform(get("/shop-mania/v1/utilisateurs/all").
+        mockMvc.perform(get("/shop-mania/v1/utilisateurs/search-all-active-utilisateurs").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(utilisateurDto))).
                 andDo(MockMvcResultHandlers.print());

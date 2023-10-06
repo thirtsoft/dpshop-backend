@@ -25,23 +25,34 @@ public class AddressLivraisonDto {
 
     private String city;
 
-    private String state;
-
     private String rue;
 
     private String country;
 
-    //  private CommandeDto commandeDto;
-
- //   private List<CommandeDto> commandeDtoList = new ArrayList<>();
-
     private StateDto stateDto;
+
+    private int isBillingAddress;
+
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public static AddressLivraisonDto fromEntityToDto(AddressLivraison addressLivraison) {
         if (addressLivraison == null) {
             return null;
         }
-
         return AddressLivraisonDto.builder()
                 .id(addressLivraison.getId())
                 .reference(addressLivraison.getReference())
@@ -49,10 +60,10 @@ public class AddressLivraisonDto {
                 .zipcode(addressLivraison.getZipcode())
                 .rue(addressLivraison.getRue())
                 .city(addressLivraison.getCity())
-                .state(addressLivraison.getState())
+                .isBillingAddress(addressLivraison.getIsBillingAddress())
+                .actif(addressLivraison.getActif())
                 .country(addressLivraison.getCountry())
-                //            .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
-                //        .commandeDto(CommandeDto.fromEntityToDto(addressLivraison.getCommande()))
+                .stateDto(StateDto.fromEntityToDto(addressLivraison.getState()))
                 .build();
     }
 
@@ -60,19 +71,16 @@ public class AddressLivraisonDto {
         if (addressClientDto == null) {
             return null;
         }
-
         AddressLivraison addressLivraison = new AddressLivraison();
         addressLivraison.setId(addressClientDto.getId());
         addressLivraison.setReference(addressClientDto.getReference());
         addressLivraison.setPhone(addressClientDto.getPhone());
         addressLivraison.setZipcode(addressClientDto.getZipcode());
         addressLivraison.setCity(addressClientDto.getCity());
-        addressLivraison.setState(addressClientDto.getState());
-        addressLivraison.setCountry(addressClientDto.getCountry());
-        //    addressLivraison.setCommande(CommandeDto.fromDtoToEntity(addressClientDto.getCommandeDto()));
-
+        addressLivraison.setIsBillingAddress(addressLivraison.getIsBillingAddress());
+        addressLivraison.setCountry(addressLivraison.getCountry());
+        addressLivraison.setActif(addressLivraison.isActif());
+        addressLivraison.setState(StateDto.fromDtoToEntity(addressClientDto.getStateDto()));
         return addressLivraison;
     }
-
-
 }

@@ -46,6 +46,22 @@ public class CommandeDto {
 
     private List<LigneCommande> lcomms = new ArrayList<>();
 
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
     public static CommandeDto fromEntityToDto(Commande commande) {
         if (commande == null) {
             return null;
@@ -58,6 +74,7 @@ public class CommandeDto {
                 .localDateTime(commande.getLocalDateTime())
                 .dateCommande(commande.getDateCommande())
                 .status(commande.getStatus())
+                .actif(commande.getActif())
                 .orderTrackingNumber(commande.getOrderTrackingNumber())
                 .clientDto(ClientDto.fromEntityToDto(commande.getClient()))
                 .utilisateurDto(UtilisateurDto.fromEntityToDto(commande.getUtilisateur()))
@@ -86,7 +103,7 @@ public class CommandeDto {
         commande.setLcomms(commandeDto.getLcomms());
         commande.setLocalDateTime(commandeDto.getLocalDateTime());
         commande.setStatus(commandeDto.getStatus());
-
+        commande.setActif(commandeDto.isActif());
         return commande;
     }
 

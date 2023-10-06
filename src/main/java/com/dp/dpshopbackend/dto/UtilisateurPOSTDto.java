@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,15 +23,37 @@ public class UtilisateurPOSTDto {
 
     private String name;
 
+    @NotNull(message = "Le nom utilisateur ne doit pas etre vide")
+    @NotEmpty(message = "Le nom utilisateur ne doit pas etre vide")
+    @NotBlank(message = "Le nom utilisateur ne doit pas etre vide")
     private String username;
 
     private String mobile;
 
     private String email;
 
+    @NotNull(message = "Le mot de passe ne doit pas etre vide")
+    @NotEmpty(message = "Le mot de passe ne doit pas etre vide")
+    @NotBlank(message = "Le mot de passe ne doit pas etre vide")
     private String password;
 
     private Set<RoleDto> roles = new HashSet<>();
+
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public UtilisateurPOSTDto(String username, String email, String password) {
         this.username = username;

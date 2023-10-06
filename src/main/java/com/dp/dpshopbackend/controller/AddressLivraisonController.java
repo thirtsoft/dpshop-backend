@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class AddressLivraisonController implements AddressLivraisonApi {
 
@@ -23,34 +22,18 @@ public class AddressLivraisonController implements AddressLivraisonApi {
     }
 
     @Override
-    public ResponseEntity<AddressLivraisonDto> save(AddressLivraisonDto addressLivraisonDto) {
-        return ResponseEntity.ok(addressLivraisonService.save(addressLivraisonDto));
-    }
-
-    @Override
-    public ResponseEntity<AddressLivraisonDto> update(Long id, AddressLivraisonDto addressLivraisonDto) {
-        addressLivraisonDto.setId(id);
-        return ResponseEntity.ok(addressLivraisonService.save(addressLivraisonDto));
-    }
-
-    @Override
     public ResponseEntity<AddressLivraisonDto> findById(Long id) {
         return ResponseEntity.ok(addressLivraisonService.findById(id));
     }
 
     @Override
-    public List<AddressLivraisonDto> findAll() {
-        return addressLivraisonService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<AddressLivraisonDto>> getAllAddressLivraisonsOrderByIdDesc() {
-        List<AddressLivraisonDto> addressLivraisonDtos = addressLivraisonService.findByOrderByIdDesc();
+    public ResponseEntity<List<AddressLivraisonDto>> getAllActiveAddressLivraisons() {
+        List<AddressLivraisonDto> addressLivraisonDtos = addressLivraisonService.findAllActiveAddressLivraisons();
         return new ResponseEntity<>(addressLivraisonDtos, HttpStatus.OK);
     }
 
     @Override
-    public void delete(Long id) {
-        addressLivraisonService.delete(id);
+    public void deleteAddressLivraison(Long idAddressLivraison) {
+        addressLivraisonService.deleteAddressLivraison(idAddressLivraison);
     }
 }

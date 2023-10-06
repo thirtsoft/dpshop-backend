@@ -6,6 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -21,12 +24,18 @@ public class UtilisateurDto {
 
     private String name;
 
+    @NotNull(message = "Le nom utilisateur ne doit pas etre vide")
+    @NotEmpty(message = "Le nom utilisateur ne doit pas etre vide")
+    @NotBlank(message = "Le nom utilisateur ne doit pas etre vide")
     private String username;
 
     private String mobile;
 
     private String email;
 
+    @NotNull(message = "Le mot de passe ne doit pas etre vide")
+    @NotEmpty(message = "Le mot de passe ne doit pas etre vide")
+    @NotBlank(message = "Le mot de passe ne doit pas etre vide")
     private String password;
 
     private String photo = "avatar.jpg";
@@ -34,6 +43,22 @@ public class UtilisateurDto {
     private Set<RoleDto> roles = new HashSet<>();
 
   //  private List<CommandeDto> commandeDtoList = new ArrayList<>();
+
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public UtilisateurDto(String username, String email, String password) {
         this.username = username;
@@ -55,6 +80,7 @@ public class UtilisateurDto {
                 .email(utilisateur.getEmail())
                 .password(utilisateur.getPassword())
                 .photo(utilisateur.getPhoto())
+                .actif(utilisateur.getActif())
                 .build();
 
     }
@@ -73,7 +99,7 @@ public class UtilisateurDto {
         utilisateur.setPassword(utilisateurDto.getPassword());
         utilisateur.setPhoto(utilisateurDto.getPhoto());
         utilisateur.setRoles(utilisateur.getRoles());
-
+        utilisateur.setActif(utilisateurDto.isActif());
         return utilisateur;
     }
 

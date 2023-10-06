@@ -13,11 +13,10 @@ public interface FournisseurService {
 
     FournisseurDto findById(Long id);
 
-    List<FournisseurDto> findAll();
-
-    List<FournisseurDto> findByOrderByIdDesc();
-
     BigDecimal countNumberOfFournisseur();
 
-    void delete(Long id);
+    List<FournisseurDto> findAllActiveFournisseurs();
+
+    void deleteFournisseur(Long fournisseurId);
+
 }

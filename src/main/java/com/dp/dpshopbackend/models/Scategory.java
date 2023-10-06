@@ -27,4 +27,28 @@ public class Scategory implements Serializable {
     @ManyToOne
     @JoinColumn(name = "catId")
     private Category category;
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
+
+    public Scategory(Long id, String code, String libelle, Category category) {
+        this.id = id;
+        this.code = code;
+        this.libelle = libelle;
+        this.category = category;
+    }
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,10 +22,12 @@ public class Client implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "firstName", length = 90)
+    @Column(name = "firstName", length = 90,nullable = false)
+    @NotNull
     private String firstName;
 
-    @Column(name = "lastName", length = 70)
+    @Column(name = "lastName", length = 70,nullable = false)
+    @NotNull
     private String lastName;
 
     @Column(name = "email", length = 50)
@@ -39,7 +42,8 @@ public class Client implements Serializable {
     @Column(name = "password", length = 30)
     private String password;
 
-    @Column(name = "mobile", length = 30)
+    @Column(name = "mobile", length = 30, nullable = false)
+    @NotNull
     private String mobile;
 
 
@@ -52,6 +56,23 @@ public class Client implements Serializable {
   //  @OneToMany(mappedBy = "client")
     @JsonIgnore
     private List<Commande> commandeList = new ArrayList<>();
+
+    @Column(name = "actif")
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public Client(String firstName, String lastName, String mobile,
                   String email,

@@ -88,7 +88,7 @@ public class AddressLivraisonControllerTest {
     @Test
     public void GetMappingOfAllAddressLivraison() throws Exception {
         when(addressLivraisonService.findAll()).thenReturn(addressLivraisonDtoList);
-        mockMvc.perform(get("/shop-mania/v1/addresslivraisons/all").
+        mockMvc.perform(get("/shop-mania/v1/addresslivraisons/search-all-active-addresslivraisons").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(addressLivraisonDto))).
                 andDo(MockMvcResultHandlers.print());

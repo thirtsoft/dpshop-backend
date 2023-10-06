@@ -22,7 +22,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class UtilisateurController implements UtilisateurApi {
 
@@ -37,24 +36,8 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
-    public ResponseEntity<UtilisateurDto> save(UtilisateurDto utilisateurDto) {
-        return ResponseEntity.ok(utilisateurService.save(utilisateurDto));
-    }
-
-    @Override
     public ResponseEntity<UtilisateurDto> findById(Long id) {
         return ResponseEntity.ok(utilisateurService.findById(id));
-    }
-
-    @Override
-    public List<UtilisateurDto> findAll() {
-        return utilisateurService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<UtilisateurDto>> getAllUtilisateursOrderByIdDesc() {
-        List<UtilisateurDto> utilisateurDtoList = utilisateurService.findByOrderByIdDesc();
-        return new ResponseEntity<>(utilisateurDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -68,7 +51,6 @@ public class UtilisateurController implements UtilisateurApi {
         return Files.readAllBytes(Paths.get(context.getRealPath("/Images/") + user.getPhoto()));
     }
 
-
     @Override
     public void uploadUserPhoto(MultipartFile file, Long id) throws IOException {
         UtilisateurDto utilisateurDto = utilisateurService.findById(id);
@@ -78,16 +60,12 @@ public class UtilisateurController implements UtilisateurApi {
         try {
             System.out.println("Image");
             FileUtils.writeByteArrayToFile(serverFile, file.getBytes());
-
             utilisateurDto.setPhoto(filename);
-
             utilisateurService.save(utilisateurDto);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-
 
     @Override
     public ResponseEntity<UtilisateurDto> updateUtilisateur(Long idUser, UtilisateurDto utilisateurDto) {
@@ -201,7 +179,13 @@ public class UtilisateurController implements UtilisateurApi {
     }
 
     @Override
-    public void delete(Long id) {
-        utilisateurService.delete(id);
+    public ResponseEntity<List<UtilisateurDto>> getAllActiveUtilisateurs() {
+        List<UtilisateurDto> utilisateurDtoList = utilisateurService.findAllActiveUtilisateurs();
+        return new ResponseEntity<>(utilisateurDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteUtilisateur(Long idUtilisateur) {
+        utilisateurService.deleteUtilisateur(idUtilisateur);
     }
 }

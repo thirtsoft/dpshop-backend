@@ -6,12 +6,10 @@ import com.dp.dpshopbackend.services.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CategoryController implements CategoryApi {
 
@@ -39,23 +37,13 @@ public class CategoryController implements CategoryApi {
     }
 
     @Override
-    public ResponseEntity<CategoryDto> findByDesignation(String designation) {
-        return ResponseEntity.ok(categoryService.findByDesignation(designation));
-    }
-
-    @Override
-    public List<CategoryDto> findAll() {
-        return categoryService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<CategoryDto>> getAllCategoriesOrderByIdDesc() {
-        List<CategoryDto> categoryDtoList = categoryService.findByOrderByIdDesc();
+    public ResponseEntity<List<CategoryDto>> getAllActiveCategories() {
+        List<CategoryDto> categoryDtoList = categoryService.findAllActiveCategories();
         return new ResponseEntity<>(categoryDtoList, HttpStatus.OK);
     }
 
     @Override
-    public void delete(Long id) {
-        categoryService.delete(id);
+    public void deleteCategory(Long idCategory) {
+        categoryService.deleteCategory(idCategory);
     }
 }

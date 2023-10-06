@@ -12,17 +12,19 @@ import java.util.List;
 @Repository
 public interface NotificationRepository extends JpaRepository<Notification, Long> {
 
+    @Query("select n from Notification n where n.actif=1 order by n.createdDate desc")
     List<Notification> findTop3ByOrderByCreatedDateDesc();
 
-    List<Notification> findByOrderByIdDesc();
-
-    @Query("select count(c) from Notification c where month(c.createdDate) = month(current_date)")
+    @Query("select count(c) from Notification c where c.actif=1 and month(c.createdDate) = month(current_date)")
     BigDecimal countNumberOfNotification();
 
-    @Query("select count(c) from Notification c where c.article.reference =:prod")
+    @Query("select count(c) from Notification c where c.actif=1 and  c.article.reference =:prod")
     BigDecimal countNumberOfNotificationByProductId(@Param("prod") String prodRef);
 
-    @Query("select n from Notification n where n.article.reference =:num")
+    @Query("select n from Notification n where n.actif=1 and n.article.reference =:num")
     List<Notification> findTop4ByOrderByCreatedDateDesc(@Param("num") String prodRef);
+
+    @Query("Select DISTINCT act from Notification act where act.actif=1 ORDER BY act.id desc")
+    List<Notification> findAll();
 
 }

@@ -69,10 +69,9 @@ public class FournisseurControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
+        scategoryDto = new ScategoryDto();
         articleDto = new ArticleDto(1L, "prod1", "prod1", 150, 1700.0, 1800.0, true, true, "prod1", "photo", scategoryDto);
-        fournisseurDto = new FournisseurDto(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1", articleDto);
+        fournisseurDto = new FournisseurDto(1L, "f1", "f1", "f1", "f1", "f1", "f1", "f1", "f1");
 
         mockMvc = MockMvcBuilders.standaloneSetup(fournisseurController).build();
     }
@@ -94,20 +93,20 @@ public class FournisseurControllerTest {
 
     @Test
     public void GetMappingOfAllFournisseurs() throws Exception {
-        when(fournisseurService.findAll()).thenReturn(fournisseurDtoList);
-        mockMvc.perform(get("/shop-mania/v1/fournisseurs/all").
+        when(fournisseurService.findAllActiveFournisseurs()).thenReturn(fournisseurDtoList);
+        mockMvc.perform(get("/shop-mania/v1/fournisseurs/search-all-active-fournisseurs").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(fournisseurDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(fournisseurService).findAll();
-        verify(fournisseurService, times(1)).findAll();
+        verify(fournisseurService).findAllActiveFournisseurs();
+        verify(fournisseurService, times(1)).findAllActiveFournisseurs();
     }
 
     @Test
     public void GetMappingOfFournisseurShouldReturnRespectiveFournisseur() throws Exception {
         Long fourID = (long) 1;
         when(fournisseurService.findById(fournisseurDto.getId())).thenReturn(fournisseurDto);
-        mockMvc.perform(get("/shop-mania/v1/fournisseurs/" + fourID).
+        mockMvc.perform(get("/shop-mania/v1/fournisseurs/findById/" + fourID).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(fournisseurDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).

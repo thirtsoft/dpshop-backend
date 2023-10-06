@@ -7,6 +7,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -17,7 +21,26 @@ public class CountryDto {
 
     private String code;
 
+    @NotNull(message = "Le nom de la région ne doit pas etre vide")
+    @NotEmpty(message = "Le nom de la région ne doit pas etre vide")
+    @NotBlank(message = "Le nom de la région ne doit pas etre vide")
     private String name;
+
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public static CountryDto fromEntityToDto(Country country) {
         if (country == null) {
@@ -28,6 +51,7 @@ public class CountryDto {
                 .id(country.getId())
                 .code(country.getCode())
                 .name(country.getName())
+                .actif(country.getActif())
                 .build();
     }
 
@@ -40,7 +64,7 @@ public class CountryDto {
         country.setId(countryDto.getId());
         country.setCode(countryDto.getCode());
         country.setName(countryDto.getName());
-
+        country.setActif(countryDto.isActif());
         return country;
     }
 

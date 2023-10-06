@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,14 +20,23 @@ public class FournisseurDto {
 
     private String reference;
 
+    @NotNull(message = "Le prénom ne doit pas etre vide")
+    @NotEmpty(message = "Le prénom ne doit pas etre vide")
+    @NotBlank(message = "Le prénom ne doit pas etre vide")
     private String firstName;
 
+    @NotNull(message = "Le nom ne doit pas etre vide")
+    @NotEmpty(message = "Le nom ne doit pas etre vide")
+    @NotBlank(message = "Le nom ne doit pas etre vide")
     private String lastName;
 
     private String address;
 
     private String email;
 
+    @NotNull(message = "Le numéro de téléphone ne doit pas etre vide")
+    @NotEmpty(message = "Le numéro de téléphone ne doit pas etre vide")
+    @NotBlank(message = "Le numéro de téléphone ne doit pas etre vide")
     private String telephoneFournisseur;
 
     private String city;
@@ -34,12 +47,25 @@ public class FournisseurDto {
 
     private String message;
 
-    private ArticleDto articleDto;
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public FournisseurDto(Long id, String reference, String firstName, String lastName,
                           String address, String email, String telephoneFournisseur,
-                          String city, String country,
-                         ArticleDto articleDto) {
+                          String city, String country) {
         this.id = id;
         this.reference = reference;
         this.firstName = firstName;
@@ -49,7 +75,6 @@ public class FournisseurDto {
         this.telephoneFournisseur = telephoneFournisseur;
         this.city = city;
         this.country = country;
-        this.articleDto = articleDto;
     }
 
     public static FournisseurDto fromEntityToDto(Fournisseur fournisseur) {
@@ -67,9 +92,9 @@ public class FournisseurDto {
                 .email(fournisseur.getEmail())
                 .city(fournisseur.getCity())
                 .country(fournisseur.getCountry())
+                .actif(fournisseur.getActif())
                 .subject(fournisseur.getSubject())
                 .message(fournisseur.getMessage())
-                .articleDto(ArticleDto.fromEntityToDto(fournisseur.getArticle()))
                 .build();
     }
 
@@ -87,11 +112,10 @@ public class FournisseurDto {
         fournisseur.setTelephoneFournisseur(fournisseurDto.getTelephoneFournisseur());
         fournisseur.setEmail(fournisseurDto.getEmail());
         fournisseur.setCity(fournisseurDto.getCity());
+        fournisseur.setActif(fournisseurDto.isActif());
         fournisseur.setCountry(fournisseurDto.getCountry());
         fournisseur.setSubject(fournisseurDto.getSubject());
         fournisseur.setMessage(fournisseurDto.getMessage());
-        fournisseur.setArticle(ArticleDto.fromDtoToEntity(fournisseurDto.getArticleDto()));
-
         return fournisseur;
     }
 }

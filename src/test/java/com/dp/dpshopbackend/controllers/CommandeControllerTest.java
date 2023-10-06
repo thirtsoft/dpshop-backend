@@ -88,31 +88,21 @@ public class CommandeControllerTest {
     }
 
     @Test
-    public void PostMappingOfCommande() throws Exception {
-        when(commandeService.save(any())).thenReturn(commandeDto);
-        mockMvc.perform(post("/shop-mania/v1/commandes/create")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(asJsonString(commandeDto)))
-                .andExpect(status().isOk());
-        verify(commandeService, times(1)).save(any());
-    }
-
-    @Test
     public void GetMappingOfAllCommandes() throws Exception {
-        when(commandeService.findAll()).thenReturn(commandeDtoList);
-        mockMvc.perform(get("/shop-mania/v1/commandes/all").
+        when(commandeService.findAllActiveCommandes()).thenReturn(commandeDtoList);
+        mockMvc.perform(get("/shop-mania/v1/commandes/search-all-active-commandes").
                         contentType(MediaType.APPLICATION_JSON).
                         content(asJsonString(commandeDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(commandeService).findAll();
-        verify(commandeService, times(1)).findAll();
+        verify(commandeService).findAllActiveCommandes();
+        verify(commandeService, times(1)).findAllActiveCommandes();
     }
 
     @Test
     public void GetMappingOfCommandeShouldReturnRespectiveCommande() throws Exception {
         Long artID = (long) 1;
         when(commandeService.findById(commandeDto.getId())).thenReturn(commandeDto);
-        mockMvc.perform(get("/shop-mania/v1/commandes/" + artID).
+        mockMvc.perform(get("/shop-mania/v1/commandes/findById/" + artID).
                         contentType(MediaType.APPLICATION_JSON).
                         content(asJsonString(commandeDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).

@@ -29,7 +29,7 @@ public class CountryServiceImpl implements CountryService {
 
     @Override
     public CountryDto save(CountryDto countryDto) {
-
+        countryDto.setActif(true);
         return CountryDto.fromEntityToDto(
                 countryRepository.save(
                         CountryDto.fromDtoToEntity(countryDto)
@@ -42,17 +42,12 @@ public class CountryServiceImpl implements CountryService {
         if (!countryRepository.existsById(id)) {
             throw new ResourceNotFoundException("Country not found");
         }
-
         Optional<Country> countryOptional = countryRepository.findById(id);
-
         if (!countryOptional.isPresent()) {
             throw new ResourceNotFoundException("Country not found");
         }
-
         CountryDto countryResult = CountryDto.fromEntityToDto(countryOptional.get());
-
         countryResult.setName(countryDto.getName());
-
         return CountryDto.fromEntityToDto(
                 countryRepository.save(
                         CountryDto.fromDtoToEntity(countryResult)
@@ -66,9 +61,7 @@ public class CountryServiceImpl implements CountryService {
             log.error("Country Id is null");
             return null;
         }
-
         Optional<Country> countryOptional = countryRepository.findById(id);
-
         return Optional.of(CountryDto.fromEntityToDto(countryOptional.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Country avec l'Id = " + id + "n'a été trouvé")
@@ -76,25 +69,21 @@ public class CountryServiceImpl implements CountryService {
     }
 
     @Override
-    public List<CountryDto> findAll() {
+    public List<CountryDto> findAllActiveCountries() {
         return countryRepository.findAll().stream()
                 .map(CountryDto::fromEntityToDto)
                 .collect(Collectors.toList());
     }
 
     @Override
-    public List<CountryDto> findByOrderByIdDesc() {
-        return countryRepository.findByOrderByIdDesc().stream()
-                .map(CountryDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public void delete(Long id) {
-        if (id == null) {
+    public void deleteCountry(Long countryId) {
+        if (countryId == null) {
             log.error("Country Id is null");
+            return;
         }
-        countryRepository.deleteById(id);
-
+        Optional<Country> countryOptional = countryRepository.findById(countryId);
+        Country country = countryOptional.get();
+        country.setActif(false);
+        countryRepository.save(country);
     }
 }

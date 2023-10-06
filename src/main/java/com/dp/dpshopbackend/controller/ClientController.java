@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.math.BigDecimal;
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class ClientController implements ClientApi {
 
@@ -24,32 +23,8 @@ public class ClientController implements ClientApi {
     }
 
     @Override
-    public ResponseEntity<ClientDto> save(ClientDto clientDto) {
-        return ResponseEntity.ok(clientService.save(clientDto));
-    }
-
-    @Override
-    public ResponseEntity<ClientDto> update(Long id, ClientDto clientDto) {
-        clientDto.setId(id);
-        return ResponseEntity.ok(clientService.save(clientDto));
-    }
-
-    @Override
     public ResponseEntity<ClientDto> findById(Long id) {
         return ResponseEntity.ok(clientService.findById(id));
-    }
-
-
-    @Override
-    public ResponseEntity<List<ClientDto>> findAll() {
-        List<ClientDto> clientDtoList = clientService.findAll();
-        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<ClientDto>> getAllClientsOrderByIdDesc() {
-        List<ClientDto> clientDtoList = clientService.findByOrderByIdDesc();
-        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -58,7 +33,13 @@ public class ClientController implements ClientApi {
     }
 
     @Override
-    public void delete(Long id) {
-        clientService.delete(id);
+    public ResponseEntity<List<ClientDto>> getAllActiveClients() {
+        List<ClientDto> clientDtoList = clientService.findAllActiveClients();
+        return new ResponseEntity<>(clientDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteClient(Long idClient) {
+        clientService.deleteClient(idClient);
     }
 }

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CountryController implements CountryApi {
 
@@ -40,18 +39,13 @@ public class CountryController implements CountryApi {
     }
 
     @Override
-    public List<CountryDto> findAll() {
-        return countryService.findAll();
-    }
-
-    @Override
-    public ResponseEntity<List<CountryDto>> getAllCountryOrderByIdDesc() {
-        List<CountryDto> countryDtoList = countryService.findByOrderByIdDesc();
+    public ResponseEntity<List<CountryDto>> getAllActiveCountries() {
+        List<CountryDto> countryDtoList = countryService.findAllActiveCountries();
         return new ResponseEntity<>(countryDtoList, HttpStatus.OK);
     }
 
     @Override
-    public void delete(Long id) {
-        countryService.delete(id);
+    public void deleteCountry(Long idCountry) {
+        countryService.deleteCountry(idCountry);
     }
 }

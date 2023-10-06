@@ -16,12 +16,10 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class NotificationController implements NotificationApi {
 
@@ -51,56 +49,20 @@ public class NotificationController implements NotificationApi {
     }
 
     @Override
-    public ResponseEntity<NotificationDto> saveRating(NotificationDto notificationDto, String reference, Long userId) {
-
-        //    Article article = Optional.of(ArticleDto.fromDtoToEntity(articleService.findById(artId))).get();
-
+    public ResponseEntity<NotificationDto> saveRating(NotificationDto notificationDto, String reference, Long id) {
         Article article = Optional.of(ArticleDto.fromDtoToEntity(articleService.findByReference(reference))).get();
-
-        Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(userId))).get();
-
+        Utilisateur utilisateur = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
         notificationDto.setArticleDto(ArticleDto.fromEntityToDto(article));
         notificationDto.setUtilisateurDto(UtilisateurDto.fromEntityToDto(utilisateur));
-
         notificationDto.setCreatedDate(new Date());
-
         NotificationDto notificationDtoResult = notificationService.save(notificationDto);
-
-
         return new ResponseEntity<>(notificationDtoResult, HttpStatus.CREATED);
     }
 
     @Override
-    public ResponseEntity<NotificationDto> update(Long id, NotificationDto notificationDto) {
-        notificationDto.setId(id);
-        return ResponseEntity.ok(notificationService.save(notificationDto));
-    }
-
-    @Override
-    public ResponseEntity<NotificationDto> findById(Long id) {
-        return ResponseEntity.ok(notificationService.findById(id));
-    }
-
-    @Override
-    public ResponseEntity<List<NotificationDto>> findAll() {
-        List<NotificationDto> notificationDtoList = new ArrayList<>();
-        notificationDtoList = notificationService.findAll();
-
-        return new ResponseEntity(notificationDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<NotificationDto>> getAllNotificationsOrderByIdDesc() {
-        List<NotificationDto> notificationDtoList = notificationService.findByOrderByIdDesc();
-        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity<List<NotificationDto>> getTop3ByOrderByCreatedDateDesc() {
-        List<NotificationDto> notificationDtoList = new ArrayList<>();
-        notificationDtoList = notificationService.findTop3RatingOrderByCreatedDateDesc();
-
-        return new ResponseEntity(notificationDtoList, HttpStatus.OK);
+        List<NotificationDto> notificationDtoList = notificationService.findTop3RatingOrderByCreatedDateDesc();
+        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
     }
 
     @Override
@@ -116,11 +78,17 @@ public class NotificationController implements NotificationApi {
     @Override
     public ResponseEntity<List<NotificationDto>> getTop4ByOrderByCreatedDateDescByProductId(String prodRef) {
         List<NotificationDto> notificationDtoList = notificationService.findTop4ByOrderByCreatedDateDescByProductId(prodRef);
-        return new ResponseEntity(notificationDtoList, HttpStatus.OK);
+        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
     }
 
     @Override
-    public void delete(Long id) {
-        notificationService.delete(id);
+    public ResponseEntity<List<NotificationDto>> getAllActiveNotifications() {
+        List<NotificationDto> notificationDtoList = notificationService.findAllActiveNotifications();
+        return new ResponseEntity<>(notificationDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteNotification(Long idNotification) {
+        notificationService.deleteNotification(idNotification);
     }
 }

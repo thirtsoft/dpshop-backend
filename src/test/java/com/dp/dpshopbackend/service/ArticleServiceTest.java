@@ -78,7 +78,7 @@ public class ArticleServiceTest {
         Article article = ArticleDto.fromDtoToEntity(articleDto);
         when(articleRepository.findAll()).thenReturn(singletonList(article));
 
-        List<ArticleDto> articleDtoList = articleService.findAll();
+        List<ArticleDto> articleDtoList = articleService.findAllActiveArticles();
 
         assertThat(articleDtoList).isNotNull();
         assertThat(articleDtoList.size()).isEqualTo(1);

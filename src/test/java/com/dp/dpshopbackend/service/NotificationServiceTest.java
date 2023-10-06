@@ -87,44 +87,11 @@ public class NotificationServiceTest {
         Notification notification = NotificationDto.fromDtoToEntity(notificationDto);
         when(notificationRepository.findAll()).thenReturn(singletonList(notification));
 
-        List<NotificationDto> notificationDtoList = notificationService.findAll();
+        List<NotificationDto> notificationDtoList = notificationService.findAllActiveNotifications();
 
         assertThat(notificationDtoList).isNotNull();
         assertThat(notificationDtoList.size()).isEqualTo(1);
         verify(notificationRepository).findAll();
         assertThat(notificationDtoList.get(0)).isEqualTo(NotificationDto.fromEntityToDto(notification));
     }
-
-    @Test
-    public void findByIdTest() {
-        UtilisateurDto utilisateurDto = UtilisateurDto.builder()
-                .id(1L)
-                .username("username")
-                .password("passer123")
-                .build();
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art1")
-                .designation("Art1")
-                .build();
-        NotificationDto notificationDto = NotificationDto.builder()
-                .id(1L)
-                .createdDate(new Date())
-                .nbreEtoile(4)
-                .observation("bon")
-                .articleDto(articleDto)
-                //         .utilisateurDto(utilisateurDto)
-                .build();
-        Optional<Notification> notification = Optional.ofNullable(NotificationDto.fromDtoToEntity(notificationDto));
-        when(notificationRepository.findById(notification.get().getId())).thenReturn(notification);
-
-        NotificationDto notificationDtoSavedResult = notificationService.findById(notificationDto.getId());
-
-        verify(notificationRepository).findById(notification.get().getId());
-        assertThat(notificationDto).isNotNull();
-        assertThat(notificationDtoSavedResult).isEqualTo(notificationDto);
-        assertThat(notificationDtoSavedResult.getId()).isEqualTo(notification.get().getId());
-
-    }
-
 }

@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 import java.util.Date;
 
 @Component
-public class JwtsProvider {
+public class JwtProvider {
 
-    private static final Logger logger = LoggerFactory.getLogger(JwtsProvider.class);
+    private static final Logger logger = LoggerFactory.getLogger(JwtProvider.class);
 
     @Value("${security.app.jwtSecret}")
     private String jwtSecret;
@@ -21,7 +21,7 @@ public class JwtsProvider {
     @Value("${security.app.jwtExpiration}")
     private int jwtExpiration;
 
-    public String generatedJwtToken(Authentication authentication) {
+    public String generateJwtToken(Authentication authentication) {
 
         UserPrinciple userPrincipal = (UserPrinciple) authentication.getPrincipal();
 
@@ -33,7 +33,7 @@ public class JwtsProvider {
                 .compact();
     }
 
-    public boolean validatedJwtToken(String authToken) {
+    public boolean validateJwtToken(String authToken) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(authToken);
             return true;
@@ -50,10 +50,9 @@ public class JwtsProvider {
         }
 
         return false;
-
     }
 
-    public String getUsernameFromJwtToken(String token) {
+    public String getUserNameFromJwtToken(String token) {
         return Jwts.parser()
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(token)

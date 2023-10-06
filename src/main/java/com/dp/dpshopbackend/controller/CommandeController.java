@@ -19,7 +19,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 public class CommandeController implements CommandeApi {
 
@@ -31,36 +30,6 @@ public class CommandeController implements CommandeApi {
     public CommandeController(CommandeService commandeService, UtilisateurService utilisateurService) {
         this.commandeService = commandeService;
         this.utilisateurService = utilisateurService;
-    }
-
-    @Override
-    public ResponseEntity<CommandeDto> save(CommandeDto commandeDto) {
-        return ResponseEntity.ok(commandeService.save(commandeDto));
-    }
-
-    @Override
-    public ResponseEntity<CommandeDto> saveWithAddresses(CommandeDto commandeDto) {
-        return ResponseEntity.ok(commandeService.saveWithAddresses(commandeDto));
-    }
-
-    @Override
-    public ResponseEntity<CommandeDto> saveWithLoginUser(CommandeDto commandeDto, Long id) {
-
-        Utilisateur userInfo = Optional.of(UtilisateurDto.fromDtoToEntity(utilisateurService.findById(id))).get();
-
-        UtilisateurDto userInfoDto = UtilisateurDto.fromEntityToDto(userInfo);
-
-        //    commandeDto.setUtilisateurDto(userInfoDto);
-        commandeService.save(commandeDto);
-
-        return new ResponseEntity<>(HttpStatus.CREATED);
-
-    }
-
-    @Override
-    public ResponseEntity<CommandeDto> update(Long id, CommandeDto commandeDto) {
-        commandeDto.setId(id);
-        return ResponseEntity.ok(commandeService.save(commandeDto));
     }
 
     @Override
@@ -105,18 +74,6 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
-    public ResponseEntity<List<CommandeDto>> findAll() {
-        List<CommandeDto> commandeDtoList = commandeService.findAll();
-        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
-    }
-
-    @Override
-    public ResponseEntity<List<CommandeDto>> getAllCommandesOrderByIdDesc() {
-        List<CommandeDto> commandeDtoList = commandeService.findByOrderByIdDesc();
-        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
-    }
-
-    @Override
     public ResponseEntity<List<CommandeDto>> getListOrderByStatusPending() {
         List<CommandeDto> commandeDtoList = commandeService.findListOrderByStatusPending();
         return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
@@ -148,8 +105,7 @@ public class CommandeController implements CommandeApi {
 
     @Override
     public List<?> countNumberOfCommandeByDay() {
-        List<?> commandeDtoList = commandeService.countNumberOfCommandeByDay();
-        return commandeDtoList;
+        return commandeService.countNumberOfCommandeByDay();
     }
 
     @Override
@@ -174,7 +130,13 @@ public class CommandeController implements CommandeApi {
     }
 
     @Override
-    public void delete(Long id) {
-        commandeService.delete(id);
+    public ResponseEntity<List<CommandeDto>> getAllActiveCommandes() {
+        List<CommandeDto> commandeDtoList = commandeService.findAllActiveCommandes();
+        return new ResponseEntity<>(commandeDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public void deleteCommande(Long idCommande) {
+        commandeService.deleteCommande(idCommande);
     }
 }

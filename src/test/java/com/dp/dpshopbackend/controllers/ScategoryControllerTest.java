@@ -66,8 +66,9 @@ public class ScategoryControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
+      //  categoryDto = new CategoryDto(1L, "PC", "PC");
+     //   scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
+        scategoryDto = new ScategoryDto();
         mockMvc = MockMvcBuilders.standaloneSetup(scategoryController).build();
     }
 
@@ -88,20 +89,20 @@ public class ScategoryControllerTest {
 
     @Test
     public void GetMappingOfAllScategories() throws Exception {
-        when(scategoryService.findAll()).thenReturn(scategoryDtoList);
-        mockMvc.perform(get("/shop-mania/v1/scategories/all").
+        when(scategoryService.findAllActiveSubcategories()).thenReturn(scategoryDtoList);
+        mockMvc.perform(get("/shop-mania/v1/scategories/search-all-active-scategories").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(scategoryDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(scategoryService).findAll();
-        verify(scategoryService, times(1)).findAll();
+        verify(scategoryService).findAllActiveSubcategories();
+        verify(scategoryService, times(1)).findAllActiveSubcategories();
     }
 
     @Test
     public void GetMappingOfSCategoryShouldReturnRespectiveSCategory() throws Exception {
         Long scatID = (long) 1;
         when(scategoryService.findById(scategoryDto.getId())).thenReturn(scategoryDto);
-        mockMvc.perform(get("/shop-mania/v1/scategories/" + scatID).
+        mockMvc.perform(get("/shop-mania/v1/scategories/findById/" + scatID).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(scategoryDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).

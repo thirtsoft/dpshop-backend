@@ -29,7 +29,7 @@ public class FournisseurServiceImpl implements FournisseurService {
 
     @Override
     public FournisseurDto save(FournisseurDto fournisseurDto) {
-
+        fournisseurDto.setActif(true);
         return FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
                         FournisseurDto.fromDtoToEntity(fournisseurDto)
@@ -39,17 +39,13 @@ public class FournisseurServiceImpl implements FournisseurService {
 
     @Override
     public FournisseurDto update(Long id, FournisseurDto fournisseurDto) {
-
         if (!fournisseurRepository.existsById(id)) {
             throw new ResourceNotFoundException("Fournisseur not found");
         }
-
         Optional<Fournisseur> fournisseur = fournisseurRepository.findById(id);
-
         if (!fournisseur.isPresent()) {
             throw new ResourceNotFoundException("Fournisseur not found");
         }
-
         FournisseurDto fournisseurDTOResult = FournisseurDto.fromEntityToDto(fournisseur.get());
         fournisseurDTOResult.setReference(fournisseurDto.getReference());
         fournisseurDTOResult.setFirstName(fournisseurDto.getFirstName());
@@ -59,8 +55,6 @@ public class FournisseurServiceImpl implements FournisseurService {
         fournisseurDTOResult.setEmail(fournisseurDto.getEmail());
         fournisseurDTOResult.setCity(fournisseurDto.getCity());
         fournisseurDTOResult.setCountry(fournisseurDto.getCountry());
-        fournisseurDTOResult.setArticleDto(fournisseurDto.getArticleDto());
-
         return FournisseurDto.fromEntityToDto(
                 fournisseurRepository.save(
                         FournisseurDto.fromDtoToEntity(fournisseurDTOResult)
@@ -74,27 +68,11 @@ public class FournisseurServiceImpl implements FournisseurService {
             log.error("Fournisseur Id is null");
             return null;
         }
-
         Optional<Fournisseur> fournisseur = fournisseurRepository.findById(id);
-
         return Optional.of(FournisseurDto.fromEntityToDto(fournisseur.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun Fournisseur avec l'Id = " + id + "n'a été trouvé")
         );
-    }
-
-    @Override
-    public List<FournisseurDto> findAll() {
-        return fournisseurRepository.findAll().stream()
-                .map(FournisseurDto::fromEntityToDto)
-                .collect(Collectors.toList());
-    }
-
-    @Override
-    public List<FournisseurDto> findByOrderByIdDesc() {
-        return fournisseurRepository.findByOrderByIdDesc().stream()
-                .map(FournisseurDto::fromEntityToDto)
-                .collect(Collectors.toList());
     }
 
     @Override
@@ -103,13 +81,22 @@ public class FournisseurServiceImpl implements FournisseurService {
     }
 
     @Override
-    public void delete(Long id) {
-        if (id == null) {
+    public List<FournisseurDto> findAllActiveFournisseurs() {
+        return fournisseurRepository.findAll().stream()
+                .map(FournisseurDto::fromEntityToDto)
+                .collect(Collectors.toList()
+                );
+    }
+
+    @Override
+    public void deleteFournisseur(Long fournisseurId) {
+        if (fournisseurId == null) {
             log.error("Fournisseur Id is null");
             return;
         }
-
-        fournisseurRepository.deleteById(id);
-
+        Optional<Fournisseur> optionalFournisseur = fournisseurRepository.findById(fournisseurId);
+        Fournisseur fournisseur = optionalFournisseur.get();
+        fournisseur.setActif(false);
+        fournisseurRepository.save(fournisseur);
     }
 }

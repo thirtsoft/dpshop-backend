@@ -67,8 +67,10 @@ public class ArticleControllerTest {
 
     @Before
     public void setup() {
+        /*
         categoryDto = new CategoryDto(1L, "PC", "PC");
-        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);
+        scategoryDto = new ScategoryDto(1L, "HP", "HP ProBooks", categoryDto);*/
+        scategoryDto = new ScategoryDto();
         articleDto = new ArticleDto(1L, "prod1", "prod1", 150, 1700.0, 1800.0, true, true, "prod1", "photo", scategoryDto);
 
         mockMvc = MockMvcBuilders.standaloneSetup(articleController).build();
@@ -91,13 +93,13 @@ public class ArticleControllerTest {
 
     @Test
     public void GetMappingOfAllArticles() throws Exception {
-        when(articleService.findAll()).thenReturn(articleDtoList);
-        mockMvc.perform(get("/shop-mania/v1/articles/all").
+        when(articleService.findAllActiveArticles()).thenReturn(articleDtoList);
+        mockMvc.perform(get("/shop-mania/v1/articles/search-all-active-articles").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(articleDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(articleService).findAll();
-        verify(articleService, times(1)).findAll();
+        verify(articleService).findAllActiveArticles();
+        verify(articleService, times(1)).findAllActiveArticles();
     }
 
     @Test
@@ -115,7 +117,7 @@ public class ArticleControllerTest {
     public void GetMappingOfArticleByReferenceShouldReturnRespectiveArticle() throws Exception {
         String reference = "prod1";
         when(articleService.findById(scategoryDto.getId())).thenReturn(articleDto);
-        mockMvc.perform(get("/shop-mania/v1/articles/searchbyReference/" + reference).
+        mockMvc.perform(get("/shop-mania/v1/articles/search-by-reference/" + reference).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(articleDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).

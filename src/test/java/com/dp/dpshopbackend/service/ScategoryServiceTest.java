@@ -30,7 +30,8 @@ public class ScategoryServiceTest {
 
     @Test
     public void CreateScategoryTest() {
-        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+      //  CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+        CategoryDto categoryDto = new CategoryDto();
         ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")
@@ -52,7 +53,8 @@ public class ScategoryServiceTest {
 
     @Test
     public void findAllTest() {
-        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+      //  CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+        CategoryDto categoryDto = new CategoryDto();
         ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("Mobile")
@@ -63,7 +65,7 @@ public class ScategoryServiceTest {
         Scategory scategory = ScategoryDto.fromDtoToEntity(scategoryDto);
         when(scategoryRepository.findAll()).thenReturn(singletonList(scategory));
 
-        List<ScategoryDto> scategories = scategorieService.findAll();
+        List<ScategoryDto> scategories = scategorieService.findAllActiveSubcategories();
 
         assertThat(scategories).isNotNull();
         assertThat(scategories.size()).isEqualTo(1);
@@ -73,7 +75,8 @@ public class ScategoryServiceTest {
 
     @Test
     public void findByIdTest() {
-        CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+      //  CategoryDto categoryDto = new CategoryDto(1L, "cat", "cat");
+        CategoryDto categoryDto = new CategoryDto();
         ScategoryDto scategoryDto = ScategoryDto.builder()
                 .id(1L)
                 .code("123")

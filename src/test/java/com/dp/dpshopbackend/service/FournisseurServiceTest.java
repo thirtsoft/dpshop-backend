@@ -30,11 +30,6 @@ public class FournisseurServiceTest {
 
     @Test
     public void CreateFournisseurTest() {
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art")
-                .designation("Art1")
-                .build();
         FournisseurDto fournisseurDto = FournisseurDto.builder()
                 .id(1L)
                 .reference("CLT")
@@ -42,7 +37,6 @@ public class FournisseurServiceTest {
                 .lastName("CLT")
                 .email("CLT")
                 .telephoneFournisseur("779440310")
-                .articleDto(articleDto)
                 .build();
         Fournisseur fournisseur = FournisseurDto.fromDtoToEntity(fournisseurDto);
         when(fournisseurRepository.save(fournisseur)).thenReturn(fournisseur);
@@ -59,11 +53,6 @@ public class FournisseurServiceTest {
 
     @Test
     public void findAllTest() {
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art")
-                .designation("Art1")
-                .build();
         FournisseurDto fournisseurDto = FournisseurDto.builder()
                 .id(1L)
                 .reference("CLT")
@@ -71,13 +60,12 @@ public class FournisseurServiceTest {
                 .lastName("CLT")
                 .email("CLT")
                 .telephoneFournisseur("779440310")
-                .articleDto(articleDto)
                 .build();
         Fournisseur fournisseur = FournisseurDto.fromDtoToEntity(fournisseurDto);
 
         when(fournisseurRepository.findAll()).thenReturn(singletonList(fournisseur));
 
-        List<FournisseurDto> fournisseurDtoList = fournisseurService.findAll();
+        List<FournisseurDto> fournisseurDtoList = fournisseurService.findAllActiveFournisseurs();
 
         assertThat(fournisseurDtoList).isNotNull();
         assertThat(fournisseurDtoList.size()).isEqualTo(1);
@@ -87,11 +75,6 @@ public class FournisseurServiceTest {
 
     @Test
     public void findByIdTest() {
-        ArticleDto articleDto = ArticleDto.builder()
-                .id(1L)
-                .reference("Art")
-                .designation("Art1")
-                .build();
         FournisseurDto fournisseurDto = FournisseurDto.builder()
                 .id(1L)
                 .reference("CLT")
@@ -99,7 +82,6 @@ public class FournisseurServiceTest {
                 .lastName("CLT")
                 .email("CLT")
                 .telephoneFournisseur("779440310")
-                .articleDto(articleDto)
                 .build();
         Optional<Fournisseur> fournisseur = Optional.ofNullable(FournisseurDto.fromDtoToEntity(fournisseurDto));
         when(fournisseurRepository.findById(fournisseur.get().getId())).thenReturn(fournisseur);

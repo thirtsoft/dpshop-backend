@@ -6,6 +6,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
 @Data
 @Builder
 @AllArgsConstructor
@@ -16,9 +20,31 @@ public class ScategoryDto {
 
     private String code;
 
+    @NotNull(message = "Le libelle ne doit pas etre vide")
+    @NotEmpty(message = "Le libelle ne doit pas etre vide")
+    @NotBlank(message = "Le libelle ne doit pas etre vide")
     private String libelle;
 
+    @NotNull(message = "La category ne doit pas etre vide")
+    @NotEmpty(message = "La category ne doit pas etre vide")
+    @NotBlank(message = "La category ne doit pas etre vide")
     private CategoryDto categoryDto;
+
+    private int actif;
+
+    public void setActif(boolean actif) {
+        if (actif == true)
+            this.actif = 1;
+        else
+            this.actif = 0;
+    }
+
+    public boolean isActif() {
+        if (actif == 1)
+            return true;
+        else
+            return false;
+    }
 
     public static ScategoryDto fromEntityToDto(Scategory scategory) {
         if (scategory == null) {
@@ -30,6 +56,7 @@ public class ScategoryDto {
                 .code(scategory.getCode())
                 .libelle(scategory.getLibelle())
                 .categoryDto(CategoryDto.fromEntityToDto(scategory.getCategory()))
+                .actif(scategory.getActif())
                 .build();
     }
 
@@ -43,7 +70,7 @@ public class ScategoryDto {
         scategory.setCode(scategoryDto.getCode());
         scategory.setLibelle(scategoryDto.getLibelle());
         scategory.setCategory(CategoryDto.fromDtoToEntity(scategoryDto.getCategoryDto()));
-
+        scategory.setActif(scategoryDto.isActif());
         return scategory;
     }
 }

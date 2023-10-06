@@ -55,7 +55,8 @@ public class CategoryControllerTest {
 
     @Before
     public void setup() {
-        categoryDto = new CategoryDto(1L, "PC", "HP ProBooks");
+     //   categoryDto = new CategoryDto(1L, "PC", "HP ProBooks");
+        categoryDto = new CategoryDto();
         mockMvc = MockMvcBuilders.standaloneSetup(categoryController).build();
     }
 
@@ -76,20 +77,20 @@ public class CategoryControllerTest {
 
     @Test
     public void GetMappingOfAllCategories() throws Exception {
-        when(categoryService.findAll()).thenReturn(categoryDtoList);
-        mockMvc.perform(get("/shop-mania/v1/categories/all").
+        when(categoryService.findAllActiveCategories()).thenReturn(categoryDtoList);
+        mockMvc.perform(get("/shop-mania/v1/categories/search-all-active-categories").
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(categoryDto))).
                 andDo(MockMvcResultHandlers.print());
-        verify(categoryService).findAll();
-        verify(categoryService, times(1)).findAll();
+        verify(categoryService).findAllActiveCategories();
+        verify(categoryService, times(1)).findAllActiveCategories();
     }
 
     @Test
     public void GetMappingOfCategoryShouldReturnRespectiveCategory() throws Exception {
         Long catID = (long) 1;
         when(categoryService.findById(categoryDto.getId())).thenReturn(categoryDto);
-        mockMvc.perform(get("/shop-mania/v1//categories/" + catID).
+        mockMvc.perform(get("/shop-mania/v1/categories/findById/" + catID).
                 contentType(MediaType.APPLICATION_JSON).
                 content(asJsonString(categoryDto))).
                 andExpect(MockMvcResultMatchers.status().isOk()).
