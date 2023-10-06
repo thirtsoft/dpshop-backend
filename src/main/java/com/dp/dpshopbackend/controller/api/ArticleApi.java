@@ -74,7 +74,7 @@ public interface ArticleApi {
 
     @GetMapping(value = "/search-by-reference/{reference}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Rechercher un Artilce par Reference",
-            notes = "Cette méthode permet de chercher une Scategory par son Reference", response = ArticleDto.class
+            notes = "Cette méthode permet de chercher un article par son Reference", response = ArticleDto.class
     )
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "L'Article a été trouver"),
@@ -97,7 +97,6 @@ public interface ArticleApi {
             @ApiResponse(code = 200, message = "La liste des Articles par Scategory / une liste vide")
     })
     List<ArticleDto> getListArticleByKeyword(@RequestParam(name = "keyword") String keyword);
-
 
     @GetMapping(value = "/search-article-by-price/{price}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ApiOperation(value = "Renvoi la liste des Articles par price",
@@ -217,6 +216,23 @@ public interface ArticleApi {
 
     })
     void uploadPhotoArticleInFolder(MultipartFile file, @PathVariable("id") Long id) throws IOException;
+
+    @GetMapping(value = "/search-articles-by-fournisseurs/{fournisseurId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par fournisseur",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par fournisseur", responseContainer = "List<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par fournisseur / une liste vide")
+    })
+    ResponseEntity<List<ArticleDto>> findListArticleByFournisseur(@PathVariable("fournisseurId") Long fournisseurId);
+
+    @GetMapping(value = "/search-articles-by-fournisseur-by-pageable", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ApiOperation(value = "Renvoi la liste des Articles par fournisseur par page",
+            notes = "Cette méthode permet de chercher et renvoyer la liste des Articles par fournisseur par pages", responseContainer = "Page<ArticleDto>")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "La liste des Articles par Scategory par pages / une liste vide")
+    })
+    Page<ArticleDto> getListArticleByFournisseurByPageable(@RequestParam("id") Long fournisseurId, @RequestParam(name = "page") int page,
+                                                         @RequestParam(name = "size") int size);
 
     @DeleteMapping(value = "/delete-article/{idArticle}")
     @ApiOperation(value = "Supprimer un Article par son ID",

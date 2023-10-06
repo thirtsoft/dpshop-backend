@@ -1,11 +1,17 @@
 package com.dp.dpshopbackend.security;
 
+import com.dp.dpshopbackend.dto.ArticleDto;
 import com.dp.dpshopbackend.security.jwt.JwtAuthEntryPoint;
 import com.dp.dpshopbackend.security.jwt.JwtAuthTokenFilter;
 import com.dp.dpshopbackend.security.service.UserDetailsServiceImpl;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -16,8 +22,12 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -93,6 +103,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**/articles/upload-photo-article/{id}").permitAll()
                 .antMatchers("/**/articles/upload-photo-article-in-folder/{id}").permitAll()
                 .antMatchers("/**/articles/count-number-of-article-in-subcategory/{subCatId}").permitAll()
+                .antMatchers("/**/articles/search-articles-by-fournisseurs/{fournisseurId}").permitAll()
+                .antMatchers("/**/articles/search-articles-by-fournisseur-by-pageable").permitAll()
                 .antMatchers("/**/articles/delete-article/{subCatId}").permitAll()
 
                 .antMatchers("/**/blogs/searchbyTitle/{title}").permitAll()
@@ -217,8 +229,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
-                        .allowedOrigins("http://localhost:4200")
-                    //    .allowedOrigins("https://soulbusinesse.com")
+                    //    .allowedOrigins("http://localhost:4200")
+                        .allowedOrigins("https://soulbusinesse.com")
                         //   .allowedMethods("*")
                         .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
                         .maxAge(3600L)

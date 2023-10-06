@@ -46,10 +46,6 @@ public class Fournisseur implements Serializable {
 
     private String message;
 
-    @ManyToOne
-    @JoinColumn(name = "artId")
-    private Article article;
-
     @Column(name = "actif")
     private int actif;
 
@@ -68,7 +64,7 @@ public class Fournisseur implements Serializable {
     }
 
     public Fournisseur(Long id, String reference, String firstName, String lastName, String address, String email, String telephoneFournisseur,
-                       String city, String country, Article article) {
+                       String city, String country) {
         this.id = id;
         this.reference = reference;
         this.firstName = firstName;
@@ -78,6 +74,5 @@ public class Fournisseur implements Serializable {
         this.telephoneFournisseur = telephoneFournisseur;
         this.city = city;
         this.country = country;
-        this.article = article;
     }
 }

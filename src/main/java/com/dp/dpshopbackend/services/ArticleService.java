@@ -37,11 +37,15 @@ public interface ArticleService {
 
     List<ArticleDto> findAllActiveArticles();
 
+    List<ArticleDto> findListArticleByFournisseurs(Long fournisseurId);
+
     Page<ArticleDto> findArticleByPageable(Pageable pageable);
 
     Page<ArticleDto> findArticleByScategoryPageables(Long scatId, Pageable pageable);
 
     Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable);
+
+    Page<ArticleDto> findArticleByFournisseurPageables(Long fournisseurId, Pageable pageable);
 
     BigDecimal countNumberOfArticleInSubCategory(Long scatId);
 

@@ -1,6 +1,7 @@
 package com.dp.dpshopbackend.repository;
 
 import com.dp.dpshopbackend.models.Article;
+import com.dp.dpshopbackend.models.Fournisseur;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,6 +20,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select p from Article p where p.actif=1 and p.scategory.id =:scat")
     List<Article> findArticleByScategory(@Param("scat") Long scatId);
+
+    @Query("select a from Article a where a.actif=1 and a.fournisseur.id =:four")
+    List<Article> findArticleByFournisseur(@Param("four") Long fourId);
 
     @Query("select art from Article art where art.actif=1 order by art.createDate desc")
     List<Article> findTop12ByOrderByCreateDateDesc();
@@ -42,6 +46,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select p from Article p where p.actif=1 and p.scategory.id =:scat")
     Page<Article> findArticleByScategoryPageables(@Param("scat") Long scatId, Pageable pageable);
+
+    @Query("select p from Article p where p.actif=1 and p.fournisseur.id=:fournisseur")
+    Page<Article> findArticleByFournisseurPageable(@Param("fournisseur") Long fournisseurId, Pageable pageable);
 
     @Query("select art from Article art where art.actif=1 and art.price like :price GROUP BY (art.price, art.id) ")
     Page<Article> findArticlePageableGroupByPrice(@Param("price") double price, Pageable pageable);

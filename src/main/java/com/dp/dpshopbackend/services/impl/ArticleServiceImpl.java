@@ -26,7 +26,6 @@ import java.util.stream.Collectors;
 @Slf4j
 public class ArticleServiceImpl implements ArticleService {
 
-    @Autowired
     private final ArticleRepository articleRepository;
 
     public ArticleServiceImpl(ArticleRepository articleRepository) {
@@ -47,31 +46,24 @@ public class ArticleServiceImpl implements ArticleService {
     public ArticleDto saveArticleWithFile(String article, MultipartFile photoArticle) throws IOException {
         ArticleDto articleDto = new ObjectMapper().readValue(article, ArticleDto.class);
         System.out.println(articleDto);
-
         articleDto.setPhoto(photoArticle.getOriginalFilename());
-
         return ArticleDto.fromEntityToDto(
                 articleRepository.save(
                         ArticleDto.fromDtoToEntity(articleDto)
                 )
         );
-
     }
 
 
     @Override
     public ArticleDto update(Long id, ArticleDto articleDto) {
-
         if (!articleRepository.existsById(id)) {
             throw new ResourceNotFoundException("Article not found");
         }
-
         Optional<Article> article = articleRepository.findById(id);
-
         if (!article.isPresent()) {
             throw new ResourceNotFoundException("Article not found");
         }
-
         ArticleDto articleDtoResult = ArticleDto.fromEntityToDto(article.get());
         articleDtoResult.setReference(articleDto.getReference());
         articleDtoResult.setDesignation(articleDto.getDesignation());
@@ -84,7 +76,7 @@ public class ArticleServiceImpl implements ArticleService {
         articleDtoResult.setDescription(articleDto.getDescription());
         articleDtoResult.setManufactured(articleDto.getManufactured());
         articleDtoResult.setScategoryDto(articleDto.getScategoryDto());
-
+        articleDtoResult.setFournisseurDto(articleDto.getFournisseurDto());
         return ArticleDto.fromEntityToDto(
                 articleRepository.save(
                         ArticleDto.fromDtoToEntity(articleDtoResult)
@@ -98,9 +90,7 @@ public class ArticleServiceImpl implements ArticleService {
             log.error("Article Id is null");
             return null;
         }
-
         Optional<Article> article = articleRepository.findById(id);
-
         return Optional.of(ArticleDto.fromEntityToDto(article.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun article avec l'Id = " + id + "n'a été trouvé")
@@ -112,15 +102,11 @@ public class ArticleServiceImpl implements ArticleService {
         if (!StringUtils.hasLength(reference)) {
             log.error("Article REFERENCE is null");
         }
-
         Optional<Article> article = articleRepository.findArticleByReference(reference);
-
         return Optional.of(ArticleDto.fromEntityToDto(article.get())).orElseThrow(() ->
                 new ResourceNotFoundException(
                         "Aucnun article avec l'Id = " + reference + "n'a été trouvé")
         );
-
-
     }
 
     @Override
@@ -179,6 +165,13 @@ public class ArticleServiceImpl implements ArticleService {
     }
 
     @Override
+    public List<ArticleDto> findListArticleByFournisseurs(Long fournisseurId) {
+        return articleRepository.findArticleByFournisseur(fournisseurId).stream()
+                .map(ArticleDto::fromEntityToDto)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Page<ArticleDto> findArticleByPageable(Pageable pageable) {
         return articleRepository.findArticle(pageable)
                 .map(ArticleDto::fromEntityToDto);
@@ -193,6 +186,12 @@ public class ArticleServiceImpl implements ArticleService {
     @Override
     public Page<ArticleDto> findArticleBySamePricePageables(double price, Pageable pageable) {
         return articleRepository.findArticlePageableGroupByPrice(price, pageable)
+                .map(ArticleDto::fromEntityToDto);
+    }
+
+    @Override
+    public Page<ArticleDto> findArticleByFournisseurPageables(Long fournisseurId, Pageable pageable) {
+        return articleRepository.findArticleByFournisseurPageable(fournisseurId, pageable)
                 .map(ArticleDto::fromEntityToDto);
     }
 

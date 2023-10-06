@@ -57,6 +57,11 @@ public class ArticleDto {
     @NotBlank(message = "La sous-catégorie de l'article ne doit pas etre vide")
     private ScategoryDto scategoryDto;
 
+    @NotNull(message = "Le fournisseur de l'article ne doit pas etre vide")
+    @NotEmpty(message = "Le fournisseur de l'article ne doit pas etre vide")
+    @NotBlank(message = "Le fournisseur de l'article ne doit pas etre vide")
+    private FournisseurDto fournisseurDto;
+
     private int actif;
 
     public void setActif(boolean actif) {
@@ -93,7 +98,6 @@ public class ArticleDto {
         if (article == null) {
             return null;
         }
-
         return ArticleDto.builder()
                 .id(article.getId())
                 .reference(article.getReference())
@@ -109,6 +113,7 @@ public class ArticleDto {
                 .photo(article.getPhoto())
                 .actif(article.getActif())
                 .scategoryDto(ScategoryDto.fromEntityToDto(article.getScategory()))
+                .fournisseurDto(FournisseurDto.fromEntityToDto(article.getFournisseur()))
                 .build();
     }
 
@@ -116,7 +121,6 @@ public class ArticleDto {
         if (articleDto == null) {
             return null;
         }
-
         Article article = new Article();
         article.setId(articleDto.getId());
         article.setReference(articleDto.getReference());
@@ -132,7 +136,7 @@ public class ArticleDto {
         article.setPhoto(articleDto.getPhoto());
         article.setActif(articleDto.isActif());
         article.setScategory(ScategoryDto.fromDtoToEntity(articleDto.getScategoryDto()));
-
+        article.setFournisseur(FournisseurDto.fromDtoToEntity(articleDto.getFournisseurDto()));
         return article;
     }
 

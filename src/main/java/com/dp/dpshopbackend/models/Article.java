@@ -69,6 +69,10 @@ public class Article implements Serializable {
     @JoinColumn(name = "scatId")
     private Scategory scategory;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fournisseur_uid")
+    private Fournisseur fournisseur;
+
     @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "article")
     private List<Notification> notificationList;

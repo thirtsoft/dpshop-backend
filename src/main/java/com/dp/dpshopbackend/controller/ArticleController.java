@@ -179,6 +179,18 @@ public class ArticleController implements ArticleApi {
     }
 
     @Override
+    public ResponseEntity<List<ArticleDto>> findListArticleByFournisseur(Long fournisseurId) {
+        List<ArticleDto> articleDtoList = articleService.findListArticleByFournisseurs(fournisseurId);
+        return new ResponseEntity<>(articleDtoList, HttpStatus.OK);
+    }
+
+    @Override
+    public Page<ArticleDto> getListArticleByFournisseurByPageable(Long fournisseurId, int page, int size) {
+        final Pageable pageable = PageRequest.of(page, size);
+        return articleService.findArticleByFournisseurPageables(fournisseurId, pageable);
+    }
+
+    @Override
     public void deleteArticle(Long id) {
         articleService.deleteArticle(id);
     }
